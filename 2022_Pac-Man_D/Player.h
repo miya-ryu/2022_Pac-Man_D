@@ -5,7 +5,8 @@ class Player {
 private:
 	int x, y;
 	int move;
-
+	int count;
+	int image;
 	static const int MaxImage = 11;
 
 	//Ši”[
