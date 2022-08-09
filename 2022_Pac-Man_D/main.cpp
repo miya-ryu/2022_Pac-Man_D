@@ -1,8 +1,10 @@
 #include "DxLib.h"
 #include "Input.h"
+#include "SceneMgr.h"
+#include "Game.h"
 
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
-	SetMainWindowText("Drive_and_Avoid");   //タイトルを設定
+	SetMainWindowText("PACMAN");   //タイトルを設定
 	ChangeWindowMode(TRUE);             //ウィンドウモード変更
 	SetGraphMode(1280, 720, 32);
 	DxLib_Init();                       // DXライブラリ初期化
@@ -12,6 +14,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		ClearDrawScreen(); //画面消去
 
 		InputKey();        //入力
+		mGame.Game_Draw();
 
 		ScreenFlip();      //画面更新
 	}
