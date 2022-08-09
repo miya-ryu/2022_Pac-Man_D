@@ -14,6 +14,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		ClearDrawScreen(); //‰æ–ÊÁ‹
 
 		InputKey();        //“ü—Í
+		mGame.Game_Update();
 		mGame.Game_Draw();
 
 		ScreenFlip();      //‰æ–ÊXV

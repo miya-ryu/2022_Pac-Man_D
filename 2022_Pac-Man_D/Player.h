@@ -4,6 +4,7 @@
 class Player {
 private:
 	int x, y;
+	int move;
 
 	static const int MaxImage = 11;
 
@@ -12,7 +13,7 @@ private:
 
 public:
 	Player();
-	/*void Player_Update();*/
+	void Player_Update();
 	void Player_Draw();
 };
 
