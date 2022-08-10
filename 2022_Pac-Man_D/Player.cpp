@@ -5,8 +5,8 @@
 Player mPlayer;
 
 Player::Player() {
-	mPlayer.x = 0;
-	mPlayer.y = 78;
+	mPlayer.x = 640;
+	mPlayer.y = 360;
 	mPlayer.move = 2;
 }
 
