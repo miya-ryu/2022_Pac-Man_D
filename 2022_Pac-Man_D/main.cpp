@@ -2,10 +2,6 @@
 #include "Input.h"
 #include "SceneMgr.h"
 #include "Game.h"
-#include "Red_Enemy.h"
-#include "Pink_Enemy.h"
-#include "Blue_Enemy.h"
-#include "Orange_Enemy.h"
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
 	SetMainWindowText("PAC-MAN");   //É^ÉCÉgÉãÇê›íË
@@ -20,13 +16,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	while (ProcessMessage() == 0) {
 		ClearDrawScreen();
 		InputKey();        //ì¸óÕ
+
 		mGame.Game_Update();
 		mGame.Game_Draw();
-
-		r_enemy.Draw();
-		/*p_enemy.Draw();
-		b_enemy.Draw();
-		o_enemy.Draw();*/
 
 		ScreenFlip();
 	}
