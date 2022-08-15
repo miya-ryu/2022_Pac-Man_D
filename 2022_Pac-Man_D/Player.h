@@ -3,6 +3,12 @@
 
 class Player {
 private:
+
+public:
+	Player();
+	void Player_Update();
+	void Player_Draw();
+
 	int x, y;
 	int move;
 	int count;
@@ -11,11 +17,6 @@ private:
 
 	//Ši”[
 	int mPlayerImage[MaxImage];
-
-public:
-	Player();
-	void Player_Update();
-	void Player_Draw();
 };
 
 extern Player mPlayer;

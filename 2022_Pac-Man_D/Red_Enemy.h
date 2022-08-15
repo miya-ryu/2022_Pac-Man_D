@@ -5,16 +5,23 @@ class R_ENEMY {
 private:
 
 public:
-	R_ENEMY();   //cŒ¾Œê‚ÌInitialize‚Æ“¯‚¶ˆ—
-	~R_ENEMY();  //cŒ¾Œê‚ÌFInalize‚Æ“¯‚¶ˆ—
+	R_ENEMY();   // cŒ¾Œê‚ÌInitialize‚Æ“¯‚¶ˆ—
+	~R_ENEMY();  // cŒ¾Œê‚ÌFInalize‚Æ“¯‚¶ˆ—
 	void Update();
 	void Draw();
 
 	// “G‚Ì‰æ‘œ•ÛŠÇ”z—ñ
-	int Enemy_image[20];
-	// “G‚ÌÀ•W‚ğ•ÛŠÇ‚·‚é•Ï”
-	int EnemyX;
-	int EnemyY;
+	static const int MaxImage = 20;
+	static const int MaxEyeImage = 4;
+	int images[MaxImage];
+	int eyesimages[MaxEyeImage];
+	int image, eyeimage;
+	// “G‚ÉŠÖ‚·‚é•Ï”
+	int x, y, x1, y1;
+	int speed;
+	int direction;
+	int count;
+	int num;
 };
 
 extern R_ENEMY r_enemy;

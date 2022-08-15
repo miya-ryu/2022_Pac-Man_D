@@ -4,12 +4,12 @@
 B_ENEMY b_enemy;
 
 B_ENEMY::B_ENEMY() {
-	b_enemy.EnemyX = 704;
-	b_enemy.EnemyY = 360;
+	b_enemy.x = 704;
+	b_enemy.y = 360;
 }
 
 B_ENEMY::~B_ENEMY() {
-	//DeleteGraph(Enemy_image[0]);
+	//DeleteGraph(images[0]);
 }
 
 void B_ENEMY::Update() {
@@ -17,6 +17,6 @@ void B_ENEMY::Update() {
 }
 
 void B_ENEMY::Draw() {
-	LoadDivGraph("images/monster.png", 20, 20, 1, 32, 32, Enemy_image);
-	DrawRotaGraph(b_enemy.EnemyX, b_enemy.EnemyY, 1, 0, Enemy_image[4], TRUE, FALSE);
+	LoadDivGraph("images/monster.png", 20, 20, 1, 32, 32, images);
+	DrawRotaGraph(b_enemy.x, b_enemy.y, 1, 0, images[4], TRUE, FALSE);
 }

@@ -34,6 +34,14 @@ void Player::Player_Update() {
 	else if (iNowKey & PAD_INPUT_DOWN) {
 		mPlayer.y += mPlayer.move;
 	}
+
+	// ƒ[ƒv
+	if (mPlayer.x >= 1280) {
+		mPlayer.x = -32;
+	}
+	else if (mPlayer.x <= -32) {
+		mPlayer.x = 1280;
+	}
 }
 
 void Player::Player_Draw(){
