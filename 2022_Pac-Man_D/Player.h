@@ -8,7 +8,7 @@ private:
 	int count;
 	int image;
 	static const int MaxImage = 11;
-
+	int muki;
 	//Ši”[
 	int mPlayerImage[MaxImage];
 
