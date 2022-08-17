@@ -19,7 +19,8 @@ public:
 	// “G‚ÉŠÖ‚·‚é•Ï”
 	int x, y, x1, y1;
 	int speed;
-	int direction;
+	int directionX;
+	int directionY;
 	int count;
 	int num;
 };

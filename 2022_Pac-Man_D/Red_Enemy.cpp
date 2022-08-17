@@ -5,13 +5,14 @@
 R_ENEMY r_enemy;
 
 R_ENEMY::R_ENEMY() {
-	r_enemy.x = 140;       // 初期位置縦
-	r_enemy.y = 360;       // 初期位置横
-	r_enemy.speed = 2;     // 移動速度
-	r_enemy.direction = 0; // 方向
-	r_enemy.count = 0;     // アニメーションカウント
-	r_enemy.image = 0;     // 画像変数
-	r_enemy.eyeimage = 0;  // 目の画像変数
+	r_enemy.x = 140;        // 初期位置縦
+	r_enemy.y = 360;        // 初期位置横
+	r_enemy.speed = 1;      // 移動速度
+	r_enemy.directionX = 0; // X方向
+	r_enemy.directionY = 0; // Y方向
+	r_enemy.count = 0;      // アニメーションカウント
+	r_enemy.image = 0;      // 画像変数
+	r_enemy.eyeimage = 0;   // 目の画像変数
 	r_enemy.num = 0;
 }
 
@@ -20,16 +21,19 @@ R_ENEMY::~R_ENEMY() {
 }
 
 void R_ENEMY::Update() {
-	/*if (r_enemy.x != mPlayer.x || r_enemy.y != mPlayer.y) {
-		r_enemy.x += r_enemy.speed;
-		r_enemy.y += r_enemy.speed;
-		r_enemy.x = mPlayer.x;
-		r_enemy.y = mPlayer.y;
-	}
-	else if (r_enemy.x == mPlayer.x || r_enemy.y == mPlayer.y) {
-		DrawFormatString(100, 100, (255, 255, 255), "当たった");
-	}*/
 
+	r_enemy.directionX = mPlayer.x - r_enemy.x;
+	r_enemy.directionY = mPlayer.y - r_enemy.y;
+
+	if (r_enemy.x != mPlayer.x || r_enemy.y != mPlayer.y) {
+		r_enemy.x += r_enemy.directionX * r_enemy.speed;
+		r_enemy.y += r_enemy.directionY * r_enemy.speed;
+		/*r_enemy.x = mPlayer.x;
+		r_enemy.y = mPlayer.y;*/
+	}
+	else {
+		DrawFormatString(100, 100, (255, 255, 255), "当たった");
+	}
 
 	// アニメーション
 	++count;  // カウント開始
@@ -41,29 +45,21 @@ void R_ENEMY::Update() {
 		r_enemy.image = 0;    // 画像リセット
 	}
 
-	//num = rand() % 99 + 0;
-
-	//r_enemy.x += r_enemy.speed;
-
-	r_enemy.direction = mPlayer.x - r_enemy.x;
-
-	r_enemy.x -= r_enemy.direction * r_enemy.speed;
-
 	if (num == 0) {       // 右向き
 		r_enemy.eyeimage = 1;
-		r_enemy.x += r_enemy.speed;
+		//r_enemy.x += r_enemy.speed;
 	}
 	else if (num == 1) {  // 左向き
 		r_enemy.eyeimage = 3;
-		r_enemy.x -= r_enemy.speed;
+		//r_enemy.x -= r_enemy.speed;
 	}
 	else if (num == 2) {  // 上向き
 		r_enemy.eyeimage = 0;
-		r_enemy.x -= r_enemy.speed;
+		//r_enemy.x -= r_enemy.speed;
 	}
 	else if (num == 3) {  // 下向き
 		r_enemy.eyeimage = 2;
-		r_enemy.x += r_enemy.speed;
+		//r_enemy.x += r_enemy.speed;
 	}
 
 	// ワープトンネル
