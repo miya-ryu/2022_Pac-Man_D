@@ -5,10 +5,12 @@
 Player mPlayer;
 
 Player::Player() {
-	mPlayer.x = 640;
-	mPlayer.y = 360;
+	mPlayer.x = PLAYER_POS_X;
+	mPlayer.y = PLAYER_POS_Y;
 	mPlayer.muki = 4;
 	mPlayer.move = 2;
+	mPlayer.recordX = mPlayer.x;
+	mPlayer.recordY = mPlayer.y;
 	mPlayer.left = PLAYER_POS_X;
 	mPlayer.top = PLAYER_POS_Y;
 	mPlayer.right = PLAYER_POS_X + 32;
@@ -19,6 +21,8 @@ Player::Player() {
 
 void Player::Player_Update() {
 	++count;
+	mPlayer.recordX = mPlayer.x;
+	mPlayer.recordY = mPlayer.y;
 	if (count >= 3) {
 		mPlayer.image++;
 		count = 0;
@@ -46,7 +50,6 @@ void Player::Player_Update() {
 		}
 		if (mPlayer.image %3==0) {
 			mPlayer.image = 3;
-			mPlayer.image++;
 		}
 		mPlayer.left += mPlayer.move;
 		mPlayer.right += mPlayer.move;
@@ -60,7 +63,6 @@ void Player::Player_Update() {
 		}
 		if (mPlayer.image % 3 == 0) {
 			mPlayer.image = 9;
-			mPlayer.image++;
 		}
 		mPlayer.left -= mPlayer.move;
 		mPlayer.right -= mPlayer.move;
@@ -74,7 +76,6 @@ void Player::Player_Update() {
 		}
 		if (mPlayer.image % 3 == 0) {
 			mPlayer.image = 0;
-			mPlayer.image++;
 		}
 		mPlayer.top -= mPlayer.move;
 		mPlayer.bottom -= mPlayer.move;
@@ -89,7 +90,6 @@ void Player::Player_Update() {
 		}
 		if (mPlayer.image % 3 == 0) {
 			mPlayer.image = 6;
-			mPlayer.image++;
 		}
 		mPlayer.top += mPlayer.move;
 		mPlayer.bottom += mPlayer.move;
@@ -99,4 +99,5 @@ void Player::Player_Update() {
 void Player::Player_Draw(){
 	LoadDivGraph("images/pacman.png", 12, 12, 1, 32, 32, mPlayerImage);
 	DrawGraph(mPlayer.x, mPlayer.y, mPlayerImage[mPlayer.image], TRUE);
+	DrawBox(mPlayer.left, mPlayer.top, mPlayer.right, mPlayer.bottom, 0x00ff00, FALSE);
 }
