@@ -1,10 +1,12 @@
 #include "DxLib.h"
 #include "Game.h"
+#include "Input.h"
 #include "Player.h"
 #include "Red_Enemy.h"
 #include "Pink_Enemy.h"
 #include "Blue_Enemy.h"
 #include "Orange_Enemy.h"
+#include "Stage.h"
 
 Game mGame;
 
@@ -14,9 +16,15 @@ void Game::Game_Update() {
 	/*p_enemy.Update();
 	b_enemy.Update();
 	o_enemy.Update();*/
+	mStage.Stage_Update();
+	if (iNowKey & PAD_INPUT_7 || iNowKey & PAD_INPUT_9) {
+		DxLib_End();
+	}
+
 }
 
 void Game::Game_Draw(){
+	mStage.Stage_Draw();
 	mPlayer.Player_Draw();
 	r_enemy.Draw();
 	/*p_enemy.Draw();
