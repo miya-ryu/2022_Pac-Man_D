@@ -106,6 +106,6 @@ void Player::Player_Update() {
 
 void Player::Player_Draw(){
 	LoadDivGraph("images/pacman.png", 12, 12, 1, 32, 32, mPlayerImage);
-	DrawGraph(mPlayer.x, mPlayer.y, mPlayerImage[mPlayer.image], TRUE);
+	DrawRotaGraph(mPlayer.x, mPlayer.y, 1, 0, mPlayerImage[mPlayer.image], TRUE, FALSE);  // “GƒLƒƒƒ‰•\Ž¦
 	DrawBox(mPlayer.left, mPlayer.top, mPlayer.right, mPlayer.bottom, 0x00ff00, FALSE);
 }
