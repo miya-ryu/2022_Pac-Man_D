@@ -1,9 +1,12 @@
 #pragma once
 #include "DxLib.h"
+#include "SceneMgr.h"
+
+static int PLAYER_POS_X = 32;
+static int PLAYER_POS_Y = 32;
 
 class Player {
 private:
-	int x, y;
 	int move;
 
 	static const int MaxImage = 11;
@@ -12,6 +15,9 @@ private:
 	int mPlayerImage[MaxImage];
 
 public:
+	int x, y;
+	int recordX, recordY;
+	int top, right, bottom, left;
 	Player();
 	void Player_Update();
 	void Player_Draw();
