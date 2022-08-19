@@ -40,8 +40,8 @@ int CheckHit(int x1, int y1, int w1, int h1, int x2, int y2, int w2, int h2) {
 
 //èâä˙âªèàóù
 Stage::Stage(){
-	SIZE_STAGE_X = 50;
-	SIZE_STAGE_Y = 50;
+	SIZE_STAGE_X = 32;
+	SIZE_STAGE_Y = 32;
 	NUM_STAGE_X = 11;
 	NUM_STAGE_Y = 7;
 	NUM_STAGE_IMAGE = 16;
@@ -56,6 +56,7 @@ void Stage::Stage_Update() {
 			int no = stagedata[i + j * NUM_STAGE_X];
 
 			if (mStageChip[no] != 0) {
+				DrawBox(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, i * SIZE_STAGE_X + SIZE_STAGE_X, j * SIZE_STAGE_Y + SIZE_STAGE_Y, 0xffff00, FALSE);
 				if (CheckHit(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, mPlayer.left, mPlayer.top, mPlayer.right, mPlayer.bottom)) {
 					mPlayer.x = mPlayer.recordX;
 					mPlayer.y = mPlayer.recordY;
@@ -72,7 +73,7 @@ void Stage::Stage_Draw() {
 	for (int j = 0; j < NUM_STAGE_Y; j++) {
 		for (int i = 0; i < NUM_STAGE_X; i++) {
 			int no = stagedata[i + j * NUM_STAGE_X];
-			DrawExtendGraph(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, i * SIZE_STAGE_X + SIZE_STAGE_X, j * SIZE_STAGE_Y + SIZE_STAGE_Y, mStageChip[no], FALSE);
+			//DrawExtendGraph(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, i * SIZE_STAGE_X + SIZE_STAGE_X, j * SIZE_STAGE_Y + SIZE_STAGE_Y, mStageChip[no], FALSE);
 		}
 	}
 }
