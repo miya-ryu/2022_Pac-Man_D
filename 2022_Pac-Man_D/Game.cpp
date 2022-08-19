@@ -13,9 +13,9 @@ Game mGame;
 void Game::Game_Update() {
 	mPlayer.Player_Update();
 	r_enemy.Update();
-	/*p_enemy.Update();
-	b_enemy.Update();
-	o_enemy.Update();*/
+	//p_enemy.Update();
+	//b_enemy.Update();
+	//o_enemy.Update();
 	mStage.Stage_Update();
 	if (iNowKey & PAD_INPUT_7 || iNowKey & PAD_INPUT_9) {
 		DxLib_End();
@@ -27,7 +27,7 @@ void Game::Game_Draw(){
 	mStage.Stage_Draw();
 	mPlayer.Player_Draw();
 	r_enemy.Draw();
-	/*p_enemy.Draw();
-	b_enemy.Draw();
-	o_enemy.Draw();*/
+	//p_enemy.Draw();
+	//b_enemy.Draw();
+	//o_enemy.Draw();
 }
