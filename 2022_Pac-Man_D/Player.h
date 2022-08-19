@@ -7,6 +7,16 @@ static int PLAYER_POS_Y = 32;
 
 class Player {
 private:
+
+public:
+	Player();
+	void Player_Update();
+	void Player_Draw();
+
+	int x, y;
+	int recordX, recordY;
+	int top, right, bottom, left;
+
 	int move;
 	int count;
 	int image;
@@ -14,14 +24,6 @@ private:
 	int muki;
 	//Ši”[
 	int mPlayerImage[MaxImage];
-
-public:
-	int x, y;
-	int recordX, recordY;
-	int top, right, bottom, left;
-	Player();
-	void Player_Update();
-	void Player_Draw();
 };
 
 extern Player mPlayer;
