@@ -21,18 +21,22 @@ R_ENEMY::~R_ENEMY() {
 }
 
 void R_ENEMY::Update() {
-
-	r_enemy.directionX = mPlayer.x - r_enemy.x;
-	r_enemy.directionY = mPlayer.y - r_enemy.y;
-
-	if (r_enemy.x != mPlayer.x || r_enemy.y != mPlayer.y) {
-		r_enemy.x += r_enemy.directionX * r_enemy.speed;
-		r_enemy.y += r_enemy.directionY * r_enemy.speed;
-		/*r_enemy.x = mPlayer.x;
-		r_enemy.y = mPlayer.y;*/
+	// プレイヤーを追いかける処理
+	if (mPlayer.x >= r_enemy.x + 1) {       // 右向き
+		r_enemy.x += r_enemy.speed;
+		r_enemy.eyeimage = 1;
 	}
-	else {
-		DrawFormatString(100, 100, (255, 255, 255), "当たった");
+	else if (mPlayer.x <= r_enemy.x - 1) {  // 左向き
+		r_enemy.x -= r_enemy.speed;
+		r_enemy.eyeimage = 3;
+	}
+	if (mPlayer.y >= r_enemy.y + 1) {       // 下向き
+		r_enemy.y += r_enemy.speed;
+		r_enemy.eyeimage = 2;
+	}
+	else if (mPlayer.y <= r_enemy.y - 1) {  // 上向き
+		r_enemy.y -= r_enemy.speed;
+		r_enemy.eyeimage = 0;
 	}
 
 	// アニメーション
@@ -43,23 +47,6 @@ void R_ENEMY::Update() {
 	}
 	if (r_enemy.image >= 2) { // 画像の切り替え
 		r_enemy.image = 0;    // 画像リセット
-	}
-
-	if (num == 0) {       // 右向き
-		r_enemy.eyeimage = 1;
-		//r_enemy.x += r_enemy.speed;
-	}
-	else if (num == 1) {  // 左向き
-		r_enemy.eyeimage = 3;
-		//r_enemy.x -= r_enemy.speed;
-	}
-	else if (num == 2) {  // 上向き
-		r_enemy.eyeimage = 0;
-		//r_enemy.x -= r_enemy.speed;
-	}
-	else if (num == 3) {  // 下向き
-		r_enemy.eyeimage = 2;
-		//r_enemy.x += r_enemy.speed;
 	}
 
 	// ワープトンネル
