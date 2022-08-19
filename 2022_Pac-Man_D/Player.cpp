@@ -11,10 +11,10 @@ Player::Player() {
 	mPlayer.move = 2;
 	mPlayer.recordX = mPlayer.x;
 	mPlayer.recordY = mPlayer.y;
-	mPlayer.left = PLAYER_POS_X + 10;
-	mPlayer.top = PLAYER_POS_Y + 10;
-	mPlayer.right = PLAYER_POS_X + 22;
-	mPlayer.bottom = PLAYER_POS_Y + 22;
+	mPlayer.left = PLAYER_POS_X;
+	mPlayer.top = PLAYER_POS_Y;
+	mPlayer.right = PLAYER_POS_X;
+	mPlayer.bottom = PLAYER_POS_Y;
 	mPlayer.count = 0;
 	mPlayer.image = 0;
 }
