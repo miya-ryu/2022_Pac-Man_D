@@ -48,7 +48,6 @@ void Player::Player_Update() {
 			mPlayer.image = 3;
 			mPlayer.image++;
 		}
-	}
 		mPlayer.left += mPlayer.move;
 		mPlayer.right += mPlayer.move;
 	}
@@ -63,16 +62,12 @@ void Player::Player_Update() {
 			mPlayer.image = 9;
 			mPlayer.image++;
 		}
-	}
 		mPlayer.left -= mPlayer.move;
 		mPlayer.right -= mPlayer.move;
 	}
 	else if (iNowKey & PAD_INPUT_UP) {
 		mPlayer.muki = 1;
 		mPlayer.y -= mPlayer.move;
-		mPlayer.top -= mPlayer.move;
-		mPlayer.bottom -= mPlayer.move;
-	}
 		if (count >= 3) {
 			mPlayer.image++;
 			count = 0;
@@ -81,6 +76,8 @@ void Player::Player_Update() {
 			mPlayer.image = 0;
 			mPlayer.image++;
 		}
+		mPlayer.top -= mPlayer.move;
+		mPlayer.bottom -= mPlayer.move;
 	}
 
 	else if (iNowKey & PAD_INPUT_DOWN) {
