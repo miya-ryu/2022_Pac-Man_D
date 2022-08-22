@@ -3,7 +3,6 @@
 
 class Player {
 private:
-	int x, y;
 	int move;
 	int count;
 	int image;
@@ -16,6 +15,9 @@ public:
 	Player();
 	void Player_Update();
 	void Player_Draw();
+	int x, y;
+	int w, h;
+	
 };
 
 extern Player mPlayer;

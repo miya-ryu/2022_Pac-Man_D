@@ -5,6 +5,7 @@ class R_ENEMY {
 private:
 
 public:
+	struct Enemy;
 	R_ENEMY();   //cŒ¾Œê‚ÌInitialize‚Æ“¯‚¶ˆ—
 	~R_ENEMY();  //cŒ¾Œê‚ÌFInalize‚Æ“¯‚¶ˆ—
 	void Update();
@@ -15,6 +16,9 @@ public:
 	// “G‚ÌÀ•W‚ğ•ÛŠÇ‚·‚é•Ï”
 	int EnemyX;
 	int EnemyY;
+	int w, h;	// • w ‚‚³ h;
+	int CheckHit;
+	//int HitBoxEnemy(R_ENEMY* e);
 };
 
 extern R_ENEMY r_enemy;

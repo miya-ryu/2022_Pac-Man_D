@@ -40,3 +40,4 @@ void Player::Player_Draw(){
 	LoadDivGraph("images/pacman.png", 12, 12, 1, 32, 32, mPlayerImage);
 	DrawGraph(mPlayer.x, mPlayer.y, mPlayerImage[mPlayer.image], TRUE);
 }
+
