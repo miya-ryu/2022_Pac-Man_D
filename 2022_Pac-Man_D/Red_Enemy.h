@@ -25,8 +25,6 @@ public:
 	int num;
 	int Enemy_image[20];
 	// “G‚ÌÀ•W‚ğ•ÛŠÇ‚·‚é•Ï”
-	int EnemyX;
-	int EnemyY;
 	int w, h;	// • w ‚‚³ h;
 	int CheckHit;
 	//int HitBoxEnemy(R_ENEMY* e);

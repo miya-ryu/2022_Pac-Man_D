@@ -15,6 +15,7 @@ public:
 	void Player_Draw();
 
 	int x, y;
+	int w, h;
 	int recordX, recordY;	//êiÇﬂÇ»Ç≠Ç∑ÇÈ
 	int top, right, bottom, left;	//ìñÇΩÇËîªíË
 	int recordTop, recordRight, recordBottom, recordLeft;	//ìñÇΩÇ¡ÇΩÇÁêiÇﬂÇ»Ç≠Ç∑ÇÈ
@@ -27,12 +28,8 @@ public:
 	//äiî[
 	int mPlayerImage[MaxImage];
 
-public:
-	Player();
-	void Player_Update();
-	void Player_Draw();
-	int x, y;
-	int w, h;
+
+	
 	
 };
 
