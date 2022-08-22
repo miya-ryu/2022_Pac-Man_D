@@ -65,7 +65,6 @@ void Player::Player_Update() {
 		}
 	}
 	if (iNowKey & PAD_INPUT_RIGHT){
-		mPlayer.x += mPlayer.move;
 		mPlayer.muki = 2;
 		if (count >= 3) {
 			mPlayer.image++;
@@ -74,12 +73,9 @@ void Player::Player_Update() {
 		if (mPlayer.image %3==0) {
 			mPlayer.image = 3;
 		}
-		mPlayer.left += mPlayer.move;
-		mPlayer.right += mPlayer.move;
 	}
 	else if (iNowKey & PAD_INPUT_LEFT) {
 		mPlayer.muki = 4;
-		mPlayer.x -= mPlayer.move;
 		if (count >= 3) {
 			mPlayer.image++;
 			count = 0;
@@ -87,12 +83,9 @@ void Player::Player_Update() {
 		if (mPlayer.image % 3 == 0) {
 			mPlayer.image = 9;
 		}
-		mPlayer.left -= mPlayer.move;
-		mPlayer.right -= mPlayer.move;
 	}
 	else if (iNowKey & PAD_INPUT_UP) {
 		mPlayer.muki = 1;
-		mPlayer.y -= mPlayer.move;
 		if (count >= 3) {
 			mPlayer.image++;
 			count = 0;
@@ -100,13 +93,10 @@ void Player::Player_Update() {
 		if (mPlayer.image % 3 == 0) {
 			mPlayer.image = 0;
 		}
-		mPlayer.top -= mPlayer.move;
-		mPlayer.bottom -= mPlayer.move;
 	}
 
 	else if (iNowKey & PAD_INPUT_DOWN) {
 		mPlayer.muki = 3;
-		mPlayer.y += mPlayer.move;
 		if (count >= 3) {
 			mPlayer.image++;
 			count = 0;
@@ -114,8 +104,28 @@ void Player::Player_Update() {
 		if (mPlayer.image % 3 == 0) {
 			mPlayer.image = 6;
 		}
+	}
+
+	//à⁄ìÆ
+	if (mPlayer.muki == 1) {
+		mPlayer.y -= mPlayer.move;
+		mPlayer.top -= mPlayer.move;
+		mPlayer.bottom -= mPlayer.move;
+	}
+	else if (mPlayer.muki == 2) {
+		mPlayer.x += mPlayer.move;
+		mPlayer.left += mPlayer.move;
+		mPlayer.right += mPlayer.move;
+	}
+	else if (mPlayer.muki == 3) {
+		mPlayer.y += mPlayer.move;
 		mPlayer.top += mPlayer.move;
 		mPlayer.bottom += mPlayer.move;
+	}
+	else if (mPlayer.muki == 4) {
+		mPlayer.x -= mPlayer.move;
+		mPlayer.left -= mPlayer.move;
+		mPlayer.right -= mPlayer.move;
 	}
 
 	// ÉèÅ[Év

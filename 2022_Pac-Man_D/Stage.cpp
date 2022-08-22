@@ -7,6 +7,16 @@ Stage mStage;
 //•Ï”
 static int mStageChip[1];
 //StageMapŠi”[
+//int stagedata[]{
+//	1,2,2,2,2,2,2,2,2,2,3,
+//	4,0,0,0,0,0,0,0,0,0,5,
+//	4,0,8,9,10,0,8,9,10,0,5,
+//	4,0,11,0,12,0,11,0,12,0,5,
+//	4,0,13,15,14,0,13,15,14,0,5,
+//	0,0,0,0,0,0,0,0,0,0,0,
+//	0,0,0,0,0,0,2,0,0,0,0,
+//};
+
 int stagedata[]{
 	1,2,2,2,2,2,2,2,2,2,3,
 	4,0,0,0,0,0,0,0,0,0,5,
@@ -21,7 +31,7 @@ int CheckHit(int x1, int y1, int w1, int h1, int x2, int y2, int w2, int h2) {
 	int L1 = x1;		//¶
 	int R1 = x1 + w1;	//‰E
 	int L2 = x2;		//¶
-	int R2 = w2;	//‰E
+	int R2 = w2;		//‰E
 
 	if (R1 < L2) return 0;
 	if (R2 < L1) return 0;
@@ -80,7 +90,7 @@ void Stage::Stage_Draw() {
 	for (int j = 0; j < NUM_STAGE_Y; j++) {
 		for (int i = 0; i < NUM_STAGE_X; i++) {
 			int no = stagedata[i + j * NUM_STAGE_X];
-			//DrawExtendGraph(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, i * SIZE_STAGE_X + SIZE_STAGE_X, j * SIZE_STAGE_Y + SIZE_STAGE_Y, mStageChip[no], FALSE);
+			DrawExtendGraph(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, i * SIZE_STAGE_X + SIZE_STAGE_X, j * SIZE_STAGE_Y + SIZE_STAGE_Y, mStageChip[no], FALSE);
 		}
 	}
 }
