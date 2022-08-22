@@ -5,24 +5,47 @@
 Player mPlayer;
 
 Player::Player() {
+	//移動
 	mPlayer.x = PLAYER_POS_X;
 	mPlayer.y = PLAYER_POS_Y;
+
+	//当たり判定
+	mPlayer.left = PLAYER_POS_X - PLAYER_POS_HITBOX;
+	mPlayer.top = PLAYER_POS_Y - PLAYER_POS_HITBOX;
+	mPlayer.right = PLAYER_POS_X + PLAYER_POS_HITBOX;
+	mPlayer.bottom = PLAYER_POS_Y + PLAYER_POS_HITBOX;
+
+	//アングル
 	mPlayer.muki = 4;
+
+	//移動
 	mPlayer.move = 2;
+
+	//当たったとき進めなくする
 	mPlayer.recordX = mPlayer.x;
 	mPlayer.recordY = mPlayer.y;
-	mPlayer.left = PLAYER_POS_X;
-	mPlayer.top = PLAYER_POS_Y;
-	mPlayer.right = PLAYER_POS_X;
-	mPlayer.bottom = PLAYER_POS_Y;
+
+	mPlayer.recordTop = mPlayer.top;
+	mPlayer.recordRight = mPlayer.right;
+	mPlayer.recordBottom = mPlayer.bottom;
+	mPlayer.recordLeft = mPlayer.left;
+
 	mPlayer.count = 0;
 	mPlayer.image = 0;
 }
 
 void Player::Player_Update() {
 	++count;
+
+	//前回の座標を取得
 	mPlayer.recordX = mPlayer.x;
 	mPlayer.recordY = mPlayer.y;
+	mPlayer.recordTop = mPlayer.top;
+	mPlayer.recordRight = mPlayer.right;
+	mPlayer.recordBottom = mPlayer.bottom;
+	mPlayer.recordLeft = mPlayer.left;
+
+	//移動
 	if (count >= 3) {
 		mPlayer.image++;
 		count = 0;
@@ -98,9 +121,13 @@ void Player::Player_Update() {
 	// ワープ
 	if (mPlayer.x >= 1280) {
 		mPlayer.x = -32;
+		mPlayer.right = -48;
+		mPlayer.left = -16;
 	}
 	else if (mPlayer.x <= -32) {
 		mPlayer.x = 1280;
+		mPlayer.right = 1280 - 16;
+		mPlayer.left = 1280 + 16;
 	}
 }
 
