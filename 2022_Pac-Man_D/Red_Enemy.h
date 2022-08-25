@@ -1,5 +1,9 @@
 #pragma once
 
+static int ENEMY_POS_X = 40 + 20;
+static int ENEMY_POS_Y = 40 + 20;
+static int ENEMY_POS_HITBOX = 1;
+
 // êeÉNÉâÉXê‘
 class R_ENEMY {
 private:
@@ -21,6 +25,9 @@ public:
 	int speed;
 	int directionX;
 	int directionY;
+	int recordX, recordY;
+	int top, right, bottom, left;	//ìñÇΩÇËîªíË
+	int recordTop, recordRight, recordBottom, recordLeft;
 	int count;
 	int num;
 	int Enemy_image[20];
