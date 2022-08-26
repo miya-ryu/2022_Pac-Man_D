@@ -30,6 +30,28 @@ R_ENEMY::~R_ENEMY() {
 	//DeleteGraph(images[0]);
 }
 
+int	CheckHit(int EnemyX, int EnemyY, int w1, int h1, int x, int y, int w, int h)
+{
+	int L1 = EnemyX;	  //‰E
+	int R1 = EnemyX + w1; //¶
+	int L2 = x;
+	int R2 = x + w;
+
+	if (R1 < L2) return 0;
+	if (R2 < L1) return 0;
+
+	int U1 = EnemyY;      // ã
+	int D1 = EnemyY + h1; // ‰º(ã+c•)
+	int U2 = x;
+	int D2 = x + w;
+
+	if (D1 < U2) return 0;
+	if (D2 < U1) return 0;
+
+
+	return 1;
+
+}
 void R_ENEMY::Update() {
 
 
@@ -88,28 +110,7 @@ void R_ENEMY::Update() {
 	}
 }
 
-	int	CheckHit(int EnemyX, int EnemyY, int w1, int h1, int x, int y, int w, int h)
-	{
-		int L1 = EnemyX;	  //‰E
-		int R1 = EnemyX + w1; //¶
-		int L2 = x;
-		int R2 = x + w;
-
-		if (R1 < L2) return 0;
-		if (R2 < L1) return 0;
-
-		int U1 = EnemyY;      // ã
-		int D1 = EnemyY + h1; // ‰º(ã+c•)
-		int U2 = x;
-		int D2 = x + w;
-
-		if (D1 < U2) return 0;
-		if (D2 < U1) return 0;
-
-
-		return 1;
-
-	}
+	
 
 	void R_ENEMY::Draw() {
 		LoadDivGraph("images/monster.png", 20, 20, 1, 32, 32, images);  // “GƒLƒƒƒ‰

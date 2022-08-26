@@ -27,7 +27,7 @@ int stagedata[]{
 	0,0,0,0,0,0,2,0,0,0,0,
 };
 //ìñÇΩÇËîªíË
-int CheckHit(int x1, int y1, int w1, int h1, int x2, int y2, int w2, int h2) {
+int StageCheckHit(int x1, int y1, int w1, int h1, int x2, int y2, int w2, int h2) {
 	int L1 = x1;		//ç∂
 	int R1 = x1 + w1;	//âE
 	int L2 = x2;		//ç∂
@@ -67,7 +67,7 @@ void Stage::Stage_Update() {
 
 			if (mStageChip[no] != 0) {
 				DrawBox(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, i * SIZE_STAGE_X + SIZE_STAGE_X, j * SIZE_STAGE_Y + SIZE_STAGE_Y, 0xffff00, FALSE);
-				if (CheckHit(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, mPlayer.left, mPlayer.top, mPlayer.right, mPlayer.bottom)) {
+				if (StageCheckHit(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, mPlayer.left, mPlayer.top, mPlayer.right, mPlayer.bottom)) {
 					//à⁄ìÆ
 					mPlayer.x = mPlayer.recordX;
 					mPlayer.y = mPlayer.recordY;
