@@ -10,6 +10,11 @@
 
 Game mGame;
 
+void Game::Game_Initialize() {
+	mPlayer.Player_Initialize();
+	mStage.Stage_Initialize();
+}
+
 void Game::Game_Update() {
 	mStage.Stage_Update();
 	mPlayer.Player_Update();

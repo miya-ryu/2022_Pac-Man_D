@@ -2,23 +2,26 @@
 #include "DxLib.h"
 #include "SceneMgr.h"
 
-static int PLAYER_POS_X = 32 + 16;
-static int PLAYER_POS_Y = 32 + 16;
-static int PLAYER_POS_HITBOX = 15;
+static int PLAYER_POS_X = 16 + 8;
+static int PLAYER_POS_Y = 16 + 8;
+static int PLAYER_POS_HITBOX = 7;
+static int PLAYER_CENTER_HITBOX = 2;
 
 class Player {
 private:
 
 public:
-	Player();
+	void Player_Initialize();
 	void Player_Update();
 	void Player_Draw();
 
 	int x, y;
 	int w, h;
 	int recordX, recordY;	//êiÇﬂÇ»Ç≠Ç∑ÇÈ
-	int top, right, bottom, left;	//ìñÇΩÇËîªíË
-	int recordTop, recordRight, recordBottom, recordLeft;	//ìñÇΩÇ¡ÇΩÇÁêiÇﬂÇ»Ç≠Ç∑ÇÈ
+	int s_top, s_right, s_bottom, s_left;	//StageìñÇΩÇËîªíË
+	int p_top, p_right, p_bottom, p_left;	//PlayerìñÇΩÇËîªíË
+	int recordSTop, recordSRight, recordSBottom, recordSLeft;	//ìñÇΩÇ¡ÇΩÇÁêiÇﬂÇ»Ç≠Ç∑ÇÈ
+	int recordPX, recordPY;
 
 	int move;
 	int count;

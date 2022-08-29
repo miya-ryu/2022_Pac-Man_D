@@ -4,16 +4,47 @@
 
 Player mPlayer;
 
-Player::Player() {
+//当たり判定
+int PlayerCheckHit(int x1, int y1, int w1, int h1, int x2, int y2, int w2, int h2) {
+	int L1 = x1;		//左
+	int R1 = x1 + w1;	//右
+	int L2 = x2;		//左
+	int R2 = w2;		//右
+
+	if (R1 < L2) return 0;
+	if (R2 < L1) return 0;
+
+	int U1 = y1;		//上
+	int D1 = y1 + h1;	//下
+	int U2 = y2;		//上
+	int D2 = h2;		//下
+
+	if (D1 < U2) return 0;
+	if (D2 < U1) return 0;
+
+	//当たっている
+	return 1;
+}
+
+void Player::Player_Initialize() {
 	//移動
 	mPlayer.x = PLAYER_POS_X;
 	mPlayer.y = PLAYER_POS_Y;
 
 	//当たり判定
-	mPlayer.left = PLAYER_POS_X - PLAYER_POS_HITBOX;
-	mPlayer.top = PLAYER_POS_Y - PLAYER_POS_HITBOX;
-	mPlayer.right = PLAYER_POS_X + PLAYER_POS_HITBOX;
-	mPlayer.bottom = PLAYER_POS_Y + PLAYER_POS_HITBOX;
+	mPlayer.p_left = PLAYER_POS_X - PLAYER_CENTER_HITBOX;
+	mPlayer.p_top = PLAYER_POS_Y - PLAYER_CENTER_HITBOX;
+	mPlayer.p_right = PLAYER_POS_X + PLAYER_CENTER_HITBOX;
+	mPlayer.p_bottom = PLAYER_POS_Y + PLAYER_CENTER_HITBOX;
+
+	//Stage当たり判定
+	mPlayer.s_left = PLAYER_POS_X - PLAYER_POS_HITBOX;
+	mPlayer.s_top = PLAYER_POS_Y - PLAYER_POS_HITBOX;
+	mPlayer.s_right = PLAYER_POS_X + PLAYER_POS_HITBOX;
+	mPlayer.s_bottom = PLAYER_POS_Y + PLAYER_POS_HITBOX;
+
+	//画像格納
+	LoadDivGraph("images/pacman.png", 12, 12, 1, 32, 32, mPlayerImage);
 
 	//アングル
 	mPlayer.muki = 4;
@@ -21,15 +52,16 @@ Player::Player() {
 	//移動
 	mPlayer.move = 2;
 
-	//当たったとき進めなくする
+	//前回の座標格納
 	mPlayer.recordX = mPlayer.x;
 	mPlayer.recordY = mPlayer.y;
 
-	mPlayer.recordTop = mPlayer.top;
-	mPlayer.recordRight = mPlayer.right;
-	mPlayer.recordBottom = mPlayer.bottom;
-	mPlayer.recordLeft = mPlayer.left;
+	mPlayer.recordSTop = mPlayer.s_top;
+	mPlayer.recordSRight = mPlayer.s_right;
+	mPlayer.recordSBottom = mPlayer.s_bottom;
+	mPlayer.recordSLeft = mPlayer.s_left;
 
+	//画像処理
 	mPlayer.count = 0;
 	mPlayer.image = 0;
 }
@@ -40,12 +72,14 @@ void Player::Player_Update() {
 	//前回の座標を取得
 	mPlayer.recordX = mPlayer.x;
 	mPlayer.recordY = mPlayer.y;
-	mPlayer.recordTop = mPlayer.top;
-	mPlayer.recordRight = mPlayer.right;
-	mPlayer.recordBottom = mPlayer.bottom;
-	mPlayer.recordLeft = mPlayer.left;
+	//前回の座標（ステージHitbox）
+	mPlayer.recordSTop = mPlayer.s_top;
+	mPlayer.recordSRight = mPlayer.s_right;
+	mPlayer.recordSBottom = mPlayer.s_bottom;
+	mPlayer.recordSLeft = mPlayer.s_left;
+	//前回の座標（PlayerHitbox）
 
-	//移動
+	//画像処理
 	if (count >= 3) {
 		mPlayer.image++;
 		count = 0;
@@ -64,16 +98,20 @@ void Player::Player_Update() {
 			mPlayer.image = 9;
 		}
 	}
+
+	//移動処理
+	//右
 	if (iNowKey & PAD_INPUT_RIGHT){
 		mPlayer.muki = 2;
 		if (count >= 3) {
 			mPlayer.image++;
 			count = 0;
 		}
-		if (mPlayer.image %3==0) {
+		if (mPlayer.image % 3 == 0) {
 			mPlayer.image = 3;
 		}
 	}
+	//左
 	else if (iNowKey & PAD_INPUT_LEFT) {
 		mPlayer.muki = 4;
 		if (count >= 3) {
@@ -84,6 +122,7 @@ void Player::Player_Update() {
 			mPlayer.image = 9;
 		}
 	}
+	//上
 	else if (iNowKey & PAD_INPUT_UP) {
 		mPlayer.muki = 1;
 		if (count >= 3) {
@@ -94,7 +133,7 @@ void Player::Player_Update() {
 			mPlayer.image = 0;
 		}
 	}
-
+	//下
 	else if (iNowKey & PAD_INPUT_DOWN) {
 		mPlayer.muki = 3;
 		if (count >= 3) {
@@ -109,40 +148,61 @@ void Player::Player_Update() {
 	//移動
 	if (mPlayer.muki == 1) {
 		mPlayer.y -= mPlayer.move;
-		mPlayer.top -= mPlayer.move;
-		mPlayer.bottom -= mPlayer.move;
+		//HitBox移動
+		mPlayer.p_top -= mPlayer.move;
+		mPlayer.p_bottom -= mPlayer.move;
+		mPlayer.s_top -= mPlayer.move;
+		mPlayer.s_bottom -= mPlayer.move;
 	}
 	else if (mPlayer.muki == 2) {
 		mPlayer.x += mPlayer.move;
-		mPlayer.left += mPlayer.move;
-		mPlayer.right += mPlayer.move;
+		//HitBox移動
+		mPlayer.p_left += mPlayer.move;
+		mPlayer.p_right += mPlayer.move;
+		mPlayer.s_left += mPlayer.move;
+		mPlayer.s_right += mPlayer.move;
 	}
 	else if (mPlayer.muki == 3) {
 		mPlayer.y += mPlayer.move;
-		mPlayer.top += mPlayer.move;
-		mPlayer.bottom += mPlayer.move;
+		//HitBox移動
+		mPlayer.p_top += mPlayer.move;
+		mPlayer.p_bottom += mPlayer.move;
+		mPlayer.s_top += mPlayer.move;
+		mPlayer.s_bottom += mPlayer.move;
 	}
 	else if (mPlayer.muki == 4) {
 		mPlayer.x -= mPlayer.move;
-		mPlayer.left -= mPlayer.move;
-		mPlayer.right -= mPlayer.move;
+		//HitBox移動
+		mPlayer.p_left -= mPlayer.move;
+		mPlayer.p_right -= mPlayer.move;
+		mPlayer.s_left -= mPlayer.move;
+		mPlayer.s_right -= mPlayer.move;
 	}
 
 	// ワープ
 	if (mPlayer.x >= 1280) {
 		mPlayer.x = -32;
-		mPlayer.right = -48;
-		mPlayer.left = -16;
+		//HitBox移動
+		mPlayer.p_right -= mPlayer.move;
+		mPlayer.p_left -= mPlayer.move;
+		mPlayer.s_right = -17;
+		mPlayer.s_left = -47;
 	}
 	else if (mPlayer.x <= -32) {
 		mPlayer.x = 1280;
-		mPlayer.right = 1280 - 16;
-		mPlayer.left = 1280 + 16;
+		//HitBox移動
+		mPlayer.p_top -= mPlayer.move;
+		mPlayer.p_bottom -= mPlayer.move;
+		mPlayer.s_right = 1280 + 15;
+		mPlayer.s_left = 1280 - 15;
 	}
 }
 
 void Player::Player_Draw(){
-	LoadDivGraph("images/pacman.png", 12, 12, 1, 32, 32, mPlayerImage);
-	DrawRotaGraph(mPlayer.x, mPlayer.y, 1, 0, mPlayerImage[mPlayer.image], TRUE, FALSE);  // 敵キャラ表示
-	DrawBox(mPlayer.left, mPlayer.top, mPlayer.right, mPlayer.bottom, 0x00ff00, FALSE);
+	//Player表示
+	DrawRotaGraph(mPlayer.x, mPlayer.y, 0.5, 0, mPlayerImage[mPlayer.image], TRUE, FALSE);
+	//Stage当たり判定表示
+	DrawBox(mPlayer.s_left, mPlayer.s_top, mPlayer.s_right, mPlayer.s_bottom, 0x00ff00, FALSE);
+	//Center当たり判定表示
+	DrawBox(mPlayer.p_left, mPlayer.p_top, mPlayer.p_right, mPlayer.p_bottom, 0xff00ff, TRUE);
 }

@@ -16,16 +16,16 @@ static int mStageChip[1];
 //	0,0,0,0,0,0,0,0,0,0,0,
 //	0,0,0,0,0,0,2,0,0,0,0,
 //};
-
 int stagedata[]{
 	1,2,2,2,2,2,2,2,2,2,3,
 	4,0,0,0,0,0,0,0,0,0,5,
 	4,0,8,9,10,0,8,9,10,0,5,
 	4,0,11,0,12,0,11,0,12,0,5,
-	4,0,13,15,14,0,13,15,14,0,5,
+	4,0,0,15,14,0,13,15,14,0,5,
 	0,0,0,0,0,0,0,0,0,0,0,
 	0,0,0,0,0,0,2,0,0,0,0,
 };
+
 //当たり判定
 int StageCheckHit(int x1, int y1, int w1, int h1, int x2, int y2, int w2, int h2) {
 	int L1 = x1;		//左
@@ -39,23 +39,29 @@ int StageCheckHit(int x1, int y1, int w1, int h1, int x2, int y2, int w2, int h2
 	int U1 = y1;		//上
 	int D1 = y1 + h1;	//下
 	int U2 = y2;		//上
-	int D2 = h2;	//下
+	int D2 = h2;		//下
 
-	if (D1 < U2)return 0;
-	if (D2 < U1)return 0;
+	if (D1 < U2) return 0;
+	if (D2 < U1) return 0;
 
 	//当たっている
 	return 1;
 }
 
 //初期化処理
-Stage::Stage(){
-	SIZE_STAGE_X = 32;
-	SIZE_STAGE_Y = 32;
+void Stage::Stage_Initialize(){
+	//サイズ
+	SIZE_STAGE_X = 16;
+	SIZE_STAGE_Y = 16;
+
+	//描画数
 	NUM_STAGE_X = 11;
 	NUM_STAGE_Y = 7;
+
+	//画像格納
 	NUM_STAGE_IMAGE = 16;
 	mStageChip[NUM_STAGE_IMAGE];
+	Stage::Stage_Storage();
 }
 
 //更新処理
@@ -73,10 +79,11 @@ void Stage::Stage_Update() {
 					mPlayer.y = mPlayer.recordY;
 
 					//当たり判定移動
-					mPlayer.top = mPlayer.recordTop;
-					mPlayer.right = mPlayer.recordRight;
-					mPlayer.bottom = mPlayer.recordBottom;
-					mPlayer.left = mPlayer.recordLeft;
+					//mPlayer.p_right = 
+					mPlayer.s_top = mPlayer.recordSTop;
+					mPlayer.s_right = mPlayer.recordSRight;
+					mPlayer.s_bottom = mPlayer.recordSBottom;
+					mPlayer.s_left = mPlayer.recordSLeft;
 				}
 			}
 		}
@@ -85,7 +92,6 @@ void Stage::Stage_Update() {
 
 //描画処理
 void Stage::Stage_Draw() {
-	Stage::Stage_Storage();
 	//画像サイズ変更
 	for (int j = 0; j < NUM_STAGE_Y; j++) {
 		for (int i = 0; i < NUM_STAGE_X; i++) {
