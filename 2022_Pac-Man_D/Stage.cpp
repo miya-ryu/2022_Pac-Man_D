@@ -16,16 +16,16 @@ static int mStageChip[1];
 //	0,0,0,0,0,0,0,0,0,0,0,
 //	0,0,0,0,0,0,2,0,0,0,0,
 //};
-
 int stagedata[]{
 	1,2,2,2,2,2,2,2,2,2,3,
 	4,0,0,0,0,0,0,0,0,0,5,
 	4,0,8,9,10,0,8,9,10,0,5,
 	4,0,11,0,12,0,11,0,12,0,5,
-	4,0,13,15,14,0,13,15,14,0,5,
+	4,0,0,15,14,0,13,15,14,0,5,
 	0,0,0,0,0,0,0,0,0,0,0,
 	0,0,0,0,0,0,2,0,0,0,0,
 };
+
 //“–‚½‚è”»’è
 int CheckHit(int x1, int y1, int w1, int h1, int x2, int y2, int w2, int h2) {
 	int L1 = x1;		//¶
@@ -39,23 +39,29 @@ int CheckHit(int x1, int y1, int w1, int h1, int x2, int y2, int w2, int h2) {
 	int U1 = y1;		//ã
 	int D1 = y1 + h1;	//‰º
 	int U2 = y2;		//ã
-	int D2 = h2;	//‰º
+	int D2 = h2;		//‰º
 
-	if (D1 < U2)return 0;
-	if (D2 < U1)return 0;
+	if (D1 < U2) return 0;
+	if (D2 < U1) return 0;
 
 	//“–‚½‚Á‚Ä‚¢‚é
 	return 1;
 }
 
 //‰Šú‰»ˆ—
-Stage::Stage(){
-	SIZE_STAGE_X = 32;
-	SIZE_STAGE_Y = 32;
+void Stage::Stage_Initialize(){
+	//ƒTƒCƒY
+	SIZE_STAGE_X = 16;
+	SIZE_STAGE_Y = 16;
+
+	//•`‰æ”
 	NUM_STAGE_X = 11;
 	NUM_STAGE_Y = 7;
+
+	//‰æ‘œŠi”[
 	NUM_STAGE_IMAGE = 16;
 	mStageChip[NUM_STAGE_IMAGE];
+	Stage::Stage_Storage();
 }
 
 //XVˆ—
@@ -67,16 +73,17 @@ void Stage::Stage_Update() {
 
 			if (mStageChip[no] != 0) {
 				DrawBox(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, i * SIZE_STAGE_X + SIZE_STAGE_X, j * SIZE_STAGE_Y + SIZE_STAGE_Y, 0xffff00, FALSE);
-				if (CheckHit(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, mPlayer.left, mPlayer.top, mPlayer.right, mPlayer.bottom)) {
+				if (CheckHit(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, mPlayer.s_left, mPlayer.s_top, mPlayer.s_right, mPlayer.s_bottom)) {
 					//ˆÚ“®
 					mPlayer.x = mPlayer.recordX;
 					mPlayer.y = mPlayer.recordY;
 
 					//“–‚½‚è”»’èˆÚ“®
-					mPlayer.top = mPlayer.recordTop;
-					mPlayer.right = mPlayer.recordRight;
-					mPlayer.bottom = mPlayer.recordBottom;
-					mPlayer.left = mPlayer.recordLeft;
+					//mPlayer.p_right = 
+					mPlayer.s_top = mPlayer.recordSTop;
+					mPlayer.s_right = mPlayer.recordSRight;
+					mPlayer.s_bottom = mPlayer.recordSBottom;
+					mPlayer.s_left = mPlayer.recordSLeft;
 				}
 			}
 		}
@@ -85,7 +92,6 @@ void Stage::Stage_Update() {
 
 //•`‰æˆ—
 void Stage::Stage_Draw() {
-	Stage::Stage_Storage();
 	//‰æ‘œƒTƒCƒY•ÏX
 	for (int j = 0; j < NUM_STAGE_Y; j++) {
 		for (int i = 0; i < NUM_STAGE_X; i++) {
