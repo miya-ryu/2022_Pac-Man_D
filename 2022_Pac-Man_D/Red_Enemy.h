@@ -1,7 +1,7 @@
 #pragma once
 
-static int ENEMY_POS_X = 100;
-static int ENEMY_POS_Y = 100;
+static int ENEMY_POS_X = 612;
+static int ENEMY_POS_Y = 24*11;
 static int ENEMY_CENTER_HITBOX = 4;
 static float ENEMY_STAGE_HITBOX = 7;
 
@@ -10,8 +10,8 @@ class R_ENEMY {
 private:
 
 public:
-	R_ENEMY();   // cŒ¾Œê‚ÌInitialize‚Æ“¯‚¶ˆ—
 	~R_ENEMY();  // cŒ¾Œê‚ÌFInalize‚Æ“¯‚¶ˆ—
+	void R_Initialize();
 	void Update();
 	void Draw();
 
