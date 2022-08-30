@@ -13,6 +13,7 @@ Game mGame;
 void Game::Game_Initialize() {
 	mPlayer.Player_Initialize();
 	mStage.Stage_Initialize();
+	r_enemy.R_Initialize();
 }
 
 void Game::Game_Update() {
