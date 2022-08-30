@@ -14,7 +14,7 @@ void R_ENEMY::R_Initialize() {
 	r_enemy.count = 0;      // アニメーションカウント
 	r_enemy.image = 0;      // 画像変数
 	r_enemy.eyeimage = 0;   // 目の画像変数
-	r_enemy.num = 0;
+	r_enemy.Hitimage = 16;   // イジケモンスター画像
 
 	r_enemy.x = ENEMY_POS_X;
 	r_enemy.y = ENEMY_POS_Y;
@@ -28,6 +28,8 @@ void R_ENEMY::R_Initialize() {
 	r_enemy.s_left = ENEMY_POS_X - ENEMY_STAGE_HITBOX;
 	r_enemy.s_right = ENEMY_POS_X + ENEMY_STAGE_HITBOX;
 	r_enemy.s_bottom = ENEMY_POS_Y + ENEMY_STAGE_HITBOX;
+
+	r_enemy.R_Hitflg = true;
 }
 
 R_ENEMY::~R_ENEMY() {
@@ -115,18 +117,25 @@ void R_ENEMY::Update() {
 	++count;  // カウント開始
 	if (count >= 8) {  // 値によってアニメーションのスピードが変化する0に近い程速い
 		r_enemy.image++;
+		r_enemy.Hitimage++;
 		count = 0;  // カウントリセット
 	}
 	if (r_enemy.image >= 2) { // 画像の切り替え
 		r_enemy.image = 0;    // 画像リセット
 	}
+	// イジケモンスター状態
+	/*if (r_enemy.R_Hitflg == true) {
+		if (r_enemy.Hitimage >= 18) {
+			r_enemy.Hitimage = 16;
+		}
+	}*/
 
 	// ワープトンネル
-	if (r_enemy.x >= 1280) {
-		r_enemy.x = 0;
+	if (r_enemy.x >= 890) {
+		r_enemy.x = 340;
 	}
-	else if (r_enemy.x <= 0) {
-		r_enemy.x = 1280;
+	else if (r_enemy.x <= 340) {
+		r_enemy.x = 890;
 	}
 }
     
@@ -134,4 +143,5 @@ void R_ENEMY::Draw() {
 	DrawRotaGraph(r_enemy.x, r_enemy.y, 0.75, 0, images[r_enemy.image], TRUE, FALSE);  // 敵キャラ表示
 	DrawRotaGraph(r_enemy.x, r_enemy.y, 0.75, 0, eyesimages[r_enemy.eyeimage], TRUE, FALSE);  // 敵キャラの目表示
 	DrawBox(r_enemy.left, r_enemy.top, r_enemy.right, r_enemy.bottom, 0x00ffff, FALSE);
+	//DrawRotaGraph(r_enemy.x, r_enemy.y, 0.75, 0, images[r_enemy.Hitimage], TRUE, FALSE);  // イジケモンスター状態表示
 }
