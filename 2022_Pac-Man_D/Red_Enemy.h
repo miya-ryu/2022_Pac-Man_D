@@ -3,6 +3,7 @@
 static int ENEMY_POS_X = 100;
 static int ENEMY_POS_Y = 100;
 static int ENEMY_CENTER_HITBOX = 4;
+static float ENEMY_STAGE_HITBOX = 7;
 
 // eƒNƒ‰ƒXÔ
 class R_ENEMY {
@@ -22,11 +23,14 @@ public:
 	int image, eyeimage;
 	// “G‚ÉŠÖ‚·‚é•Ï”
 	int x, y, x1, y1;
+	int absX, absY;
+	bool moveX, moveY;
 	int speed;
 	int directionX;
 	int directionY;
 	int recordX, recordY;
-	int top, right, bottom, left;	//“–‚½‚è”»’è
+	int top, right, bottom, left;	//Player‚Æ‚Ì“–‚½‚è”»’è
+	int s_top, s_right, s_bottom, s_left;	//Stage‚Æ‚Ì“–‚½‚è”»’è
 	int recordTop, recordRight, recordBottom, recordLeft;
 	int count;
 	int num;
