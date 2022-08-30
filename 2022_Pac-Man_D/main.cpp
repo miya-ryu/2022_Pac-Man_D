@@ -2,6 +2,7 @@
 #include "Input.h"
 #include "SceneMgr.h"
 #include "Game.h"
+#include "sound.h"
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
 	SetMainWindowText("PAC-MAN");   //ƒ^ƒCƒgƒ‹‚ğİ’è
