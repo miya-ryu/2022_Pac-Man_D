@@ -1,7 +1,7 @@
 #include "DxLib.h"
 #include "Red_Enemy.h"
 #include "Player.h"
-#include "Stage.cpp"
+//#include "Stage.cpp"
 
 R_ENEMY r_enemy;
 
@@ -30,28 +30,28 @@ R_ENEMY::~R_ENEMY() {
 	//DeleteGraph(images[0]);
 }
 
-int	CheckHit(int EnemyX, int EnemyY, int w1, int h1, int x, int y, int w, int h)
-{
-	int L1 = EnemyX;	  //右
-	int R1 = EnemyX + w1; //左
-	int L2 = x;
-	int R2 = x + w;
-
-	if (R1 < L2) return 0;
-	if (R2 < L1) return 0;
-
-	int U1 = EnemyY;      // 上
-	int D1 = EnemyY + h1; // 下(上+縦幅)
-	int U2 = x;
-	int D2 = x + w;
-
-	if (D1 < U2) return 0;
-	if (D2 < U1) return 0;
-
-
-	return 1;
-
-}
+//int	CheckHit(int EnemyX, int EnemyY, int w1, int h1, int x, int y, int w, int h)
+//{
+//	int L1 = EnemyX;	  //右
+//	int R1 = EnemyX + w1; //左
+//	int L2 = x;
+//	int R2 = x + w;
+//
+//	if (R1 < L2) return 0;
+//	if (R2 < L1) return 0;
+//
+//	int U1 = EnemyY;      // 上
+//	int D1 = EnemyY + h1; // 下(上+縦幅)
+//	int U2 = x;
+//	int D2 = x + w;
+//
+//	if (D1 < U2) return 0;
+//	if (D2 < U1) return 0;
+//
+//
+//	return 1;
+//
+//}
 void R_ENEMY::Update() {
 
 
@@ -84,18 +84,18 @@ void R_ENEMY::Update() {
 	for (int j = 0; j < ENEMY_POS_X; j++) {
 		for (int i = 0; i < ENEMY_POS_X; i++) {
 
-			if (CheckHit(i * ENEMY_POS_X, j * ENEMY_POS_Y, ENEMY_POS_X, ENEMY_POS_Y, r_enemy.left, r_enemy.top, r_enemy.right, r_enemy.bottom))
-			{
-				//移動
-				r_enemy.x = r_enemy.recordX;
-				r_enemy.y = r_enemy.recordY;
+			//if (CheckHit(i * ENEMY_POS_X, j * ENEMY_POS_Y, ENEMY_POS_X, ENEMY_POS_Y, r_enemy.left, r_enemy.top, r_enemy.right, r_enemy.bottom))
+			//{
+			//	//移動
+			//	r_enemy.x = r_enemy.recordX;
+			//	r_enemy.y = r_enemy.recordY;
 
-				//当たり判定移動
-				r_enemy.top = r_enemy.recordTop;
-				r_enemy.right = r_enemy.recordRight;
-				r_enemy.bottom = r_enemy.recordBottom;
-				r_enemy.left = r_enemy.recordLeft;
-			}
+			//	//当たり判定移動
+			//	r_enemy.top = r_enemy.recordTop;
+			//	r_enemy.right = r_enemy.recordRight;
+			//	r_enemy.bottom = r_enemy.recordBottom;
+			//	r_enemy.left = r_enemy.recordLeft;
+			//}
 
 			// アニメーション
 			++count;  // カウント開始
