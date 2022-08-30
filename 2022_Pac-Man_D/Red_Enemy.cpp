@@ -119,7 +119,6 @@ void R_ENEMY::Update() {
 
 
 
-//}
     
 void R_ENEMY::Draw() {
 	LoadDivGraph("images/monster.png", 20, 20, 1, 32, 32, images);  // “GƒLƒƒƒ‰
