@@ -1,8 +1,8 @@
 #pragma once
 
-static int ENEMY_POS_X = 40 + 20;
-static int ENEMY_POS_Y = 40 + 20;
-static int ENEMY_POS_HITBOX = 1;
+static int ENEMY_POS_X = 100;
+static int ENEMY_POS_Y = 100;
+static int ENEMY_CENTER_HITBOX = 4;
 
 // êeÉNÉâÉXê‘
 class R_ENEMY {

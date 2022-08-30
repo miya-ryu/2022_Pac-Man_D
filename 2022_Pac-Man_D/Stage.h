@@ -11,7 +11,7 @@ private:
 public:
 	int SIZE_STAGE_X;
 	int SIZE_STAGE_Y;
-	Stage();
+	void Stage_Initialize();
 	void Stage_Update();
 	void Stage_Draw();
 	void Stage_Storage();
