@@ -58,18 +58,26 @@ void R_ENEMY::Update() {
 	// ƒvƒŒƒCƒ„[‚ð’Ç‚¢‚©‚¯‚éˆ—
 	if (mPlayer.x >= r_enemy.x + 1) {       // ‰EŒü‚«
 		r_enemy.x += r_enemy.speed;
+		r_enemy.r_left += r_enemy.speed;
+		r_enemy.r_right += r_enemy.speed;
 		r_enemy.eyeimage = 1;
 	}
 	else if (mPlayer.x <= r_enemy.x - 1) {  // ¶Œü‚«
 		r_enemy.x -= r_enemy.speed;
+		r_enemy.r_left -= r_enemy.speed;
+		r_enemy.r_right -= r_enemy.speed;
 		r_enemy.eyeimage = 3;
 	}
 	if (mPlayer.y >= r_enemy.y + 1) {       // ‰ºŒü‚«
 		r_enemy.y += r_enemy.speed;
+		r_enemy.r_top += r_enemy.speed;
+		r_enemy.r_bottom += r_enemy.speed;
 		r_enemy.eyeimage = 2;
 	}
 	else if (mPlayer.y <= r_enemy.y - 1) {  // ãŒü‚«
 		r_enemy.y -= r_enemy.speed;
+		r_enemy.r_top -= r_enemy.speed;
+		r_enemy.r_bottom -= r_enemy.speed;
 		r_enemy.eyeimage = 0;
 	}
 
@@ -110,13 +118,40 @@ void R_ENEMY::Update() {
 	}
 }
 
-	
+//int	CheckHit(int EnemyX, int EnemyY, int w1, int h1, int x, int y, int w, int h)
+//{
+//    int L1 = EnemyX;
+//    int R1 = EnemyX + w1;
+//    int L2 = x;
+//    int R2 = x + w;
+//
+//    if (R1 < L2) return 0;
+//    if (R2 < L1) return 0;
+//
+//    int U1 = EnemyY;      // ã
+//    int D1 = EnemyY + h1; // ‰º(ã+c•)
+//    int U2 = x;
+//    int D2 = x + w;
+//
+//    if (D1 < U2) return 0;
+//    if (D2 < U1) return 0;
 
-	void R_ENEMY::Draw() {
-		LoadDivGraph("images/monster.png", 20, 20, 1, 32, 32, images);  // “GƒLƒƒƒ‰
-		LoadDivGraph("images/eyes.png", 4, 4, 1, 32, 32, eyesimages);  // “GƒLƒƒƒ‰‚Ì–Ú
-		DrawRotaGraph(r_enemy.x, r_enemy.y, 1, 0, images[r_enemy.image], TRUE, FALSE);  // “GƒLƒƒƒ‰•\Ž¦
-		DrawRotaGraph(r_enemy.x, r_enemy.y, 1, 0, eyesimages[r_enemy.eyeimage], TRUE, FALSE);  // “GƒLƒƒƒ‰‚Ì–Ú•\Ž¦
-		DrawBox(r_enemy.x, r_enemy.y, r_enemy.x, r_enemy.y, 0x00ff00, FALSE);
-	}
 
+    /* int R_ENEMY::HitBoxEnemy(R_ENEMY* e) {
+         int dx1 = e->EnemyX - (e->w / 4);
+         int dy1 = e->EnemyY - (e->h / 4);
+         int dx2 = dx1 + e->w / 2;
+         int dy2 = dy1 + e->h / 2.5;
+
+
+     }*/
+
+//}
+    
+void R_ENEMY::Draw() {
+	LoadDivGraph("images/monster.png", 20, 20, 1, 32, 32, images);  // “GƒLƒƒƒ‰
+	LoadDivGraph("images/eyes.png", 4, 4, 1, 32, 32, eyesimages);  // “GƒLƒƒƒ‰‚Ì–Ú
+	DrawRotaGraph(r_enemy.x, r_enemy.y, 1, 0, images[r_enemy.image], TRUE, FALSE);  // “GƒLƒƒƒ‰•\Ž¦
+	DrawRotaGraph(r_enemy.x, r_enemy.y, 1, 0, eyesimages[r_enemy.eyeimage], TRUE, FALSE);  // “GƒLƒƒƒ‰‚Ì–Ú•\Ž¦
+	DrawBox(r_enemy.r_left, r_enemy.r_top, r_enemy.r_right, r_enemy.r_bottom, 0x00ffff, FALSE);
+}
