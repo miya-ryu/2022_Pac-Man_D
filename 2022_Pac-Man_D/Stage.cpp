@@ -73,7 +73,7 @@ void Stage::Stage_Update() {
 
 			if (mStageChip[no] != 0) {
 				DrawBox(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, i * SIZE_STAGE_X + SIZE_STAGE_X, j * SIZE_STAGE_Y + SIZE_STAGE_Y, 0xffff00, FALSE);
-				if (StageCheckHit(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, mPlayer.left, mPlayer.top, mPlayer.right, mPlayer.bottom)) {
+				if (StageCheckHit(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, mPlayer.s_left, mPlayer.s_top, mPlayer.s_right, mPlayer.s_bottom)) {
 					//ˆÚ“®
 					mPlayer.x = mPlayer.recordX;
 					mPlayer.y = mPlayer.recordY;

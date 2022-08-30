@@ -6,8 +6,6 @@
 R_ENEMY r_enemy;
 
 R_ENEMY::R_ENEMY() {
-	r_enemy.x = 140;        // 初期位置縦
-	r_enemy.y = 360;        // 初期位置横
 	r_enemy.speed = 1;      // 移動速度
 	r_enemy.directionX = 0; // X方向
 	r_enemy.directionY = 0; // Y方向
@@ -19,10 +17,10 @@ R_ENEMY::R_ENEMY() {
 	r_enemy.x = ENEMY_POS_X;
 	r_enemy.y = ENEMY_POS_Y;
 	
-	r_enemy.top = ENEMY_POS_X + ENEMY_POS_HITBOX;
-	r_enemy.left= ENEMY_POS_Y + ENEMY_POS_HITBOX;
-	r_enemy.right = ENEMY_POS_X - ENEMY_POS_HITBOX;
-	r_enemy.bottom = ENEMY_POS_Y - ENEMY_POS_HITBOX;
+	r_enemy.top = ENEMY_POS_Y - ENEMY_CENTER_HITBOX;
+	r_enemy.left = ENEMY_POS_X - ENEMY_CENTER_HITBOX;
+	r_enemy.right = ENEMY_POS_X + ENEMY_CENTER_HITBOX;
+	r_enemy.bottom = ENEMY_POS_Y + ENEMY_CENTER_HITBOX;
 
 }
 
@@ -58,26 +56,26 @@ void R_ENEMY::Update() {
 	// プレイヤーを追いかける処理
 	if (mPlayer.x >= r_enemy.x + 1) {       // 右向き
 		r_enemy.x += r_enemy.speed;
-		r_enemy.r_left += r_enemy.speed;
-		r_enemy.r_right += r_enemy.speed;
+		r_enemy.left += r_enemy.speed;
+		r_enemy.right += r_enemy.speed;
 		r_enemy.eyeimage = 1;
 	}
 	else if (mPlayer.x <= r_enemy.x - 1) {  // 左向き
 		r_enemy.x -= r_enemy.speed;
-		r_enemy.r_left -= r_enemy.speed;
-		r_enemy.r_right -= r_enemy.speed;
+		r_enemy.left -= r_enemy.speed;
+		r_enemy.right -= r_enemy.speed;
 		r_enemy.eyeimage = 3;
 	}
 	if (mPlayer.y >= r_enemy.y + 1) {       // 下向き
 		r_enemy.y += r_enemy.speed;
-		r_enemy.r_top += r_enemy.speed;
-		r_enemy.r_bottom += r_enemy.speed;
+		r_enemy.top += r_enemy.speed;
+		r_enemy.bottom += r_enemy.speed;
 		r_enemy.eyeimage = 2;
 	}
 	else if (mPlayer.y <= r_enemy.y - 1) {  // 上向き
 		r_enemy.y -= r_enemy.speed;
-		r_enemy.r_top -= r_enemy.speed;
-		r_enemy.r_bottom -= r_enemy.speed;
+		r_enemy.top -= r_enemy.speed;
+		r_enemy.bottom -= r_enemy.speed;
 		r_enemy.eyeimage = 0;
 	}
 
@@ -153,5 +151,5 @@ void R_ENEMY::Draw() {
 	LoadDivGraph("images/eyes.png", 4, 4, 1, 32, 32, eyesimages);  // 敵キャラの目
 	DrawRotaGraph(r_enemy.x, r_enemy.y, 1, 0, images[r_enemy.image], TRUE, FALSE);  // 敵キャラ表示
 	DrawRotaGraph(r_enemy.x, r_enemy.y, 1, 0, eyesimages[r_enemy.eyeimage], TRUE, FALSE);  // 敵キャラの目表示
-	DrawBox(r_enemy.r_left, r_enemy.r_top, r_enemy.r_right, r_enemy.r_bottom, 0x00ffff, FALSE);
+	DrawBox(r_enemy.left, r_enemy.top, r_enemy.right, r_enemy.bottom, 0x00ffff, FALSE);
 }

@@ -110,7 +110,7 @@ void Player::Player_Update() {
 			mPlayer.image = 9;
 		}
 	}
-	if (PlayerCheckHit(mPlayer.p_left, mPlayer.p_top, mPlayer.p_right, mPlayer.p_bottom, r_enemy.r_left, r_enemy.r_top,r_enemy.r_right,r_enemy.r_bottom)) {
+	if (PlayerCheckHit(mPlayer.p_left, mPlayer.p_top, mPlayer.p_right, mPlayer.p_bottom, r_enemy.left, r_enemy.top,r_enemy.right,r_enemy.bottom)) {
 		mPlayer.Hitflg = TRUE;
 	}
 
