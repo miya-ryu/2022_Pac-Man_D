@@ -79,7 +79,11 @@ void Stage::Stage_Update() {
 					mPlayer.y = mPlayer.recordY;
 
 					//“–‚½‚è”»’èˆÚ“®
-					//mPlayer.p_right = 
+					mPlayer.p_top = mPlayer.recordPtop;
+					mPlayer.p_right = mPlayer.recordPright;
+					mPlayer.p_bottom = mPlayer.recordPbottom;
+					mPlayer.p_left = mPlayer.recordPleft;
+
 					mPlayer.s_top = mPlayer.recordSTop;
 					mPlayer.s_right = mPlayer.recordSRight;
 					mPlayer.s_bottom = mPlayer.recordSBottom;

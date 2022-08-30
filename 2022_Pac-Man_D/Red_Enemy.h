@@ -1,5 +1,7 @@
 #pragma once
 
+static int ENEMY_CENTER_HITBOX = 2;
+
 // 親クラス赤
 class R_ENEMY {
 private:
@@ -27,6 +29,8 @@ public:
 	// 敵の座標を保管する変数
 	int w, h;	// 幅 w 高さ h;
 	int CheckHit;
+	//当たり判定
+	int r_right, r_left, r_top, r_bottom;
 	//int HitBoxEnemy(R_ENEMY* e);
 };
 

@@ -1,13 +1,14 @@
 #include "DxLib.h"
 #include "Player.h"
 #include "Input.h"
+#include "Red_Enemy.h"
 
 Player mPlayer;
 
 //当たり判定
 int PlayerCheckHit(int x1, int y1, int w1, int h1, int x2, int y2, int w2, int h2) {
 	int L1 = x1;		//左
-	int R1 = x1 + w1;	//右
+	int R1 = w1;		//右
 	int L2 = x2;		//左
 	int R2 = w2;		//右
 
@@ -15,7 +16,7 @@ int PlayerCheckHit(int x1, int y1, int w1, int h1, int x2, int y2, int w2, int h
 	if (R2 < L1) return 0;
 
 	int U1 = y1;		//上
-	int D1 = y1 + h1;	//下
+	int D1 = h1;		//下
 	int U2 = y2;		//上
 	int D2 = h2;		//下
 
@@ -61,9 +62,16 @@ void Player::Player_Initialize() {
 	mPlayer.recordSBottom = mPlayer.s_bottom;
 	mPlayer.recordSLeft = mPlayer.s_left;
 
+	mPlayer.recordPtop = mPlayer.p_top;
+	mPlayer.recordPright = mPlayer.p_right;
+	mPlayer.recordPbottom = mPlayer.p_bottom;
+	mPlayer.recordPleft = mPlayer.p_left;
+
 	//画像処理
 	mPlayer.count = 0;
 	mPlayer.image = 0;
+
+	mPlayer.Hitflg = FALSE;
 }
 
 void Player::Player_Update() {
@@ -78,6 +86,10 @@ void Player::Player_Update() {
 	mPlayer.recordSBottom = mPlayer.s_bottom;
 	mPlayer.recordSLeft = mPlayer.s_left;
 	//前回の座標（PlayerHitbox）
+	mPlayer.recordPtop = mPlayer.p_top;
+	mPlayer.recordPright = mPlayer.p_right;
+	mPlayer.recordPbottom = mPlayer.p_bottom;
+	mPlayer.recordPleft = mPlayer.p_left;
 
 	//画像処理
 	if (count >= 3) {
@@ -97,6 +109,9 @@ void Player::Player_Update() {
 		else if (mPlayer.muki == 4) {
 			mPlayer.image = 9;
 		}
+	}
+	if (PlayerCheckHit(mPlayer.p_left, mPlayer.p_top, mPlayer.p_right, mPlayer.p_bottom, r_enemy.r_left, r_enemy.r_top,r_enemy.r_right,r_enemy.r_bottom)) {
+		mPlayer.Hitflg = TRUE;
 	}
 
 	//移動処理
@@ -146,6 +161,7 @@ void Player::Player_Update() {
 	}
 
 	//移動
+	//上
 	if (mPlayer.muki == 1) {
 		mPlayer.y -= mPlayer.move;
 		//HitBox移動
@@ -154,6 +170,7 @@ void Player::Player_Update() {
 		mPlayer.s_top -= mPlayer.move;
 		mPlayer.s_bottom -= mPlayer.move;
 	}
+	//右
 	else if (mPlayer.muki == 2) {
 		mPlayer.x += mPlayer.move;
 		//HitBox移動
@@ -162,6 +179,7 @@ void Player::Player_Update() {
 		mPlayer.s_left += mPlayer.move;
 		mPlayer.s_right += mPlayer.move;
 	}
+	//下
 	else if (mPlayer.muki == 3) {
 		mPlayer.y += mPlayer.move;
 		//HitBox移動
@@ -170,6 +188,7 @@ void Player::Player_Update() {
 		mPlayer.s_top += mPlayer.move;
 		mPlayer.s_bottom += mPlayer.move;
 	}
+	//左
 	else if (mPlayer.muki == 4) {
 		mPlayer.x -= mPlayer.move;
 		//HitBox移動
@@ -193,14 +212,19 @@ void Player::Player_Update() {
 		//HitBox移動
 		mPlayer.p_top -= mPlayer.move;
 		mPlayer.p_bottom -= mPlayer.move;
-		mPlayer.s_right = 1280 + 15;
-		mPlayer.s_left = 1280 - 15;
+		mPlayer.s_right = 1280 + PLAYER_POS_HITBOX;
+		mPlayer.s_left = 1280 - PLAYER_POS_HITBOX;
 	}
 }
 
 void Player::Player_Draw(){
-	//Player表示
-	DrawRotaGraph(mPlayer.x, mPlayer.y, 0.5, 0, mPlayerImage[mPlayer.image], TRUE, FALSE);
+	if (mPlayer.Hitflg == FALSE) {
+		//Player表示
+		DrawRotaGraph(mPlayer.x, mPlayer.y, 0.5, 0, mPlayerImage[mPlayer.image], TRUE, FALSE);
+	}
+	else if(mPlayer.Hitflg == TRUE){
+		DxLib_End();
+	}
 	//Stage当たり判定表示
 	DrawBox(mPlayer.s_left, mPlayer.s_top, mPlayer.s_right, mPlayer.s_bottom, 0x00ff00, FALSE);
 	//Center当たり判定表示
