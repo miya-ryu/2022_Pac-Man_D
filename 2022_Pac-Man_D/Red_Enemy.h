@@ -19,7 +19,7 @@ public:
 	static const int MaxEyeImage = 4;
 	int images[MaxImage];
 	int eyesimages[MaxEyeImage];
-	int image, eyeimage;
+	int image, eyeimage, Hitimage;
 	// 敵に関する変数
 	int x, y, x1, y1;
 	int absX, absY;
@@ -31,12 +31,13 @@ public:
 	int top, right, bottom, left;	//Playerとの当たり判定
 	int recordTop, recordRight, recordBottom, recordLeft;
 	int count;
-	int num;
 	int Enemy_image[20];
 	// 敵の座標を保管する変数
 	int w, h;	// 幅 w 高さ h;
 	int CheckHit;
 	//int HitBoxEnemy(R_ENEMY* e);
+	// イジケモンスター状態
+	bool R_Hitflg;
 };
 
 extern R_ENEMY r_enemy;
