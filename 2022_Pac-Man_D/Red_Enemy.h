@@ -1,9 +1,8 @@
 #pragma once
 
 static int ENEMY_POS_X = 612;
-static int ENEMY_POS_Y = 24*11;
-static int ENEMY_CENTER_HITBOX = 4;
-static float ENEMY_STAGE_HITBOX = 7;
+static int ENEMY_POS_Y = 24*11 - 11;
+static float ENEMY_STAGE_HITBOX = 10;
 
 // eƒNƒ‰ƒXÔ
 class R_ENEMY {
@@ -30,7 +29,6 @@ public:
 	int directionY;
 	int recordX, recordY;
 	int top, right, bottom, left;	//Player‚Æ‚Ì“–‚½‚è”»’è
-	int s_top, s_right, s_bottom, s_left;	//Stage‚Æ‚Ì“–‚½‚è”»’è
 	int recordTop, recordRight, recordBottom, recordLeft;
 	int count;
 	int num;

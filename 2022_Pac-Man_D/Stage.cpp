@@ -102,8 +102,38 @@ void Stage::Stage_Update() {
 					mPlayer.s_bottom = mPlayer.recordSBottom;
 					mPlayer.s_left = mPlayer.recordSLeft;
 				}
-				if (StageCheckHit(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, r_enemy.s_left, r_enemy.s_top, r_enemy.s_right, r_enemy.s_bottom)) {
+
+				//EnemyÇÃìñÇΩÇËîªíË
+				if (StageCheckHit(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, r_enemy.left, r_enemy.top, r_enemy.right, r_enemy.bottom)) {
+					r_enemy.absX = mPlayer.x - r_enemy.x;
+					r_enemy.absY = mPlayer.y - r_enemy.y;
+
+					r_enemy.x = r_enemy.recordX;
+					r_enemy.y = r_enemy.recordY;
 					
+					r_enemy.right = r_enemy.recordRight;
+					r_enemy.top = r_enemy.recordTop;
+					r_enemy.left = r_enemy.recordLeft;
+					r_enemy.bottom = r_enemy.recordBottom;
+
+					//ê‚ëŒílÇÃåvéZ
+					if (r_enemy.absX < 0) {
+						r_enemy.absX = r_enemy.absX * -1;
+					}
+					if (r_enemy.absY < 0) {
+						r_enemy.absY = r_enemy.absY * -1;
+					}
+
+					//XÇ…à⁄ìÆ
+					if (r_enemy.absX > r_enemy.absY) {
+						r_enemy.moveX = TRUE;
+						r_enemy.moveY = FALSE;
+					}
+					//YÇ…à⁄ìÆ
+					else if (r_enemy.absX < r_enemy.absY) {
+						r_enemy.moveX = FALSE;
+						r_enemy.moveY = TRUE;
+					}
 				}
 			}
 		}
@@ -116,7 +146,7 @@ void Stage::Stage_Draw() {
 	for (int j = 0; j < NUM_STAGE_Y; j++) {
 		for (int i = 0; i < NUM_STAGE_X; i++) {
 			int no = stagedata[i + j * NUM_STAGE_X];
-			DrawExtendGraph(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, i * SIZE_STAGE_X + SIZE_STAGE_X, j * SIZE_STAGE_Y + SIZE_STAGE_Y, mStageChip[no], FALSE);
+			//DrawExtendGraph(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, i * SIZE_STAGE_X + SIZE_STAGE_X, j * SIZE_STAGE_Y + SIZE_STAGE_Y, mStageChip[no], FALSE);
 		}
 	}
 }
