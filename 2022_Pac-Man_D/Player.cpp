@@ -223,7 +223,7 @@ void Player::Player_Draw(){
 		DrawRotaGraph(mPlayer.x, mPlayer.y, 0.75, 0, mPlayerImage[mPlayer.image], TRUE, FALSE);
 	}
 	else if(mPlayer.Hitflg == TRUE){
-		//DxLib_End();
+		DxLib_End();
 	}
 	//Stage“–‚½‚è”»’è•\Ž¦
 	DrawBox(mPlayer.s_left, mPlayer.s_top, mPlayer.s_right, mPlayer.s_bottom, 0x00ff00, FALSE);

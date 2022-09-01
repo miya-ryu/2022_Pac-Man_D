@@ -146,7 +146,7 @@ void Stage::Stage_Draw() {
 	for (int j = 0; j < NUM_STAGE_Y; j++) {
 		for (int i = 0; i < NUM_STAGE_X; i++) {
 			int no = stagedata[i + j * NUM_STAGE_X];
-			//DrawExtendGraph(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, i * SIZE_STAGE_X + SIZE_STAGE_X, j * SIZE_STAGE_Y + SIZE_STAGE_Y, mStageChip[no], FALSE);
+			DrawExtendGraph(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, i * SIZE_STAGE_X + SIZE_STAGE_X, j * SIZE_STAGE_Y + SIZE_STAGE_Y, mStageChip[no], FALSE);
 		}
 	}
 }
