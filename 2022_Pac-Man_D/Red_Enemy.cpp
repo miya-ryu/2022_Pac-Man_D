@@ -34,10 +34,6 @@ void R_ENEMY::R_Initialize() {
 	r_enemy.recordRight = r_enemy.right;
 	r_enemy.recordBottom = r_enemy.bottom;
 	r_enemy.recordLeft = r_enemy.left;
-	//r_enemy.s_top = ENEMY_POS_Y - ENEMY_STAGE_HITBOX;
-	//r_enemy.s_left = ENEMY_POS_X - ENEMY_STAGE_HITBOX;
-	//r_enemy.s_right = ENEMY_POS_X + ENEMY_STAGE_HITBOX;
-	//r_enemy.s_bottom = ENEMY_POS_Y + ENEMY_STAGE_HITBOX;
 
 	r_enemy.R_Hitflg = true;
 }
