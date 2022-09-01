@@ -19,15 +19,21 @@ void R_ENEMY::R_Initialize() {
 	r_enemy.x = ENEMY_POS_X;
 	r_enemy.y = ENEMY_POS_Y;
 
-	r_enemy.top = ENEMY_POS_Y - ENEMY_CENTER_HITBOX;
-	r_enemy.left = ENEMY_POS_X - ENEMY_CENTER_HITBOX;
-	r_enemy.right = ENEMY_POS_X + ENEMY_CENTER_HITBOX;
-	r_enemy.bottom = ENEMY_POS_Y + ENEMY_CENTER_HITBOX;
+	r_enemy.recordX = r_enemy.x;
+	r_enemy.recordY = r_enemy.y;
 
-	r_enemy.s_top = ENEMY_POS_Y - ENEMY_STAGE_HITBOX;
-	r_enemy.s_left = ENEMY_POS_X - ENEMY_STAGE_HITBOX;
-	r_enemy.s_right = ENEMY_POS_X + ENEMY_STAGE_HITBOX;
-	r_enemy.s_bottom = ENEMY_POS_Y + ENEMY_STAGE_HITBOX;
+	r_enemy.top = ENEMY_POS_Y - ENEMY_STAGE_HITBOX;
+	r_enemy.left = ENEMY_POS_X - ENEMY_STAGE_HITBOX;
+	r_enemy.right = ENEMY_POS_X + ENEMY_STAGE_HITBOX;
+	r_enemy.bottom = ENEMY_POS_Y + ENEMY_STAGE_HITBOX;
+
+	r_enemy.moveX = TRUE;
+	r_enemy.moveY = FALSE;
+
+	r_enemy.recordTop = r_enemy.top;
+	r_enemy.recordRight = r_enemy.right;
+	r_enemy.recordBottom = r_enemy.bottom;
+	r_enemy.recordLeft = r_enemy.left;
 }
 
 R_ENEMY::~R_ENEMY() {
@@ -35,27 +41,14 @@ R_ENEMY::~R_ENEMY() {
 }
 
 void R_ENEMY::Update() {
-	r_enemy.absX = mPlayer.x - r_enemy.x;
-	r_enemy.absY = mPlayer.y - r_enemy.y;
+	//前回の座標取得
+	r_enemy.recordX = r_enemy.x;
+	r_enemy.recordY = r_enemy.y;
 
-	//絶対値の計算
-	if (r_enemy.absX < 0) {
-		r_enemy.absX = r_enemy.absX * -1;
-	}
-	if (r_enemy.absY < 0) {
-		r_enemy.absY = r_enemy.absY * -1;
-	}
-
-	//Xに移動
-	if (r_enemy.absX > r_enemy.absY) {
-		r_enemy.moveX = TRUE;
-		r_enemy.moveY = FALSE;
-	}
-	//Yに移動
-	else if (r_enemy.absX < r_enemy.absY) {
-		r_enemy.moveX = FALSE;
-		r_enemy.moveY = TRUE;
-	}
+	r_enemy.recordTop = r_enemy.top;
+	r_enemy.recordRight = r_enemy.right;
+	r_enemy.recordBottom = r_enemy.bottom;
+	r_enemy.recordLeft = r_enemy.left;
 
 	// プレイヤーを追いかける処理
 	if (moveX == TRUE) {
@@ -66,9 +59,6 @@ void R_ENEMY::Update() {
 			r_enemy.left += r_enemy.speed;
 			r_enemy.right += r_enemy.speed;
 
-			r_enemy.s_left += r_enemy.speed;
-			r_enemy.s_right += r_enemy.speed;
-
 			r_enemy.eyeimage = 1;
 		}
 		else if (mPlayer.x <= r_enemy.x - 1) {  // 左向き
@@ -77,9 +67,6 @@ void R_ENEMY::Update() {
 			//当たり判定
 			r_enemy.left -= r_enemy.speed;
 			r_enemy.right -= r_enemy.speed;
-
-			r_enemy.s_left -= r_enemy.speed;
-			r_enemy.s_right -= r_enemy.speed;
 
 			r_enemy.eyeimage = 3;
 		}
@@ -92,9 +79,6 @@ void R_ENEMY::Update() {
 			r_enemy.top += r_enemy.speed;
 			r_enemy.bottom += r_enemy.speed;
 
-			r_enemy.s_top += r_enemy.speed;
-			r_enemy.s_bottom += r_enemy.speed;
-
 			r_enemy.eyeimage = 2;
 		}
 		else if (mPlayer.y <= r_enemy.y - 1) {  // 上向き
@@ -103,9 +87,6 @@ void R_ENEMY::Update() {
 			//当たり判定
 			r_enemy.top -= r_enemy.speed;
 			r_enemy.bottom -= r_enemy.speed;
-
-			r_enemy.s_top -= r_enemy.speed;
-			r_enemy.s_bottom -= r_enemy.speed;
 
 			r_enemy.eyeimage = 0;
 		}
