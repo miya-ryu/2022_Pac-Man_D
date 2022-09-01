@@ -162,6 +162,7 @@
     <ClCompile Include="SceneMgr.cpp" />
     <ClCompile Include="sound.cpp" />
     <ClCompile Include="Stage.cpp" />
+    <ClCompile Include="title.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h" />
@@ -174,6 +175,7 @@
     <ClInclude Include="SceneMgr.h" />
     <ClInclude Include="sound.h" />
     <ClInclude Include="Stage.h" />
+    <ClInclude Include="title.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
