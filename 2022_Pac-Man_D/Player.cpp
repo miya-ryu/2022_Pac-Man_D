@@ -225,6 +225,12 @@ void Player::Player_Draw(){
 	else if(mPlayer.Hitflg == TRUE){
 		DxLib_End();
 	}
+	if (iOldKey == TRUE) {
+		DrawGraph(0, 0, mPlayerImage[1], FALSE);
+	}
+	else if (iOldKey == FALSE) {
+		DrawGraph(0, 0, mPlayerImage[7], FALSE);
+	}
 	//Stage“–‚½‚è”»’è•\Ž¦
 	DrawBox(mPlayer.s_left, mPlayer.s_top, mPlayer.s_right, mPlayer.s_bottom, 0x00ff00, FALSE);
 	//Center“–‚½‚è”»’è•\Ž¦

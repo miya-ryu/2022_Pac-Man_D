@@ -23,7 +23,8 @@ public:
 	// “G‚ÉŠÖ‚·‚é•Ï”
 	int x, y, x1, y1;
 	int absX, absY;
-	bool moveX, moveY;
+	int angle;
+	int num;
 	int speed;
 	int directionX;
 	int directionY;

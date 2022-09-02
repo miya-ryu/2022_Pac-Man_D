@@ -61,7 +61,7 @@ int StageCheckHit(int x1, int y1, int w1, int h1, int x2, int y2, int w2, int h2
 }
 
 //初期化処理
-void Stage::Stage_Initialize(){
+void Stage::Stage_Initialize() {
 	//サイズ
 	SIZE_STAGE_X = 24;
 	SIZE_STAGE_Y = 24;
@@ -105,35 +105,48 @@ void Stage::Stage_Update() {
 
 				//Enemyの当たり判定
 				if (StageCheckHit(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, r_enemy.left, r_enemy.top, r_enemy.right, r_enemy.bottom)) {
+					//前回の座標移動
 					r_enemy.absX = mPlayer.x - r_enemy.x;
 					r_enemy.absY = mPlayer.y - r_enemy.y;
+					//絶対値を求める
+					if (r_enemy.absX <= 0) {
+						r_enemy.absX = r_enemy.absX * -1;
+					}
+					if (r_enemy.absY <= 0) {
+						r_enemy.absY = r_enemy.absY * -1;
+					}
+
+					//angle設定
+					if (r_enemy.absX > r_enemy.absY) {
+						if (mPlayer.x >= r_enemy.x + 1) {
+							r_enemy.angle = 1;
+						}
+						else if (mPlayer.x <= r_enemy.x - 1) {
+							r_enemy.angle = 3;
+						}
+					}
+					else if (r_enemy.absX < r_enemy.absY) {
+						if (mPlayer.y >= r_enemy.y + 1) {
+							r_enemy.angle = 2;
+						}
+						else if (mPlayer.y <= r_enemy.y - 1) {
+							r_enemy.angle = 4;
+						}
+					}
+
+					//初期化
+					if (r_enemy.angle == 5) {
+						r_enemy.angle = 1;
+					}
+
 
 					r_enemy.x = r_enemy.recordX;
 					r_enemy.y = r_enemy.recordY;
-					
+
 					r_enemy.right = r_enemy.recordRight;
 					r_enemy.top = r_enemy.recordTop;
 					r_enemy.left = r_enemy.recordLeft;
 					r_enemy.bottom = r_enemy.recordBottom;
-
-					//絶対値の計算
-					if (r_enemy.absX < 0) {
-						r_enemy.absX = r_enemy.absX * -1;
-					}
-					if (r_enemy.absY < 0) {
-						r_enemy.absY = r_enemy.absY * -1;
-					}
-
-					//Xに移動
-					if (r_enemy.absX > r_enemy.absY) {
-						r_enemy.moveX = TRUE;
-						r_enemy.moveY = FALSE;
-					}
-					//Yに移動
-					else if (r_enemy.absX < r_enemy.absY) {
-						r_enemy.moveX = FALSE;
-						r_enemy.moveY = TRUE;
-					}
 				}
 			}
 		}
@@ -146,7 +159,7 @@ void Stage::Stage_Draw() {
 	for (int j = 0; j < NUM_STAGE_Y; j++) {
 		for (int i = 0; i < NUM_STAGE_X; i++) {
 			int no = stagedata[i + j * NUM_STAGE_X];
-			DrawExtendGraph(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, i * SIZE_STAGE_X + SIZE_STAGE_X, j * SIZE_STAGE_Y + SIZE_STAGE_Y, mStageChip[no], FALSE);
+			//DrawExtendGraph(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, i * SIZE_STAGE_X + SIZE_STAGE_X, j * SIZE_STAGE_Y + SIZE_STAGE_Y, mStageChip[no], FALSE);
 		}
 	}
 }
@@ -154,9 +167,9 @@ void Stage::Stage_Draw() {
 //画像格納処理
 void Stage::Stage_Storage() {
 	// 二重カーブ
-	mStageChip[7]  = LoadGraph("images/tiles/outercorner_bottom_left.png");
-	mStageChip[8]  = LoadGraph("images/tiles/outercorner_bottom_right.png");
-	mStageChip[9]  = LoadGraph("images/tiles/outercorner_narrow_bottom_left.png");
+	mStageChip[7] = LoadGraph("images/tiles/outercorner_bottom_left.png");
+	mStageChip[8] = LoadGraph("images/tiles/outercorner_bottom_right.png");
+	mStageChip[9] = LoadGraph("images/tiles/outercorner_narrow_bottom_left.png");
 	mStageChip[10] = LoadGraph("images/tiles/outercorner_narrow_bottom_right.png");
 	mStageChip[11] = LoadGraph("images/tiles/outercorner_narrow_top_left.png");
 	mStageChip[12] = LoadGraph("images/tiles/outercorner_narrow_top_right.png");
