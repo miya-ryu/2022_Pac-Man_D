@@ -2,9 +2,9 @@
 #include "DxLib.h"
 #include "SceneMgr.h"
 
-static int PLAYER_POS_X = 150;
-static int PLAYER_POS_Y = 150;
-static float PLAYER_POS_HITBOX = 7;
+static int PLAYER_POS_X = 612;
+static int PLAYER_POS_Y = 372;
+static float PLAYER_POS_HITBOX = 11;
 static int PLAYER_CENTER_HITBOX = 2;
 
 class Player {

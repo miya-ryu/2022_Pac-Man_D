@@ -199,28 +199,28 @@ void Player::Player_Update() {
 	}
 
 	// ƒ[ƒv
-	if (mPlayer.x >= 1280) {
-		mPlayer.x = -32;
+	if (mPlayer.x >= 890) {
+		mPlayer.x = 340;
 		//HitBoxˆÚ“®
-		mPlayer.p_right -= mPlayer.move;
-		mPlayer.p_left -= mPlayer.move;
-		mPlayer.s_right = -17;
-		mPlayer.s_left = -47;
+		mPlayer.p_right = 340 + PLAYER_CENTER_HITBOX;
+		mPlayer.p_left = 340 - PLAYER_CENTER_HITBOX;
+		mPlayer.s_right = 340 + PLAYER_POS_HITBOX;
+		mPlayer.s_left = 340 - PLAYER_POS_HITBOX;
 	}
-	else if (mPlayer.x <= -32) {
-		mPlayer.x = 1280;
+	else if (mPlayer.x <= 340) {
+		mPlayer.x = 890;
 		//HitBoxˆÚ“®
-		mPlayer.p_top -= mPlayer.move;
-		mPlayer.p_bottom -= mPlayer.move;
-		mPlayer.s_right = 1280 + PLAYER_POS_HITBOX;
-		mPlayer.s_left = 1280 - PLAYER_POS_HITBOX;
+		mPlayer.p_right = 890 + PLAYER_CENTER_HITBOX;
+		mPlayer.p_left = 890 - PLAYER_CENTER_HITBOX;
+		mPlayer.s_right = 890 + PLAYER_POS_HITBOX;
+		mPlayer.s_left = 890 - PLAYER_POS_HITBOX;
 	}
 }
 
 void Player::Player_Draw(){
 	if (mPlayer.Hitflg == FALSE) {
 		//Player•\Ž¦
-		DrawRotaGraph(mPlayer.x, mPlayer.y, 0.5, 0, mPlayerImage[mPlayer.image], TRUE, FALSE);
+		DrawRotaGraph(mPlayer.x, mPlayer.y, 0.75, 0, mPlayerImage[mPlayer.image], TRUE, FALSE);
 	}
 	else if(mPlayer.Hitflg == TRUE){
 		DxLib_End();

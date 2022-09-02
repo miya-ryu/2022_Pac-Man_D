@@ -13,7 +13,6 @@ P_ENEMY::P_ENEMY() {
 	p_enemy.count = 0;      // アニメーションカウント
 	p_enemy.image = 2;      // 画像変数
 	p_enemy.eyeimage = 0;   // 目の画像変数
-	p_enemy.num = 0;
 }
 
 P_ENEMY::~P_ENEMY() {

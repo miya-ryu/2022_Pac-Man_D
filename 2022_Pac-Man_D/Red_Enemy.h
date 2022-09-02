@@ -1,16 +1,16 @@
 #pragma once
 
-static int ENEMY_POS_X = 100;
-static int ENEMY_POS_Y = 100;
-static int ENEMY_CENTER_HITBOX = 4;
+static int ENEMY_POS_X = 612;
+static int ENEMY_POS_Y = 24*11 - 11;
+static float ENEMY_STAGE_HITBOX = 10;
 
 // 親クラス赤
 class R_ENEMY {
 private:
 
 public:
-	R_ENEMY();   // c言語のInitializeと同じ処理
 	~R_ENEMY();  // c言語のFInalizeと同じ処理
+	void R_Initialize();
 	void Update();
 	void Draw();
 
@@ -19,22 +19,25 @@ public:
 	static const int MaxEyeImage = 4;
 	int images[MaxImage];
 	int eyesimages[MaxEyeImage];
-	int image, eyeimage;
+	int image, eyeimage, Hitimage;
 	// 敵に関する変数
 	int x, y, x1, y1;
+	int absX, absY;
+	bool moveX, moveY;
 	int speed;
 	int directionX;
 	int directionY;
 	int recordX, recordY;
-	int top, right, bottom, left;	//当たり判定
+	int top, right, bottom, left;	//Playerとの当たり判定
 	int recordTop, recordRight, recordBottom, recordLeft;
 	int count;
-	int num;
 	int Enemy_image[20];
 	// 敵の座標を保管する変数
 	int w, h;	// 幅 w 高さ h;
 	int CheckHit;
 	//int HitBoxEnemy(R_ENEMY* e);
+	// イジケモンスター状態
+	bool R_Hitflg;
 };
 
 extern R_ENEMY r_enemy;
