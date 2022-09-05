@@ -69,7 +69,7 @@ void Player::Player_Initialize() {
 	mPlayer.recordPbottom = mPlayer.p_bottom;
 	mPlayer.recordPleft = mPlayer.p_left;
 
-	//ƒfƒŠ[‚Æˆ—
+	//‰æ‘œˆ—(€–S)
 	mPlayer.deletecount = 0;
 	mPlayer.deleteimage = 0;
 	//‰æ‘œˆ—
