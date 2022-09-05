@@ -45,10 +45,12 @@ void Player::Player_Initialize() {
 	mPlayer.s_bottom = PLAYER_POS_Y + PLAYER_POS_HITBOX;
 
 	//画像格納
-	LoadDivGraph("images/pacman.png", 12, 12, 1, 32, 32, mPlayerImage);
+	LoadDivGraph("images/pacman.png", 12, 12, 1, 32, 32, mPlayer.mPlayerMoveImage);
+	LoadDivGraph("images/dying.png", 11, 11, 1, 32, 32, mPlayer.mPlayerDeleteImage);
 
 	//アングル
-	mPlayer.muki = 4;
+	mPlayer.iNowAngle = 4;
+	mPlayer.iOldAngle = mPlayer.iNowAngle;
 
 	//移動
 	mPlayer.move = 2;
@@ -67,11 +69,17 @@ void Player::Player_Initialize() {
 	mPlayer.recordPbottom = mPlayer.p_bottom;
 	mPlayer.recordPleft = mPlayer.p_left;
 
+	//デリーと処理
+	mPlayer.deletecount = 0;
+	mPlayer.deleteimage = 0;
 	//画像処理
 	mPlayer.count = 0;
 	mPlayer.image = 0;
 
 	mPlayer.Hitflg = FALSE;
+	mPlayer.StageHitflg = FALSE;
+	mPlayer.Angleflg = FALSE;
+	mPlayer.iOldKeyflg = FALSE;
 }
 
 void Player::Player_Update() {
@@ -97,27 +105,32 @@ void Player::Player_Update() {
 		count = 0;
 	}
 	if (mPlayer.image %3==0) {
-		if (mPlayer.muki == 1) {
+		if (mPlayer.iNowAngle == 1) {
 			mPlayer.image = 0;
 		}
-		else if (mPlayer.muki == 2) {
+		else if (mPlayer.iNowAngle == 2) {
 			mPlayer.image = 3;
 		}
-		else if (mPlayer.muki == 3) {
+		else if (mPlayer.iNowAngle == 3) {
 			mPlayer.image = 6;
 		}
-		else if (mPlayer.muki == 4) {
+		else if (mPlayer.iNowAngle == 4) {
 			mPlayer.image = 9;
 		}
 	}
+	
+	//エネミーとの当たり判定
 	if (PlayerCheckHit(mPlayer.p_left, mPlayer.p_top, mPlayer.p_right, mPlayer.p_bottom, r_enemy.left, r_enemy.top,r_enemy.right,r_enemy.bottom)) {
 		mPlayer.Hitflg = TRUE;
 	}
 
 	//移動処理
+	//前回のアングル格納
+	mPlayer.iOldAngle = mPlayer.iNowAngle;
 	//右
-	if (iNowKey & PAD_INPUT_RIGHT){
-		mPlayer.muki = 2;
+	if (iNowKey & PAD_INPUT_RIGHT) {
+		mPlayer.Angleflg = TRUE;
+		mPlayer.iNowAngle = 2;
 		if (count >= 3) {
 			mPlayer.image++;
 			count = 0;
@@ -128,7 +141,8 @@ void Player::Player_Update() {
 	}
 	//左
 	else if (iNowKey & PAD_INPUT_LEFT) {
-		mPlayer.muki = 4;
+		mPlayer.Angleflg = TRUE;
+		mPlayer.iNowAngle = 4;
 		if (count >= 3) {
 			mPlayer.image++;
 			count = 0;
@@ -139,7 +153,8 @@ void Player::Player_Update() {
 	}
 	//上
 	else if (iNowKey & PAD_INPUT_UP) {
-		mPlayer.muki = 1;
+		mPlayer.Angleflg = TRUE;
+		mPlayer.iNowAngle = 1;
 		if (count >= 3) {
 			mPlayer.image++;
 			count = 0;
@@ -150,7 +165,8 @@ void Player::Player_Update() {
 	}
 	//下
 	else if (iNowKey & PAD_INPUT_DOWN) {
-		mPlayer.muki = 3;
+		mPlayer.Angleflg = TRUE;
+		mPlayer.iNowAngle = 3;
 		if (count >= 3) {
 			mPlayer.image++;
 			count = 0;
@@ -162,42 +178,44 @@ void Player::Player_Update() {
 
 	//移動
 	//上
-	if (mPlayer.muki == 1) {
-		mPlayer.y -= mPlayer.move;
-		//HitBox移動
-		mPlayer.p_top -= mPlayer.move;
-		mPlayer.p_bottom -= mPlayer.move;
-		mPlayer.s_top -= mPlayer.move;
-		mPlayer.s_bottom -= mPlayer.move;
+	if (mPlayer.Hitflg == FALSE) {
+		if (mPlayer.iNowAngle == 1) {
+			mPlayer.y -= mPlayer.move;
+			//HitBox移動
+			mPlayer.p_top -= mPlayer.move;
+			mPlayer.p_bottom -= mPlayer.move;
+			mPlayer.s_top -= mPlayer.move;
+			mPlayer.s_bottom -= mPlayer.move;
+		}
+		//右
+		else if (mPlayer.iNowAngle == 2) {
+			mPlayer.x += mPlayer.move;
+			//HitBox移動
+			mPlayer.p_left += mPlayer.move;
+			mPlayer.p_right += mPlayer.move;
+			mPlayer.s_left += mPlayer.move;
+			mPlayer.s_right += mPlayer.move;
+		}
+		//下
+		else if (mPlayer.iNowAngle == 3) {
+			mPlayer.y += mPlayer.move;
+			//HitBox移動
+			mPlayer.p_top += mPlayer.move;
+			mPlayer.p_bottom += mPlayer.move;
+			mPlayer.s_top += mPlayer.move;
+			mPlayer.s_bottom += mPlayer.move;
+		}
+		//左
+		else if (mPlayer.iNowAngle == 4) {
+			mPlayer.x -= mPlayer.move;
+			//HitBox移動
+			mPlayer.p_left -= mPlayer.move;
+			mPlayer.p_right -= mPlayer.move;
+			mPlayer.s_left -= mPlayer.move;
+			mPlayer.s_right -= mPlayer.move;
+		}
 	}
-	//右
-	else if (mPlayer.muki == 2) {
-		mPlayer.x += mPlayer.move;
-		//HitBox移動
-		mPlayer.p_left += mPlayer.move;
-		mPlayer.p_right += mPlayer.move;
-		mPlayer.s_left += mPlayer.move;
-		mPlayer.s_right += mPlayer.move;
-	}
-	//下
-	else if (mPlayer.muki == 3) {
-		mPlayer.y += mPlayer.move;
-		//HitBox移動
-		mPlayer.p_top += mPlayer.move;
-		mPlayer.p_bottom += mPlayer.move;
-		mPlayer.s_top += mPlayer.move;
-		mPlayer.s_bottom += mPlayer.move;
-	}
-	//左
-	else if (mPlayer.muki == 4) {
-		mPlayer.x -= mPlayer.move;
-		//HitBox移動
-		mPlayer.p_left -= mPlayer.move;
-		mPlayer.p_right -= mPlayer.move;
-		mPlayer.s_left -= mPlayer.move;
-		mPlayer.s_right -= mPlayer.move;
-	}
-
+	
 	// ワープ
 	if (mPlayer.x >= 890) {
 		mPlayer.x = 340;
@@ -220,17 +238,25 @@ void Player::Player_Update() {
 void Player::Player_Draw(){
 	if (mPlayer.Hitflg == FALSE) {
 		//Player表示
-		DrawRotaGraph(mPlayer.x, mPlayer.y, 0.75, 0, mPlayerImage[mPlayer.image], TRUE, FALSE);
+		DrawRotaGraph(mPlayer.x, mPlayer.y, 0.75, 0, mPlayer.mPlayerMoveImage[mPlayer.image], TRUE, FALSE);
 	}
 	else if(mPlayer.Hitflg == TRUE){
-		DxLib_End();
+		mPlayer.x += 0;
+		mPlayer.y += 0;
+
+		mPlayer.deletecount++;
+		
+		if (mPlayer.deletecount % 5 == 0) {
+			mPlayer.deleteimage++;
+		}
+		DrawRotaGraph(mPlayer.x, mPlayer.y, 0.75, 0, mPlayer.mPlayerDeleteImage[mPlayer.deleteimage], TRUE, FALSE);
 	}
-	if (iOldKey == TRUE) {
+	/*if (iKeyFlg == TRUE) {
 		DrawGraph(0, 0, mPlayerImage[1], FALSE);
 	}
-	else if (iOldKey == FALSE) {
+	else if (iKeyFlg == FALSE) {
 		DrawGraph(0, 0, mPlayerImage[7], FALSE);
-	}
+	}*/
 	//Stage当たり判定表示
 	DrawBox(mPlayer.s_left, mPlayer.s_top, mPlayer.s_right, mPlayer.s_bottom, 0x00ff00, FALSE);
 	//Center当たり判定表示
