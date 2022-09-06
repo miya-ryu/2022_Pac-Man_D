@@ -77,13 +77,14 @@ void Player::Player_Initialize() {
 	mPlayer.image = 0;
 
 	mPlayer.Hitflg = FALSE;
-	mPlayer.StageHitflg = FALSE;
+	mPlayer.P_StageHitflg = FALSE;
 	mPlayer.Angleflg = FALSE;
 	mPlayer.iOldKeyflg = FALSE;
 }
 
 void Player::Player_Update() {
 	++count;
+	++mPlayer.deletecount;
 
 	//ëOâÒÇÃç¿ïWÇéÊìæ
 	mPlayer.recordX = mPlayer.x;
@@ -241,11 +242,6 @@ void Player::Player_Draw(){
 		DrawRotaGraph(mPlayer.x, mPlayer.y, 0.75, 0, mPlayer.mPlayerMoveImage[mPlayer.image], TRUE, FALSE);
 	}
 	else if(mPlayer.Hitflg == TRUE){
-		mPlayer.x += 0;
-		mPlayer.y += 0;
-
-		mPlayer.deletecount++;
-		
 		if (mPlayer.deletecount % 5 == 0) {
 			mPlayer.deleteimage++;
 		}

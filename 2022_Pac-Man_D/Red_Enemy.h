@@ -1,8 +1,8 @@
 #pragma once
 
 static int ENEMY_POS_X = 612;
-static int ENEMY_POS_Y = 24*11 - 11;
-static float ENEMY_STAGE_HITBOX = 10;
+static int ENEMY_POS_Y = 252;
+static float ENEMY_STAGE_HITBOX = 11;
 
 // 親クラス赤
 class R_ENEMY {
@@ -24,21 +24,19 @@ public:
 	int x, y, x1, y1;
 	int absX, absY;
 	int angle;
-	int num;
 	int speed;
-	int directionX;
-	int directionY;
 	int recordX, recordY;
-	int top, right, bottom, left;	//Playerとの当たり判定
+	//Playerとの当たり判定
+	int top, right, bottom, left;
 	int recordTop, recordRight, recordBottom, recordLeft;
 	int count;
-	int Enemy_image[20];
 	// 敵の座標を保管する変数
 	int w, h;	// 幅 w 高さ h;
 	int CheckHit;
-	//int HitBoxEnemy(R_ENEMY* e);
 	// イジケモンスター状態
 	bool R_Hitflg;
+	//壁に当たったフラグ
+	bool E_StageHitflg;
 };
 
 extern R_ENEMY r_enemy;

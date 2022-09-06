@@ -38,7 +38,7 @@ public:
 	//“G‚É“–‚½‚Á‚½ƒtƒ‰ƒO
 	bool Hitflg;
 	//•Ç‚É“–‚½‚Á‚½ƒtƒ‰ƒO
-	bool StageHitflg;
+	bool P_StageHitflg;
 	//Ši”[
 	int mPlayerMoveImage[MoveImage];
 	int mPlayerDeleteImage[DeleteImage];
