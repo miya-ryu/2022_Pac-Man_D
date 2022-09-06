@@ -119,6 +119,25 @@ void Stage::Stage_Draw() {
 			DrawExtendGraph(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, i * SIZE_STAGE_X + SIZE_STAGE_X, j * SIZE_STAGE_Y + SIZE_STAGE_Y, mStageChip[no], FALSE);
 		}
 	}
+
+	//スコア表示
+	DrawGraph(870, 20, mStageUI[0], true);			//ハイスコア
+	DrawGraph(930, 130, mStageUI[1], true);			//１up
+
+	//ハイスコア数字表示   初期
+	int numX = 950;
+	for (int cont = 0; cont < 6; cont++) {
+		DrawGraph(numX, 70, mStageNum[0], true);
+		numX += 32;
+	}
+
+	//パックマン残機表示
+	int pacX = 920;
+	for (int num = 0; num < 3; num++) {
+		DrawRotaGraph(pacX, 550, 1.8, 0, mStagePacman[10], TRUE, FALSE);
+		pacX += 60;
+
+	}
 }
 
 //画像格納処理
@@ -142,4 +161,10 @@ void Stage::Stage_Storage() {
 	mStageChip[28] = LoadGraph("images/tiles/wall_left.png");
 	mStageChip[29] = LoadGraph("images/tiles/wall_right.png");
 	mStageChip[30] = LoadGraph("images/tiles/wall_top.png");
+
+	//スコア部分UI
+	mStageUI[0] = LoadGraph("images/title/hi-score.png");
+	mStageUI[1] = LoadGraph("images/title/1up.png");
+	LoadDivGraph("images/title/num.png", 10, 10, 1, 30, 30, mStageNum);
+	LoadDivGraph("images/pacman.png", 11, 11, 1, 32, 32, mStagePacman);
 }

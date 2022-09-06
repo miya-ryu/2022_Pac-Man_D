@@ -8,6 +8,9 @@ private:
 	int NUM_STAGE_Y;
 	int NUM_STAGE_IMAGE;
 	//int mStageChip[];
+	int mStageUI[2];
+	int mStageNum[10];
+	int mStagePacman[11];
 public:
 	int SIZE_STAGE_X;
 	int SIZE_STAGE_Y;
