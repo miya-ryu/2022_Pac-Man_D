@@ -2,7 +2,7 @@
 
 class Sound {
 private:
-	int bgm[16];
+	int bgm[15];
 public:
 	void Sound_Handle();
 	void SoundStart();

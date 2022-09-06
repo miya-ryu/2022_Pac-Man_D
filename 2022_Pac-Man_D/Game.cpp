@@ -8,19 +8,19 @@
 #include "Orange_Enemy.h"
 #include "Stage.h"
 #include "title.h"
+#include "sound.h"
 
 Game mGame;
 
 void Game::Game_Initialize() {
 	mPlayer.Player_Initialize();
 	mStage.Stage_Initialize();
-	mTitle.Title_Initialize();
 	r_enemy.R_Initialize();
+	mSound.SoundStart();
 }
 
 void Game::Game_Update() {
 	mPlayer.Player_Update();
-	mTitle.Title_Update();
 	r_enemy.Update();
 	//p_enemy.Update();
 	//b_enemy.Update();
@@ -34,7 +34,6 @@ void Game::Game_Update() {
 void Game::Game_Draw(){
 	mStage.Stage_Draw();
 	mPlayer.Player_Draw();
-	mTitle.Title_Draw();
 	r_enemy.Draw();
 	//p_enemy.Draw();
 	//b_enemy.Draw();
