@@ -46,7 +46,6 @@ void Player::Player_Initialize() {
 
 	//画像格納
 	LoadDivGraph("images/pacman.png", 12, 12, 1, 32, 32, mPlayer.mPlayerMoveImage);
-	LoadDivGraph("images/dying.png", 11, 11, 1, 32, 32, mPlayer.mPlayerDeleteImage);
 
 	//アングル
 	mPlayer.iNowAngle = 4;
@@ -69,7 +68,8 @@ void Player::Player_Initialize() {
 	mPlayer.recordPbottom = mPlayer.p_bottom;
 	mPlayer.recordPleft = mPlayer.p_left;
 
-	//デリーと処理
+	//デリート処理
+	LoadDivGraph("images/dying.png", 11, 11, 1, 32, 32, mPlayer.mPlayerDeleteImage);
 	mPlayer.deletecount = 0;
 	mPlayer.deleteimage = 0;
 	//画像処理
@@ -101,10 +101,10 @@ void Player::Player_Update() {
 
 	//画像処理
 	if (count >= 3) {
-		mPlayer.image++;
+		mPlayer.image += 1;
 		count = 0;
 	}
-	if (mPlayer.image %3==0) {
+	if (mPlayer.image % 3 == 0 || mPlayer.image >= 12) {
 		if (mPlayer.iNowAngle == 1) {
 			mPlayer.image = 0;
 		}
@@ -125,60 +125,38 @@ void Player::Player_Update() {
 	}
 
 	//移動処理
-	//前回のアングル格納
-	mPlayer.iOldAngle = mPlayer.iNowAngle;
 	//右
 	if (iNowKey & PAD_INPUT_RIGHT) {
+		//前回のアングル格納
+		mPlayer.iOldAngle = mPlayer.iNowAngle;
 		mPlayer.Angleflg = TRUE;
 		mPlayer.iNowAngle = 2;
-		if (count >= 3) {
-			mPlayer.image++;
-			count = 0;
-		}
-		if (mPlayer.image % 3 == 0) {
-			mPlayer.image = 3;
-		}
 	}
 	//左
 	else if (iNowKey & PAD_INPUT_LEFT) {
+		//前回のアングル格納
+		mPlayer.iOldAngle = mPlayer.iNowAngle;
 		mPlayer.Angleflg = TRUE;
 		mPlayer.iNowAngle = 4;
-		if (count >= 3) {
-			mPlayer.image++;
-			count = 0;
-		}
-		if (mPlayer.image % 3 == 0) {
-			mPlayer.image = 9;
-		}
 	}
 	//上
 	else if (iNowKey & PAD_INPUT_UP) {
+		//前回のアングル格納
+		mPlayer.iOldAngle = mPlayer.iNowAngle;
 		mPlayer.Angleflg = TRUE;
 		mPlayer.iNowAngle = 1;
-		if (count >= 3) {
-			mPlayer.image++;
-			count = 0;
-		}
-		if (mPlayer.image % 3 == 0) {
-			mPlayer.image = 0;
-		}
 	}
 	//下
 	else if (iNowKey & PAD_INPUT_DOWN) {
+		//前回のアングル格納
+		mPlayer.iOldAngle = mPlayer.iNowAngle;
 		mPlayer.Angleflg = TRUE;
 		mPlayer.iNowAngle = 3;
-		if (count >= 3) {
-			mPlayer.image++;
-			count = 0;
-		}
-		if (mPlayer.image % 3 == 0) {
-			mPlayer.image = 6;
-		}
 	}
 
 	//移動
-	//上
 	if (mPlayer.Hitflg == FALSE) {
+		//上
 		if (mPlayer.iNowAngle == 1) {
 			mPlayer.y -= mPlayer.move;
 			//HitBox移動
@@ -251,12 +229,6 @@ void Player::Player_Draw(){
 		}
 		DrawRotaGraph(mPlayer.x, mPlayer.y, 0.75, 0, mPlayer.mPlayerDeleteImage[mPlayer.deleteimage], TRUE, FALSE);
 	}
-	/*if (iKeyFlg == TRUE) {
-		DrawGraph(0, 0, mPlayerImage[1], FALSE);
-	}
-	else if (iKeyFlg == FALSE) {
-		DrawGraph(0, 0, mPlayerImage[7], FALSE);
-	}*/
 	//Stage当たり判定表示
 	DrawBox(mPlayer.s_left, mPlayer.s_top, mPlayer.s_right, mPlayer.s_bottom, 0x00ff00, FALSE);
 	//Center当たり判定表示

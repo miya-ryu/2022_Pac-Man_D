@@ -23,7 +23,7 @@ public:
 	int p_top, p_right, p_bottom, p_left;	//Player当たり判定
 	int recordPtop, recordPright, recordPbottom, recordPleft;
 	int iNowAngle, iOldAngle;
-	int AngleCount;
+	bool AngleChange;
 	bool Angleflg;
 	bool iOldKeyflg;	//前回のキーフラグ
 	int iOldmove;
@@ -31,17 +31,18 @@ public:
 	int move;
 	int count;
 	int image;
+	//格納
 	static const int MoveImage = 11;
-	static const int DeleteImage = 10;
-	int deletecount;
-	int deleteimage;
+	int mPlayerMoveImage[11];
 	//敵に当たったフラグ
 	bool Hitflg;
 	//壁に当たったフラグ
 	bool StageHitflg;
-	//格納
-	int mPlayerMoveImage[MoveImage];
-	int mPlayerDeleteImage[DeleteImage];
+	//死んだとき
+	static const int DeleteImage = 10;
+	int deletecount;
+	int deleteimage;
+	int mPlayerDeleteImage[10];
 };
 
 extern Player mPlayer;

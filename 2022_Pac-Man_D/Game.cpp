@@ -19,7 +19,6 @@ void Game::Game_Initialize() {
 }
 
 void Game::Game_Update() {
-	mStage.Stage_Update();
 	mPlayer.Player_Update();
 	mTitle.Title_Update();
 	r_enemy.Update();
