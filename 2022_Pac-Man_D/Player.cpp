@@ -219,8 +219,6 @@ void Player::Player_Draw(){
 		DrawRotaGraph(mPlayer.x, mPlayer.y, 0.75, 0, mPlayer.mPlayerMoveImage[mPlayer.image], TRUE, FALSE);
 	}
 	else if(mPlayer.Hitflg == TRUE){
-		mPlayer.x += 0;
-		mPlayer.y += 0;
 
 		mPlayer.deletecount++;
 		
