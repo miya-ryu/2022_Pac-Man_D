@@ -8,8 +8,6 @@ P_ENEMY::P_ENEMY() {
 	p_enemy.x = 120;        // 初期位置縦
 	p_enemy.y = 360;        // 初期位置横
 	p_enemy.speed = 1;      // 移動速度
-	p_enemy.directionX = 0; // X方向
-	p_enemy.directionY = 0; // Y方向
 	p_enemy.count = 0;      // アニメーションカウント
 	p_enemy.image = 2;      // 画像変数
 	p_enemy.eyeimage = 0;   // 目の画像変数

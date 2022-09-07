@@ -9,17 +9,16 @@ void R_ENEMY::R_Initialize() {
 	LoadDivGraph("images/eyes.png", 4, 4, 1, 32, 32, eyesimages);  // 敵キャラの目
 
 	r_enemy.speed = 1;      // 移動速度
-	r_enemy.directionX = 0; // X方向
-	r_enemy.directionY = 0; // Y方向
 	r_enemy.count = 0;      // アニメーションカウント
 	r_enemy.image = 0;      // 画像変数
 	r_enemy.eyeimage = 0;   // 目の画像変数
-	r_enemy.num = 0;
+	r_enemy.E_StageHitflg = FALSE; // 壁との当たり判定フラグ
 
 	r_enemy.x = ENEMY_POS_X;
 	r_enemy.y = ENEMY_POS_Y;
 
-	r_enemy.angle = 1;
+	// 初期の向き
+	r_enemy.angle = 3;
 
 	//当たり判定
 	r_enemy.recordX = r_enemy.x;

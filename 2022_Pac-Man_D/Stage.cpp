@@ -100,39 +100,41 @@ void Stage::Stage_Update() {
 				//Playerの当たり判定
 				if (StageCheckHit(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, mPlayer.s_left, mPlayer.s_top, mPlayer.s_right, mPlayer.s_bottom)) {
 
-					////先行入力受け付け
-					//mPlayer.StageHitflg = TRUE;
-					//if (mPlayer.StageHitflg == TRUE) {
-					//	if (mPlayer.Angleflg == TRUE) {
-					//		if (mPlayer.iOldAngle == 2) {
-					//			mPlayer.iNowAngle = 2;
-					//		}
-					//		else if (mPlayer.iOldAngle == 3) {
-					//			mPlayer.iNowAngle = 3;
-					//		}
-					//		else if (mPlayer.iOldAngle == 4) {
-					//			mPlayer.iNowAngle = 4;
-					//		}
-					//		else if (mPlayer.iOldAngle == 1) {
-					//			mPlayer.iNowAngle = 1;
-					//		}
-					//		mPlayer.Angleflg = FALSE;
-					//	}
-					//	else if (mPlayer.Angleflg == FALSE) {
-					//		if (mPlayer.iOldAngle == mPlayer.iNowAngle) {
-					//			mPlayer.iOldKeyflg = TRUE;
-					//			if (iNowKey & PAD_INPUT_RIGHT) {
-					//				mPlayer.iOldmove = 2;
-					//			}
-					//			else if (iNowKey & PAD_INPUT_DOWN) {
-					//				mPlayer.iOldmove = 3;
-					//			}
-					//			else if (iNowKey & PAD_INPUT_LEFT) {
-					//				mPlayer.iOldmove = 4;
-					//			}
-					//			else if (iNowKey & PAD_INPUT_UP) {
-					//				mPlayer.iOldmove = 1;
-					//			}
+					//先行入力受け付け
+					mPlayer.P_StageHitflg = TRUE;
+					if (mPlayer.P_StageHitflg == TRUE) {
+						if (mPlayer.Angleflg == TRUE) {
+							if (mPlayer.iOldAngle == 2) {
+								mPlayer.iNowAngle = 2;
+							}
+							else if (mPlayer.iOldAngle == 3) {
+								mPlayer.iNowAngle = 3;
+							}
+							else if (mPlayer.iOldAngle == 4) {
+								mPlayer.iNowAngle = 4;
+							}
+							else if (mPlayer.iOldAngle == 1) {
+								mPlayer.iNowAngle = 1;
+							}
+							mPlayer.Angleflg = FALSE;
+						}
+						else if (mPlayer.Angleflg == FALSE) {
+							if (mPlayer.iOldAngle == mPlayer.iNowAngle) {
+								mPlayer.iOldKeyflg = TRUE;
+								if (iNowKey & PAD_INPUT_RIGHT) {
+									mPlayer.iOldmove = 2;
+								}
+								else if (iNowKey & PAD_INPUT_DOWN) {
+									mPlayer.iOldmove = 3;
+								}
+								else if (iNowKey & PAD_INPUT_LEFT) {
+									mPlayer.iOldmove = 4;
+								}
+								else if (iNowKey & PAD_INPUT_UP) {
+									mPlayer.iOldmove = 1;
+								}
+								//Angle処理
+								mPlayer.AngleCount++;
 
 								//移動
 								mPlayer.x = mPlayer.recordX;
@@ -152,12 +154,14 @@ void Stage::Stage_Update() {
 						}*/
 
 						//ヒットを戻す
-						mPlayer.StageHitflg = FALSE;
-					//}
+						mPlayer.P_StageHitflg = FALSE;
+					}
 				}
 
 				//Enemyの当たり判定
 				if (StageCheckHit(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, r_enemy.left, r_enemy.top, r_enemy.right, r_enemy.bottom)) {
+					// ステージとの当たり判定フラグ
+					r_enemy.E_StageHitflg = TRUE;
 					//前回の座標移動
 					r_enemy.absX = mPlayer.x - r_enemy.x;
 					r_enemy.absY = mPlayer.y - r_enemy.y;
@@ -170,20 +174,30 @@ void Stage::Stage_Update() {
 					}
 
 					//angle設定
-					if (r_enemy.absX > r_enemy.absY) {
-						if (mPlayer.x >= r_enemy.x + 1) {
-							r_enemy.angle = 1;
+					if (r_enemy.absX > r_enemy.absY) { // 絶対値Xの値が大きいとき
+						if (mPlayer.x >= r_enemy.x + 1) { // xの値がプレイヤーの方が大きいとき
+							r_enemy.angle = 1; // 右向き
+							r_enemy.E_StageHitflg = FALSE;
+							
 						}
-						else if (mPlayer.x <= r_enemy.x - 1) {
-							r_enemy.angle = 3;
+						else if (mPlayer.x <= r_enemy.x - 1) { // xの値がエネミーの方が大きいとき
+							r_enemy.angle = 3; // 左向き
 						}
 					}
-					else if (r_enemy.absX < r_enemy.absY) {
-						if (mPlayer.y >= r_enemy.y + 1) {
-							r_enemy.angle = 2;
+					else if (r_enemy.absX < r_enemy.absY) { // 絶対値Yの値が大きいとき
+						if (mPlayer.y >= r_enemy.y + 1) { // yの値がプレイヤーの方が大きいとき
+							r_enemy.angle = 2; // 下向き
+							if (r_enemy.E_StageHitflg == TRUE) {
+								//r_enemy.angle = 1;
+							}
+							mPlayer.P_StageHitflg = FALSE;
 						}
-						else if (mPlayer.y <= r_enemy.y - 1) {
-							r_enemy.angle = 4;
+						else if (mPlayer.y <= r_enemy.y - 1) { // yの値がエネミーの方が大きいとき
+							r_enemy.angle = 4; // 上向き
+							if (r_enemy.E_StageHitflg == TRUE) {
+								//r_enemy.angle = 1;
+							}
+							mPlayer.P_StageHitflg = FALSE;
 						}
 					}
 

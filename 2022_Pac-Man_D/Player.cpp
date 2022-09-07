@@ -77,13 +77,14 @@ void Player::Player_Initialize() {
 	mPlayer.image = 0;
 
 	mPlayer.Hitflg = FALSE;
-	mPlayer.StageHitflg = FALSE;
+	mPlayer.P_StageHitflg = FALSE;
 	mPlayer.Angleflg = FALSE;
 	mPlayer.iOldKeyflg = FALSE;
 }
 
 void Player::Player_Update() {
 	++count;
+	++mPlayer.deletecount;
 
 	//‘O‰ñ‚ÌÀ•W‚ğæ“¾
 	mPlayer.recordX = mPlayer.x;
