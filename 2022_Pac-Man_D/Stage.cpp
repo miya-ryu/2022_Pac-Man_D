@@ -266,7 +266,7 @@ void Stage::Stage_Storage() {
 	// ライン
 	mStageChip[27] = LoadGraph("images/tiles/wall_bottom.png");
 	mStageChip[28] = LoadGraph("images/tiles/wall_left.png");
-	mStageChip[29] = LoadGraph("images/tiles/wall_right.png");
+	//mStageChip[29] = LoadGraph("images/tiles/wall_right.png");
 	mStageChip[30] = LoadGraph("images/tiles/wall_top.png");
 
 	//スコア部分UI
