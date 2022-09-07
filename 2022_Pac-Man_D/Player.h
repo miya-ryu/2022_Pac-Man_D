@@ -32,8 +32,8 @@ public:
 	int count;
 	int image;
 	//Ši”[
-	static const int MoveImage = 11;
-	int mPlayerMoveImage[11];
+	static const int MoveImage = 12;
+	int mPlayerMoveImage[MoveImage];
 	//“G‚É“–‚½‚Á‚½ƒtƒ‰ƒO
 	bool Hitflg;
 	//•Ç‚É“–‚½‚Á‚½ƒtƒ‰ƒO
@@ -42,7 +42,7 @@ public:
 	static const int DeleteImage = 10;
 	int deletecount;
 	int deleteimage;
-	int mPlayerDeleteImage[10];
+	int mPlayerDeleteImage[DeleteImage];
 };
 
 extern Player mPlayer;
