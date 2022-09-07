@@ -1,7 +1,6 @@
 #pragma once
 #include "DxLib.h"
 //•Ï”
-
 class Stage {
 private:
 	int NUM_STAGE_X;
