@@ -14,14 +14,14 @@ Game mGame;
 void Game::Game_Initialize() {
 	mPlayer.Player_Initialize();
 	mStage.Stage_Initialize();
-	mTitle.Title_Initialize();
+	//mTitle.Title_Initialize();
 	r_enemy.R_Initialize();
 }
 
 void Game::Game_Update() {
 	mStage.Stage_Update();
 	mPlayer.Player_Update();
-	mTitle.Title_Update();
+	//mTitle.Title_Update();
 	r_enemy.Update();
 	//p_enemy.Update();
 	//b_enemy.Update();

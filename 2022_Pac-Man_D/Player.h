@@ -27,6 +27,7 @@ public:
 	int count;
 	int image;
 	static const int MaxImage = 11;
+	static const int maxImage = 11;
 	int muki;
 	//“G‚É“–‚½‚Á‚½ƒtƒ‰ƒO
 	bool Hitflg;

@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "Input.h"
 #include "Red_Enemy.h"
+#include "Stage.h"
 
 Player mPlayer;
 
@@ -71,7 +72,6 @@ void Player::Player_Initialize() {
 	mPlayer.count = 0;
 	mPlayer.image = 0;
 
-	mPlayer.Hitflg = FALSE;
 }
 
 void Player::Player_Update() {
@@ -223,7 +223,7 @@ void Player::Player_Draw(){
 		DrawRotaGraph(mPlayer.x, mPlayer.y, 0.75, 0, mPlayerImage[mPlayer.image], TRUE, FALSE);
 	}
 	else if(mPlayer.Hitflg == TRUE){
-		DxLib_End();
+		DrawString(30, 150, "êGÇÍÇ‹ÇµÇΩ", GetColor(0, 255, 255));
 	}
 	//StageìñÇΩÇËîªíËï\é¶
 	DrawBox(mPlayer.s_left, mPlayer.s_top, mPlayer.s_right, mPlayer.s_bottom, 0x00ff00, FALSE);

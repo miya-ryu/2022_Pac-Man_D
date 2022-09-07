@@ -19,7 +19,7 @@ int stagedata[]{
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 25, 5, 9,26,10, 5,29, 5, 9,26,26,26,10, 5,28, 5, 9,26,10, 5,24,
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 25, 5, 5, 5, 5, 5,29, 5, 5, 5,29, 5, 5, 5,28, 5, 5, 5, 5, 5,24,
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  9,26,26,26,14, 5,29,30,30, 0,29, 0,30,30,28, 5,13,26,26,26,10,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  0, 0, 0, 0,25, 5,29, 0, 0, 5, 0, 0, 0, 0,28, 5,24, 0, 0, 0, 0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  0, 0, 0, 0,25, 5,29, 0, 0, 0, 0, 0, 0, 0,28, 5,24, 0, 0, 0, 0,
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  0, 0, 0, 0,25, 5,29, 0,11,23,23,23,12, 0,28, 5,24, 0, 0, 0, 0,
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 23,23,23,23, 8, 5,29, 0,25, 0, 0, 0,24, 0,28, 5, 7,23,23,23,23,
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  0, 0, 0, 0, 0, 5, 0, 0,25, 0, 0, 0,24, 0, 0, 5, 0, 0, 0, 0, 0,
@@ -123,6 +123,8 @@ void Stage::Stage_Update() {
 					if (r_enemy.absY < 0) {
 						r_enemy.absY = r_enemy.absY * -1;
 					}
+					
+					
 
 					//Xに移動
 					if (r_enemy.absX > r_enemy.absY) {
@@ -154,8 +156,8 @@ void Stage::Stage_Draw() {
 //画像格納処理
 void Stage::Stage_Storage() {
 	//エサ
-	mStageChip[5]  = LoadGraph("images/tiles/dot.png");
-	mStageChip[6]  = LoadGraph("images/tiles/big_dot.png");
+	mStageChip[5] = LoadGraph("images/tiles/dot.png");
+	mStageChip[6] = LoadGraph("images/tiles/big_dot.png");
 	// 二重カーブ
 	mStageChip[7]  = LoadGraph("images/tiles/outercorner_bottom_left.png");
 	mStageChip[8]  = LoadGraph("images/tiles/outercorner_bottom_right.png");
