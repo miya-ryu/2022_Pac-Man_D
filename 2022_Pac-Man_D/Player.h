@@ -32,7 +32,7 @@ public:
 	int count;
 	int image;
 	//Ši”[
-	static const int MoveImage = 11;
+	static const int MoveImage = 12;
 	int mPlayerMoveImage[MoveImage];
 	//“G‚É“–‚½‚Á‚½ƒtƒ‰ƒO
 	bool Hitflg;
