@@ -10,33 +10,33 @@ Stage mStage;
 static int mStageChip[1];
 
 int stagedata[]{
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,12,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 25, 5, 5, 5, 5, 5, 5, 5, 5, 5,29, 5, 5, 5, 5, 5, 5, 5, 5, 5,24,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 25, 5,11,23,12, 5,11,23,12, 5,29, 5,11,23,12, 5,11,23,12, 5,24,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 25, 6,25, 0,24, 5,25, 0,24, 5,29, 5,25, 0,24, 5,25, 0,24, 6,24,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 25, 5, 9,26,10, 5, 9,26,10, 5,29, 5, 9,26,10, 5,9, 26,10, 5,24,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 25, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5,24,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 25, 5,11,23,12, 5,29, 5,11,23,23,23,12, 5,28, 5,11,23,12, 5,24,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 25, 5, 9,26,10, 5,29, 5, 9,26,26,26,10, 5,28, 5, 9,26,10, 5,24,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 25, 5, 5, 5, 5, 5,29, 5, 5, 5,29, 5, 5, 5,28, 5, 5, 5, 5, 5,24,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  9,26,26,26,14, 5,29,30,30, 0,29, 0,30,30,28, 5,13,26,26,26,10,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  0, 0, 0, 0,25, 5,29, 0, 0, 0, 0, 0, 0, 0,28, 5,24, 0, 0, 0, 0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  0, 0, 0, 0,25, 5,29, 0,11,23,23,23,12, 0,28, 5,24, 0, 0, 0, 0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 23,23,23,23, 8, 5,29, 0,25, 0, 0, 0,24, 0,28, 5, 7,23,23,23,23,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  0, 0, 0, 0, 0, 5, 0, 0,25, 0, 0, 0,24, 0, 0, 5, 0, 0, 0, 0, 0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 26,26,26,26,14, 5,29, 0, 9,26,26,26,10, 0,28, 5,13,26,26,26,26,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  0, 0, 0, 0,25, 5,29, 0, 0, 0, 0, 0, 0, 0,28, 5,24, 0, 0, 0, 0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  0, 0, 0, 0,25, 5,29, 0,11,23,23,23,12, 0,28, 5,24, 0, 0, 0, 0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,23,23,23, 8, 5,29, 0, 9,26,26,26,10, 0,28, 5, 7,23,23,23,12,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 25, 5, 5, 5, 5, 5, 5, 5, 5, 5,29, 5, 5, 5, 5, 5, 5, 5, 5, 5,24,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 25, 5,26,26,14, 5,27,27,27, 5,29, 5,27,27,27, 5,13,26,26, 5,24,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 25, 6, 5, 5,25, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5,24, 5, 5, 6,24,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 25,26,14, 5,25, 5,29, 5,11,23,23,23,12, 5,28, 5,24, 5,13,26,24,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 25,23, 8, 5,25, 5,29, 5, 9,26,26,26,10, 5,28, 5,24, 5, 7,23,24,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 25, 5, 5, 5, 5, 5,29, 5, 5, 5,29, 5, 5, 5,28, 5, 5, 5, 5, 5,24,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 25, 5,30,30,30,30,30,30,30, 5,29, 5,30,30,30,30,30,30,30, 5,24,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 25, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5,24,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  9,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,10,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  5, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 6,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,17,17,17,17,17,17,17,17,17,15,17,17,17,17,17,17,17,17,17,10,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,17, 5, 9, 6,17, 5, 9, 6,17,15,17, 5, 9, 6,17, 5, 9, 6,17,10,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,18,11, 0,10,17,11, 0,10,17,15,17,11, 0,10,17,11, 0,10,18,10,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,17, 3,12, 4,17, 3,12, 4,17,15,17, 3,12, 4,17, 3,12, 4,17,10,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,10,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,17, 5, 9, 6,17,15,17, 5, 9, 9, 9, 6,17,14,17, 5, 9, 6,17,10,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,17, 3,12, 4,17,15,17, 3,12,12,12, 4,17,14,17, 3,12, 4,17,10,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,17,17,17,17,17,15,17,17,17,15,17,17,17,14,17,17,17,17,17,10,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  3,12,12,12, 8,17,15,16,16, 0,15, 0,16,16,14,17, 7,12,12,12, 4,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  0, 0, 0, 0,11,17,15, 0, 0, 0, 0, 0, 0, 0,14,17,10, 0, 0, 0, 0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  0, 0, 0, 0,11,17,15, 0, 5, 9, 9, 9, 6, 0,14,17,10, 0, 0, 0, 0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  9, 9, 9, 9, 2,17,15, 0,11, 0, 0, 0,10, 0,14,17, 1, 9, 9, 9, 9,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  0, 0, 0, 0, 0,17, 0, 0,11, 0, 0, 0,10, 0, 0,17, 0, 0, 0, 0, 0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 12,12,12,12, 8,17,15, 0, 3,12,12,12, 4, 0,14,17, 7,12,12,12,12,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  0, 0, 0, 0,11,17,15, 0, 0, 0, 0, 0, 0, 0,14,17,10, 0, 0, 0, 0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  0, 0, 0, 0,11,17,15, 0, 5, 9, 9, 9, 6, 0,14,17,10, 0, 0, 0, 0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  5, 9, 9, 9, 2,17,15, 0, 3,12,12,12, 4, 0,14,17, 1, 9, 9, 9, 6,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,17,17,17,17,17,17,17,17,17,15,17,17,17,17,17,17,17,17,17,10,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,17,12,12, 8,17,13,13,13,17,15,17,13,13,13,17, 7,12,12,17,10,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,18,17,17,11,17,17,17,17,17,17,17,17,17,17,17,10,17,17,18,10,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,12, 8,17,11,17,15,17, 5, 9, 9, 9, 6,17,14,17,10,17, 7,12,10,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11, 9, 2,17,11,17,15,17, 3,12,12,12, 4,17,14,17,10,17, 1, 9,10,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,17,17,17,17,17,15,17,17,17,15,17,17,17,14,17,17,17,17,17,10,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,17,16,16,16,16,16,16,16,17,15,17,16,16,16,16,16,16,16,17,10,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,10,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  3,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12, 4,
 };
 
 //当たり判定
@@ -72,7 +72,7 @@ void Stage::Stage_Initialize() {
 	NUM_STAGE_Y = 27;
 
 	//画像格納
-	NUM_STAGE_IMAGE = 30;
+	NUM_STAGE_IMAGE = 18;
 	mStageChip[NUM_STAGE_IMAGE];
 	Stage::Stage_Storage();
 }
@@ -86,74 +86,79 @@ void Stage::Stage_Update() {
 
 			if (mStageChip[no] != 0) {
 				DrawBox(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, i * SIZE_STAGE_X + SIZE_STAGE_X, j * SIZE_STAGE_Y + SIZE_STAGE_Y, 0xffff00, FALSE);
-				////前回の入力キーがあるかどうか
-				//if (mPlayer.iOldKeyflg == TRUE) {
-				//	//右
-				//	if (mPlayer.iOldmove == 2) {
-				//		if (mPlayer.s_top < i * SIZE_STAGE_Y + SIZE_STAGE_Y  && mPlayer.s_bottom < i * SIZE_STAGE_Y) {
-				//			mPlayer.iNowAngle = 2;
-				//			mPlayer.iOldKeyflg = FALSE;
-				//		}
-				//	}
-				//}
-
+				//前回の入力キーがあるかどうか
+				if (mPlayer.iOldKeyflg == TRUE) {
+					//右
+					if (mPlayer.iOldmove == 2) {
+						if (mPlayer.s_top < i * SIZE_STAGE_Y + SIZE_STAGE_Y && mPlayer.s_bottom < i * SIZE_STAGE_Y) {
+							mPlayer.iNowAngle = 2;
+							mPlayer.iOldKeyflg = FALSE;
+						}
+					}
+				}
 				//Playerの当たり判定
 				if (StageCheckHit(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, mPlayer.s_left, mPlayer.s_top, mPlayer.s_right, mPlayer.s_bottom)) {
 
-					////先行入力受け付け
-					//mPlayer.P_StageHitflg = TRUE;
-					//if (mPlayer.P_StageHitflg == TRUE) {
-					//	if (mPlayer.Angleflg == TRUE) {
-					//		if (mPlayer.iOldAngle == 2) {
-					//			mPlayer.iNowAngle = 2;
-					//		}
-					//		else if (mPlayer.iOldAngle == 3) {
-					//			mPlayer.iNowAngle = 3;
-					//		}
-					//		else if (mPlayer.iOldAngle == 4) {
-					//			mPlayer.iNowAngle = 4;
-					//		}
-					//		else if (mPlayer.iOldAngle == 1) {
-					//			mPlayer.iNowAngle = 1;
-					//		}
-					//		mPlayer.Angleflg = FALSE;
-					//	}
-					//	else if (mPlayer.Angleflg == FALSE) {
-					//		if (mPlayer.iOldAngle == mPlayer.iNowAngle) {
-					//			mPlayer.iOldKeyflg = TRUE;
-					//			if (iNowKey & PAD_INPUT_RIGHT) {
-					//				mPlayer.iOldmove = 2;
-					//			}
-					//			else if (iNowKey & PAD_INPUT_DOWN) {
-					//				mPlayer.iOldmove = 3;
-					//			}
-					//			else if (iNowKey & PAD_INPUT_LEFT) {
-					//				mPlayer.iOldmove = 4;
-					//			}
-					//			else if (iNowKey & PAD_INPUT_UP) {
-					//				mPlayer.iOldmove = 1;
-					//			}
-					//			//Angle処理
-					//			mPlayer.AngleCount++;
+					/*if (mStageChip[no] != 17) {
+						DrawString(950, 300, "当たった", (255, 255, 255));
+						DrawExtendGraph(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, i * SIZE_STAGE_X + SIZE_STAGE_X, j * SIZE_STAGE_Y + SIZE_STAGE_Y, mStageChip[17], FALSE);
+					}*/
 
-					//			//移動
-					//			mPlayer.x = mPlayer.recordX;
-					//			mPlayer.y = mPlayer.recordY;
+					//先行入力受け付け
+					mPlayer.P_StageHitflg = TRUE;
+					if (mPlayer.P_StageHitflg == TRUE) {
+						if (mPlayer.Angleflg == TRUE) {
+							if (mPlayer.iOldAngle == 2) {
+								mPlayer.iNowAngle = 2;
+							}
+							else if (mPlayer.iOldAngle == 3) {
+								mPlayer.iNowAngle = 3;
+							}
+							else if (mPlayer.iOldAngle == 4) {
+								mPlayer.iNowAngle = 4;
+							}
+							else if (mPlayer.iOldAngle == 1) {
+								mPlayer.iNowAngle = 1;
+							}
+							mPlayer.Angleflg = FALSE;
+						}
+						else if (mPlayer.Angleflg == FALSE) {
+							if (mPlayer.iOldAngle == mPlayer.iNowAngle) {
+								mPlayer.iOldKeyflg = TRUE;
+								if (iNowKey & PAD_INPUT_RIGHT) {
+									mPlayer.iOldmove = 2;
+								}
+								else if (iNowKey & PAD_INPUT_DOWN) {
+									mPlayer.iOldmove = 3;
+								}
+								else if (iNowKey & PAD_INPUT_LEFT) {
+									mPlayer.iOldmove = 4;
+								}
+								else if (iNowKey & PAD_INPUT_UP) {
+									mPlayer.iOldmove = 1;
+								}
+								//Angle処理
+								//mPlayer.AngleCount++;
 
-					//			//当たり判定移動
-					//			mPlayer.p_top = mPlayer.recordPtop;
-					//			mPlayer.p_right = mPlayer.recordPright;
-					//			mPlayer.p_bottom = mPlayer.recordPbottom;
-					//			mPlayer.p_left = mPlayer.recordPleft;
+								//移動
+								mPlayer.x = mPlayer.recordX;
+								mPlayer.y = mPlayer.recordY;
 
-					//			mPlayer.s_top = mPlayer.recordSTop;
-					//			mPlayer.s_right = mPlayer.recordSRight;
-					//			mPlayer.s_bottom = mPlayer.recordSBottom;
-					//			mPlayer.s_left = mPlayer.recordSLeft;
+								//当たり判定移動
+								mPlayer.p_top = mPlayer.recordPtop;
+								mPlayer.p_right = mPlayer.recordPright;
+								mPlayer.p_bottom = mPlayer.recordPbottom;
+								mPlayer.p_left = mPlayer.recordPleft;
 
-					//	//ヒットを戻す
-					//	mPlayer.P_StageHitflg = FALSE;
-					//}
+								mPlayer.s_top = mPlayer.recordSTop;
+								mPlayer.s_right = mPlayer.recordSRight;
+								mPlayer.s_bottom = mPlayer.recordSBottom;
+								mPlayer.s_left = mPlayer.recordSLeft;
+							}
+						}
+						//ヒットを戻す
+						mPlayer.P_StageHitflg = FALSE;
+					}
 				}
 
 				//Enemyの当たり判定
@@ -170,15 +175,15 @@ void Stage::Stage_Update() {
 					if (r_enemy.absY <= 0) {
 						r_enemy.absY = r_enemy.absY * -1;
 					}
-					
-					
+
+
 
 					//angle設定
 					if (r_enemy.absX > r_enemy.absY) { // 絶対値Xの値が大きいとき
 						if (mPlayer.x >= r_enemy.x + 1) { // xの値がプレイヤーの方が大きいとき
 							r_enemy.angle = 1; // 右向き
 							r_enemy.E_StageHitflg = FALSE;
-							
+
 						}
 						else if (mPlayer.x <= r_enemy.x - 1) { // xの値がエネミーの方が大きいとき
 							r_enemy.angle = 3; // 左向き
@@ -225,7 +230,11 @@ void Stage::Stage_Draw() {
 	for (int j = 0; j < NUM_STAGE_Y; j++) {
 		for (int i = 0; i < NUM_STAGE_X; i++) {
 			int no = stagedata[i + j * NUM_STAGE_X];
-			//DrawExtendGraph(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, i * SIZE_STAGE_X + SIZE_STAGE_X, j * SIZE_STAGE_Y + SIZE_STAGE_Y, mStageChip[no], FALSE);
+			DrawExtendGraph(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, i * SIZE_STAGE_X + SIZE_STAGE_X, j * SIZE_STAGE_Y + SIZE_STAGE_Y, mStageChip[no], FALSE);
+
+			if (mPlayer.P_StageHitflg == TRUE) {
+				mStageChip[no] = 0;
+			}
 		}
 	}
 
@@ -252,27 +261,27 @@ void Stage::Stage_Draw() {
 //画像格納処理
 void Stage::Stage_Storage() {
 	//エサ
-	mStageChip[5] = LoadGraph("images/tiles/dot.png");
-	mStageChip[6] = LoadGraph("images/tiles/big_dot.png");
+	mStageChip[17] = LoadGraph("images/tiles/dot.png");
+	mStageChip[18] = LoadGraph("images/tiles/big_dot.png");
 	// 二重カーブ
-	mStageChip[7] = LoadGraph("images/tiles/outercorner_bottom_left.png");
-	mStageChip[8] = LoadGraph("images/tiles/outercorner_bottom_right.png");
-	mStageChip[9] = LoadGraph("images/tiles/outercorner_narrow_bottom_left.png");
-	mStageChip[10] = LoadGraph("images/tiles/outercorner_narrow_bottom_right.png");
-	mStageChip[11] = LoadGraph("images/tiles/outercorner_narrow_top_left.png");
-	mStageChip[12] = LoadGraph("images/tiles/outercorner_narrow_top_right.png");
-	mStageChip[13] = LoadGraph("images/tiles/outercorner_top_left.png");
-	mStageChip[14] = LoadGraph("images/tiles/outercorner_top_right.png");
+	mStageChip[1] = LoadGraph("images/tiles/outercorner_bottom_left.png");
+	mStageChip[2] = LoadGraph("images/tiles/outercorner_bottom_right.png");
+	mStageChip[3] = LoadGraph("images/tiles/outercorner_narrow_bottom_left.png");
+	mStageChip[4] = LoadGraph("images/tiles/outercorner_narrow_bottom_right.png");
+	mStageChip[5] = LoadGraph("images/tiles/outercorner_narrow_top_left.png");
+	mStageChip[6] = LoadGraph("images/tiles/outercorner_narrow_top_right.png");
+	mStageChip[7] = LoadGraph("images/tiles/outercorner_top_left.png");
+	mStageChip[8] = LoadGraph("images/tiles/outercorner_top_right.png");
 	// 二重ライン
-	mStageChip[23] = LoadGraph("images/tiles/outerwall_bottom.png");
-	mStageChip[24] = LoadGraph("images/tiles/outerwall_left.png");
-	mStageChip[25] = LoadGraph("images/tiles/outerwall_right.png");
-	mStageChip[26] = LoadGraph("images/tiles/outerwall_top.png");
+	mStageChip[9] = LoadGraph("images/tiles/outerwall_bottom.png");
+	mStageChip[10] = LoadGraph("images/tiles/outerwall_left.png");
+	mStageChip[11] = LoadGraph("images/tiles/outerwall_right.png");
+	mStageChip[12] = LoadGraph("images/tiles/outerwall_top.png");
 	// ライン
-	mStageChip[27] = LoadGraph("images/tiles/wall_bottom.png");
-	mStageChip[28] = LoadGraph("images/tiles/wall_left.png");
-	//mStageChip[29] = LoadGraph("images/tiles/wall_right.png");
-	mStageChip[30] = LoadGraph("images/tiles/wall_top.png");
+	mStageChip[13] = LoadGraph("images/tiles/wall_bottom.png");
+	mStageChip[14] = LoadGraph("images/tiles/wall_left.png");
+	mStageChip[15] = LoadGraph("images/tiles/wall_right.png");
+	mStageChip[16] = LoadGraph("images/tiles/wall_top.png");
 
 	//スコア部分UI
 	mStageUI[0] = LoadGraph("images/title/hi-score.png");
