@@ -1,7 +1,8 @@
 #include "DxLib.h"
 #include "sound.h"
+#include "Player.h"
 
-Sound mSound;
+Sound mSound; 
 
 int numSound = 2;
 
@@ -29,6 +30,17 @@ void Sound::Sound_Handle() {
 void Sound::SoundStart() {
 	Sound_Handle();
 	PlaySoundMem(bgm[numSound], DX_PLAYTYPE_BACK);
+	mSound.Flg = true;
+}
+
+void Sound::SoundUpdate() {
+	if (mSound.Flg == true) {
+		if (mPlayer.Hitflg == TRUE) {			//パックマン敵に当たったときのSE
+			numSound = 14;
+			mSound.SoundStart();
+			mSound.Flg = false;
+		}
+	}
 }
 
 //削除

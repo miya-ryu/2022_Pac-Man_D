@@ -10,6 +10,7 @@ private:
 	int mStageUI[2];
 	int mStageNum[10];
 	int mStagePacman[11];
+	int mStageFruit[13];
 public:
 	int SIZE_STAGE_X;
 	int SIZE_STAGE_Y;
