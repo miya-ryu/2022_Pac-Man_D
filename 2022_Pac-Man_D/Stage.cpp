@@ -84,15 +84,14 @@ void Stage::Stage_Update() {
 		for (int i = 0; i < NUM_STAGE_X; i++) {
 			int no = stagedata[i + j * NUM_STAGE_X];
 
-			if (mStageChip[no] != 0) {
-				DrawBox(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, i * SIZE_STAGE_X + SIZE_STAGE_X, j * SIZE_STAGE_Y + SIZE_STAGE_Y, 0xffff00, FALSE);
+			if (no != 0) {
+				//DrawBox(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, i * SIZE_STAGE_X + SIZE_STAGE_X, j * SIZE_STAGE_Y + SIZE_STAGE_Y, 0xffff00, FALSE);
 				//Playerの当たり判定
 				if (StageCheckHit(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, mPlayer.s_left, mPlayer.s_top, mPlayer.s_right, mPlayer.s_bottom)) {
 
-
-					if (mStageChip[no] == 17) {
-						DrawString(950, 300, "当たっている", (255,255,255));
-						DeleteGraph(mStageChip[17]);
+					// エサを食べる処理
+					if (stagedata[i + j * NUM_STAGE_X] == 17 || stagedata[i + j * NUM_STAGE_X] == 18) {
+						stagedata[i + j * NUM_STAGE_X] = 0;
 					}
 
 					//先行入力受け付け
@@ -150,63 +149,64 @@ void Stage::Stage_Update() {
 						mPlayer.P_StageHitflg = FALSE;
 					}
 				}
+				if (no != 17 && no != 18) {
+					//Enemyの当たり判定
+					if (StageCheckHit(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, r_enemy.left, r_enemy.top, r_enemy.right, r_enemy.bottom)) {
 
-				//Enemyの当たり判定
-				if (StageCheckHit(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, r_enemy.left, r_enemy.top, r_enemy.right, r_enemy.bottom)) {
-
-					// ステージとの当たり判定フラグ
-					r_enemy.E_StageHitflg = TRUE;
-					//前回の座標移動
-					r_enemy.absX = mPlayer.x - r_enemy.x;
-					r_enemy.absY = mPlayer.y - r_enemy.y;
-					//絶対値を求める
-					if (r_enemy.absX <= 0) {
-						r_enemy.absX = r_enemy.absX * -1;
-					}
-					if (r_enemy.absY <= 0) {
-						r_enemy.absY = r_enemy.absY * -1;
-					}
-
-					//angle設定
-					if (r_enemy.absX > r_enemy.absY) { // 絶対値Xの値が大きいとき
-						if (mPlayer.x >= r_enemy.x + 1) { // xの値がプレイヤーの方が大きいとき
-							r_enemy.angle = 1; // 右向き
-							r_enemy.E_StageHitflg = FALSE;
-
+						// ステージとの当たり判定フラグ
+						r_enemy.E_StageHitflg = TRUE;
+						//前回の座標移動
+						r_enemy.absX = mPlayer.x - r_enemy.x;
+						r_enemy.absY = mPlayer.y - r_enemy.y;
+						//絶対値を求める
+						if (r_enemy.absX <= 0) {
+							r_enemy.absX = r_enemy.absX * -1;
 						}
-						else if (mPlayer.x <= r_enemy.x - 1) { // xの値がエネミーの方が大きいとき
-							r_enemy.angle = 3; // 左向き
+						if (r_enemy.absY <= 0) {
+							r_enemy.absY = r_enemy.absY * -1;
 						}
-					}
-					else if (r_enemy.absX < r_enemy.absY) { // 絶対値Yの値が大きいとき
-						if (mPlayer.y >= r_enemy.y + 1) { // yの値がプレイヤーの方が大きいとき
-							r_enemy.angle = 2; // 下向き
-							if (r_enemy.E_StageHitflg == TRUE) {
-								//r_enemy.angle = 1;
+
+						//angle設定
+						if (r_enemy.absX > r_enemy.absY) { // 絶対値Xの値が大きいとき
+							if (mPlayer.x >= r_enemy.x + 1) { // xの値がプレイヤーの方が大きいとき
+								r_enemy.angle = 1; // 右向き
+								r_enemy.E_StageHitflg = FALSE;
+
 							}
-							mPlayer.P_StageHitflg = FALSE;
-						}
-						else if (mPlayer.y <= r_enemy.y - 1) { // yの値がエネミーの方が大きいとき
-							r_enemy.angle = 4; // 上向き
-							if (r_enemy.E_StageHitflg == TRUE) {
-								//r_enemy.angle = 1;
+							else if (mPlayer.x <= r_enemy.x - 1) { // xの値がエネミーの方が大きいとき
+								r_enemy.angle = 3; // 左向き
 							}
-							mPlayer.P_StageHitflg = FALSE;
 						}
+						else if (r_enemy.absX < r_enemy.absY) { // 絶対値Yの値が大きいとき
+							if (mPlayer.y >= r_enemy.y + 1) { // yの値がプレイヤーの方が大きいとき
+								r_enemy.angle = 2; // 下向き
+								if (r_enemy.E_StageHitflg == TRUE) {
+									//r_enemy.angle = 1;
+								}
+								mPlayer.P_StageHitflg = FALSE;
+							}
+							else if (mPlayer.y <= r_enemy.y - 1) { // yの値がエネミーの方が大きいとき
+								r_enemy.angle = 4; // 上向き
+								if (r_enemy.E_StageHitflg == TRUE) {
+									//r_enemy.angle = 1;
+								}
+								mPlayer.P_StageHitflg = FALSE;
+							}
+						}
+
+						//初期化
+						if (r_enemy.angle == 5) {
+							r_enemy.angle = 1;
+						}
+
+						r_enemy.x = r_enemy.recordX;
+						r_enemy.y = r_enemy.recordY;
+
+						r_enemy.right = r_enemy.recordRight;
+						r_enemy.top = r_enemy.recordTop;
+						r_enemy.left = r_enemy.recordLeft;
+						r_enemy.bottom = r_enemy.recordBottom;
 					}
-
-					//初期化
-					if (r_enemy.angle == 5) {
-						r_enemy.angle = 1;
-					}
-
-					r_enemy.x = r_enemy.recordX;
-					r_enemy.y = r_enemy.recordY;
-
-					r_enemy.right = r_enemy.recordRight;
-					r_enemy.top = r_enemy.recordTop;
-					r_enemy.left = r_enemy.recordLeft;
-					r_enemy.bottom = r_enemy.recordBottom;
 				}
 			}
 			else if (mStageChip[i] == 0) {
