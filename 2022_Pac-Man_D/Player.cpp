@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "Input.h"
 #include "Red_Enemy.h"
+#include "sound.h"
 
 Player mPlayer;
 
