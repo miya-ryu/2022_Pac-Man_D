@@ -276,7 +276,22 @@ void Stage::Stage_Draw() {
 	//フルーツ表示
 	int mFruitNum = 0;
 	int FruitX = 900;
-	for (int num = 0; num < 13; num++) {
+	int FruitX_2 = 900;
+
+	for (int num = 0; num == 0; num++) {
+		for (int y = 0; y < 4; y++) {
+			DrawRotaGraph(FruitX, 390, 1.3, 0, mStageFruit[mFruitNum], true, false);
+			FruitX += 40;
+			mFruitNum += 1;
+		}
+		for (int y = 0; y < 4; y++) {
+			DrawRotaGraph(FruitX_2, 420, 1.3, 0, mStageFruit[mFruitNum], true, false);
+			FruitX_2 += 40;
+			mFruitNum += 1;
+		}
+	}
+
+	/*for (int num = 0; num < 13; num++) {
 		if (mFruitNum == 0) {
 			DrawRotaGraph(FruitX, 390, 1.3, 0, mStageFruit[mFruitNum], true, false);
 			FruitX += 40;
@@ -289,7 +304,7 @@ void Stage::Stage_Draw() {
 			DrawRotaGraph(FruitX, 390, 1.3, 0, mStageFruit[mFruitNum], true, false);
 		}
 		mFruitNum += 1;
-	}
+	}*/
 }
 
 //画像格納処理
