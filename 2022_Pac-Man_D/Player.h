@@ -39,7 +39,7 @@ public:
 	//•Ç‚É“–‚½‚Á‚½ƒtƒ‰ƒO
 	bool P_StageHitflg;
 	//Ši”[
-	static const int DeleteImage = 10;
+	static const int DeleteImage = 11;
 	int mPlayerDeleteImage[DeleteImage];
 	//Ž€‚ñ‚¾‚Æ‚«
 	int deletecount;
