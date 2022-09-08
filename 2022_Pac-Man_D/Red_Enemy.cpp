@@ -4,6 +4,27 @@
 
 R_ENEMY r_enemy;
 
+int EnemeyCheckHit(int x1, int y1, int w1, int h1, int x2, int y2, int w2, int h2) {
+	int L1 = x1;		//左
+	int R1 = w1;		//右
+	int L2 = x2;		//左
+	int R2 = w2;		//右
+
+	if (R1 < L2) return 0;
+	if (R2 < L1) return 0;
+
+	int U1 = y1;		//上
+	int D1 = h1;		//下
+	int U2 = y2;		//上
+	int D2 = h2;		//下
+
+	if (D1 < U2) return 0;
+	if (D2 < U1) return 0;
+
+	//当たっている
+	return 1;
+}
+
 void R_ENEMY::R_Initialize() {
 	LoadDivGraph("images/monster.png", 20, 20, 1, 32, 32, images);  // 敵キャラ
 	LoadDivGraph("images/eyes.png", 4, 4, 1, 32, 32, eyesimages);  // 敵キャラの目
@@ -13,6 +34,7 @@ void R_ENEMY::R_Initialize() {
 	r_enemy.image = 0;      // 画像変数
 	r_enemy.eyeimage = 0;   // 目の画像変数
 	r_enemy.E_StageHitflg = FALSE; // 壁との当たり判定フラグ
+	r_enemy.E_EnemeyHitflg = FALSE;
 
 	r_enemy.x = ENEMY_POS_X;
 	r_enemy.y = ENEMY_POS_Y;
@@ -90,6 +112,10 @@ void R_ENEMY::Update() {
 		r_enemy.eyeimage = 0;
 	}
 
+	if (EnemeyCheckHit(mPlayer.p_left, mPlayer.p_top, mPlayer.p_right, mPlayer.p_bottom, r_enemy.left, r_enemy.top, r_enemy.right, r_enemy.bottom)) {
+		r_enemy.E_EnemeyHitflg = TRUE;
+	}
+
 	// アニメーション
 	++count;  // カウント開始
 	if (count >= 8) {  // 値によってアニメーションのスピードが変化する0に近い程速い
@@ -110,7 +136,12 @@ void R_ENEMY::Update() {
 }
 
 void R_ENEMY::Draw() {
-	DrawRotaGraph(r_enemy.x, r_enemy.y, 0.75, 0, images[r_enemy.image], TRUE, FALSE);  // 敵キャラ表示
-	DrawRotaGraph(r_enemy.x, r_enemy.y, 0.75, 0, eyesimages[r_enemy.eyeimage], TRUE, FALSE);  // 敵キャラの目表示
-	DrawBox(r_enemy.left, r_enemy.top, r_enemy.right, r_enemy.bottom, 0x00ffff, FALSE);
+	if (r_enemy.E_EnemeyHitflg == FALSE) {
+		
+		DrawRotaGraph(r_enemy.x, r_enemy.y, 0.75, 0, images[r_enemy.image], TRUE, FALSE);  // 敵キャラ表示
+		DrawRotaGraph(r_enemy.x, r_enemy.y, 0.75, 0, eyesimages[r_enemy.eyeimage], TRUE, FALSE);  // 敵キャラの目表示
+		DrawBox(r_enemy.left, r_enemy.top, r_enemy.right, r_enemy.bottom, 0x00ffff, FALSE);
+	}
+	else if (r_enemy.E_EnemeyHitflg == TRUE) {
+	}
 }

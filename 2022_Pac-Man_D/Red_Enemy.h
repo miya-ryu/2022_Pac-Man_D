@@ -37,6 +37,8 @@ public:
 	bool R_Hitflg;
 	//壁に当たったフラグ
 	bool E_StageHitflg;
+	//プレイヤーに当たった時
+	bool E_EnemeyHitflg;
 };
 
 extern R_ENEMY r_enemy;
