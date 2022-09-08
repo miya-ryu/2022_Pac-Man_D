@@ -86,74 +86,63 @@ void Stage::Stage_Update() {
 
 			if (mStageChip[no] != 0) {
 				DrawBox(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, i * SIZE_STAGE_X + SIZE_STAGE_X, j * SIZE_STAGE_Y + SIZE_STAGE_Y, 0xffff00, FALSE);
-				////前回の入力キーがあるかどうか
-				//if (mPlayer.iOldKeyflg == TRUE) {
-				//	//右
-				//	if (mPlayer.iOldmove == 2) {
-				//		if (mPlayer.s_top < i * SIZE_STAGE_Y + SIZE_STAGE_Y  && mPlayer.s_bottom < i * SIZE_STAGE_Y) {
-				//			mPlayer.iNowAngle = 2;
-				//			mPlayer.iOldKeyflg = FALSE;
-				//		}
-				//	}
-				//}
-
 				//Playerの当たり判定
 				if (StageCheckHit(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, mPlayer.s_left, mPlayer.s_top, mPlayer.s_right, mPlayer.s_bottom)) {
 
-					////先行入力受け付け
-					//mPlayer.P_StageHitflg = TRUE;
-					//if (mPlayer.P_StageHitflg == TRUE) {
-					//	if (mPlayer.Angleflg == TRUE) {
-					//		if (mPlayer.iOldAngle == 2) {
-					//			mPlayer.iNowAngle = 2;
-					//		}
-					//		else if (mPlayer.iOldAngle == 3) {
-					//			mPlayer.iNowAngle = 3;
-					//		}
-					//		else if (mPlayer.iOldAngle == 4) {
-					//			mPlayer.iNowAngle = 4;
-					//		}
-					//		else if (mPlayer.iOldAngle == 1) {
-					//			mPlayer.iNowAngle = 1;
-					//		}
-					//		mPlayer.Angleflg = FALSE;
-					//	}
-					//	else if (mPlayer.Angleflg == FALSE) {
-					//		if (mPlayer.iOldAngle == mPlayer.iNowAngle) {
-					//			mPlayer.iOldKeyflg = TRUE;
-					//			if (iNowKey & PAD_INPUT_RIGHT) {
-					//				mPlayer.iOldmove = 2;
-					//			}
-					//			else if (iNowKey & PAD_INPUT_DOWN) {
-					//				mPlayer.iOldmove = 3;
-					//			}
-					//			else if (iNowKey & PAD_INPUT_LEFT) {
-					//				mPlayer.iOldmove = 4;
-					//			}
-					//			else if (iNowKey & PAD_INPUT_UP) {
-					//				mPlayer.iOldmove = 1;
-					//			}
-					//			//Angle処理
-					//			mPlayer.AngleCount++;
+					//先行入力受け付け
+					mPlayer.P_StageHitflg = TRUE;
+					if (mPlayer.P_StageHitflg == TRUE) {
+						if (mPlayer.Angleflg == TRUE) {
+							if (mPlayer.iOldAngle == 2) {
+								mPlayer.iNowAngle = 2;
+							}
+							else if (mPlayer.iOldAngle == 3) {
+								mPlayer.iNowAngle = 3;
+							}
+							else if (mPlayer.iOldAngle == 4) {
+								mPlayer.iNowAngle = 4;
+							}
+							else if (mPlayer.iOldAngle == 1) {
+								mPlayer.iNowAngle = 1;
+							}
+							mPlayer.Angleflg = FALSE;
+						}
+						else if (mPlayer.Angleflg == FALSE) {
+							if (mPlayer.iOldAngle == mPlayer.iNowAngle) {
+								mPlayer.iOldKeyflg = TRUE;
+								if (iNowKey & PAD_INPUT_RIGHT) {
+									mPlayer.iOldmove = 2;
+								}
+								else if (iNowKey & PAD_INPUT_DOWN) {
+									mPlayer.iOldmove = 3;
+								}
+								else if (iNowKey & PAD_INPUT_LEFT) {
+									mPlayer.iOldmove = 4;
+								}
+								else if (iNowKey & PAD_INPUT_UP) {
+									mPlayer.iOldmove = 1;
+								}
+							}
+						}
 
-					//			//移動
-					//			mPlayer.x = mPlayer.recordX;
-					//			mPlayer.y = mPlayer.recordY;
+						//移動
+						mPlayer.x = mPlayer.recordX;
+						mPlayer.y = mPlayer.recordY;
 
-					//			//当たり判定移動
-					//			mPlayer.p_top = mPlayer.recordPtop;
-					//			mPlayer.p_right = mPlayer.recordPright;
-					//			mPlayer.p_bottom = mPlayer.recordPbottom;
-					//			mPlayer.p_left = mPlayer.recordPleft;
+						//当たり判定移動
+						mPlayer.p_top = mPlayer.recordPtop;
+						mPlayer.p_right = mPlayer.recordPright;
+						mPlayer.p_bottom = mPlayer.recordPbottom;
+						mPlayer.p_left = mPlayer.recordPleft;
 
-					//			mPlayer.s_top = mPlayer.recordSTop;
-					//			mPlayer.s_right = mPlayer.recordSRight;
-					//			mPlayer.s_bottom = mPlayer.recordSBottom;
-					//			mPlayer.s_left = mPlayer.recordSLeft;
+						mPlayer.s_top = mPlayer.recordSTop;
+						mPlayer.s_right = mPlayer.recordSRight;
+						mPlayer.s_bottom = mPlayer.recordSBottom;
+						mPlayer.s_left = mPlayer.recordSLeft;
 
-					//	//ヒットを戻す
-					//	mPlayer.P_StageHitflg = FALSE;
-					//}
+						//ヒットを戻す
+						mPlayer.P_StageHitflg = FALSE;
+					}
 				}
 
 				//Enemyの当たり判定
@@ -211,6 +200,27 @@ void Stage::Stage_Update() {
 					r_enemy.top = r_enemy.recordTop;
 					r_enemy.left = r_enemy.recordLeft;
 					r_enemy.bottom = r_enemy.recordBottom;
+				}
+			}
+			else if (mStageChip[i] == 0) {
+				//前回の入力キーがあるかどうか
+				if (mPlayer.iOldKeyflg == TRUE) {
+					////右
+					//if (mPlayer.iOldmove == 2) {
+					//	if (mPlayer.s_top < i * SIZE_STAGE_Y + SIZE_STAGE_Y && mPlayer.s_bottom < i * SIZE_STAGE_Y) {
+					//		mPlayer.iNowAngle = 2;
+					//		mPlayer.iOldKeyflg = FALSE;
+					//	}
+					//}
+					////下
+					//if (mPlayer.iOldmove == 3) {
+					//	if (mPlayer.s_)
+					//}
+					////左
+					//if (mPlayer.) {
+
+					//}
+					////上
 				}
 			}
 		}
