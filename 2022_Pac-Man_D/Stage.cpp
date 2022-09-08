@@ -89,6 +89,12 @@ void Stage::Stage_Update() {
 				//Playerの当たり判定
 				if (StageCheckHit(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, mPlayer.s_left, mPlayer.s_top, mPlayer.s_right, mPlayer.s_bottom)) {
 
+
+					if (mStageChip[no] == 17) {
+						DrawString(950, 300, "当たっている", (255,255,255));
+						DeleteGraph(mStageChip[17]);
+					}
+
 					//先行入力受け付け
 					mPlayer.P_StageHitflg = TRUE;
 					if (mPlayer.P_StageHitflg == TRUE) {
@@ -147,6 +153,7 @@ void Stage::Stage_Update() {
 
 				//Enemyの当たり判定
 				if (StageCheckHit(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, r_enemy.left, r_enemy.top, r_enemy.right, r_enemy.bottom)) {
+
 					// ステージとの当たり判定フラグ
 					r_enemy.E_StageHitflg = TRUE;
 					//前回の座標移動
@@ -159,8 +166,6 @@ void Stage::Stage_Update() {
 					if (r_enemy.absY <= 0) {
 						r_enemy.absY = r_enemy.absY * -1;
 					}
-
-
 
 					//angle設定
 					if (r_enemy.absX > r_enemy.absY) { // 絶対値Xの値が大きいとき
@@ -236,10 +241,6 @@ void Stage::Stage_Draw() {
 		for (int i = 0; i < NUM_STAGE_X; i++) {
 			int no = stagedata[i + j * NUM_STAGE_X];
 			DrawExtendGraph(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, i * SIZE_STAGE_X + SIZE_STAGE_X, j * SIZE_STAGE_Y + SIZE_STAGE_Y, mStageChip[no], FALSE);
-
-			if (mPlayer.P_StageHitflg == TRUE) {
-				mStageChip[no] = 0;
-			}
 		}
 	}
 
