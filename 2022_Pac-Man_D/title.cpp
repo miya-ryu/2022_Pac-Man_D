@@ -14,7 +14,7 @@ void Title::Title_Update() {
 	//	SceneMgr_ChangeScene(eScene_Game); //シーンをゲーム画面に変更
 	//	DeleteGraph(title);
 	//}
-	if (CheckHitKey(KEY_INPUT_SPACE) != 0) { //Zキーが押されていたら
+	if (iNowKey & PAD_INPUT_B) { //Zキーが押されていたら
 		switch (MenuNumber) { //シーンによって処理を分岐
 		case 0: //現在の画面がメニューなら
 			SceneMgr_ChangeScene(eScene_Game); //シーンをゲーム画面に変更

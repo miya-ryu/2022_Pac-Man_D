@@ -22,6 +22,7 @@ void Game::Game_Initialize() {
 void Game::Game_Update() {
 	mPlayer.Player_Update();
 	r_enemy.Update();
+	mSound.SoundUpdate();
 	//p_enemy.Update();
 	//b_enemy.Update();
 	//o_enemy.Update();

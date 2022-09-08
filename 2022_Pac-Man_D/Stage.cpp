@@ -248,18 +248,46 @@ void Stage::Stage_Draw() {
 	DrawGraph(930, 130, mStageUI[1], true);			//１up
 
 	//ハイスコア数字表示   初期
+	int hnumX = 950;
+	for (int cont = 0; cont < 6; cont++) {
+		DrawGraph(hnumX, 70, mStageNum[0], true);
+		hnumX += 32;
+	}
+
+	//1up数字表示   初期
 	int numX = 950;
 	for (int cont = 0; cont < 6; cont++) {
-		DrawGraph(numX, 70, mStageNum[0], true);
+		DrawGraph(numX, 180, mStageNum[0], true);
 		numX += 32;
 	}
 
 	//パックマン残機表示
 	int pacX = 920;
-	for (int num = 0; num < 3; num++) {
+	int life = 2;
+	if (mPlayer.Hitflg == TRUE) {
+		life -= 1;
+	}
+	for (int num = 0; num < life; num++) {
 		DrawRotaGraph(pacX, 550, 1.8, 0, mStagePacman[10], TRUE, FALSE);
 		pacX += 60;
+	}
 
+	//フルーツ表示
+	int mFruitNum = 0;
+	int FruitX = 900;
+	for (int num = 0; num < 13; num++) {
+		if (mFruitNum == 0) {
+			DrawRotaGraph(FruitX, 390, 1.3, 0, mStageFruit[mFruitNum], true, false);
+			FruitX += 40;
+		}
+		if (mFruitNum % 2 != 0) {
+			DrawRotaGraph(FruitX, 390, 1.3, 0, mStageFruit[mFruitNum], true, false);
+			FruitX += 40;
+		}
+		if (mFruitNum == 12) {
+			DrawRotaGraph(FruitX, 390, 1.3, 0, mStageFruit[mFruitNum], true, false);
+		}
+		mFruitNum += 1;
 	}
 }
 
@@ -289,8 +317,9 @@ void Stage::Stage_Storage() {
 	mStageChip[16] = LoadGraph("images/tiles/wall_top.png");
 
 	//スコア部分UI
-	mStageUI[0] = LoadGraph("images/title/hi-score.png");
-	mStageUI[1] = LoadGraph("images/title/1up.png");
-	LoadDivGraph("images/title/num.png", 10, 10, 1, 30, 30, mStageNum);
-	LoadDivGraph("images/pacman.png", 11, 11, 1, 32, 32, mStagePacman);
+	mStageUI[0] = LoadGraph("images/title/hi-score.png");	//ハイスコア文字
+	mStageUI[1] = LoadGraph("images/title/1up.png");		//１up文字
+	LoadDivGraph("images/title/num.png", 10, 10, 1, 32, 32, mStageNum);	//数字
+	LoadDivGraph("images/pacman.png", 11, 11, 1, 32, 32, mStagePacman);	//パックマン
+	LoadDivGraph("images/fruit.png", 13, 13, 1, 32, 32, mStageFruit);	//フルーツ
 }
