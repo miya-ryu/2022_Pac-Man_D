@@ -26,7 +26,7 @@ public:
 	bool AngleChange;
 	bool Angleflg;
 	bool iOldKeyflg;	//前回のキーフラグ
-	int iOldmove;
+	bool MoveX, MoveY;
 
 	int move;
 	int count;

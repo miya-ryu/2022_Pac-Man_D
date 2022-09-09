@@ -77,8 +77,9 @@ void Player::Player_Initialize() {
 	mPlayer.count = 0;
 	mPlayer.image = 0;
 
-	mPlayer.Hitflg = FALSE;
+	//プレイヤー当たり判定処理
 	mPlayer.P_StageHitflg = FALSE;
+	mPlayer.Hitflg = FALSE;
 	mPlayer.Angleflg = FALSE;
 	mPlayer.iOldKeyflg = FALSE;
 }
@@ -123,37 +124,44 @@ void Player::Player_Update() {
 	
 	//エネミーとの当たり判定
 	if (PlayerCheckHit(mPlayer.p_left, mPlayer.p_top, mPlayer.p_right, mPlayer.p_bottom, r_enemy.left, r_enemy.top,r_enemy.right,r_enemy.bottom)) {
-		mPlayer.Hitflg = TRUE;
+		//mPlayer.Hitflg = TRUE;
 	}
 
-	//移動処理
-	//右
-	if (iNowKey & PAD_INPUT_RIGHT) {
-		//前回のアングル格納
-		mPlayer.iOldAngle = mPlayer.iNowAngle;
-		mPlayer.Angleflg = TRUE;
-		mPlayer.iNowAngle = 2;
+	//キー入力処理
+	//壁に当たっていなかったら
+	if (mPlayer.P_StageHitflg == FALSE) {
+		//右
+		if (iNowKey & PAD_INPUT_RIGHT) {
+			mPlayer.iNowAngle = 2;
+		}
+		//左
+		else if (iNowKey & PAD_INPUT_LEFT) {
+			mPlayer.iNowAngle = 4;
+		}
+		//上
+		else if (iNowKey & PAD_INPUT_UP) {
+			mPlayer.iNowAngle = 1;
+		}
+		//下
+		else if (iNowKey & PAD_INPUT_DOWN) {
+			mPlayer.iNowAngle = 3;
+		}
 	}
-	//左
-	else if (iNowKey & PAD_INPUT_LEFT) {
-		//前回のアングル格納
-		mPlayer.iOldAngle = mPlayer.iNowAngle;
-		mPlayer.Angleflg = TRUE;
-		mPlayer.iNowAngle = 4;
-	}
-	//上
-	else if (iNowKey & PAD_INPUT_UP) {
-		//前回のアングル格納
-		mPlayer.iOldAngle = mPlayer.iNowAngle;
-		mPlayer.Angleflg = TRUE;
-		mPlayer.iNowAngle = 1;
-	}
-	//下
-	else if (iNowKey & PAD_INPUT_DOWN) {
-		//前回のアングル格納
-		mPlayer.iOldAngle = mPlayer.iNowAngle;
-		mPlayer.Angleflg = TRUE;
-		mPlayer.iNowAngle = 3;
+	//壁に当たっている状態
+	else if (mPlayer.P_StageHitflg == TRUE) {
+		/*mPlayer.Angleflg = TRUE;
+		if (iNowKey & PAD_INPUT_RIGHT) {
+			mPlayer.iOldAngle = 2;
+		}
+		else if (iNowKey & PAD_INPUT_RIGHT) {
+			mPlayer.iOldAngle = 4;
+		}
+		else if (iNowKey & PAD_INPUT_RIGHT) {
+			mPlayer.iOldAngle = 1;
+		}
+		else if (iNowKey & PAD_INPUT_RIGHT) {
+			mPlayer.iOldAngle = 3;
+		}*/
 	}
 
 	//移動
@@ -232,5 +240,5 @@ void Player::Player_Draw(){
 	//Stage当たり判定表示
 	DrawBox(mPlayer.s_left, mPlayer.s_top, mPlayer.s_right, mPlayer.s_bottom, 0x00ff00, FALSE);
 	//Center当たり判定表示
-	DrawBox(mPlayer.p_left, mPlayer.p_top, mPlayer.p_right, mPlayer.p_bottom, 0xff00ff, TRUE);
+	//DrawBox(mPlayer.p_left, mPlayer.p_top, mPlayer.p_right, mPlayer.p_bottom, 0xff00ff, TRUE);
 }
