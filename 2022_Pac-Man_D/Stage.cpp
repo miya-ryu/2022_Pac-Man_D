@@ -75,6 +75,8 @@ void Stage::Stage_Initialize() {
 	NUM_STAGE_IMAGE = 18;
 	mStageChip[NUM_STAGE_IMAGE];
 	Stage::Stage_Storage();
+
+	StartFlg = true;
 }
 
 //更新処理
@@ -244,6 +246,15 @@ void Stage::Stage_Draw() {
 		}
 	}
 
+	//player・readyの表示
+	DrawRotaGraph(610, 260, 0.8, 0, mStageUI[2], TRUE, false);	//player
+	DrawRotaGraph(615, 370, 0.8, 0, mStageUI[3], TRUE, false);	//ready
+	if (mStage.StartFlg == true) {
+		WaitTimer(3000);
+		DeleteGraph(mStage.mStageUI[2]);
+		mStage.StartFlg == false;
+	}
+
 	//スコア表示
 	DrawGraph(870, 20, mStageUI[0], true);			//ハイスコア
 	DrawGraph(930, 130, mStageUI[1], true);			//１up
@@ -290,21 +301,6 @@ void Stage::Stage_Draw() {
 			mFruitNum += 1;
 		}
 	}
-
-	/*for (int num = 0; num < 13; num++) {
-		if (mFruitNum == 0) {
-			DrawRotaGraph(FruitX, 390, 1.3, 0, mStageFruit[mFruitNum], true, false);
-			FruitX += 40;
-		}
-		if (mFruitNum % 2 != 0) {
-			DrawRotaGraph(FruitX, 390, 1.3, 0, mStageFruit[mFruitNum], true, false);
-			FruitX += 40;
-		}
-		if (mFruitNum == 12) {
-			DrawRotaGraph(FruitX, 390, 1.3, 0, mStageFruit[mFruitNum], true, false);
-		}
-		mFruitNum += 1;
-	}*/
 }
 
 //画像格納処理
@@ -335,6 +331,9 @@ void Stage::Stage_Storage() {
 	//スコア部分UI
 	mStageUI[0] = LoadGraph("images/title/hi-score.png");	//ハイスコア文字
 	mStageUI[1] = LoadGraph("images/title/1up.png");		//１up文字
+	mStageUI[2] = LoadGraph("images/title/PLAYER.png");		//player文字
+	mStageUI[3] = LoadGraph("images/title/READY.png");		//ready文字
+	mStageUI[4] = LoadGraph("images/title/GAMEOVER.png");	//GameOver文字
 	LoadDivGraph("images/title/num.png", 10, 10, 1, 32, 32, mStageNum);	//数字
 	LoadDivGraph("images/pacman.png", 11, 11, 1, 32, 32, mStagePacman);	//パックマン
 	LoadDivGraph("images/fruit.png", 13, 13, 1, 32, 32, mStageFruit);	//フルーツ

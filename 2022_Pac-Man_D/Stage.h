@@ -7,11 +7,13 @@ private:
 	int NUM_STAGE_Y;
 	int NUM_STAGE_IMAGE;
 	//int mStageChip[];
-	int mStageUI[2];
+	//int mStageUI[5];
 	int mStageNum[10];
 	int mStagePacman[11];
 	int mStageFruit[13];
 public:
+	int mStageUI[5];
+	int StartFlg = false;
 	int SIZE_STAGE_X;
 	int SIZE_STAGE_Y;
 	void Stage_Initialize();
