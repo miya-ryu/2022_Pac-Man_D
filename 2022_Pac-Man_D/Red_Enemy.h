@@ -19,7 +19,7 @@ public:
 	static const int MaxEyeImage = 4;
 	int images[MaxImage];
 	int eyesimages[MaxEyeImage];
-	int image, eyeimage, Hitimage;
+	int image, eyeimage, izikeimage;
 	// 敵に関する変数
 	int x, y, x1, y1;
 	int absX, absY;
@@ -34,7 +34,8 @@ public:
 	int w, h;	// 幅 w 高さ h;
 	int CheckHit;
 	// イジケモンスター状態
-	bool R_Hitflg;
+	bool R_Hitflg, ER_Hitflg;
+	int E_count, EE_count;
 	//壁に当たったフラグ
 	bool E_StageHitflg;
 	//プレイヤーに当たった時

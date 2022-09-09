@@ -21,7 +21,7 @@ int stagedata[]{
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,17,17,17,17,17,15,17,17,17,15,17,17,17,14,17,17,17,17,17,10,
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  3,12,12,12, 8,17,15,16,16, 0,15, 0,16,16,14,17, 7,12,12,12, 4,
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  0, 0, 0, 0,11,17,15, 0, 0, 0, 0, 0, 0, 0,14,17,10, 0, 0, 0, 0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  0, 0, 0, 0,11,17,15, 0, 5, 9, 9, 9, 6, 0,14,17,10, 0, 0, 0, 0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  0, 0, 0, 0,11,17,15, 0, 5, 9,19, 9, 6, 0,14,17,10, 0, 0, 0, 0,
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  9, 9, 9, 9, 2,17,15, 0,11, 0, 0, 0,10, 0,14,17, 1, 9, 9, 9, 9,
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  0, 0, 0, 0, 0,17, 0, 0,11, 0, 0, 0,10, 0, 0,17, 0, 0, 0, 0, 0,
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 12,12,12,12, 8,17,15, 0, 3,12,12,12, 4, 0,14,17, 7,12,12,12,12,
@@ -30,7 +30,7 @@ int stagedata[]{
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  5, 9, 9, 9, 2,17,15, 0, 3,12,12,12, 4, 0,14,17, 1, 9, 9, 9, 6,
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,17,17,17,17,17,17,17,17,17,15,17,17,17,17,17,17,17,17,17,10,
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,17,12,12, 8,17,13,13,13,17,15,17,13,13,13,17, 7,12,12,17,10,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,18,17,17,11,17,17,17,17,17,17,17,17,17,17,17,10,17,17,18,10,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,18,17,17,11,17,17,17,17,17, 0,17,17,17,17,17,10,17,17,18,10,
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,12, 8,17,11,17,15,17, 5, 9, 9, 9, 6,17,14,17,10,17, 7,12,10,
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11, 9, 2,17,11,17,15,17, 3,12,12,12, 4,17,14,17,10,17, 1, 9,10,
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,17,17,17,17,17,15,17,17,17,15,17,17,17,14,17,17,17,17,17,10,
@@ -72,7 +72,7 @@ void Stage::Stage_Initialize() {
 	NUM_STAGE_Y = 27;
 
 	//画像格納
-	NUM_STAGE_IMAGE = 18;
+	NUM_STAGE_IMAGE = 19;
 	mStageChip[NUM_STAGE_IMAGE];
 	Stage::Stage_Storage();
 }
@@ -90,8 +90,12 @@ void Stage::Stage_Update() {
 				if (StageCheckHit(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, mPlayer.s_left, mPlayer.s_top, mPlayer.s_right, mPlayer.s_bottom)) {
 
 					// エサを食べる処理
-					if (stagedata[i + j * NUM_STAGE_X] == 17 || stagedata[i + j * NUM_STAGE_X] == 18) {
+					if (stagedata[i + j * NUM_STAGE_X] == 17) {
 						stagedata[i + j * NUM_STAGE_X] = 0;
+					}
+					else if (stagedata[i + j * NUM_STAGE_X] == 18) {
+						stagedata[i + j * NUM_STAGE_X] = 0;
+						r_enemy.R_Hitflg = TRUE;
 					}
 
 					//先行入力受け付け
@@ -170,8 +174,6 @@ void Stage::Stage_Update() {
 						if (r_enemy.absX > r_enemy.absY) { // 絶対値Xの値が大きいとき
 							if (mPlayer.x >= r_enemy.x + 1) { // xの値がプレイヤーの方が大きいとき
 								r_enemy.angle = 1; // 右向き
-								r_enemy.E_StageHitflg = FALSE;
-
 							}
 							else if (mPlayer.x <= r_enemy.x - 1) { // xの値がエネミーの方が大きいとき
 								r_enemy.angle = 3; // 左向き
@@ -180,17 +182,9 @@ void Stage::Stage_Update() {
 						else if (r_enemy.absX < r_enemy.absY) { // 絶対値Yの値が大きいとき
 							if (mPlayer.y >= r_enemy.y + 1) { // yの値がプレイヤーの方が大きいとき
 								r_enemy.angle = 2; // 下向き
-								if (r_enemy.E_StageHitflg == TRUE) {
-									//r_enemy.angle = 1;
-								}
-								mPlayer.P_StageHitflg = FALSE;
 							}
 							else if (mPlayer.y <= r_enemy.y - 1) { // yの値がエネミーの方が大きいとき
 								r_enemy.angle = 4; // 上向き
-								if (r_enemy.E_StageHitflg == TRUE) {
-									//r_enemy.angle = 1;
-								}
-								mPlayer.P_StageHitflg = FALSE;
 							}
 						}
 
@@ -309,9 +303,6 @@ void Stage::Stage_Draw() {
 
 //画像格納処理
 void Stage::Stage_Storage() {
-	//エサ
-	mStageChip[17] = LoadGraph("images/tiles/dot.png");
-	mStageChip[18] = LoadGraph("images/tiles/big_dot.png");
 	// 二重カーブ
 	mStageChip[1] = LoadGraph("images/tiles/outercorner_bottom_left.png");
 	mStageChip[2] = LoadGraph("images/tiles/outercorner_bottom_right.png");
@@ -331,6 +322,11 @@ void Stage::Stage_Storage() {
 	mStageChip[14] = LoadGraph("images/tiles/wall_left.png");
 	mStageChip[15] = LoadGraph("images/tiles/wall_right.png");
 	mStageChip[16] = LoadGraph("images/tiles/wall_top.png");
+	// エサ
+	mStageChip[17] = LoadGraph("images/tiles/dot.png");
+	mStageChip[18] = LoadGraph("images/tiles/big_dot.png");
+	// ドア
+	mStageChip[19] = LoadGraph("images/tiles/door.png");
 
 	//スコア部分UI
 	mStageUI[0] = LoadGraph("images/title/hi-score.png");	//ハイスコア文字
