@@ -9,8 +9,7 @@ class R_ENEMY {
 private:
 
 public:
-	~R_ENEMY();  // c言語のFInalizeと同じ処理
-	void R_Initialize();
+	void Initialize();
 	void Update();
 	void Draw();
 
@@ -19,7 +18,7 @@ public:
 	static const int MaxEyeImage = 4;
 	int images[MaxImage];
 	int eyesimages[MaxEyeImage];
-	int image, eyeimage, izikeimage;
+	int image, eyeimage, izikeimage, e_izikeimage;
 	// 敵に関する変数
 	int x, y, x1, y1;
 	int absX, absY;
@@ -35,7 +34,7 @@ public:
 	int CheckHit;
 	// イジケモンスター状態
 	bool R_Hitflg, ER_Hitflg;
-	int E_count, EE_count;
+	int E_count;
 	//壁に当たったフラグ
 	bool E_StageHitflg;
 	//プレイヤーに当たった時

@@ -25,20 +25,21 @@ int EnemeyCheckHit(int x1, int y1, int w1, int h1, int x2, int y2, int w2, int h
 	return 1;
 }
 
-void R_ENEMY::R_Initialize() {
+void R_ENEMY::Initialize() {
 	LoadDivGraph("images/monster.png", 20, 20, 1, 32, 32, images);  // 敵キャラ
 	LoadDivGraph("images/eyes.png", 4, 4, 1, 32, 32, eyesimages);  // 敵キャラの目
 
-	r_enemy.speed = 1;      // 移動速度
-	r_enemy.count = 0;      // アニメーションカウント
-	r_enemy.E_count = 0;    // イジケ状態カウント
-	r_enemy.EE_count = 0;   // イジケ状態最終カウント
-	r_enemy.image = 0;      // 画像変数
-	r_enemy.eyeimage = 0;   // 目の画像変数
-	r_enemy.izikeimage = 16;// イジケ状態の画像変数
+	r_enemy.speed = 1;             // 移動速度
+	r_enemy.count = 0;             // アニメーションカウント
+	r_enemy.E_count = 0;           // イジケ状態カウント
+	r_enemy.image = 0;             // 画像変数
+	r_enemy.eyeimage = 0;          // 目の画像変数
+	r_enemy.izikeimage = 16;       // イジケ状態の画像変数
+	r_enemy.e_izikeimage = 16;     // イジケ状態点滅の画像変数
 	r_enemy.E_StageHitflg = FALSE; // 壁との当たり判定フラグ
 	r_enemy.E_EnemeyHitflg = FALSE;// プレイヤーとエネミーの当たり判定フラグ
-	r_enemy.R_Hitflg = FALSE; // イジケ状態判定フラグ
+	r_enemy.R_Hitflg = FALSE;      // イジケ状態判定フラグ
+	r_enemy.ER_Hitflg = FALSE;     // イジケ状態点滅フラグ
 
 	r_enemy.x = ENEMY_POS_X;
 	r_enemy.y = ENEMY_POS_Y;
@@ -61,10 +62,6 @@ void R_ENEMY::R_Initialize() {
 	r_enemy.recordLeft = r_enemy.left;
 }
 
-R_ENEMY::~R_ENEMY() {
-	//DeleteGraph(images[0]);
-}
-
 void R_ENEMY::Update() {
 	//前回の座標取得
 	r_enemy.recordX = r_enemy.x;
@@ -76,46 +73,82 @@ void R_ENEMY::Update() {
 	r_enemy.recordLeft = r_enemy.left;
 
 	// プレイヤーを追いかける処理
-	//右向き
-	if (angle == 1) {
-		r_enemy.x += r_enemy.speed;
+	if (r_enemy.R_Hitflg == FALSE) { // パワーエサを取っていない時
+		//右向き
+		if (angle == 1) {
+			r_enemy.x += r_enemy.speed;
 
-		//当たり判定
-		r_enemy.left += r_enemy.speed;
-		r_enemy.right += r_enemy.speed;
+			//当たり判定
+			r_enemy.left += r_enemy.speed;
+			r_enemy.right += r_enemy.speed;
 
-		r_enemy.eyeimage = 1;
+			r_enemy.eyeimage = 1;
+		}
+		//下向き
+		else if (angle == 2) {
+			r_enemy.y += r_enemy.speed;
+
+			//当たり判定
+			r_enemy.top += r_enemy.speed;
+			r_enemy.bottom += r_enemy.speed;
+
+			r_enemy.eyeimage = 2;
+		}
+		//左向き
+		else if (angle == 3) {
+			r_enemy.x -= r_enemy.speed;
+
+			r_enemy.left -= r_enemy.speed;
+			r_enemy.right -= r_enemy.speed;
+
+			r_enemy.eyeimage = 3;
+		}
+		//上向き
+		else if (angle == 4) {
+			r_enemy.y -= r_enemy.speed;
+
+			//当たり判定
+			r_enemy.top -= r_enemy.speed;
+			r_enemy.bottom -= r_enemy.speed;
+
+			r_enemy.eyeimage = 0;
+		}
 	}
-	//下向き
-	else if (angle == 2) {
-		r_enemy.y += r_enemy.speed;
+	else if (r_enemy.R_Hitflg == TRUE) { // パワーエサを取った時
+		//右向き
+		if (angle == 1) {
+			r_enemy.x -= r_enemy.speed;
 
-		//当たり判定
-		r_enemy.top += r_enemy.speed;
-		r_enemy.bottom += r_enemy.speed;
+			//当たり判定
+			r_enemy.left -= r_enemy.speed;
+			r_enemy.right -= r_enemy.speed;
+		}
+		//下向き
+		else if (angle == 2) {
+			r_enemy.y -= r_enemy.speed;
 
-		r_enemy.eyeimage = 2;
+			//当たり判定
+			r_enemy.top -= r_enemy.speed;
+			r_enemy.bottom -= r_enemy.speed;
+		}
+		//左向き
+		else if (angle == 3) {
+			r_enemy.x += r_enemy.speed;
+
+			r_enemy.left += r_enemy.speed;
+			r_enemy.right += r_enemy.speed;
+		}
+		//上向き
+		else if (angle == 4) {
+			r_enemy.y += r_enemy.speed;
+
+			//当たり判定
+			r_enemy.top += r_enemy.speed;
+			r_enemy.bottom += r_enemy.speed;
+		}
 	}
-	//左向き
-	else if (angle == 3) {
-		r_enemy.x -= r_enemy.speed;
 
-		r_enemy.left -= r_enemy.speed;
-		r_enemy.right -= r_enemy.speed;
-
-		r_enemy.eyeimage = 3;
-	}
-	//上向き
-	else if (angle == 4) {
-		r_enemy.y -= r_enemy.speed;
-
-		//当たり判定
-		r_enemy.top -= r_enemy.speed;
-		r_enemy.bottom -= r_enemy.speed;
-
-		r_enemy.eyeimage = 0;
-	}
-
+	// プレイヤーとエネミーの当たり判定
 	if (EnemeyCheckHit(mPlayer.p_left, mPlayer.p_top, mPlayer.p_right, mPlayer.p_bottom, r_enemy.left, r_enemy.top, r_enemy.right, r_enemy.bottom)) {
 		r_enemy.E_EnemeyHitflg = TRUE;
 	}
@@ -125,21 +158,22 @@ void R_ENEMY::Update() {
 	if (count >= 8) {  // 値によってアニメーションのスピードが変化する0に近い程速い
 		r_enemy.image++;
 		r_enemy.izikeimage++;
+		r_enemy.e_izikeimage++;
 		count = 0;  // カウントリセット
 	}
-	if (r_enemy.R_Hitflg == FALSE) {
-		if (r_enemy.image >= 2) { // 画像の切り替え
+	if (r_enemy.R_Hitflg == FALSE) { // もしイジケ状態でなければ
+		if (r_enemy.image >= 2) { // 通常の画像切り替え
 			r_enemy.image = 0;    // 画像リセット
 		}
 	}
-	else if (r_enemy.R_Hitflg == TRUE) {
-		if (r_enemy.izikeimage >= 18) {
-			r_enemy.izikeimage = 16;
+	else if (r_enemy.R_Hitflg == TRUE) { // もしイジケ状態なら
+		if (r_enemy.izikeimage >= 18) { // イジケ画像切り替え
+			r_enemy.izikeimage = 16; // 画像リセット
 		}
 	}
-	if (r_enemy.ER_Hitflg == TRUE) {
-		if (r_enemy.izikeimage >= 20) {
-			r_enemy.izikeimage = 16;
+	if (r_enemy.ER_Hitflg == TRUE) { // もしイジケ状態が終わりそうなら
+		if (r_enemy.e_izikeimage >= 20) { // イジケ点滅画像切り替え
+			r_enemy.e_izikeimage = 16; // 画像リセット
 		}
 	}
 
@@ -151,11 +185,9 @@ void R_ENEMY::Update() {
 		r_enemy.x = 1280;
 	}
 
+	// イジケ状態フラグ
 	if (r_enemy.R_Hitflg == TRUE) {
 		++E_count;
-	}
-	if (r_enemy.ER_Hitflg == TRUE) {
-		++EE_count;
 	}
 }
 
@@ -168,21 +200,18 @@ void R_ENEMY::Draw() {
 		}
 	}
 	else if (r_enemy.R_Hitflg == TRUE) {
-
-		//修正場所
-		if (E_count < 600) {
+		if (E_count <= 480) {
 			DrawRotaGraph(r_enemy.x, r_enemy.y, 0.75, 0, images[r_enemy.izikeimage], TRUE, FALSE);  // イジケ状態表示
+			DrawBox(r_enemy.left, r_enemy.top, r_enemy.right, r_enemy.bottom, 0x00ffff, FALSE);
+		}
+		else if (E_count > 480 && E_count <= 600) {
 			ER_Hitflg = TRUE;
+			DrawRotaGraph(r_enemy.x, r_enemy.y, 0.75, 0, images[r_enemy.e_izikeimage], TRUE, FALSE);  // イジケ状態表示
+			DrawBox(r_enemy.left, r_enemy.top, r_enemy.right, r_enemy.bottom, 0x00ffff, FALSE);
 		}
-		else if(r_enemy.ER_Hitflg == TRUE){
+		else {
 			r_enemy.R_Hitflg = FALSE;
-			if (EE_count < 120) {
-				DrawRotaGraph(r_enemy.x, r_enemy.y, 0.75, 0, images[r_enemy.izikeimage], TRUE, FALSE);  // イジケ状態表示
-			}
-			else if (EE_count >= 120) {
-				r_enemy.ER_Hitflg = FALSE;
-			}
+			E_count = 0;
 		}
-		//////////////////////////////
 	}
 }

@@ -86,7 +86,7 @@ void Stage::Stage_Update() {
 
 			if (no != 0) {
 				//DrawBox(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, i * SIZE_STAGE_X + SIZE_STAGE_X, j * SIZE_STAGE_Y + SIZE_STAGE_Y, 0xffff00, FALSE);
-				//Playerの当たり判定
+				//プレイヤーとステージの当たり判定
 				if (StageCheckHit(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, mPlayer.s_left, mPlayer.s_top, mPlayer.s_right, mPlayer.s_bottom)) {
 
 					// エサを食べる処理
@@ -172,18 +172,18 @@ void Stage::Stage_Update() {
 
 						//angle設定
 						if (r_enemy.absX > r_enemy.absY) { // 絶対値Xの値が大きいとき
-							if (mPlayer.x >= r_enemy.x + 1) { // xの値がプレイヤーの方が大きいとき
+							if (mPlayer.x >= r_enemy.x) { // xの値がプレイヤーの方が大きいとき
 								r_enemy.angle = 1; // 右向き
 							}
-							else if (mPlayer.x <= r_enemy.x - 1) { // xの値がエネミーの方が大きいとき
+							else if (mPlayer.x <= r_enemy.x) { // xの値がエネミーの方が大きいとき
 								r_enemy.angle = 3; // 左向き
 							}
 						}
 						else if (r_enemy.absX < r_enemy.absY) { // 絶対値Yの値が大きいとき
-							if (mPlayer.y >= r_enemy.y + 1) { // yの値がプレイヤーの方が大きいとき
+							if (mPlayer.y >= r_enemy.y) { // yの値がプレイヤーの方が大きいとき
 								r_enemy.angle = 2; // 下向き
 							}
-							else if (mPlayer.y <= r_enemy.y - 1) { // yの値がエネミーの方が大きいとき
+							else if (mPlayer.y <= r_enemy.y) { // yの値がエネミーの方が大きいとき
 								r_enemy.angle = 4; // 上向き
 							}
 						}
