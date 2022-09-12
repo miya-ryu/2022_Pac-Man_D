@@ -3,7 +3,7 @@
 #include "SceneMgr.h"
 
 static int PLAYER_POS_X = 612;
-static int PLAYER_POS_Y = 372;
+static int PLAYER_POS_Y = 492;
 static float PLAYER_POS_HITBOX = 11;
 static int PLAYER_CENTER_HITBOX = 2;
 

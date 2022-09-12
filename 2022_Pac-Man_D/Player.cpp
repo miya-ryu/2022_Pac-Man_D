@@ -3,6 +3,7 @@
 #include "Input.h"
 #include "Red_Enemy.h"
 #include "Stage.h"
+#include <windows.h>
 Player mPlayer;
 //当たり判定
 int PlayerCheckHit(int x1, int y1, int w1, int h1, int x2, int y2, int w2, int h2) {
@@ -21,6 +22,7 @@ int PlayerCheckHit(int x1, int y1, int w1, int h1, int x2, int y2, int w2, int h
 	//当たっている
 	return 1;
 }
+int millisecond = 0.01 * 1000;
 void Player::Player_Initialize() {
 	//移動
 	mPlayer.x = PLAYER_POS_X;
@@ -104,6 +106,17 @@ void Player::Player_Update() {
 	//エネミーとの当たり判定
 	if (PlayerCheckHit(mPlayer.p_left, mPlayer.p_top, mPlayer.p_right, mPlayer.p_bottom, r_enemy.left, r_enemy.top, r_enemy.right, r_enemy.bottom)) {
 		mPlayer.Hitflg = TRUE;
+
+		/*mPlayer.x = PLAYER_POS_X;
+		mPlayer.y = PLAYER_POS_Y;
+		mPlayer.p_left = PLAYER_POS_X - PLAYER_CENTER_HITBOX;
+		mPlayer.p_top = PLAYER_POS_Y - PLAYER_CENTER_HITBOX;
+		mPlayer.p_right = PLAYER_POS_X + PLAYER_CENTER_HITBOX;
+		mPlayer.p_bottom = PLAYER_POS_Y + PLAYER_CENTER_HITBOX;
+		mPlayer.s_left = PLAYER_POS_X - PLAYER_POS_HITBOX;
+		mPlayer.s_top = PLAYER_POS_Y - PLAYER_POS_HITBOX;
+		mPlayer.s_right = PLAYER_POS_X + PLAYER_POS_HITBOX;
+		mPlayer.s_bottom = PLAYER_POS_Y + PLAYER_POS_HITBOX;*/
 	}
 	//移動処理
 	//右
@@ -204,6 +217,21 @@ void Player::Player_Draw() {
 			mPlayer.deleteimage++;
 		}
 		DrawRotaGraph(mPlayer.x, mPlayer.y, 0.75, 0, mPlayer.mPlayerDeleteImage[mPlayer.deleteimage], TRUE, FALSE);
+		Sleep(millisecond);
+		if (mPlayer.deleteimage >= 11) {
+			mPlayer.x = PLAYER_POS_X;
+			mPlayer.y = PLAYER_POS_Y;
+			mPlayer.p_left = PLAYER_POS_X - PLAYER_CENTER_HITBOX;
+			mPlayer.p_top = PLAYER_POS_Y - PLAYER_CENTER_HITBOX;
+			mPlayer.p_right = PLAYER_POS_X + PLAYER_CENTER_HITBOX;
+			mPlayer.p_bottom = PLAYER_POS_Y + PLAYER_CENTER_HITBOX;
+			mPlayer.s_left = PLAYER_POS_X - PLAYER_POS_HITBOX;
+			mPlayer.s_top = PLAYER_POS_Y - PLAYER_POS_HITBOX;
+			mPlayer.s_right = PLAYER_POS_X + PLAYER_POS_HITBOX;
+			mPlayer.s_bottom = PLAYER_POS_Y + PLAYER_POS_HITBOX;
+			mPlayer.iNowAngle = 4;
+			mPlayer.Hitflg = FALSE;
+		}
 	}
 	//Stage当たり判定表示
 	DrawBox(mPlayer.s_left, mPlayer.s_top, mPlayer.s_right, mPlayer.s_bottom, 0x00ff00, FALSE);
