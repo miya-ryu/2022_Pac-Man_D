@@ -118,7 +118,7 @@ void Stage::Stage_Update() {
 							mPlayer.Angleflg = FALSE;
 						}
 						else if (mPlayer.Angleflg == FALSE) {
-							if (mPlayer.iOldAngle == mPlayer.iNowAngle) {
+							/*if (mPlayer.iOldAngle == mPlayer.iNowAngle) {
 								mPlayer.iOldKeyflg = TRUE;
 								if (iNowKey & PAD_INPUT_RIGHT) {
 									mPlayer.iOldmove = 2;
@@ -132,7 +132,7 @@ void Stage::Stage_Update() {
 								else if (iNowKey & PAD_INPUT_UP) {
 									mPlayer.iOldmove = 1;
 								}
-							}
+							}*/
 						}
 
 						//ˆÚ“®
