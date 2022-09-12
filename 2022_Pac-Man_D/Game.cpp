@@ -33,7 +33,7 @@ void Game::Game_Update() {
 }
 
 void Game::Game_Draw(){
-	mStage.Stage_Draw();
+	mStage.Stage_Draw(); 
 	mPlayer.Player_Draw();
 	r_enemy.Draw();
 	//p_enemy.Draw();

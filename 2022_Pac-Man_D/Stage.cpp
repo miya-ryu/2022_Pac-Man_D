@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "Red_Enemy.h"
 #include "Input.h"
+#include "sound.h"
 
 Stage mStage;
 
@@ -75,8 +76,6 @@ void Stage::Stage_Initialize() {
 	NUM_STAGE_IMAGE = 18;
 	mStageChip[NUM_STAGE_IMAGE];
 	Stage::Stage_Storage();
-
-	StartFlg = true;
 }
 
 //更新処理
@@ -94,6 +93,10 @@ void Stage::Stage_Update() {
 					// エサを食べる処理
 					if (stagedata[i + j * NUM_STAGE_X] == 17 || stagedata[i + j * NUM_STAGE_X] == 18) {
 						stagedata[i + j * NUM_STAGE_X] = 0;
+						mSound.EatingFlg = true;
+					}
+					else {
+						mSound.EatingFlg = false;
 					}
 
 					//先行入力受け付け
@@ -234,6 +237,13 @@ void Stage::Stage_Update() {
 			}
 		}
 	}
+	TimeCount++;			//スタート文字削除
+	if (TimeCount == 60) {//１秒後
+		Startsize = 0;
+	}
+	if (TimeCount == 180) {	//３秒後
+		Startsize1 = 0;
+	}
 }
 
 //描画処理
@@ -247,13 +257,8 @@ void Stage::Stage_Draw() {
 	}
 
 	//player・readyの表示
-	DrawRotaGraph(610, 260, 0.8, 0, mStageUI[2], TRUE, false);	//player
-	DrawRotaGraph(615, 370, 0.8, 0, mStageUI[3], TRUE, false);	//ready
-	if (mStage.StartFlg == true) {
-		WaitTimer(3000);
-		DeleteGraph(mStage.mStageUI[2]);
-		mStage.StartFlg == false;
-	}
+	DrawRotaGraph(610, 260, Startsize, 0, mStageUI[2], TRUE, false);	//player　
+	DrawRotaGraph(615, 370, Startsize1, 0, mStageUI[3], TRUE, false);	//ready　
 
 	//スコア表示
 	DrawGraph(870, 20, mStageUI[0], true);			//ハイスコア
@@ -290,16 +295,16 @@ void Stage::Stage_Draw() {
 	int FruitX_2 = 900;
 
 	for (int num = 0; num == 0; num++) {
-		for (int y = 0; y < 4; y++) {
+		for (int y = 0; y < 1; y++) {
 			DrawRotaGraph(FruitX, 390, 1.3, 0, mStageFruit[mFruitNum], true, false);
 			FruitX += 40;
 			mFruitNum += 1;
 		}
-		for (int y = 0; y < 4; y++) {
+		/*for (int y = 0; y < 4; y++) {
 			DrawRotaGraph(FruitX_2, 420, 1.3, 0, mStageFruit[mFruitNum], true, false);
 			FruitX_2 += 40;
 			mFruitNum += 1;
-		}
+		}*/
 	}
 }
 
