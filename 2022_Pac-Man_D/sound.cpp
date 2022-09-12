@@ -11,7 +11,7 @@ void Sound::Sound_Handle() {
 	bgm[0] = LoadSoundMem("sounds/Game.mp3");
 	bgm[1] = LoadSoundMem("sounds/1CreditSound.mp3");
 	bgm[2] = LoadSoundMem("sounds/2StartMusic.mp3");
-	bgm[3] = LoadSoundMem("sounds/3CookieEating.mp3");
+	bgm[3] = LoadSoundMem("sounds/PacEating.mp3");
 	bgm[4] = LoadSoundMem("sounds/4ExtendSound.mp3");
 	bgm[5] = LoadSoundMem("sounds/5GhostMove_Normal.mp3");
 	bgm[6] = LoadSoundMem("sounds/6GhostMove_Spart1.mp3");
@@ -29,18 +29,24 @@ void Sound::Sound_Handle() {
 //再生
 void Sound::SoundStart() {
 	Sound_Handle();
-	PlaySoundMem(bgm[numSound], DX_PLAYTYPE_BACK);
+	ChangeVolumeSoundMem( 100, bgm[numSound]);			//音量調整０～２５５
+	PlaySoundMem(bgm[numSound], DX_PLAYTYPE_BACK);		//効果音再生
 	mSound.Flg = true;
 }
 
 void Sound::SoundUpdate() {
 	if (mSound.Flg == true) {
-		if (mPlayer.Hitflg == TRUE) {			//パックマン敵に当たったときのSE
+		if (mPlayer.Hitflg == TRUE) {			//パックマン敵に当たったときのSE/死ぬ音
 			numSound = 14;
 			mSound.SoundStart();
 			mSound.Flg = false;
 		}
 	}
+	//if (EatingFlg == true) {					//食べるときの音
+	//	numSound = 3;
+	//	mSound.SoundStart();
+	//}
+
 }
 
 //削除
@@ -50,5 +56,5 @@ void Sound::SoundUpdate() {
 
 //ストップ
 //void Sound::SoundStart() {
-//	StopSoundMem(bgm);
+//	StopSoundMem(bgm[3]);
 //}

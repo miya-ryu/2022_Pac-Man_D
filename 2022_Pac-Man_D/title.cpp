@@ -4,6 +4,7 @@
 #include "SceneMgr.h"
 
 Title mTitle;
+int count = 0;
 
 void Title::Title_Initialize() {
 	title = LoadGraph("images/title/title.png");
