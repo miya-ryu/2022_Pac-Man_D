@@ -29,7 +29,7 @@ public:
 	int iOldmove;
 
 	int move;
-	int count;
+	int count, timercount;
 	int image;
 	//Ši”[
 	static const int MoveImage = 12;

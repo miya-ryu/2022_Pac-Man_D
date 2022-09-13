@@ -33,12 +33,10 @@ public:
 	int w, h;	// 幅 w 高さ h;
 	int CheckHit;
 	// イジケモンスター状態
-	bool R_Hitflg, ER_Hitflg;
+	bool R_Hitflg, ER_Hitflg, PR_Hitflg;
 	int E_count;
 	//壁に当たったフラグ
-	bool E_StageHitflg;
-	//プレイヤーに当たった時
-	bool E_EnemeyHitflg;
+	//bool E_StageHitflg;
 };
 
 extern R_ENEMY r_enemy;

@@ -30,7 +30,7 @@ int stagedata[]{
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  5, 9, 9, 9, 2,17,15, 0, 3,12,12,12, 4, 0,14,17, 1, 9, 9, 9, 6,
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,17,17,17,17,17,17,17,17,17,15,17,17,17,17,17,17,17,17,17,10,
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,17,12,12, 8,17,13,13,13,17,15,17,13,13,13,17, 7,12,12,17,10,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,18,17,17,11,17,17,17,17,17, 0,17,17,17,17,17,10,17,17,18,10,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,18,17,17,11,17,18,17,17,17, 0,17,17,17,17,17,10,17,17,18,10,
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,12, 8,17,11,17,15,17, 5, 9, 9, 9, 6,17,14,17,10,17, 7,12,10,
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11, 9, 2,17,11,17,15,17, 3,12,12,12, 4,17,14,17,10,17, 1, 9,10,
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,17,17,17,17,17,15,17,17,17,15,17,17,17,14,17,17,17,17,17,10,
@@ -86,7 +86,7 @@ void Stage::Stage_Update() {
 
 			if (no != 0) {
 				//DrawBox(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, i * SIZE_STAGE_X + SIZE_STAGE_X, j * SIZE_STAGE_Y + SIZE_STAGE_Y, 0xffff00, FALSE);
-				//プレイヤーとステージの当たり判定
+				// プレイヤーとステージの当たり判定
 				if (StageCheckHit(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, mPlayer.s_left, mPlayer.s_top, mPlayer.s_right, mPlayer.s_bottom)) {
 
 					// エサを食べる処理
@@ -154,44 +154,11 @@ void Stage::Stage_Update() {
 					}
 				}
 				if (no != 17 && no != 18) {
-					//Enemyの当たり判定
+					// ステージとエネミーの当たり判定
 					if (StageCheckHit(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, r_enemy.left, r_enemy.top, r_enemy.right, r_enemy.bottom)) {
 
 						// ステージとの当たり判定フラグ
-						r_enemy.E_StageHitflg = TRUE;
-						//前回の座標移動
-						r_enemy.absX = mPlayer.x - r_enemy.x;
-						r_enemy.absY = mPlayer.y - r_enemy.y;
-						//絶対値を求める
-						if (r_enemy.absX <= 0) {
-							r_enemy.absX = r_enemy.absX * -1;
-						}
-						if (r_enemy.absY <= 0) {
-							r_enemy.absY = r_enemy.absY * -1;
-						}
-
-						//angle設定
-						if (r_enemy.absX > r_enemy.absY) { // 絶対値Xの値が大きいとき
-							if (mPlayer.x >= r_enemy.x) { // xの値がプレイヤーの方が大きいとき
-								r_enemy.angle = 1; // 右向き
-							}
-							else if (mPlayer.x <= r_enemy.x) { // xの値がエネミーの方が大きいとき
-								r_enemy.angle = 3; // 左向き
-							}
-						}
-						else if (r_enemy.absX < r_enemy.absY) { // 絶対値Yの値が大きいとき
-							if (mPlayer.y >= r_enemy.y) { // yの値がプレイヤーの方が大きいとき
-								r_enemy.angle = 2; // 下向き
-							}
-							else if (mPlayer.y <= r_enemy.y) { // yの値がエネミーの方が大きいとき
-								r_enemy.angle = 4; // 上向き
-							}
-						}
-
-						//初期化
-						if (r_enemy.angle == 5) {
-							r_enemy.angle = 1;
-						}
+						//r_enemy.E_StageHitflg = TRUE;
 
 						r_enemy.x = r_enemy.recordX;
 						r_enemy.y = r_enemy.recordY;
