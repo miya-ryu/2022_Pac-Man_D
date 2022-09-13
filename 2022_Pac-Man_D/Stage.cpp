@@ -96,19 +96,17 @@ void Stage::Stage_Update() {
 					// エサを食べる処理
 					if (stagedata[i + j * NUM_STAGE_X] == 17) {
 						stagedata[i + j * NUM_STAGE_X] = 0;
-						mSound.EatingFlg == true;
-						mSound.numSound = 3;
-						mSound.SoundStart();			//エサ食べるときSE再生
+						mSound.EatingFlg = TRUE;
 					}
 					else if (stagedata[i + j * NUM_STAGE_X] == 18) {
 						stagedata[i + j * NUM_STAGE_X] = 0;
 						r_enemy.R_Hitflg = TRUE;
+						mSound.EatingFlg = TRUE;
 					}
-
-					else {///////////修正部分
-						mSound.EatingFlg = false;
+					else {
 						StopSoundMem(mSound.bgm[3]);
 					}
+
 					//先行入力受け付け
 					mPlayer.P_StageHitflg = TRUE;
 					if (mPlayer.P_StageHitflg == TRUE) {

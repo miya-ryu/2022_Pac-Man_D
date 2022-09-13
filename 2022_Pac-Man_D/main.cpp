@@ -1,8 +1,6 @@
 #include "DxLib.h"
 #include "Input.h"
 #include "SceneMgr.h"
-#include "Game.h"
-#include "sound.h"
 #include "system.h"
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {

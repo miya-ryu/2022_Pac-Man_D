@@ -4,7 +4,9 @@
 #include "Red_Enemy.h"
 #include "Stage.h"
 #include <windows.h>
+
 Player mPlayer;
+
 //当たり判定
 int PlayerCheckHit(int x1, int y1, int w1, int h1, int x2, int y2, int w2, int h2) {
 	int L1 = x1;		//左
@@ -22,7 +24,7 @@ int PlayerCheckHit(int x1, int y1, int w1, int h1, int x2, int y2, int w2, int h
 	//当たっている
 	return 1;
 }
-int millisecond = 0.01 * 1000;
+
 void Player::Player_Initialize() {
 	//移動
 	mPlayer.x = PLAYER_POS_X;
@@ -67,7 +69,10 @@ void Player::Player_Initialize() {
 	mPlayer.P_StageHitflg = FALSE;
 	mPlayer.Angleflg = FALSE;
 	mPlayer.iOldKeyflg = FALSE;
+	// 死んだとき
+	mPlayer.millisecond = 0.01 * 1000;
 }
+
 void Player::Player_Update() {
 	++count;
 	++mPlayer.deletecount;
@@ -105,7 +110,7 @@ void Player::Player_Update() {
 	}
 	
 	// プレイヤーとエネミーの当たり判定
-	if (PlayerCheckHit(mPlayer.p_left, mPlayer.p_top, mPlayer.p_right, mPlayer.p_bottom, r_enemy.left, r_enemy.top,r_enemy.right,r_enemy.bottom)) {
+	if (PlayerCheckHit(mPlayer.p_left, mPlayer.p_top, mPlayer.p_right, mPlayer.p_bottom, r_enemy.left, r_enemy.top, r_enemy.right, r_enemy.bottom)) {
 		if (r_enemy.R_Hitflg == TRUE || r_enemy.ER_Hitflg == TRUE) { // イジケ状態で当たったら
 			++mPlayer.timercount; // カウント開始
 			if (mPlayer.timercount < 2) { // カウントが2より小さければ
@@ -114,23 +119,19 @@ void Player::Player_Update() {
 		}
 		else {
 			mPlayer.Hitflg = TRUE; // イジケ状態が終わったら元の当たり判定に戻す
+			/*mPlayer.x = PLAYER_POS_X;
+			mPlayer.y = PLAYER_POS_Y;
+			mPlayer.p_left = PLAYER_POS_X - PLAYER_CENTER_HITBOX;
+			mPlayer.p_top = PLAYER_POS_Y - PLAYER_CENTER_HITBOX;
+			mPlayer.p_right = PLAYER_POS_X + PLAYER_CENTER_HITBOX;
+			mPlayer.p_bottom = PLAYER_POS_Y + PLAYER_CENTER_HITBOX;
+			mPlayer.s_left = PLAYER_POS_X - PLAYER_POS_HITBOX;
+			mPlayer.s_top = PLAYER_POS_Y - PLAYER_POS_HITBOX;
+			mPlayer.s_right = PLAYER_POS_X + PLAYER_POS_HITBOX;
+			mPlayer.s_bottom = PLAYER_POS_Y + PLAYER_POS_HITBOX;*/
 		}
-
-	//エネミーとの当たり判定
-	if (PlayerCheckHit(mPlayer.p_left, mPlayer.p_top, mPlayer.p_right, mPlayer.p_bottom, r_enemy.left, r_enemy.top, r_enemy.right, r_enemy.bottom)) {
-		mPlayer.Hitflg = TRUE;//////////修正部分
-
-		/*mPlayer.x = PLAYER_POS_X;
-		mPlayer.y = PLAYER_POS_Y;
-		mPlayer.p_left = PLAYER_POS_X - PLAYER_CENTER_HITBOX;
-		mPlayer.p_top = PLAYER_POS_Y - PLAYER_CENTER_HITBOX;
-		mPlayer.p_right = PLAYER_POS_X + PLAYER_CENTER_HITBOX;
-		mPlayer.p_bottom = PLAYER_POS_Y + PLAYER_CENTER_HITBOX;
-		mPlayer.s_left = PLAYER_POS_X - PLAYER_POS_HITBOX;
-		mPlayer.s_top = PLAYER_POS_Y - PLAYER_POS_HITBOX;
-		mPlayer.s_right = PLAYER_POS_X + PLAYER_POS_HITBOX;
-		mPlayer.s_bottom = PLAYER_POS_Y + PLAYER_POS_HITBOX;*/
 	}
+
 	//移動処理
 	//右
 	if (iNowKey & PAD_INPUT_RIGHT) {
@@ -160,7 +161,7 @@ void Player::Player_Update() {
 		mPlayer.Angleflg = TRUE;
 		mPlayer.iNowAngle = 3;
 	}
-	//移動
+	//移動処理
 	if (mPlayer.Hitflg == FALSE) {
 		//上
 		if (mPlayer.iNowAngle == 1) {
@@ -218,6 +219,7 @@ void Player::Player_Update() {
 		mPlayer.s_left = 890 - PLAYER_POS_HITBOX;
 	}
 }
+
 void Player::Player_Draw() {
 	if (mPlayer.Hitflg == FALSE) {
 		//Player表示
@@ -230,6 +232,7 @@ void Player::Player_Draw() {
 			mPlayer.deleteimage++;
 		}
 		DrawRotaGraph(mPlayer.x, mPlayer.y, 0.75, 0, mPlayer.mPlayerDeleteImage[mPlayer.deleteimage], TRUE, FALSE);
+
 		Sleep(millisecond);
 		if (mPlayer.deleteimage >= 11) {
 			mPlayer.x = PLAYER_POS_X;

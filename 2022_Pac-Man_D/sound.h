@@ -5,8 +5,8 @@ private:
 	int Flg = false;
 public:
 	int numSound = 2;
-	int bgm[15];
-	int EatingFlg = false;
+	int bgm[16];
+	bool EatingFlg;
 	void Sound_Handle();
 	void SoundStart();
 	void SoundUpdate();

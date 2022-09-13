@@ -29,6 +29,7 @@ void Sound::SoundStart() {
 	ChangeVolumeSoundMem( 100, bgm[numSound]);			//‰¹—Ê’²®‚O`‚Q‚T‚T
 	PlaySoundMem(bgm[numSound], DX_PLAYTYPE_BACK);		//Œø‰Ê‰¹Ä¶
 	mSound.Flg = true;
+	mSound.EatingFlg = FALSE;
 }
 
 void Sound::SoundUpdate() {
@@ -39,7 +40,10 @@ void Sound::SoundUpdate() {
 			mSound.Flg = false;
 		}
 	}
-
+	if (mSound.EatingFlg == TRUE) {
+		mSound.numSound = 3;
+		mSound.SoundStart();			//ƒGƒTH‚×‚é‚Æ‚«SEÄ¶
+	}
 }
 
 //íœ
