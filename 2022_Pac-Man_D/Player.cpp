@@ -106,17 +106,7 @@ void Player::Player_Update() {
 	//エネミーとの当たり判定
 	if (PlayerCheckHit(mPlayer.p_left, mPlayer.p_top, mPlayer.p_right, mPlayer.p_bottom, r_enemy.left, r_enemy.top, r_enemy.right, r_enemy.bottom)) {
 		mPlayer.Hitflg = TRUE;
-
-		/*mPlayer.x = PLAYER_POS_X;
-		mPlayer.y = PLAYER_POS_Y;
-		mPlayer.p_left = PLAYER_POS_X - PLAYER_CENTER_HITBOX;
-		mPlayer.p_top = PLAYER_POS_Y - PLAYER_CENTER_HITBOX;
-		mPlayer.p_right = PLAYER_POS_X + PLAYER_CENTER_HITBOX;
-		mPlayer.p_bottom = PLAYER_POS_Y + PLAYER_CENTER_HITBOX;
-		mPlayer.s_left = PLAYER_POS_X - PLAYER_POS_HITBOX;
-		mPlayer.s_top = PLAYER_POS_Y - PLAYER_POS_HITBOX;
-		mPlayer.s_right = PLAYER_POS_X + PLAYER_POS_HITBOX;
-		mPlayer.s_bottom = PLAYER_POS_Y + PLAYER_POS_HITBOX;*/
+		Sleep(millisecond);
 	}
 	//移動処理
 	//右

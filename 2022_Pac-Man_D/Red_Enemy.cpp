@@ -24,7 +24,7 @@ int EnemeyCheckHit(int x1, int y1, int w1, int h1, int x2, int y2, int w2, int h
 	//“–‚½‚Á‚Ä‚¢‚é
 	return 1;
 }
-
+int millisecond2 = 0.01 * 1000;
 void R_ENEMY::R_Initialize() {
 	LoadDivGraph("images/monster.png", 20, 20, 1, 32, 32, images);  // “GƒLƒƒƒ‰
 	LoadDivGraph("images/eyes.png", 4, 4, 1, 32, 32, eyesimages);  // “GƒLƒƒƒ‰‚Ì–Ú
@@ -113,6 +113,7 @@ void R_ENEMY::Update() {
 	}
 
 	if (EnemeyCheckHit(mPlayer.p_left, mPlayer.p_top, mPlayer.p_right, mPlayer.p_bottom, r_enemy.left, r_enemy.top, r_enemy.right, r_enemy.bottom)) {
+		Sleep(millisecond2);
 		r_enemy.E_EnemeyHitflg = TRUE;
 	}
 
@@ -143,5 +144,7 @@ void R_ENEMY::Draw() {
 		DrawBox(r_enemy.left, r_enemy.top, r_enemy.right, r_enemy.bottom, 0x00ffff, FALSE);
 	}
 	else if (r_enemy.E_EnemeyHitflg == TRUE) {
+		DrawRotaGraph(r_enemy.x, r_enemy.y, 0.75, 0, images[r_enemy.image], TRUE, FALSE);  // “GƒLƒƒƒ‰•\Ž¦
+		DrawRotaGraph(r_enemy.x, r_enemy.y, 0.75, 0, eyesimages[r_enemy.eyeimage], TRUE, FALSE);  // “GƒLƒƒƒ‰‚Ì–Ú•\Ž¦
 	}
 }
