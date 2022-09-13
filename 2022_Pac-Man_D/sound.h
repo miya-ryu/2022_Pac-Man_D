@@ -2,9 +2,10 @@
 
 class Sound {
 private:
-	int bgm[15];
 	int Flg = false;
 public:
+	int numSound = 2;
+	int bgm[15];
 	int EatingFlg = false;
 	void Sound_Handle();
 	void SoundStart();

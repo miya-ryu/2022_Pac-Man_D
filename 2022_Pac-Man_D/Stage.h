@@ -19,6 +19,8 @@ public:
 	int StartFlg = false;
 	int SIZE_STAGE_X;
 	int SIZE_STAGE_Y;
+	int SIZE_ESA_X;
+	int SIZE_ESA_Y;
 	void Stage_Initialize();
 	void Stage_Update();
 	void Stage_Draw();

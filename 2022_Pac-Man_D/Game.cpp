@@ -16,6 +16,7 @@ void Game::Game_Initialize() {
 	mPlayer.Player_Initialize();
 	mStage.Stage_Initialize();
 	r_enemy.R_Initialize();
+	mSound.Sound_Handle();
 	mSound.SoundStart();
 }
 

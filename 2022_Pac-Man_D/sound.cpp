@@ -4,15 +4,13 @@
 
 Sound mSound; 
 
-int numSound = 2;
-
 //“Ç‚İ‚İ
 void Sound::Sound_Handle() {
 	bgm[0] = LoadSoundMem("sounds/Game.mp3");
 	bgm[1] = LoadSoundMem("sounds/1CreditSound.mp3");
 	bgm[2] = LoadSoundMem("sounds/2StartMusic.mp3");
 	bgm[3] = LoadSoundMem("sounds/PacEating.mp3");
-	bgm[4] = LoadSoundMem("sounds/4ExtendSound.mp3");
+	bgm[4] = LoadSoundMem("sounds/4ExtendSound.mp3");	
 	bgm[5] = LoadSoundMem("sounds/5GhostMove_Normal.mp3");
 	bgm[6] = LoadSoundMem("sounds/6GhostMove_Spart1.mp3");
 	bgm[7] = LoadSoundMem("sounds/7GhostMove_Spart2.mp3");
@@ -28,7 +26,6 @@ void Sound::Sound_Handle() {
 
 //Ä¶
 void Sound::SoundStart() {
-	Sound_Handle();
 	ChangeVolumeSoundMem( 100, bgm[numSound]);			//‰¹—Ê’²®‚O`‚Q‚T‚T
 	PlaySoundMem(bgm[numSound], DX_PLAYTYPE_BACK);		//Œø‰Ê‰¹Ä¶
 	mSound.Flg = true;
@@ -42,10 +39,6 @@ void Sound::SoundUpdate() {
 			mSound.Flg = false;
 		}
 	}
-	//if (EatingFlg == true) {					//H‚×‚é‚Æ‚«‚Ì‰¹
-	//	numSound = 3;
-	//	mSound.SoundStart();
-	//}
 
 }
 
