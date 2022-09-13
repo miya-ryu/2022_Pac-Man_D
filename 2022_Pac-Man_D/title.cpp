@@ -10,7 +10,11 @@ void Title::Title_Initialize() {
 }
 
 void Title::Title_Update() {
-	if (iNowKey & PAD_INPUT_START || CheckHitKey(KEY_INPUT_SPACE)) { //startボタンが押されていたら
+	//if (CheckHitKey(KEY_INPUT_SPACE) != 0) {
+	//	SceneMgr_ChangeScene(eScene_Game); //シーンをゲーム画面に変更
+	//	DeleteGraph(title);
+	//}
+	if (iNowKey & PAD_INPUT_8 || CheckHitKey(KEY_INPUT_SPACE)) { //startボタンが押されていたら
 		switch (MenuNumber) { //シーンによって処理を分岐
 		case 0: //現在の画面がメニューなら
 			SceneMgr_ChangeScene(eScene_Game); //シーンをゲーム画面に変更

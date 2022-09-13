@@ -61,6 +61,7 @@ void Player::Player_Initialize() {
 	mPlayer.deleteimage = 0;
 	//画像処理
 	mPlayer.count = 0;
+	mPlayer.timercount = 0;
 	mPlayer.image = 0;
 	mPlayer.Hitflg = FALSE;
 	mPlayer.P_StageHitflg = FALSE;
@@ -102,10 +103,22 @@ void Player::Player_Update() {
 			mPlayer.image = 9;
 		}
 	}
+	
+	// プレイヤーとエネミーの当たり判定
+	if (PlayerCheckHit(mPlayer.p_left, mPlayer.p_top, mPlayer.p_right, mPlayer.p_bottom, r_enemy.left, r_enemy.top,r_enemy.right,r_enemy.bottom)) {
+		if (r_enemy.R_Hitflg == TRUE || r_enemy.ER_Hitflg == TRUE) { // イジケ状態で当たったら
+			++mPlayer.timercount; // カウント開始
+			if (mPlayer.timercount < 2) { // カウントが2より小さければ
+				WaitTimer(1000); // 1秒間時間を止める
+			}
+		}
+		else {
+			mPlayer.Hitflg = TRUE; // イジケ状態が終わったら元の当たり判定に戻す
+		}
 
 	//エネミーとの当たり判定
 	if (PlayerCheckHit(mPlayer.p_left, mPlayer.p_top, mPlayer.p_right, mPlayer.p_bottom, r_enemy.left, r_enemy.top, r_enemy.right, r_enemy.bottom)) {
-		mPlayer.Hitflg = TRUE;
+		mPlayer.Hitflg = TRUE;//////////修正部分
 
 		/*mPlayer.x = PLAYER_POS_X;
 		mPlayer.y = PLAYER_POS_Y;

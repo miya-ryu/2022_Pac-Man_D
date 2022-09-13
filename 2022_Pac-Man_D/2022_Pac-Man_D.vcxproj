@@ -162,6 +162,7 @@
     <ClCompile Include="SceneMgr.cpp" />
     <ClCompile Include="sound.cpp" />
     <ClCompile Include="Stage.cpp" />
+    <ClCompile Include="system.cpp" />
     <ClCompile Include="title.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -175,6 +176,7 @@
     <ClInclude Include="SceneMgr.h" />
     <ClInclude Include="sound.h" />
     <ClInclude Include="Stage.h" />
+    <ClInclude Include="system.h" />
     <ClInclude Include="title.h" />
   </ItemGroup>
   <ItemGroup>
