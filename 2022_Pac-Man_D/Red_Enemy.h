@@ -23,7 +23,7 @@ public:
 	int x, y, x1, y1;
 	int absX, absY;
 	int angle;
-	int speed;
+	float speed;
 	int recordX, recordY;
 	//Playerとの当たり判定
 	int top, right, bottom, left;
@@ -33,8 +33,14 @@ public:
 	int w, h;	// 幅 w 高さ h;
 	int CheckHit;
 	// イジケモンスター状態
-	bool R_Hitflg, ER_Hitflg, PR_Hitflg;
-	int E_count;
+	bool R_Hitflg;
+	// イジケモンスター点滅状態
+	bool ER_Hitflg;
+	int ER_count;
+	// イジケモンスターがプレイヤーに当たった状態
+	bool PR_Hitflg;
+	// エネミー目状態
+	bool eyeflg;
 	//壁に当たったフラグ
 	//bool E_StageHitflg;
 };

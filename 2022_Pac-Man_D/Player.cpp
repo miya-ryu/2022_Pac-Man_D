@@ -125,8 +125,8 @@ void Player::Player_Update() {
 	// プレイヤーとエネミーの当たり判定
 	if (PlayerCheckHit(mPlayer.p_left, mPlayer.p_top, mPlayer.p_right, mPlayer.p_bottom, r_enemy.left, r_enemy.top,r_enemy.right,r_enemy.bottom)) {
 		if (r_enemy.R_Hitflg == TRUE || r_enemy.ER_Hitflg == TRUE) { // イジケ状態で当たったら
-			++timercount; // カウント開始
-			if (timercount < 2) { // カウントが2より小さければ
+			++mPlayer.timercount; // カウント開始
+			if (mPlayer.timercount < 2) { // カウントが2より小さければ
 				WaitTimer(1000); // 1秒間時間を止める
 			}
 		}

@@ -31,7 +31,7 @@ void R_ENEMY::Initialize() {
 
 	r_enemy.speed = 1.8;             // 移動速度
 	r_enemy.count = 0;             // アニメーションカウント
-	r_enemy.E_count = 0;           // イジケ状態カウント
+	r_enemy.ER_count = 0;           // イジケ状態カウント
 	r_enemy.image = 0;             // 画像変数
 	r_enemy.eyeimage = 0;          // 目の画像変数
 	r_enemy.izikeimage = 16;       // イジケ状態の画像変数
@@ -40,6 +40,7 @@ void R_ENEMY::Initialize() {
 	r_enemy.R_Hitflg = FALSE;      // イジケ状態判定フラグ
 	r_enemy.ER_Hitflg = FALSE;     // イジケ状態点滅フラグ
 	r_enemy.PR_Hitflg = FALSE;     // イジケ状態でプレイヤーに当たった時のフラグ
+	r_enemy.eyeflg = FALSE;        // エネミー目状態
 
 	r_enemy.x = ENEMY_POS_X;
 	r_enemy.y = ENEMY_POS_Y;
@@ -63,15 +64,6 @@ void R_ENEMY::Initialize() {
 }
 
 void R_ENEMY::Update() {
-	//前回の座標取得
-	r_enemy.recordX = r_enemy.x;
-	r_enemy.recordY = r_enemy.y;
-
-	r_enemy.recordTop = r_enemy.top;
-	r_enemy.recordRight = r_enemy.right;
-	r_enemy.recordBottom = r_enemy.bottom;
-	r_enemy.recordLeft = r_enemy.left;
-
 	//前回の座標移動
 	r_enemy.absX = mPlayer.x - r_enemy.x;
 	r_enemy.absY = mPlayer.y - r_enemy.y;
@@ -131,84 +123,101 @@ void R_ENEMY::Update() {
 		}
 	}
 	else if (r_enemy.R_Hitflg == TRUE) { // パワーエサを取った時
-		if (PR_Hitflg == FALSE) { // プレイヤーと当たっていなかったら
+		if (r_enemy.PR_Hitflg == FALSE) { // プレイヤーと当たっていなかったら
 			if (r_enemy.absX > r_enemy.absY) { // 絶対値Xの値が大きいとき
-			//右向き
-				if (mPlayer.x >= r_enemy.x) {
+			    //右向き
+				if (mPlayer.x < r_enemy.x) {
+					r_enemy.x += r_enemy.speed + 0.2;
+
+					//当たり判定
+					r_enemy.left += r_enemy.speed + 0.2;
+					r_enemy.right += r_enemy.speed + 0.2;
+				}
+				//左向き
+				else if (mPlayer.x > r_enemy.x) {
 					r_enemy.x -= r_enemy.speed - 0.2;
+
+					r_enemy.left -= r_enemy.speed - 0.2;
+					r_enemy.right -= r_enemy.speed - 0.2;
+				}
+			}
+			if (r_enemy.absX < r_enemy.absY) { // 絶対値Yの値が大きいとき
+				//上向き
+				if (mPlayer.y > r_enemy.y) {
+					r_enemy.y -= r_enemy.speed - 0.2;
+
+					//当たり判定
+					r_enemy.top -= r_enemy.speed - 0.2;
+					r_enemy.bottom -= r_enemy.speed - 0.2;
+				}
+				//下向き
+				else if (mPlayer.y < r_enemy.y) {
+					r_enemy.y += r_enemy.speed + 0.2;
+
+					//当たり判定
+					r_enemy.top += r_enemy.speed + 0.2;
+					r_enemy.bottom += r_enemy.speed + 0.2;
+				}
+			}
+		}
+		else if (r_enemy.PR_Hitflg == TRUE) { // プレイヤーと当たっていたら初期位置に戻る
+			if (r_enemy.absX > r_enemy.absY) { // 絶対値Xの値が大きいとき
+			    //右向き
+				if (ENEMY_POS_X >= r_enemy.x + 1) {
+					r_enemy.x += r_enemy.speed;
+
+					//当たり判定
+					r_enemy.left += r_enemy.speed;
+					r_enemy.right += r_enemy.speed;
+
+					r_enemy.eyeimage = 1;
+				}
+				//左向き
+				else if (ENEMY_POS_X <= r_enemy.x - 1) {
+					r_enemy.x -= r_enemy.speed;
 
 					//当たり判定
 					r_enemy.left -= r_enemy.speed;
 					r_enemy.right -= r_enemy.speed;
-				}
-				//左向き
-				else if (mPlayer.x <= r_enemy.x) {
-					r_enemy.x += r_enemy.speed - 0.2;
 
-					r_enemy.left += r_enemy.speed;
-					r_enemy.right += r_enemy.speed;
+					r_enemy.eyeimage = 3;
 				}
 			}
-			if (r_enemy.absX < r_enemy.absY) {
-				//下向き
-				if (mPlayer.y >= r_enemy.y) {
-					r_enemy.y -= r_enemy.speed - 0.2;
-
-					//当たり判定
-					r_enemy.top -= r_enemy.speed;
-					r_enemy.bottom -= r_enemy.speed;
-				}
-				//上向き
-				else if (mPlayer.y <= r_enemy.y) {
-					r_enemy.y += r_enemy.speed - 0.2;
+			if (r_enemy.absX < r_enemy.absY) { // 絶対値Yの値が大きいとき
+			    //下向き
+				if (ENEMY_POS_Y >= r_enemy.y + 1) {
+					r_enemy.y += r_enemy.speed;
 
 					//当たり判定
 					r_enemy.top += r_enemy.speed;
 					r_enemy.bottom += r_enemy.speed;
+
+					r_enemy.eyeimage = 2;
+				}
+				//上向き
+				else if (ENEMY_POS_Y <= r_enemy.y - 1) {
+					r_enemy.y -= r_enemy.speed;
+
+					//当たり判定
+					r_enemy.top -= r_enemy.speed;
+					r_enemy.bottom -= r_enemy.speed;
+
+					r_enemy.eyeimage = 0;
 				}
 			}
-		}
-		else if (PR_Hitflg == TRUE) { // プレイヤーと当たっていたら初期位置に戻る
-			//右向き
-			if (ENEMY_POS_X >= r_enemy.x + 1) {
-				r_enemy.x += r_enemy.speed;
 
-				//当たり判定
-				r_enemy.left += r_enemy.speed;
-				r_enemy.right += r_enemy.speed;
-			}
-			//下向き
-			else if (ENEMY_POS_Y >= r_enemy.y + 1) {
-				r_enemy.y += r_enemy.speed;
-
-				//当たり判定
-				r_enemy.top += r_enemy.speed;
-				r_enemy.bottom += r_enemy.speed;
-			}
-			//左向き
-			else if (ENEMY_POS_X <= r_enemy.x - 1) {
-				r_enemy.x -= r_enemy.speed;
-
-				//当たり判定
-				r_enemy.left -= r_enemy.speed;
-				r_enemy.right -= r_enemy.speed;
-			}
-			//上向き
-			else if (ENEMY_POS_Y <= r_enemy.y - 1) {
-				r_enemy.y -= r_enemy.speed;
-
-				//当たり判定
-				r_enemy.top -= r_enemy.speed;
-				r_enemy.bottom -= r_enemy.speed;
+			// 初期位置に戻った時
+			if (ENEMY_POS_X == r_enemy.x + 1 || ENEMY_POS_Y == r_enemy.y + 1 || ENEMY_POS_X == r_enemy.x - 1 || ENEMY_POS_Y == r_enemy.y - 1) {
+				r_enemy.eyeflg = FALSE;
 			}
 		}
 	}
 
 	// エネミーとプレイヤーの当たり判定
 	if (EnemeyCheckHit(mPlayer.p_left, mPlayer.p_top, mPlayer.p_right, mPlayer.p_bottom, r_enemy.left, r_enemy.top, r_enemy.right, r_enemy.bottom)) {
-		if (r_enemy.R_Hitflg == TRUE || r_enemy.ER_Hitflg == TRUE) { // パワーエサを取っていたら
-			PR_Hitflg = TRUE;
-			r_enemy.speed = 3; // 移動速度
+		if (r_enemy.R_Hitflg == TRUE || r_enemy.ER_Hitflg == TRUE) { // イジケ状態で当たったら
+			r_enemy.PR_Hitflg = TRUE;
+			r_enemy.eyeflg = TRUE;
 		}
 	}
 
@@ -246,7 +255,7 @@ void R_ENEMY::Update() {
 
 	// イジケ状態フラグ
 	if (r_enemy.R_Hitflg == TRUE) {
-		++E_count;
+		++r_enemy.ER_count;
 	}
 }
 
@@ -255,27 +264,39 @@ void R_ENEMY::Draw() {
 		DrawRotaGraph(r_enemy.x, r_enemy.y, 0.75, 0, images[r_enemy.image], TRUE, FALSE); // 敵キャラ表示
 		DrawRotaGraph(r_enemy.x, r_enemy.y, 0.75, 0, eyesimages[r_enemy.eyeimage], TRUE, FALSE); // 敵キャラの目表示
 		DrawBox(r_enemy.left, r_enemy.top, r_enemy.right, r_enemy.bottom, 0x00ffff, FALSE); // 当たり判定描画
+		DrawString(100, 100, "パワーエサ：無し", (255,255,255));
 	}
 	else if (r_enemy.R_Hitflg == TRUE) { // パワーエサを取っていたら
-		if (PR_Hitflg == FALSE) { // プレイヤーと当たっていなければ
-			if (E_count <= 480) {
+		if (r_enemy.PR_Hitflg == FALSE) { // プレイヤーと当たっていなければ
+			if (r_enemy.ER_count <= 480) {
 				DrawRotaGraph(r_enemy.x, r_enemy.y, 0.75, 0, images[r_enemy.izikeimage], TRUE, FALSE); // イジケ状態表示
 				DrawBox(r_enemy.left, r_enemy.top, r_enemy.right, r_enemy.bottom, 0x00ffff, FALSE); // 当たり判定描画
+				DrawString(100, 150, "パワーエサ：あり：10秒カウント", (255, 255, 255));
 			}
-			else if (E_count > 480 && E_count <= 600) {
-				ER_Hitflg = TRUE;
+			else if (r_enemy.ER_count > 480 && r_enemy.ER_count <= 600) {
+				r_enemy.ER_Hitflg = TRUE;
 				DrawRotaGraph(r_enemy.x, r_enemy.y, 0.75, 0, images[r_enemy.e_izikeimage], TRUE, FALSE); // イジケ状態表示
 				DrawBox(r_enemy.left, r_enemy.top, r_enemy.right, r_enemy.bottom, 0x00ffff, FALSE); // 当たり判定描画
+				DrawString(100, 200, "パワーエサ：あり：残り2秒", (255, 255, 255));
 			}
 			else {
 				r_enemy.R_Hitflg = FALSE;
 				r_enemy.ER_Hitflg = FALSE;
-				E_count = 0;
+				r_enemy.ER_count = 0;
 				mPlayer.timercount = 0;
 			}
 		}
-		else if (PR_Hitflg == TRUE) { // プレイヤーと当たっていたら
-			DrawRotaGraph(r_enemy.x, r_enemy.y, 0.75, 0, eyesimages[r_enemy.eyeimage], TRUE, FALSE); // 敵キャラの目表示
+		else if (r_enemy.PR_Hitflg == TRUE) { // プレイヤーと当たっていたら
+			if (r_enemy.eyeflg == TRUE) { // 目状態になったら
+				DrawRotaGraph(r_enemy.x, r_enemy.y, 0.75, 0, eyesimages[r_enemy.eyeimage], TRUE, FALSE); // 敵キャラの目表示
+				DrawBox(r_enemy.left, r_enemy.top, r_enemy.right, r_enemy.bottom, 0x00ffff, FALSE); // 当たり判定描画
+				DrawString(100, 250, "パワーエサ：あり：プレイヤーと接触", (255, 255, 255));
+			}
+			else if (r_enemy.eyeflg == FALSE) { // 目状態のエネミーが初期位置に戻ったら
+				r_enemy.R_Hitflg = FALSE;
+				r_enemy.eyeflg = FALSE;
+				DrawString(100, 300, "パワーエサ：無し：初期位置に戻りました", (255, 255, 255));
+			}
 		}
 	}
 }
