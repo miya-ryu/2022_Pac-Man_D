@@ -80,7 +80,7 @@ void R_ENEMY::Update() {
 	if (r_enemy.R_Hitflg == FALSE) { // パワーエサを取っていない時
 		if (r_enemy.absX > r_enemy.absY) { // 絶対値Xの値が大きいとき
 			//右向き
-			if (mPlayer.x >= r_enemy.x) { // xの値がプレイヤーの方が大きいとき
+			if (mPlayer.x > r_enemy.x) { // xの値がプレイヤーの方が大きいとき
 				r_enemy.x += r_enemy.speed;
 
 				//当たり判定
@@ -90,7 +90,7 @@ void R_ENEMY::Update() {
 				r_enemy.eyeimage = 1;
 			}
 			//左向き
-			else if (mPlayer.x <= r_enemy.x) { // xの値がエネミーの方が大きいとき
+			else if (mPlayer.x < r_enemy.x) { // xの値がエネミーの方が大きいとき
 				r_enemy.x -= r_enemy.speed;
 
 				r_enemy.left -= r_enemy.speed;
@@ -101,7 +101,7 @@ void R_ENEMY::Update() {
 		}
 		if (r_enemy.absX < r_enemy.absY) { // 絶対値Yの値が大きいとき
 			//下向き
-			if (mPlayer.y >= r_enemy.y) { // yの値がプレイヤーの方が大きいとき
+			if (mPlayer.y > r_enemy.y) { // yの値がプレイヤーの方が大きいとき
 				r_enemy.y += r_enemy.speed;
 
 				//当たり判定
@@ -111,7 +111,7 @@ void R_ENEMY::Update() {
 				r_enemy.eyeimage = 2;
 			}
 			//上向き
-			else if (mPlayer.y <= r_enemy.y) { // yの値がエネミーの方が大きいとき
+			else if (mPlayer.y < r_enemy.y) { // yの値がエネミーの方が大きいとき
 				r_enemy.y -= r_enemy.speed;
 
 				//当たり判定
@@ -163,7 +163,7 @@ void R_ENEMY::Update() {
 		else if (r_enemy.PR_Hitflg == TRUE) { // プレイヤーと当たっていたら初期位置に戻る
 			if (r_enemy.absX > r_enemy.absY) { // 絶対値Xの値が大きいとき
 			    //右向き
-				if (ENEMY_POS_X >= r_enemy.x + 1) {
+				if (ENEMY_POS_X > r_enemy.x + 1) {
 					r_enemy.x += r_enemy.speed;
 
 					//当たり判定
@@ -173,7 +173,7 @@ void R_ENEMY::Update() {
 					r_enemy.eyeimage = 1;
 				}
 				//左向き
-				else if (ENEMY_POS_X <= r_enemy.x - 1) {
+				else if (ENEMY_POS_X < r_enemy.x - 1) {
 					r_enemy.x -= r_enemy.speed;
 
 					//当たり判定
@@ -185,7 +185,7 @@ void R_ENEMY::Update() {
 			}
 			if (r_enemy.absX < r_enemy.absY) { // 絶対値Yの値が大きいとき
 			    //下向き
-				if (ENEMY_POS_Y >= r_enemy.y + 1) {
+				if (ENEMY_POS_Y > r_enemy.y + 1) {
 					r_enemy.y += r_enemy.speed;
 
 					//当たり判定
@@ -195,7 +195,7 @@ void R_ENEMY::Update() {
 					r_enemy.eyeimage = 2;
 				}
 				//上向き
-				else if (ENEMY_POS_Y <= r_enemy.y - 1) {
+				else if (ENEMY_POS_Y < r_enemy.y - 1) {
 					r_enemy.y -= r_enemy.speed;
 
 					//当たり判定

@@ -23,7 +23,7 @@ public:
 	int x, y, x1, y1;
 	int absX, absY;
 	int angle;
-	float speed;
+	int speed;
 	int recordX, recordY;
 	//Player‚Æ‚Ì“–‚½‚è”»’è
 	int top, right, bottom, left;
