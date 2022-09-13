@@ -13,4 +13,4 @@ public:
 extern Title mTitle;
 
 
-static int MenuNumber = 0;	//メニューカーソル管理用変数
+static int MenuNumber = 0;	//メニュー管理用変数

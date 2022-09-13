@@ -68,6 +68,10 @@ void Stage::Stage_Initialize() {
 	SIZE_STAGE_X = 24;
 	SIZE_STAGE_Y = 24;
 
+	//エサ
+	SIZE_ESA_X = 12;
+	SIZE_ESA_Y = 12;
+
 	//描画数
 	NUM_STAGE_X = 36;
 	NUM_STAGE_Y = 27;
@@ -89,16 +93,17 @@ void Stage::Stage_Update() {
 				//DrawBox(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, i * SIZE_STAGE_X + SIZE_STAGE_X, j * SIZE_STAGE_Y + SIZE_STAGE_Y, 0xffff00, FALSE);
 				//Playerの当たり判定
 				if (StageCheckHit(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, mPlayer.s_left, mPlayer.s_top, mPlayer.s_right, mPlayer.s_bottom)) {
-
 					// エサを食べる処理
 					if (stagedata[i + j * NUM_STAGE_X] == 17 || stagedata[i + j * NUM_STAGE_X] == 18) {
 						stagedata[i + j * NUM_STAGE_X] = 0;
-						mSound.EatingFlg = true;
+						mSound.EatingFlg == true;
+						mSound.numSound = 3;
+						mSound.SoundStart();			//エサ食べるときSE再生
 					}
 					else {
 						mSound.EatingFlg = false;
+						StopSoundMem(mSound.bgm[3]);
 					}
-
 					//先行入力受け付け
 					mPlayer.P_StageHitflg = TRUE;
 					if (mPlayer.P_StageHitflg == TRUE) {
@@ -237,7 +242,8 @@ void Stage::Stage_Update() {
 			}
 		}
 	}
-	TimeCount++;			//スタート文字削除
+	//スタート文字削除
+	TimeCount++;			
 	if (TimeCount == 60) {//１秒後
 		Startsize = 0;
 	}
