@@ -146,5 +146,17 @@ void R_ENEMY::Draw() {
 	else if (r_enemy.E_EnemeyHitflg == TRUE) {
 		DrawRotaGraph(r_enemy.x, r_enemy.y, 0.75, 0, images[r_enemy.image], TRUE, FALSE);  // “GƒLƒƒƒ‰•\Ž¦
 		DrawRotaGraph(r_enemy.x, r_enemy.y, 0.75, 0, eyesimages[r_enemy.eyeimage], TRUE, FALSE);  // “GƒLƒƒƒ‰‚Ì–Ú•\Ž¦
+		
+		r_enemy.x = ENEMY_POS_X;
+		r_enemy.y = ENEMY_POS_Y;
+
+		r_enemy.top = ENEMY_POS_Y - ENEMY_STAGE_HITBOX;
+		r_enemy.left = ENEMY_POS_X - ENEMY_STAGE_HITBOX;
+		r_enemy.right = ENEMY_POS_X + ENEMY_STAGE_HITBOX;
+		r_enemy.bottom = ENEMY_POS_Y + ENEMY_STAGE_HITBOX;
+
+		r_enemy.E_EnemeyHitflg = FALSE;
+
+		//DrawBox(r_enemy.left, r_enemy.top, r_enemy.right, r_enemy.bottom, 0x00ffff, FALSE);
 	}
 }
