@@ -43,6 +43,7 @@ public:
 	bool eyeflg;
 	//•Ç‚É“–‚½‚Á‚½ƒtƒ‰ƒO
 	//bool E_StageHitflg;
+	bool Initiaflg;
 };
 
 extern R_ENEMY r_enemy;
