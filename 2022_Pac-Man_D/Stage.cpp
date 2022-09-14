@@ -245,10 +245,10 @@ void Stage::Stage_Update() {
 	}
 	//ÉXÉ^Å[Égï∂éöçÌèú
 	TimeCount++;			
-	if (TimeCount == 60) {//ÇPïbå„
+	if (TimeCount == 60) {//1ïbå„
 		Startsize = 0;
 	}
-	if (TimeCount == 180) {	//ÇRïbå„
+	if (TimeCount == 180) {	//3ïbå„
 		Startsize1 = 0;
 	}
 }
