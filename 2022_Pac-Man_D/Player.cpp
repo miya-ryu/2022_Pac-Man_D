@@ -1,4 +1,4 @@
-#include "DxLib.h"
+ï»¿#include "DxLib.h"
 #include "Player.h"
 #include "Input.h"
 #include "Red_Enemy.h"
@@ -7,46 +7,46 @@
 
 Player mPlayer;
 
-//“–‚½‚è”»’è
+//ï¿½ï¿½ï¿½ï¿½ï¿½è”»ï¿½ï¿½
 int PlayerCheckHit(int x1, int y1, int w1, int h1, int x2, int y2, int w2, int h2) {
-	int L1 = x1;		//¶
-	int R1 = w1;		//‰E
-	int L2 = x2;		//¶
-	int R2 = w2;		//‰E
+	int L1 = x1;		//ï¿½ï¿½
+	int R1 = w1;		//ï¿½E
+	int L2 = x2;		//ï¿½ï¿½
+	int R2 = w2;		//ï¿½E
 	if (R1 < L2) return 0;
 	if (R2 < L1) return 0;
-	int U1 = y1;		//ã
-	int D1 = h1;		//‰º
-	int U2 = y2;		//ã
-	int D2 = h2;		//‰º
+	int U1 = y1;		//ï¿½ï¿½
+	int D1 = h1;		//ï¿½ï¿½
+	int U2 = y2;		//ï¿½ï¿½
+	int D2 = h2;		//ï¿½ï¿½
 	if (D1 < U2) return 0;
 	if (D2 < U1) return 0;
-	//“–‚½‚Á‚Ä‚¢‚é
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½
 	return 1;
 }
 
 void Player::Player_Initialize() {
-	//ˆÚ“®
+	//ï¿½Ú“ï¿½
 	mPlayer.x = PLAYER_POS_X;
 	mPlayer.y = PLAYER_POS_Y;
-	//“–‚½‚è”»’è
+	//ï¿½ï¿½ï¿½ï¿½ï¿½è”»ï¿½ï¿½
 	mPlayer.p_left = PLAYER_POS_X - PLAYER_CENTER_HITBOX;
 	mPlayer.p_top = PLAYER_POS_Y - PLAYER_CENTER_HITBOX;
 	mPlayer.p_right = PLAYER_POS_X + PLAYER_CENTER_HITBOX;
 	mPlayer.p_bottom = PLAYER_POS_Y + PLAYER_CENTER_HITBOX;
-	//Stage“–‚½‚è”»’è
+	//Stageï¿½ï¿½ï¿½ï¿½ï¿½è”»ï¿½ï¿½
 	mPlayer.s_left = PLAYER_POS_X - PLAYER_POS_HITBOX;
 	mPlayer.s_top = PLAYER_POS_Y - PLAYER_POS_HITBOX;
 	mPlayer.s_right = PLAYER_POS_X + PLAYER_POS_HITBOX;
 	mPlayer.s_bottom = PLAYER_POS_Y + PLAYER_POS_HITBOX;
-	//‰æ‘œŠi”[
+	//ï¿½æ‘œï¿½iï¿½[
 	LoadDivGraph("images/pacman.png", 12, 12, 1, 32, 32, mPlayer.mPlayerMoveImage);
-	//ƒAƒ“ƒOƒ‹
+	//ï¿½Aï¿½ï¿½ï¿½Oï¿½ï¿½
 	mPlayer.iNowAngle = 4;
 	mPlayer.iOldAngle = mPlayer.iNowAngle;
-	//ˆÚ“®
+	//ï¿½Ú“ï¿½
 	mPlayer.move = 2;
-	//‘O‰ñ‚ÌÀ•WŠi”[
+	//ï¿½Oï¿½ï¿½Ìï¿½ï¿½Wï¿½iï¿½[
 	mPlayer.recordX = mPlayer.x;
 	mPlayer.recordY = mPlayer.y;
 	mPlayer.recordSTop = mPlayer.s_top;
@@ -57,11 +57,11 @@ void Player::Player_Initialize() {
 	mPlayer.recordPright = mPlayer.p_right;
 	mPlayer.recordPbottom = mPlayer.p_bottom;
 	mPlayer.recordPleft = mPlayer.p_left;
-	//ƒfƒŠ[ƒgˆ—
+	//ï¿½fï¿½ï¿½ï¿½[ï¿½gï¿½ï¿½ï¿½ï¿½
 	LoadDivGraph("images/dying.png", 11, 11, 1, 32, 32, mPlayer.mPlayerDeleteImage);
 	mPlayer.deletecount = 0;
 	mPlayer.deleteimage = 0;
-	//‰æ‘œˆ—
+	//ï¿½æ‘œï¿½ï¿½ï¿½ï¿½
 	mPlayer.count = 0;
 	mPlayer.timercount = 0;
 	mPlayer.image = 0;
@@ -69,27 +69,27 @@ void Player::Player_Initialize() {
 	mPlayer.P_StageHitflg = FALSE;
 	mPlayer.Angleflg = FALSE;
 	mPlayer.iOldKeyflg = FALSE;
-	// €‚ñ‚¾‚Æ‚«
+	// ï¿½ï¿½ï¿½ñ‚¾‚Æ‚ï¿½
 	mPlayer.millisecond = 0.01 * 1000;
 }
 
 void Player::Player_Update() {
 	++count;
 	++mPlayer.deletecount;
-	//‘O‰ñ‚ÌÀ•W‚ğæ“¾
+	//ï¿½Oï¿½ï¿½Ìï¿½ï¿½Wï¿½ï¿½æ“¾
 	mPlayer.recordX = mPlayer.x;
 	mPlayer.recordY = mPlayer.y;
-	//‘O‰ñ‚ÌÀ•WiƒXƒe[ƒWHitboxj
+	//ï¿½Oï¿½ï¿½Ìï¿½ï¿½Wï¿½iï¿½Xï¿½eï¿½[ï¿½WHitboxï¿½j
 	mPlayer.recordSTop = mPlayer.s_top;
 	mPlayer.recordSRight = mPlayer.s_right;
 	mPlayer.recordSBottom = mPlayer.s_bottom;
 	mPlayer.recordSLeft = mPlayer.s_left;
-	//‘O‰ñ‚ÌÀ•WiPlayerHitboxj
+	//ï¿½Oï¿½ï¿½Ìï¿½ï¿½Wï¿½iPlayerHitboxï¿½j
 	mPlayer.recordPtop = mPlayer.p_top;
 	mPlayer.recordPright = mPlayer.p_right;
 	mPlayer.recordPbottom = mPlayer.p_bottom;
 	mPlayer.recordPleft = mPlayer.p_left;
-	//‰æ‘œˆ—
+	//ï¿½æ‘œï¿½ï¿½ï¿½ï¿½
 	if (count >= 3) {
 		mPlayer.image += 1;
 		count = 0;
@@ -109,16 +109,16 @@ void Player::Player_Update() {
 		}
 	}
 	
-	// ƒvƒŒƒCƒ„[‚ÆƒGƒlƒ~[‚Ì“–‚½‚è”»’è
+	// ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ÆƒGï¿½lï¿½~ï¿½[ï¿½Ì“ï¿½ï¿½ï¿½ï¿½è”»ï¿½ï¿½
 	if (PlayerCheckHit(mPlayer.p_left, mPlayer.p_top, mPlayer.p_right, mPlayer.p_bottom, r_enemy.left, r_enemy.top, r_enemy.right, r_enemy.bottom)) {
-		if (r_enemy.R_Hitflg == TRUE || r_enemy.ER_Hitflg == TRUE) { // ƒCƒWƒPó‘Ô‚Å“–‚½‚Á‚½‚ç
-			++mPlayer.timercount; // ƒJƒEƒ“ƒgŠJn
-			if (mPlayer.timercount < 2) { // ƒJƒEƒ“ƒg‚ª2‚æ‚è¬‚³‚¯‚ê‚Î
-				WaitTimer(1000); // 1•bŠÔŠÔ‚ğ~‚ß‚é
+		if (r_enemy.R_Hitflg == TRUE || r_enemy.ER_Hitflg == TRUE) { // ã‚¤ã‚¸ã‚±çŠ¶æ…‹ã§å½“ãŸã£ãŸã‚‰
+			++mPlayer.timercount; // ã‚«ã‚¦ãƒ³ãƒˆé–‹å§‹
+			if (mPlayer.timercount < 2) { // ã‚«ã‚¦ãƒ³ãƒˆãŒ2ã‚ˆã‚Šå°ã•ã‘ã‚Œã°
+				WaitTimer(1000); // 1ç§’é–“æ™‚é–“ã‚’æ­¢ã‚ã‚‹
 			}
 		}
 		else {
-			mPlayer.Hitflg = TRUE; // ƒCƒWƒPó‘Ô‚ªI‚í‚Á‚½‚çŒ³‚Ì“–‚½‚è”»’è‚É–ß‚·
+			mPlayer.Hitflg = TRUE; // ã‚¤ã‚¸ã‚±çŠ¶æ…‹ãŒçµ‚ã‚ã£ãŸã‚‰å…ƒã®å½“ãŸã‚Šåˆ¤å®šã«æˆ»ã™
 			/*mPlayer.x = PLAYER_POS_X;
 			mPlayer.y = PLAYER_POS_Y;
 			mPlayer.p_left = PLAYER_POS_X - PLAYER_CENTER_HITBOX;
@@ -132,68 +132,71 @@ void Player::Player_Update() {
 		}
 	}
 
-	//ˆÚ“®ˆ—
-	//‰E
+		mPlayer.Hitflg = TRUE;
+		Sleep(millisecond);
+	}
+	//ï¿½Ú“ï¿½ï¿½ï¿½ï¿½ï¿½
+	//ï¿½E
 	if (iNowKey & PAD_INPUT_RIGHT) {
-		//‘O‰ñ‚ÌƒAƒ“ƒOƒ‹Ši”[
+		//ï¿½Oï¿½ï¿½ÌƒAï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½iï¿½[
 		mPlayer.iOldAngle = mPlayer.iNowAngle;
 		mPlayer.Angleflg = TRUE;
 		mPlayer.iNowAngle = 2;
 	}
-	//¶
+	//ï¿½ï¿½
 	else if (iNowKey & PAD_INPUT_LEFT) {
-		//‘O‰ñ‚ÌƒAƒ“ƒOƒ‹Ši”[
+		//ï¿½Oï¿½ï¿½ÌƒAï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½iï¿½[
 		mPlayer.iOldAngle = mPlayer.iNowAngle;
 		mPlayer.Angleflg = TRUE;
 		mPlayer.iNowAngle = 4;
 	}
-	//ã
+	//ï¿½ï¿½
 	else if (iNowKey & PAD_INPUT_UP) {
-		//‘O‰ñ‚ÌƒAƒ“ƒOƒ‹Ši”[
+		//ï¿½Oï¿½ï¿½ÌƒAï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½iï¿½[
 		mPlayer.iOldAngle = mPlayer.iNowAngle;
 		mPlayer.Angleflg = TRUE;
 		mPlayer.iNowAngle = 1;
 	}
-	//‰º
+	//ï¿½ï¿½
 	else if (iNowKey & PAD_INPUT_DOWN) {
-		//‘O‰ñ‚ÌƒAƒ“ƒOƒ‹Ši”[
+		//ï¿½Oï¿½ï¿½ÌƒAï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½iï¿½[
 		mPlayer.iOldAngle = mPlayer.iNowAngle;
 		mPlayer.Angleflg = TRUE;
 		mPlayer.iNowAngle = 3;
 	}
-	//ˆÚ“®ˆ—
+	//ï¿½Ú“ï¿½ï¿½ï¿½ï¿½ï¿½
 	if (mPlayer.Hitflg == FALSE) {
-		//ã
+		//ï¿½ï¿½
 		if (mPlayer.iNowAngle == 1) {
 			mPlayer.y -= mPlayer.move;
-			//HitBoxˆÚ“®
+			//HitBoxï¿½Ú“ï¿½
 			mPlayer.p_top -= mPlayer.move;
 			mPlayer.p_bottom -= mPlayer.move;
 			mPlayer.s_top -= mPlayer.move;
 			mPlayer.s_bottom -= mPlayer.move;
 		}
-		//‰E
+		//ï¿½E
 		else if (mPlayer.iNowAngle == 2) {
 			mPlayer.x += mPlayer.move;
-			//HitBoxˆÚ“®
+			//HitBoxï¿½Ú“ï¿½
 			mPlayer.p_left += mPlayer.move;
 			mPlayer.p_right += mPlayer.move;
 			mPlayer.s_left += mPlayer.move;
 			mPlayer.s_right += mPlayer.move;
 		}
-		//‰º
+		//ï¿½ï¿½
 		else if (mPlayer.iNowAngle == 3) {
 			mPlayer.y += mPlayer.move;
-			//HitBoxˆÚ“®
+			//HitBoxï¿½Ú“ï¿½
 			mPlayer.p_top += mPlayer.move;
 			mPlayer.p_bottom += mPlayer.move;
 			mPlayer.s_top += mPlayer.move;
 			mPlayer.s_bottom += mPlayer.move;
 		}
-		//¶
+		//ï¿½ï¿½
 		else if (mPlayer.iNowAngle == 4) {
 			mPlayer.x -= mPlayer.move;
-			//HitBoxˆÚ“®
+			//HitBoxï¿½Ú“ï¿½
 			mPlayer.p_left -= mPlayer.move;
 			mPlayer.p_right -= mPlayer.move;
 			mPlayer.s_left -= mPlayer.move;
@@ -201,10 +204,10 @@ void Player::Player_Update() {
 		}
 	}
 
-	// ƒ[ƒv
+	// ï¿½ï¿½ï¿½[ï¿½v
 	if (mPlayer.x >= 890) {
 		mPlayer.x = 340;
-		//HitBoxˆÚ“®
+		//HitBoxï¿½Ú“ï¿½
 		mPlayer.p_right = 340 + PLAYER_CENTER_HITBOX;
 		mPlayer.p_left = 340 - PLAYER_CENTER_HITBOX;
 		mPlayer.s_right = 340 + PLAYER_POS_HITBOX;
@@ -212,7 +215,7 @@ void Player::Player_Update() {
 	}
 	else if (mPlayer.x <= 340) {
 		mPlayer.x = 890;
-		//HitBoxˆÚ“®
+		//HitBoxï¿½Ú“ï¿½
 		mPlayer.p_right = 890 + PLAYER_CENTER_HITBOX;
 		mPlayer.p_left = 890 - PLAYER_CENTER_HITBOX;
 		mPlayer.s_right = 890 + PLAYER_POS_HITBOX;
@@ -222,7 +225,7 @@ void Player::Player_Update() {
 
 void Player::Player_Draw() {
 	if (mPlayer.Hitflg == FALSE) {
-		//Player•\¦
+		//Playerï¿½\ï¿½ï¿½
 		DrawRotaGraph(mPlayer.x, mPlayer.y, 0.75, 0, mPlayer.mPlayerMoveImage[mPlayer.image], TRUE, FALSE);
 	}
 	else if (mPlayer.Hitflg == TRUE) {
@@ -249,8 +252,8 @@ void Player::Player_Draw() {
 			mPlayer.Hitflg = FALSE;
 		}
 	}
-	//Stage“–‚½‚è”»’è•\¦
+	//Stageï¿½ï¿½ï¿½ï¿½ï¿½è”»ï¿½ï¿½\ï¿½ï¿½
 	DrawBox(mPlayer.s_left, mPlayer.s_top, mPlayer.s_right, mPlayer.s_bottom, 0x00ff00, FALSE);
-	//Center“–‚½‚è”»’è•\¦
+	//Centerï¿½ï¿½ï¿½ï¿½ï¿½è”»ï¿½ï¿½\ï¿½ï¿½
 	DrawBox(mPlayer.p_left, mPlayer.p_top, mPlayer.p_right, mPlayer.p_bottom, 0xff00ff, TRUE);
 }

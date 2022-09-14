@@ -1,4 +1,4 @@
-#include "DxLib.h"
+ï»¿#include "DxLib.h"
 #include "Stage.h"
 #include "Player.h"
 #include "Red_Enemy.h"
@@ -7,7 +7,7 @@
 
 Stage mStage;
 
-//•Ï”
+//ï¿½Ïï¿½
 static int mStageChip[1];
 
 int stagedata[]{
@@ -40,60 +40,60 @@ int stagedata[]{
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  3,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12, 4,
 };
 
-//“–‚½‚è”»’è
+//ï¿½ï¿½ï¿½ï¿½ï¿½è”»ï¿½ï¿½
 int StageCheckHit(int x1, int y1, int w1, int h1, int x2, int y2, int w2, int h2) {
-	int L1 = x1;		//¶
-	int R1 = x1 + w1;	//‰E
-	int L2 = x2;		//¶
-	int R2 = w2;		//‰E
+	int L1 = x1;		//ï¿½ï¿½
+	int R1 = x1 + w1;	//ï¿½E
+	int L2 = x2;		//ï¿½ï¿½
+	int R2 = w2;		//ï¿½E
 
 	if (R1 < L2) return 0;
 	if (R2 < L1) return 0;
 
-	int U1 = y1;		//ã
-	int D1 = y1 + h1;	//‰º
-	int U2 = y2;		//ã
-	int D2 = h2;		//‰º
+	int U1 = y1;		//ï¿½ï¿½
+	int D1 = y1 + h1;	//ï¿½ï¿½
+	int U2 = y2;		//ï¿½ï¿½
+	int D2 = h2;		//ï¿½ï¿½
 
 	if (D1 < U2) return 0;
 	if (D2 < U1) return 0;
 
-	//“–‚½‚Á‚Ä‚¢‚é
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½
 	return 1;
 }
 
-//‰Šú‰»ˆ—
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 void Stage::Stage_Initialize() {
-	//ƒTƒCƒY
+	//ï¿½Tï¿½Cï¿½Y
 	SIZE_STAGE_X = 24;
 	SIZE_STAGE_Y = 24;
 
-	//ƒGƒT
+	//ï¿½Gï¿½T
 	SIZE_ESA_X = 12;
 	SIZE_ESA_Y = 12;
 
-	//•`‰æ”
+	//ï¿½`ï¿½æ”
 	NUM_STAGE_X = 36;
 	NUM_STAGE_Y = 27;
 
-	//‰æ‘œŠi”[
+	//ï¿½æ‘œï¿½iï¿½[
 	NUM_STAGE_IMAGE = 19;
 	mStageChip[NUM_STAGE_IMAGE];
 	Stage::Stage_Storage();
 }
 
-//XVˆ—
+//ï¿½Xï¿½Vï¿½ï¿½ï¿½ï¿½
 void Stage::Stage_Update() {
-	//“–‚½‚è”»’è
+	//ï¿½ï¿½ï¿½ï¿½ï¿½è”»ï¿½ï¿½
 	for (int j = 0; j < NUM_STAGE_Y; j++) {
 		for (int i = 0; i < NUM_STAGE_X; i++) {
 			int no = stagedata[i + j * NUM_STAGE_X];
 
 			if (no != 0) {
 				//DrawBox(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, i * SIZE_STAGE_X + SIZE_STAGE_X, j * SIZE_STAGE_Y + SIZE_STAGE_Y, 0xffff00, FALSE);
-				// ƒvƒŒƒCƒ„[‚ÆƒXƒe[ƒW‚Ì“–‚½‚è”»’è
+				// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¨ã‚¹ãƒ†ãƒ¼ã‚¸ã®å½“ãŸã‚Šåˆ¤å®š
 				if (StageCheckHit(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, mPlayer.s_left, mPlayer.s_top, mPlayer.s_right, mPlayer.s_bottom)) {
-					// ƒGƒT‚ğH‚×‚éˆ—
+					// ï¿½Gï¿½Tï¿½ï¿½Hï¿½×‚éˆï¿½ï¿½
 					if (stagedata[i + j * NUM_STAGE_X] == 17) {
 						stagedata[i + j * NUM_STAGE_X] = 0;
 						mSound.EatingFlg = TRUE;
@@ -107,7 +107,7 @@ void Stage::Stage_Update() {
 						StopSoundMem(mSound.bgm[3]);
 					}
 
-					//æs“ü—Íó‚¯•t‚¯
+					//ï¿½ï¿½sï¿½ï¿½ï¿½Íó‚¯•tï¿½ï¿½
 					mPlayer.P_StageHitflg = TRUE;
 					if (mPlayer.P_StageHitflg == TRUE) {
 						if (mPlayer.Angleflg == TRUE) {
@@ -143,11 +143,11 @@ void Stage::Stage_Update() {
 							}*/
 						}
 
-						//ˆÚ“®
+						//ï¿½Ú“ï¿½
 						mPlayer.x = mPlayer.recordX;
 						mPlayer.y = mPlayer.recordY;
 
-						//“–‚½‚è”»’èˆÚ“®
+						//ï¿½ï¿½ï¿½ï¿½ï¿½è”»ï¿½ï¿½Ú“ï¿½
 						mPlayer.p_top = mPlayer.recordPtop;
 						mPlayer.p_right = mPlayer.recordPright;
 						mPlayer.p_bottom = mPlayer.recordPbottom;
@@ -158,24 +158,24 @@ void Stage::Stage_Update() {
 						mPlayer.s_bottom = mPlayer.recordSBottom;
 						mPlayer.s_left = mPlayer.recordSLeft;
 
-						//ƒqƒbƒg‚ğ–ß‚·
+						//ï¿½qï¿½bï¿½gï¿½ï¿½ß‚ï¿½
 						mPlayer.P_StageHitflg = FALSE;
 					}
 				}
 				if (no != 17 && no != 18) {
-					// ƒXƒe[ƒW‚ÆƒGƒlƒ~[‚Ì“–‚½‚è”»’è
+					// ï¿½Xï¿½eï¿½[ï¿½Wï¿½ÆƒGï¿½lï¿½~ï¿½[ï¿½Ì“ï¿½ï¿½ï¿½ï¿½è”»ï¿½ï¿½
 					if (StageCheckHit(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, r_enemy.left, r_enemy.top, r_enemy.right, r_enemy.bottom)) {
 
-						// ƒXƒe[ƒW‚Æ‚Ì“–‚½‚è”»’èƒtƒ‰ƒO
+						// ï¿½Xï¿½eï¿½[ï¿½Wï¿½Æ‚Ì“ï¿½ï¿½ï¿½ï¿½è”»ï¿½ï¿½tï¿½ï¿½ï¿½O
 						//r_enemy.E_StageHitflg = TRUE;
 
-						// •Ç‚É“–‚½‚Á‚½‚Ìˆ—‚ğ‚â‚è‚½‚¢•”•ª
+						// ï¿½Ç‚É“ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìï¿½ï¿½ï¿½ï¿½ï¿½ï¿½è‚½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 						/////////////////////////////////////////////////
-						////‘O‰ñ‚ÌÀ•WˆÚ“®
+						////ï¿½Oï¿½ï¿½Ìï¿½ï¿½Wï¿½Ú“ï¿½
 						//r_enemy.absX = mPlayer.x - r_enemy.x;
 						//r_enemy.absY = mPlayer.y - r_enemy.y;
 
-						////â‘Î’l‚ğ‹‚ß‚é
+						////ï¿½ï¿½Î’lï¿½ï¿½ï¿½ï¿½ß‚ï¿½
 						//if (r_enemy.absX <= 0) {
 						//	r_enemy.absX = r_enemy.absX * -1;
 						//}
@@ -183,31 +183,31 @@ void Stage::Stage_Update() {
 						//	r_enemy.absY = r_enemy.absY * -1;
 						//}
 
-						//// â‘Î’lX‚Ì’l‚ª‘å‚«‚¢‚Æ‚«
+						//// ï¿½ï¿½Î’lXï¿½Ì’lï¿½ï¿½ï¿½å‚«ï¿½ï¿½ï¿½Æ‚ï¿½
 						//if (r_enemy.absX > r_enemy.absY) {
-						//	// ‰EŒü‚«
+						//	// ï¿½Eï¿½ï¿½ï¿½ï¿½
 						//	if (mPlayer.x > r_enemy.x) {
 						//		r_enemy.angle = 2;
 						//	}
-						//	// ¶Œü‚«
+						//	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 						//	else if (mPlayer.x < r_enemy.x) {
 						//		r_enemy.angle = 4;
 						//	}
 						//}
-						//// â‘Î’l‚ÌY‚Ì’l‚ª‘å‚«‚¢‚Æ‚«
+						//// ï¿½ï¿½Î’lï¿½ï¿½Yï¿½Ì’lï¿½ï¿½ï¿½å‚«ï¿½ï¿½ï¿½Æ‚ï¿½
 						//if (r_enemy.absX < r_enemy.absY) {
-						//	// ‰ºŒü‚«
+						//	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 						//	if (mPlayer.y > r_enemy.y) {
 						//		r_enemy.angle = 3;
 						//	}
-						//	// ãŒü‚«
+						//	// ï¿½ï¿½ï¿½ï¿½ï¿½
 						//	else if (mPlayer.y < r_enemy.y) {
 						//		r_enemy.angle = 1;
 						//	}
 						//}
 						/////////////////////////////////////////////
 
-						// •Ç‚Ö‚Ì‚ß‚è‚İ‚ğ–h‚®
+						// ï¿½Ç‚Ö‚Ì‚ß‚èï¿½İ‚ï¿½hï¿½ï¿½
 						r_enemy.x = r_enemy.recordX;
 						r_enemy.y = r_enemy.recordY;
 
@@ -219,71 +219,71 @@ void Stage::Stage_Update() {
 				}
 			}
 			else if (mStageChip[i] == 0) {
-				//‘O‰ñ‚Ì“ü—ÍƒL[‚ª‚ ‚é‚©‚Ç‚¤‚©
+				//ï¿½Oï¿½ï¿½Ì“ï¿½ï¿½ÍƒLï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½é‚©ï¿½Ç‚ï¿½ï¿½ï¿½
 				if (mPlayer.iOldKeyflg == TRUE) {
-					////‰E
+					////ï¿½E
 					//if (mPlayer.iOldmove == 2) {
 					//	if (mPlayer.s_top < i * SIZE_STAGE_Y + SIZE_STAGE_Y && mPlayer.s_bottom < i * SIZE_STAGE_Y) {
 					//		mPlayer.iNowAngle = 2;
 					//		mPlayer.iOldKeyflg = FALSE;
 					//	}
 					//}
-					////‰º
+					////ï¿½ï¿½
 					//if (mPlayer.iOldmove == 3) {
 					//	if (mPlayer.s_)
 					//}
-					////¶
+					////ï¿½ï¿½
 					//if (mPlayer.) {
 
 					//}
-					////ã
+					////ï¿½ï¿½
 				}
 			}
 		}
 	}
-	//ƒXƒ^[ƒg•¶šíœ
+	//ï¿½Xï¿½^ï¿½[ï¿½gï¿½ï¿½ï¿½ï¿½ï¿½íœ
 	TimeCount++;			
-	if (TimeCount == 60) {//‚P•bŒã
+	if (TimeCount == 60) {//ï¿½Pï¿½bï¿½ï¿½
 		Startsize = 0;
 	}
-	if (TimeCount == 180) {	//‚R•bŒã
+	if (TimeCount == 180) {	//ï¿½Rï¿½bï¿½ï¿½
 		Startsize1 = 0;
 	}
 }
 
-//•`‰æˆ—
+//ï¿½`ï¿½æˆï¿½ï¿½
 void Stage::Stage_Draw() {
-	//‰æ‘œƒTƒCƒY•ÏX
+	//ï¿½æ‘œï¿½Tï¿½Cï¿½Yï¿½ÏX
 	for (int j = 0; j < NUM_STAGE_Y; j++) {
 		for (int i = 0; i < NUM_STAGE_X; i++) {
 			int no = stagedata[i + j * NUM_STAGE_X];
-			DrawExtendGraph(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, i * SIZE_STAGE_X + SIZE_STAGE_X, j * SIZE_STAGE_Y + SIZE_STAGE_Y, mStageChip[no], FALSE);
+			//DrawExtendGraph(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, i * SIZE_STAGE_X + SIZE_STAGE_X, j * SIZE_STAGE_Y + SIZE_STAGE_Y, mStageChip[no], FALSE);
 		}
 	}
 
-	//playerEready‚Ì•\¦
-	DrawRotaGraph(610, 260, Startsize, 0, mStageUI[2], TRUE, false);	//player@
-	DrawRotaGraph(615, 370, Startsize1, 0, mStageUI[3], TRUE, false);	//ready@
+	//playerï¿½Ereadyï¿½Ì•\ï¿½ï¿½
+	DrawRotaGraph(610, 260, Startsize, 0, mStageUI[2], TRUE, false);	//playerï¿½@
+	DrawRotaGraph(615, 370, Startsize1, 0, mStageUI[3], TRUE, false);	//readyï¿½@
 
-	//ƒXƒRƒA•\¦
-	DrawGraph(870, 20, mStageUI[0], true);			//ƒnƒCƒXƒRƒA
-	DrawGraph(930, 130, mStageUI[1], true);			//‚Pup
+	//ï¿½Xï¿½Rï¿½Aï¿½\ï¿½ï¿½
+	DrawGraph(870, 20, mStageUI[0], true);			//ï¿½nï¿½Cï¿½Xï¿½Rï¿½A
+	DrawGraph(930, 130, mStageUI[1], true);			//ï¿½Pup
 
-	//ƒnƒCƒXƒRƒA”š•\¦   ‰Šú
+	//ï¿½nï¿½Cï¿½Xï¿½Rï¿½Aï¿½ï¿½ï¿½ï¿½ï¿½\ï¿½ï¿½   ï¿½ï¿½ï¿½ï¿½
 	int hnumX = 950;
 	for (int cont = 0; cont < 6; cont++) {
 		DrawGraph(hnumX, 70, mStageNum[0], true);
 		hnumX += 32;
 	}
 
-	//1up”š•\¦   ‰Šú
+	//1upï¿½ï¿½ï¿½ï¿½ï¿½\ï¿½ï¿½   ï¿½ï¿½ï¿½ï¿½
 	int numX = 950;
 	for (int cont = 0; cont < 6; cont++) {
 		DrawGraph(numX, 180, mStageNum[0], true);
 		numX += 32;
 	}
 
-	//ƒpƒbƒNƒ}ƒ“c‹@•\¦
+	//ï¿½pï¿½bï¿½Nï¿½}ï¿½ï¿½ï¿½cï¿½@ï¿½\ï¿½ï¿½
 	int pacX = 920;
 	int life = 2;
 	if (mPlayer.Hitflg == TRUE) {
@@ -294,7 +294,7 @@ void Stage::Stage_Draw() {
 		pacX += 60;
 	}
 
-	//ƒtƒ‹[ƒc•\¦
+	//ï¿½tï¿½ï¿½ï¿½[ï¿½cï¿½\ï¿½ï¿½
 	int mFruitNum = 0;
 	int FruitX = 900;
 	int FruitX_2 = 900;
@@ -313,9 +313,9 @@ void Stage::Stage_Draw() {
 	}
 }
 
-//‰æ‘œŠi”[ˆ—
+//ï¿½æ‘œï¿½iï¿½[ï¿½ï¿½ï¿½ï¿½
 void Stage::Stage_Storage() {
-	// “ñdƒJ[ƒu
+	// ï¿½ï¿½dï¿½Jï¿½[ï¿½u
 	mStageChip[1] = LoadGraph("images/tiles/outercorner_bottom_left.png");
 	mStageChip[2] = LoadGraph("images/tiles/outercorner_bottom_right.png");
 	mStageChip[3] = LoadGraph("images/tiles/outercorner_narrow_bottom_left.png");
@@ -324,29 +324,29 @@ void Stage::Stage_Storage() {
 	mStageChip[6] = LoadGraph("images/tiles/outercorner_narrow_top_right.png");
 	mStageChip[7] = LoadGraph("images/tiles/outercorner_top_left.png");
 	mStageChip[8] = LoadGraph("images/tiles/outercorner_top_right.png");
-	// “ñdƒ‰ƒCƒ“
+	// ï¿½ï¿½dï¿½ï¿½ï¿½Cï¿½ï¿½
 	mStageChip[9] = LoadGraph("images/tiles/outerwall_bottom.png");
 	mStageChip[10] = LoadGraph("images/tiles/outerwall_left.png");
 	mStageChip[11] = LoadGraph("images/tiles/outerwall_right.png");
 	mStageChip[12] = LoadGraph("images/tiles/outerwall_top.png");
-	// ƒ‰ƒCƒ“
+	// ï¿½ï¿½ï¿½Cï¿½ï¿½
 	mStageChip[13] = LoadGraph("images/tiles/wall_bottom.png");
 	mStageChip[14] = LoadGraph("images/tiles/wall_left.png");
 	mStageChip[15] = LoadGraph("images/tiles/wall_right.png");
 	mStageChip[16] = LoadGraph("images/tiles/wall_top.png");
-	// ƒGƒT
+	// ï¿½Gï¿½T
 	mStageChip[17] = LoadGraph("images/tiles/dot.png");
 	mStageChip[18] = LoadGraph("images/tiles/big_dot.png");
-	// ƒhƒA
+	// ï¿½hï¿½A
 	mStageChip[19] = LoadGraph("images/tiles/door.png");
 
-	//ƒXƒRƒA•”•ªUI
-	mStageUI[0] = LoadGraph("images/title/hi-score.png");	//ƒnƒCƒXƒRƒA•¶š
-	mStageUI[1] = LoadGraph("images/title/1up.png");		//‚Pup•¶š
-	mStageUI[2] = LoadGraph("images/title/PLAYER.png");		//player•¶š
-	mStageUI[3] = LoadGraph("images/title/READY.png");		//ready•¶š
-	mStageUI[4] = LoadGraph("images/title/GAMEOVER.png");	//GameOver•¶š
-	LoadDivGraph("images/title/num.png", 10, 10, 1, 32, 32, mStageNum);	//”š
-	LoadDivGraph("images/pacman.png", 11, 11, 1, 32, 32, mStagePacman);	//ƒpƒbƒNƒ}ƒ“
-	LoadDivGraph("images/fruit.png", 13, 13, 1, 32, 32, mStageFruit);	//ƒtƒ‹[ƒc
+	//ï¿½Xï¿½Rï¿½Aï¿½ï¿½ï¿½ï¿½UI
+	mStageUI[0] = LoadGraph("images/title/hi-score.png");	//ï¿½nï¿½Cï¿½Xï¿½Rï¿½Aï¿½ï¿½ï¿½ï¿½
+	mStageUI[1] = LoadGraph("images/title/1up.png");		//ï¿½Pupï¿½ï¿½ï¿½ï¿½
+	mStageUI[2] = LoadGraph("images/title/PLAYER.png");		//playerï¿½ï¿½ï¿½ï¿½
+	mStageUI[3] = LoadGraph("images/title/READY.png");		//readyï¿½ï¿½ï¿½ï¿½
+	mStageUI[4] = LoadGraph("images/title/GAMEOVER.png");	//GameOverï¿½ï¿½ï¿½ï¿½
+	LoadDivGraph("images/title/num.png", 10, 10, 1, 32, 32, mStageNum);	//ï¿½ï¿½ï¿½ï¿½
+	LoadDivGraph("images/pacman.png", 11, 11, 1, 32, 32, mStagePacman);	//ï¿½pï¿½bï¿½Nï¿½}ï¿½ï¿½
+	LoadDivGraph("images/fruit.png", 13, 13, 1, 32, 32, mStageFruit);	//ï¿½tï¿½ï¿½ï¿½[ï¿½c
 }
