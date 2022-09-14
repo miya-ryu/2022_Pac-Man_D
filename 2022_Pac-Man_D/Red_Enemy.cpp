@@ -30,6 +30,7 @@ void R_ENEMY::Initialize() {
 	LoadDivGraph("images/eyes.png", 4, 4, 1, 32, 32, eyesimages);  // 敵キャラの目
 
 	r_enemy.speed = 1.8;           // 移動速度
+	r_enemy.angle = 4;             // 初期の向き
 	r_enemy.count = 0;             // アニメーションカウント
 	r_enemy.ER_count = 0;          // イジケ状態カウント
 	r_enemy.image = 0;             // 画像変数
@@ -42,11 +43,9 @@ void R_ENEMY::Initialize() {
 	r_enemy.PR_Hitflg = FALSE;     // イジケ状態でプレイヤーに当たった時のフラグ
 	r_enemy.eyeflg = FALSE;        // エネミー目状態
 
+	// 初期位置を保存
 	r_enemy.x = ENEMY_POS_X;
 	r_enemy.y = ENEMY_POS_Y;
-
-	// 初期の向き
-	r_enemy.angle = 4;
 
 	//当たり判定
 	r_enemy.recordX = r_enemy.x;
@@ -98,6 +97,7 @@ void R_ENEMY::Update() {
 				r_enemy.right += r_enemy.speed;
 
 				r_enemy.eyeimage = 1;
+				r_enemy.angle = 2;
 			}
 			// 左向き
 			else if (mPlayer.x < r_enemy.x) { // xの値がエネミーの方が大きいとき
@@ -107,6 +107,7 @@ void R_ENEMY::Update() {
 				r_enemy.right -= r_enemy.speed;
 
 				r_enemy.eyeimage = 3;
+				r_enemy.angle = 4;
 			}
 		}
 		if (r_enemy.absX < r_enemy.absY) { // 絶対値Yの値が大きいとき
@@ -119,6 +120,7 @@ void R_ENEMY::Update() {
 				r_enemy.bottom += r_enemy.speed;
 
 				r_enemy.eyeimage = 2;
+				r_enemy.angle = 3;
 			}
 			//上向き
 			else if (mPlayer.y < r_enemy.y) { // yの値がエネミーの方が大きいとき
@@ -129,6 +131,7 @@ void R_ENEMY::Update() {
 				r_enemy.bottom -= r_enemy.speed;
 
 				r_enemy.eyeimage = 0;
+				r_enemy.angle = 1;
 			}
 		}
 	}

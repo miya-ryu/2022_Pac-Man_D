@@ -168,44 +168,46 @@ void Stage::Stage_Update() {
 
 						// ステージとの当たり判定フラグ
 						//r_enemy.E_StageHitflg = TRUE;
+						 
+						//前回の座標移動
+						r_enemy.absX = mPlayer.x - r_enemy.x;
+						r_enemy.absY = mPlayer.y - r_enemy.y;
 
-						// 壁に当たった時の処理をやりたい部分
-						/////////////////////////////////////////////////
-						////前回の座標移動
-						//r_enemy.absX = mPlayer.x - r_enemy.x;
-						//r_enemy.absY = mPlayer.y - r_enemy.y;
+						//絶対値を求める
+						if (r_enemy.absX <= 0) {
+							r_enemy.absX = r_enemy.absX * -1;
+						}
+						if (r_enemy.absY <= 0) {
+							r_enemy.absY = r_enemy.absY * -1;
+						}
 
-						////絶対値を求める
-						//if (r_enemy.absX <= 0) {
-						//	r_enemy.absX = r_enemy.absX * -1;
-						//}
-						//if (r_enemy.absY <= 0) {
-						//	r_enemy.absY = r_enemy.absY * -1;
-						//}
+						// 絶対値Xの値が大きいとき
+						if (r_enemy.absX > r_enemy.absY) {
+							// 右向き
+							if (r_enemy.angle == 2) {
+								if (mPlayer.x < r_enemy.x) {
 
-						//// 絶対値Xの値が大きいとき
-						//if (r_enemy.absX > r_enemy.absY) {
-						//	// 右向き
-						//	if (mPlayer.x > r_enemy.x) {
-						//		r_enemy.angle = 2;
-						//	}
-						//	// 左向き
-						//	else if (mPlayer.x < r_enemy.x) {
-						//		r_enemy.angle = 4;
-						//	}
-						//}
-						//// 絶対値のYの値が大きいとき
-						//if (r_enemy.absX < r_enemy.absY) {
-						//	// 下向き
-						//	if (mPlayer.y > r_enemy.y) {
-						//		r_enemy.angle = 3;
-						//	}
-						//	// 上向き
-						//	else if (mPlayer.y < r_enemy.y) {
-						//		r_enemy.angle = 1;
-						//	}
-						//}
-						/////////////////////////////////////////////
+								}
+							}
+							// 左向き
+							else if (r_enemy.angle == 4) {
+								if (mPlayer.x < r_enemy.x) {
+
+								}
+							}
+						}
+						// 下向き
+						else if (r_enemy.angle == 3) {
+							if (mPlayer.y > r_enemy.y) {
+
+							}
+						}
+						// 上向き
+						else if (r_enemy.angle == 1) {
+							if (mPlayer.y < r_enemy.y) {
+
+							}
+						}
 
 						// 壁へのめり込みを防ぐ
 						r_enemy.x = r_enemy.recordX;
