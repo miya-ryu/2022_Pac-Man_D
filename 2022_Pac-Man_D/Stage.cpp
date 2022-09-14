@@ -6,36 +6,67 @@
 Stage mStage;
 //変数
 static int mStageChip[1];
+//int stagedata[]{
+//	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  5, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 6,
+//	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,17,17,17,17,17,17,17,17,17,15,17,17,17,17,17,17,17,17,17,10,
+//	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,17, 5, 9, 6,17, 5, 9, 6,17,15,17, 5, 9, 6,17, 5, 9, 6,17,10,
+//	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,18,11, 0,10,17,11, 0,10,17,15,17,11, 0,10,17,11, 0,10,18,10,
+//	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,17, 3,12, 4,17, 3,12, 4,17,15,17, 3,12, 4,17, 3,12, 4,17,10,
+//	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,10,
+//	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,17, 5, 9, 6,17,15,17, 5, 9, 9, 9, 6,17,14,17, 5, 9, 6,17,10,
+//	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,17, 3,12, 4,17,15,17, 3,12,12,12, 4,17,14,17, 3,12, 4,17,10,
+//	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,17,17,17,17,17,15,17,17,17,15,17,17,17,14,17,17,17,17,17,10,
+//	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  3,12,12,12, 8,17,15,16,16, 0,15, 0,16,16,14,17, 7,12,12,12, 4,
+//	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  0, 0, 0, 0,11,17,15, 0, 0, 0, 0, 0, 0, 0,14,17,10, 0, 0, 0, 0,
+//	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  0, 0, 0, 0,11,17,15, 0, 5, 9, 9, 9, 6, 0,14,17,10, 0, 0, 0, 0,
+//	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  9, 9, 9, 9, 2,17,15, 0,11, 0, 0, 0,10, 0,14,17, 1, 9, 9, 9, 9,
+//	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  0, 0, 0, 0, 0,17, 0, 0,11, 0, 0, 0,10, 0, 0,17, 0, 0, 0, 0, 0,
+//	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 12,12,12,12, 8,17,15, 0, 3,12,12,12, 4, 0,14,17, 7,12,12,12,12,
+//	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  0, 0, 0, 0,11,17,15, 0, 0, 0, 0, 0, 0, 0,14,17,10, 0, 0, 0, 0,
+//	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  0, 0, 0, 0,11,17,15, 0, 5, 9, 9, 9, 6, 0,14,17,10, 0, 0, 0, 0,
+//	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  5, 9, 9, 9, 2,17,15, 0, 3,12,12,12, 4, 0,14,17, 1, 9, 9, 9, 6,
+//	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,17,17,17,17,17,17,17,17,17,15,17,17,17,17,17,17,17,17,17,10,
+//	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,17,12,12, 8,17,13,13,13,17,15,17,13,13,13,17, 7,12,12,17,10,
+//	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,18,17,17,11,17,17,17,17,17,17,17,17,17,17,17,10,17,17,18,10,
+//	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,12, 8,17,11,17,15,17, 5, 9, 9, 9, 6,17,14,17,10,17, 7,12,10,
+//	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11, 9, 2,17,11,17,15,17, 3,12,12,12, 4,17,14,17,10,17, 1, 9,10,
+//	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,17,17,17,17,17,15,17,17,17,15,17,17,17,14,17,17,17,17,17,10,
+//	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,17,16,16,16,16,16,16,16,17,15,17,16,16,16,16,16,16,16,17,10,
+//	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,10,
+//	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  3,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12, 4,
+//};
+
 int stagedata[]{
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  5, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 6,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,17,17,17,17,17,17,17,17,17,15,17,17,17,17,17,17,17,17,17,10,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,17, 5, 9, 6,17, 5, 9, 6,17,15,17, 5, 9, 6,17, 5, 9, 6,17,10,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,18,11, 0,10,17,11, 0,10,17,15,17,11, 0,10,17,11, 0,10,18,10,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,17, 3,12, 4,17, 3,12, 4,17,15,17, 3,12, 4,17, 3,12, 4,17,10,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,10,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,17, 5, 9, 6,17,15,17, 5, 9, 9, 9, 6,17,14,17, 5, 9, 6,17,10,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,17, 3,12, 4,17,15,17, 3,12,12,12, 4,17,14,17, 3,12, 4,17,10,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,17,17,17,17,17,15,17,17,17,15,17,17,17,14,17,17,17,17,17,10,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  3,12,12,12, 8,17,15,16,16, 0,15, 0,16,16,14,17, 7,12,12,12, 4,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  0, 0, 0, 0,11,17,15, 0, 0, 0, 0, 0, 0, 0,14,17,10, 0, 0, 0, 0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  0, 0, 0, 0,11,17,15, 0, 5, 9, 9, 9, 6, 0,14,17,10, 0, 0, 0, 0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  9, 9, 9, 9, 2,17,15, 0,11, 0, 0, 0,10, 0,14,17, 1, 9, 9, 9, 9,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  0, 0, 0, 0, 0,17, 0, 0,11, 0, 0, 0,10, 0, 0,17, 0, 0, 0, 0, 0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 12,12,12,12, 8,17,15, 0, 3,12,12,12, 4, 0,14,17, 7,12,12,12,12,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  0, 0, 0, 0,11,17,15, 0, 0, 0, 0, 0, 0, 0,14,17,10, 0, 0, 0, 0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  0, 0, 0, 0,11,17,15, 0, 5, 9, 9, 9, 6, 0,14,17,10, 0, 0, 0, 0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  5, 9, 9, 9, 2,17,15, 0, 3,12,12,12, 4, 0,14,17, 1, 9, 9, 9, 6,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,17,17,17,17,17,17,17,17,17,15,17,17,17,17,17,17,17,17,17,10,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,17,12,12, 8,17,13,13,13,17,15,17,13,13,13,17, 7,12,12,17,10,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,18,17,17,11,17,17,17,17,17,17,17,17,17,17,17,10,17,17,18,10,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,12, 8,17,11,17,15,17, 5, 9, 9, 9, 6,17,14,17,10,17, 7,12,10,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11, 9, 2,17,11,17,15,17, 3,12,12,12, 4,17,14,17,10,17, 1, 9,10,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,17,17,17,17,17,15,17,17,17,15,17,17,17,14,17,17,17,17,17,10,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,17,16,16,16,16,16,16,16,17,15,17,16,16,16,16,16,16,16,17,10,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,10,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,0,0,0,0,0,0,0,0,0,15,0,0,0,0,0,0,0,0,0,10,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,0, 5, 9, 6,0, 5, 9, 6,0,15,0, 5, 9, 6,0, 5, 9, 6,0,10,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,0,11, 0,10,0,11, 0,10,0,15,0,11, 0,10,0,11, 0,10,0,10,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,0, 3,12, 4,0, 3,12, 4,0,15,0, 3,12, 4,0, 3,12, 4,0,10,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,0, 5, 9, 6,0,15,0, 5, 9, 9, 9, 6,0,14,0, 5, 9, 6,0,10,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,0, 3,12, 4,0,15,0, 3,12,12,12, 4,0,14,0, 3,12, 4,0,10,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,0,0,0,0,0,15,0,0,0,15,0,0,0,14,0,0,0,0,0,10,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  3,12,12,12, 8,0,15,16,16, 0,15, 0,16,16,14,0, 7,12,12,12, 4,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  0, 0, 0, 0,11,0,15, 0, 0, 0, 0, 0, 0, 0,14,0,10, 0, 0, 0, 0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  0, 0, 0, 0,11,0,15, 0, 5, 9, 9, 9, 6, 0,14,0,10, 0, 0, 0, 0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  9, 9, 9, 9, 2,0,15, 0,11, 0, 0, 0,10, 0,14,0, 1, 9, 9, 9, 9,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  0, 0, 0, 0, 0,0, 0, 0,11, 0, 0, 0,10, 0, 0,0, 0, 0, 0, 0, 0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 12,12,12,12, 8,0,15, 0, 3,12,12,12, 4, 0,14,0, 7,12,12,12,12,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  0, 0, 0, 0,11,0,15, 0, 0, 0, 0, 0, 0, 0,14,0,10, 0, 0, 0, 0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  0, 0, 0, 0,11,0,15, 0, 5, 9, 9, 9, 6, 0,14,0,10, 0, 0, 0, 0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  5, 9, 9, 9, 2,0,15, 0, 3,12,12,12, 4, 0,14,0, 1, 9, 9, 9, 6,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,0,0,0,0,0,0,0,0,0,15,0,0,0,0,0,0,0,0,0,10,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,0,12,12, 8,0,13,13,13,0,15,0,13,13,13,0, 7,12,12,0,10,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,0,0,0,11,0,0,0,0,0,0,0,0,0,0,0,10,0,0,0,10,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,12, 8,0,11,0,15,0, 5, 9, 9, 9, 6,0,14,0,10,0, 7,12,10,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11, 9, 2,0,11,0,15,0, 3,12,12,12, 4,0,14,0,10,0, 1, 9,10,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,0,0,0,0,0,15,0,0,0,15,0,0,0,14,0,0,0,0,0,10,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,0,16,16,16,16,16,16,16,0,15,0,16,16,16,16,16,16,16,0,10,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  3,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12, 4,
 };
-//当たり判定
+
+//当たり判定(ステージとのPlayer&Enemy)
 int StageCheckHit(int x1, int y1, int w1, int h1, int x2, int y2, int w2, int h2) {
 	int L1 = x1;		//左
 	int R1 = x1 + w1;	//右
@@ -52,6 +83,55 @@ int StageCheckHit(int x1, int y1, int w1, int h1, int x2, int y2, int w2, int h2
 	//当たっている
 	return 1;
 }
+
+int AisleCheckHit(int x1, int y1, int w1, int h1, int x2, int y2, int w2, int h2) {
+	int L1 = x1;		//左
+	int R1 = x1 + w1;	//右
+	int L2 = x2;		//左
+	int R2 = w2;		//右
+	if (R1 < L2) return 0;
+	if (R2 < L1) return 0;
+	int U1 = y1;		//上
+	int D1 = y1 + h1;	//下
+	int U2 = y2;		//上
+	int D2 = h2;		//下
+	if (D1 < U2) return 0;
+	if (D2 < U1) return 0;
+	//当たっている
+	return 1;
+}
+//int StageAvatarCheckHit(int x1, int y1, int w1, int h1, int x2, int y2, int w2, int h2, bool hit) {
+//	int L1 = x1;		//左
+//	int R1 = x1 + w1;	//右
+//	int L2 = x2;		//左
+//	int R2 = w2;		//右
+//	if (R1 < L2) {
+//		hit = FALSE;
+//		return 0;
+//	}
+//	if (R2 < L1) {
+//		hit = FALSE;
+//		return 0;
+//	}
+//	int U1 = y1;		//上
+//	int D1 = y1 + h1;	//下
+//	int U2 = y2;		//上
+//	int D2 = h2;		//下
+//	if (D1 < U2) {
+//		hit = FALSE;
+//		return 0;
+//	}
+//	if (D2 < U1) {
+//		hit = FALSE;
+//		return 0;
+//	}
+//	当たっている
+//	hit = TRUE;
+//	if (hit == TRUE) {
+//		return 1;
+//	}
+//}
+
 //初期化処理
 void Stage::Stage_Initialize() {
 	//サイズ
@@ -65,14 +145,75 @@ void Stage::Stage_Initialize() {
 	mStageChip[NUM_STAGE_IMAGE];
 	Stage::Stage_Storage();
 }
+
 //更新処理
 void Stage::Stage_Update() {
 	//当たり判定
 	for (int j = 0; j < NUM_STAGE_Y; j++) {
 		for (int i = 0; i < NUM_STAGE_X; i++) {
 			int no = stagedata[i + j * NUM_STAGE_X];
+			//壁に当たったときの処理
 			if (no != 0) {
-				//DrawBox(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, i * SIZE_STAGE_X + SIZE_STAGE_X, j * SIZE_STAGE_Y + SIZE_STAGE_Y, 0xffff00, FALSE);
+				DrawBox(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, i * SIZE_STAGE_X + SIZE_STAGE_X, j * SIZE_STAGE_Y + SIZE_STAGE_Y, 0xffff00, FALSE);
+
+				//分身体の当たり判定
+				////上
+				//if (mPlayer.avatar_left[0] > (j - 1) * SIZE_STAGE_Y && mPlayer.avatar_right[0] < (j - 1) * SIZE_STAGE_Y + SIZE_STAGE_Y) {
+				//	mPlayer.Top = FALSE;
+				//}
+				////下
+				//if (mPlayer.avatar_left[2] > (j + 1) * SIZE_STAGE_Y && mPlayer.avatar_right[2] < (j + 1) * SIZE_STAGE_Y + SIZE_STAGE_Y) {
+				//	mPlayer.Bottom = FALSE;
+				//}
+				////右
+				//if (mPlayer.avatar_top[1] > (i + 1) * SIZE_STAGE_X && mPlayer.avatar_bottom[1] < (i + 1) * SIZE_STAGE_X + SIZE_STAGE_X) {
+				//	mPlayer.Right = FALSE;
+				//}
+				////左
+				//if (mPlayer.avatar_top[3] > (i - 1) * SIZE_STAGE_X && mPlayer.avatar_bottom[3] < (i - 1) * SIZE_STAGE_X + SIZE_STAGE_X) {
+				//	mPlayer.Left = FALSE;
+				//}
+				//for (int avatar = 0; avatar < 4; avatar++) {
+				//	//上下
+				//	if (StageCheckHit(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, mPlayer.avatar_left[avatar], mPlayer.avatar_top[avatar], mPlayer.avatar_right[avatar], mPlayer.avatar_bottom[avatar])) {
+				//		if (avatar == 0) mPlayer.Top = FALSE;
+				//		if (avatar == 2) mPlayer.Bottom = FALSE;
+				//		if (avatar == 1)mPlayer.Right = FALSE;
+				//		if (avatar == 3)mPlayer.Left = FALSE;
+				//	}
+				//}
+
+				////上
+				//if (StageCheckHit(i * SIZE_STAGE_X, (j - 1) * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, mPlayer.avatar_left[0], mPlayer.avatar_top[0], mPlayer.avatar_right[0], mPlayer.avatar_bottom[0]) != 0) {
+				//	DrawFormatString(0, 160, 0x00ffff, "%d%d", i, j);
+				//	mPlayer.Top = FALSE;
+				//}
+				////右
+				//if (StageCheckHit((i + 1) * SIZE_STAGE_X, j * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, mPlayer.avatar_left[1], mPlayer.avatar_top[1], mPlayer.avatar_right[1], mPlayer.avatar_bottom[1]) != 0) {
+				//	DrawFormatString(0, 180, 0x00ffff, "%d%d", i, j);
+				//	mPlayer.Right = FALSE;
+				//}
+				////下
+				//if (StageCheckHit(i * SIZE_STAGE_X, (j + 1) * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, mPlayer.avatar_left[2], mPlayer.avatar_top[2], mPlayer.avatar_right[2], mPlayer.avatar_bottom[2]) != 0) {
+				//	mPlayer.Bottom = FALSE;
+				//}
+				////左
+				//if (StageCheckHit((i - 1) * SIZE_STAGE_X, j * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, mPlayer.avatar_left[3], mPlayer.avatar_top[3], mPlayer.avatar_right[3], mPlayer.avatar_bottom[3]) != 0) {
+				//	mPlayer.Left = FALSE;
+				//}
+
+				//分身体の当たり判定
+				//分身の処理
+				for (int avatar = 0; avatar <= 3; avatar++) {
+					if (StageCheckHit(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, mPlayer.avatar_left[avatar], mPlayer.avatar_top[avatar], mPlayer.avatar_right[avatar], mPlayer.avatar_bottom[avatar])) {
+						//当たっていたら進めなくする
+						if (avatar == 0)mPlayer.Top = TRUE;
+						if (avatar == 1)mPlayer.Right = TRUE;
+						if (avatar == 2)mPlayer.Bottom = TRUE;
+						if (avatar == 3)mPlayer.Left = TRUE;
+					}
+				}
+
 				//Playerの当たり判定
 				if (StageCheckHit(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, mPlayer.s_left, mPlayer.s_top, mPlayer.s_right, mPlayer.s_bottom)) {
 					// エサを食べる処理
@@ -82,38 +223,27 @@ void Stage::Stage_Update() {
 					//先行入力受け付け
 					mPlayer.P_StageHitflg = TRUE;
 					if (mPlayer.P_StageHitflg == TRUE) {
-						if (mPlayer.Angleflg == TRUE) {
-							if (mPlayer.iOldAngle == 2) {
-								mPlayer.iNowAngle = 2;
-							}
-							else if (mPlayer.iOldAngle == 3) {
-								mPlayer.iNowAngle = 3;
-							}
-							else if (mPlayer.iOldAngle == 4) {
-								mPlayer.iNowAngle = 4;
-							}
-							else if (mPlayer.iOldAngle == 1) {
-								mPlayer.iNowAngle = 1;
-							}
+						/*if (mPlayer.Angleflg == TRUE) {
+							mPlayer.iNowAngle = mPlayer.iOldAngle;
 							mPlayer.Angleflg = FALSE;
 						}
 						else if (mPlayer.Angleflg == FALSE) {
 							if (mPlayer.iOldAngle == mPlayer.iNowAngle) {
 								mPlayer.iOldKeyflg = TRUE;
 								if (iNowKey & PAD_INPUT_RIGHT) {
-									//mPlayer.iOldmove = 2;
+									mPlayer.iOldAngle = 2;
 								}
 								else if (iNowKey & PAD_INPUT_DOWN) {
-									//mPlayer.iOldmove = 3;
+									mPlayer.iOldAngle = 3;
 								}
 								else if (iNowKey & PAD_INPUT_LEFT) {
-									//mPlayer.iOldmove = 4;
+									mPlayer.iOldAngle = 4;
 								}
 								else if (iNowKey & PAD_INPUT_UP) {
-									//mPlayer.iOldmove = 1;
+									mPlayer.iOldAngle = 1;
 								}
 							}
-						}
+						}*/
 						//移動
 						mPlayer.x = mPlayer.recordX;
 						mPlayer.y = mPlayer.recordY;
@@ -126,7 +256,16 @@ void Stage::Stage_Update() {
 						mPlayer.s_right = mPlayer.recordSRight;
 						mPlayer.s_bottom = mPlayer.recordSBottom;
 						mPlayer.s_left = mPlayer.recordSLeft;
-						//ヒットを戻す
+
+						//分身
+						for (int i = 0; i <= 3; i++) {
+							mPlayer.avatar_bottom[i] = mPlayer.record_avatar_bottom[i];
+							mPlayer.avatar_left[i] = mPlayer.record_avatar_left[i];
+							mPlayer.avatar_top[i] = mPlayer.record_avatar_top[i];
+							mPlayer.avatar_right[i] = mPlayer.record_avatar_right[i];
+						}
+
+						//当たり判定を戻す
 						mPlayer.P_StageHitflg = FALSE;
 					}
 				}
@@ -175,24 +314,18 @@ void Stage::Stage_Update() {
 					}
 				}
 			}
-			else if (mStageChip[i] == 0) {
-				//前回の入力キーがあるかどうか
-				if (mPlayer.iOldKeyflg == TRUE) {
-					////右
-					//if (mPlayer.iOldmove == 2) {
-					//	if (mPlayer.s_top < i * SIZE_STAGE_Y + SIZE_STAGE_Y && mPlayer.s_bottom < i * SIZE_STAGE_Y) {
-					//		mPlayer.iNowAngle = 2;
-					//		mPlayer.iOldKeyflg = FALSE;
-					//	}
-					//}
-					////下
-					//if (mPlayer.iOldmove == 3) {
-					//	if (mPlayer.s_)
-					//}
-					////左
-					//if (mPlayer.) {
-					//}
-					////上
+
+			//通路の処理
+			else if (no == 0 || no == 17 || no == 18) {
+				//分身の処理
+				for (int avatar = 0; avatar <= 3; avatar++) {
+					if (AisleCheckHit(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, mPlayer.avatar_left[avatar], mPlayer.avatar_top[avatar], mPlayer.avatar_right[avatar], mPlayer.avatar_bottom[avatar])) {
+						//当たっていたら進める
+						if (avatar == 0)mPlayer.Top = FALSE;
+						if (avatar == 1)mPlayer.Right = FALSE;
+						if (avatar == 2)mPlayer.Bottom = FALSE;
+						if (avatar == 3)mPlayer.Left = FALSE;
+					}
 				}
 			}
 		}
@@ -204,7 +337,7 @@ void Stage::Stage_Draw() {
 	for (int j = 0; j < NUM_STAGE_Y; j++) {
 		for (int i = 0; i < NUM_STAGE_X; i++) {
 			int no = stagedata[i + j * NUM_STAGE_X];
-			DrawExtendGraph(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, i * SIZE_STAGE_X + SIZE_STAGE_X, j * SIZE_STAGE_Y + SIZE_STAGE_Y, mStageChip[no], FALSE);
+			//DrawExtendGraph(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, i * SIZE_STAGE_X + SIZE_STAGE_X, j * SIZE_STAGE_Y + SIZE_STAGE_Y, mStageChip[no], FALSE);
 		}
 	}
 	//スコア表示
@@ -236,7 +369,7 @@ void Stage::Stage_Draw() {
 	int mFruitNum = 0;
 	int FruitX = 900;
 	int FruitX_2 = 900;
-	for (int num = 0; num == 0; num++) {
+	/*for (int num = 0; num == 0; num++) {
 		for (int y = 0; y < 4; y++) {
 			DrawRotaGraph(FruitX, 390, 1.3, 0, mStageFruit[mFruitNum], true, false);
 			FruitX += 40;
@@ -247,20 +380,6 @@ void Stage::Stage_Draw() {
 			FruitX_2 += 40;
 			mFruitNum += 1;
 		}
-	}
-	/*for (int num = 0; num < 13; num++) {
-		if (mFruitNum == 0) {
-			DrawRotaGraph(FruitX, 390, 1.3, 0, mStageFruit[mFruitNum], true, false);
-			FruitX += 40;
-		}
-		if (mFruitNum % 2 != 0) {
-			DrawRotaGraph(FruitX, 390, 1.3, 0, mStageFruit[mFruitNum], true, false);
-			FruitX += 40;
-		}
-		if (mFruitNum == 12) {
-			DrawRotaGraph(FruitX, 390, 1.3, 0, mStageFruit[mFruitNum], true, false);
-		}
-		mFruitNum += 1;
 	}*/
 }
 //画像格納処理

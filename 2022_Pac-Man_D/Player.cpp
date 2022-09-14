@@ -4,6 +4,7 @@
 #include "Red_Enemy.h"
 #include "Stage.h"
 Player mPlayer;
+
 //当たり判定
 int PlayerCheckHit(int x1, int y1, int w1, int h1, int x2, int y2, int w2, int h2) {
 	int L1 = x1;		//左
@@ -21,21 +22,25 @@ int PlayerCheckHit(int x1, int y1, int w1, int h1, int x2, int y2, int w2, int h
 	//当たっている
 	return 1;
 }
+
+//初期化処理
 void Player::Player_Initialize() {
 	//移動
 	mPlayer.x = PLAYER_POS_X;
 	mPlayer.y = PLAYER_POS_Y;
-	//当たり判定
+	//中心の当たり判定の座標
+	mPlayer.Hitflg = FALSE;		//エネミーとのヒットフラグ
 	mPlayer.p_left = PLAYER_POS_X - PLAYER_CENTER_HITBOX;
 	mPlayer.p_top = PLAYER_POS_Y - PLAYER_CENTER_HITBOX;
 	mPlayer.p_right = PLAYER_POS_X + PLAYER_CENTER_HITBOX;
 	mPlayer.p_bottom = PLAYER_POS_Y + PLAYER_CENTER_HITBOX;
-	//Stage当たり判定
+	//Stageとの当たり判定
+	mPlayer.P_StageHitflg = FALSE;		//ステージとのヒットフラグ
 	mPlayer.s_left = PLAYER_POS_X - PLAYER_POS_HITBOX;
 	mPlayer.s_top = PLAYER_POS_Y - PLAYER_POS_HITBOX;
 	mPlayer.s_right = PLAYER_POS_X + PLAYER_POS_HITBOX;
 	mPlayer.s_bottom = PLAYER_POS_Y + PLAYER_POS_HITBOX;
-	//画像格納
+	//移動画像格納
 	LoadDivGraph("images/pacman.png", 12, 12, 1, 32, 32, mPlayer.mPlayerMoveImage);
 	//アングル
 	mPlayer.iNowAngle = 4;
@@ -60,14 +65,38 @@ void Player::Player_Initialize() {
 	//画像処理
 	mPlayer.count = 0;
 	mPlayer.image = 0;
-	mPlayer.Hitflg = FALSE;
-	mPlayer.P_StageHitflg = FALSE;
-	mPlayer.Angleflg = FALSE;
-	mPlayer.iOldKeyflg = FALSE;
+
+	//分身の初期化処理
+	//分身のフラグ処理
+	mPlayer.Top = FALSE;
+	mPlayer.Bottom = FALSE;
+	mPlayer.Left = TRUE;
+	mPlayer.Right = TRUE;
+	//分身の座標
+	//上
+	mPlayer.PLAYER_AVATAR_POS_X[0] = PLAYER_POS_X;
+	mPlayer.PLAYER_AVATAR_POS_Y[0] = PLAYER_POS_Y - 24;
+	//右
+	mPlayer.PLAYER_AVATAR_POS_X[1] = PLAYER_POS_X + 24;
+	mPlayer.PLAYER_AVATAR_POS_Y[1] = PLAYER_POS_Y;
+	//下
+	mPlayer.PLAYER_AVATAR_POS_X[2] = PLAYER_POS_X;
+	mPlayer.PLAYER_AVATAR_POS_Y[2] = PLAYER_POS_Y + 24;
+	//左
+	mPlayer.PLAYER_AVATAR_POS_X[3] = PLAYER_POS_X - 24;
+	mPlayer.PLAYER_AVATAR_POS_Y[3] = PLAYER_POS_Y;
+
+	//分身の当たり判定座標
+	for (int i = 0; i <= 3; i++) {
+		mPlayer.avatar_left[i] = PLAYER_AVATAR_POS_X[i] - PLAYER_POS_HITBOX;
+		mPlayer.avatar_top[i] = PLAYER_AVATAR_POS_Y[i] - PLAYER_POS_HITBOX;
+		mPlayer.avatar_right[i] = PLAYER_AVATAR_POS_X[i] + PLAYER_POS_HITBOX;
+		mPlayer.avatar_bottom[i] = PLAYER_AVATAR_POS_Y[i] + PLAYER_POS_HITBOX;
+	}
 }
 void Player::Player_Update() {
+	//画像カウント
 	++count;
-	++mPlayer.deletecount;
 	//前回の座標を取得
 	mPlayer.recordX = mPlayer.x;
 	mPlayer.recordY = mPlayer.y;
@@ -81,6 +110,15 @@ void Player::Player_Update() {
 	mPlayer.recordPright = mPlayer.p_right;
 	mPlayer.recordPbottom = mPlayer.p_bottom;
 	mPlayer.recordPleft = mPlayer.p_left;
+
+	//分身の座標
+	for (int i = 0; i <= 3; i++) {
+		mPlayer.record_avatar_bottom[i] = mPlayer.avatar_bottom[i];
+		mPlayer.record_avatar_left[i] = mPlayer.avatar_left[i];
+		mPlayer.record_avatar_right[i] = mPlayer.avatar_right[i];
+		mPlayer.record_avatar_top[i] = mPlayer.avatar_top[i];
+	}
+
 	//画像処理
 	if (count >= 3) {
 		mPlayer.image += 1;
@@ -103,38 +141,85 @@ void Player::Player_Update() {
 
 	//エネミーとの当たり判定
 	if (PlayerCheckHit(mPlayer.p_left, mPlayer.p_top, mPlayer.p_right, mPlayer.p_bottom, r_enemy.left, r_enemy.top, r_enemy.right, r_enemy.bottom)) {
-		mPlayer.Hitflg = TRUE;
+		//mPlayer.Hitflg = TRUE;
 	}
-	//移動処理
-	//右
-	if (iNowKey & PAD_INPUT_RIGHT) {
-		//前回のアングル格納
-		mPlayer.iOldAngle = mPlayer.iNowAngle;
-		mPlayer.Angleflg = TRUE;
-		mPlayer.iNowAngle = 2;
+
+	//キー入力処理(ステージに触れていない時)
+	if (mPlayer.P_StageHitflg == FALSE) {
+		//右
+		if (iNowKey & PAD_INPUT_RIGHT){
+			//壁がない
+			if (mPlayer.Right == FALSE) {
+				mPlayer.iNowAngle = 2;
+				mPlayer.iOldAngle = mPlayer.iNowAngle;
+			}
+			//壁がある
+			else if (mPlayer.Right == TRUE) {
+				mPlayer.iOldAngle = 2;
+				//mPlayer.iKeepAngle = mPlayer.iNowAngle;
+				//mPlayer.iNowAngle = mPlayer.iOldAngle;
+				//mPlayer.iOldAngle = mPlayer.iKeepAngle;
+			}
+		}
+		//左
+		else if (iNowKey & PAD_INPUT_LEFT) {
+			//壁がない
+			if (mPlayer.Left == FALSE) {
+				mPlayer.iNowAngle = 4;
+				mPlayer.iOldAngle = mPlayer.iNowAngle;
+			}
+			//壁がある
+			else if (mPlayer.Left == TRUE) {
+				mPlayer.iOldAngle = 4;
+			}
+		}
+		//上
+		else if (iNowKey & PAD_INPUT_UP) {
+			//壁がない
+			if (mPlayer.Top == FALSE) {
+				mPlayer.iNowAngle = 1;
+				mPlayer.iOldAngle = mPlayer.iNowAngle;
+			}
+			//壁がある
+			else if (mPlayer.Top == TRUE) {
+				mPlayer.iOldAngle = 1;
+			}
+		}
+		//下
+		else if (iNowKey & PAD_INPUT_DOWN) {
+			//壁がない
+			if (mPlayer.Bottom == FALSE) {
+				mPlayer.iNowAngle = 3;
+				mPlayer.iOldAngle = mPlayer.iNowAngle;
+			}
+			//壁がある
+			else if (mPlayer.Bottom == TRUE) {
+				mPlayer.iOldAngle = 3;
+			}
+		}
 	}
-	//左
-	else if (iNowKey & PAD_INPUT_LEFT) {
-		//前回のアングル格納
-		mPlayer.iOldAngle = mPlayer.iNowAngle;
-		mPlayer.Angleflg = TRUE;
-		mPlayer.iNowAngle = 4;
+
+	//前回の入力キーがあるかどうか
+	if (mPlayer.x % 12 == 0) {
+		//うえ
+		if (mPlayer.Top == FALSE && mPlayer.iOldAngle == 1) {
+			mPlayer.iNowAngle = mPlayer.iOldAngle;
+		}
+		//みぎ
+		else if (mPlayer.Right == FALSE && mPlayer.iOldAngle == 2) {
+			mPlayer.iNowAngle = mPlayer.iOldAngle;
+		}
+		//した
+		else if (mPlayer.Bottom == FALSE && mPlayer.iOldAngle == 3) {
+			mPlayer.iNowAngle = mPlayer.iOldAngle;
+		}
+		//ひだり
+		else if (mPlayer.Left == FALSE && mPlayer.iOldAngle == 4) {
+			mPlayer.iNowAngle = mPlayer.iOldAngle;
+		}
 	}
-	//上
-	else if (iNowKey & PAD_INPUT_UP) {
-		//前回のアングル格納
-		mPlayer.iOldAngle = mPlayer.iNowAngle;
-		mPlayer.Angleflg = TRUE;
-		mPlayer.iNowAngle = 1;
-	}
-	//下
-	else if (iNowKey & PAD_INPUT_DOWN) {
-		//前回のアングル格納
-		mPlayer.iOldAngle = mPlayer.iNowAngle;
-		mPlayer.Angleflg = TRUE;
-		mPlayer.iNowAngle = 3;
-	}
-	//移動
+	 
+	//Playerの移動
 	if (mPlayer.Hitflg == FALSE) {
 		//上
 		if (mPlayer.iNowAngle == 1) {
@@ -144,6 +229,13 @@ void Player::Player_Update() {
 			mPlayer.p_bottom -= mPlayer.move;
 			mPlayer.s_top -= mPlayer.move;
 			mPlayer.s_bottom -= mPlayer.move;
+
+			//分身
+			for (int i = 0; i <= 3; i++) {
+				mPlayer.avatar_top[i] -= mPlayer.move;
+				mPlayer.avatar_bottom[i] -= mPlayer.move;
+			}
+
 		}
 		//右
 		else if (mPlayer.iNowAngle == 2) {
@@ -153,6 +245,12 @@ void Player::Player_Update() {
 			mPlayer.p_right += mPlayer.move;
 			mPlayer.s_left += mPlayer.move;
 			mPlayer.s_right += mPlayer.move;
+
+			//分身
+			for (int i = 0; i <= 3; i++) {
+				mPlayer.avatar_left[i] += mPlayer.move;
+				mPlayer.avatar_right[i] += mPlayer.move;
+			}
 		}
 		//下
 		else if (mPlayer.iNowAngle == 3) {
@@ -162,6 +260,12 @@ void Player::Player_Update() {
 			mPlayer.p_bottom += mPlayer.move;
 			mPlayer.s_top += mPlayer.move;
 			mPlayer.s_bottom += mPlayer.move;
+
+			//分身
+			for (int i = 0; i <= 3; i++) {
+				mPlayer.avatar_top[i] += mPlayer.move;
+				mPlayer.avatar_bottom[i] += mPlayer.move;
+			}
 		}
 		//左
 		else if (mPlayer.iNowAngle == 4) {
@@ -171,10 +275,16 @@ void Player::Player_Update() {
 			mPlayer.p_right -= mPlayer.move;
 			mPlayer.s_left -= mPlayer.move;
 			mPlayer.s_right -= mPlayer.move;
+
+			//分身
+			for (int i = 0; i <= 3; i++) {
+				mPlayer.avatar_right[i] -= mPlayer.move;
+				mPlayer.avatar_left[i] -= mPlayer.move;
+			}
 		}
 	}
 
-	// ワープ
+	// ワープ(そのまま)
 	if (mPlayer.x >= 890) {
 		mPlayer.x = 340;
 		//HitBox移動
@@ -182,6 +292,20 @@ void Player::Player_Update() {
 		mPlayer.p_left = 340 - PLAYER_CENTER_HITBOX;
 		mPlayer.s_right = 340 + PLAYER_POS_HITBOX;
 		mPlayer.s_left = 340 - PLAYER_POS_HITBOX;
+
+		//分身
+		//上
+		mPlayer.avatar_right[0] = 340 + PLAYER_POS_HITBOX;
+		mPlayer.avatar_left[0] = 340 - PLAYER_POS_HITBOX;
+		//下
+		mPlayer.avatar_left[2] = 340 - PLAYER_POS_HITBOX;
+		mPlayer.avatar_right[2] = 340 + PLAYER_POS_HITBOX;
+		//右
+		mPlayer.avatar_left[1] = 340 + 24 - PLAYER_POS_HITBOX;
+		mPlayer.avatar_right[1] = 340 + 24 + PLAYER_POS_HITBOX;
+		//左
+		mPlayer.avatar_right[3] = 340 - 24 - PLAYER_POS_HITBOX;
+		mPlayer.avatar_left[3] = 340 - 24 + PLAYER_POS_HITBOX;
 	}
 	else if (mPlayer.x <= 340) {
 		mPlayer.x = 890;
@@ -190,12 +314,27 @@ void Player::Player_Update() {
 		mPlayer.p_left = 890 - PLAYER_CENTER_HITBOX;
 		mPlayer.s_right = 890 + PLAYER_POS_HITBOX;
 		mPlayer.s_left = 890 - PLAYER_POS_HITBOX;
+
+		//分身
+		//上
+		mPlayer.avatar_right[0] = 890 + PLAYER_POS_HITBOX;
+		mPlayer.avatar_left[0] = 890 - PLAYER_POS_HITBOX;
+		//下
+		mPlayer.avatar_left[2] = 890 - PLAYER_POS_HITBOX;
+		mPlayer.avatar_right[2] = 890 + PLAYER_POS_HITBOX;
+		//右
+		mPlayer.avatar_left[1] = 890 + 24 - PLAYER_POS_HITBOX;
+		mPlayer.avatar_right[1] = 890 + 24 + PLAYER_POS_HITBOX;
+		//左
+		mPlayer.avatar_right[3] = 890 - 24 - PLAYER_POS_HITBOX;
+		mPlayer.avatar_left[3] = 890 - 24 + PLAYER_POS_HITBOX;
 	}
 }
 void Player::Player_Draw() {
 	if (mPlayer.Hitflg == FALSE) {
 		//Player表示
 		DrawRotaGraph(mPlayer.x, mPlayer.y, 0.75, 0, mPlayer.mPlayerMoveImage[mPlayer.image], TRUE, FALSE);
+		mPlayer.deletecount = 0;
 	}
 	else if (mPlayer.Hitflg == TRUE) {
 		mPlayer.deletecount++;
@@ -204,6 +343,55 @@ void Player::Player_Draw() {
 			mPlayer.deleteimage++;
 		}
 		DrawRotaGraph(mPlayer.x, mPlayer.y, 0.75, 0, mPlayer.mPlayerDeleteImage[mPlayer.deleteimage], TRUE, FALSE);
+	}
+	//分身の表示
+	for (int i = 0; i <= 3; i++) {
+		DrawBox(mPlayer.avatar_left[i], mPlayer.avatar_top[i], mPlayer.avatar_right[i], mPlayer.avatar_bottom[i], 0x00ffff, FALSE);
+	}
+
+	if (mPlayer.Top == FALSE) {
+		DrawString(0, 0, "上成功", 0xff00ff);
+	}
+	if (mPlayer.Right == FALSE) {
+		DrawString(0, 20, "右成功", 0xff00ff);
+	}
+	if (mPlayer.Bottom == FALSE) {
+		DrawString(0, 40, "下成功", 0xff00ff);
+	}
+	if (mPlayer.Left == FALSE) {
+		DrawString(0, 60, "左成功", 0xff00ff);
+	}
+	if (mPlayer.P_StageHitflg == TRUE) {
+		DrawString(0, 80, "当たっています", 0xff00ff);
+	}
+	else if (mPlayer.P_StageHitflg == FALSE) {
+		DrawString(0, 80, "当たっていません", 0xff00ff);
+	}
+
+	if (mPlayer.iNowAngle == 1) {
+		DrawString(0, 100, "現在のアングルは上です", 0xff00ff);
+	}
+	else if (mPlayer.iNowAngle == 2) {
+		DrawString(0, 100, "現在のアングルは右です", 0xff00ff);
+	} 
+	else if (mPlayer.iNowAngle == 3) {
+		DrawString(0, 100, "現在のアングルは下です", 0xff00ff);
+	}
+	else if (mPlayer.iNowAngle == 4) {
+		DrawString(0, 100, "現在のアングルは左です", 0xff00ff);
+	}
+
+	if (mPlayer.iOldAngle == 1) {
+		DrawString(0, 120, "前回のアングルは上です", 0xff00ff);
+	}
+	else if (mPlayer.iOldAngle == 2) {
+		DrawString(0, 120, "前回のアングルは右です", 0xff00ff);
+	}
+	else if (mPlayer.iOldAngle == 3) {
+		DrawString(0, 120, "前回のアングルは下です", 0xff00ff);
+	}
+	else if (mPlayer.iOldAngle == 4) {
+		DrawString(0, 120, "前回のアングルは左です", 0xff00ff);
 	}
 	//Stage当たり判定表示
 	DrawBox(mPlayer.s_left, mPlayer.s_top, mPlayer.s_right, mPlayer.s_bottom, 0x00ff00, FALSE);
