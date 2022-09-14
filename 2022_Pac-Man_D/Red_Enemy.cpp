@@ -42,6 +42,7 @@ void R_ENEMY::Initialize() {
 	r_enemy.ER_Hitflg = FALSE;     // イジケ状態点滅フラグ
 	r_enemy.PR_Hitflg = FALSE;     // イジケ状態でプレイヤーに当たった時のフラグ
 	r_enemy.eyeflg = FALSE;        // エネミー目状態
+	r_enemy.Initiaflg = FALSE;     // エネミー初期化
 
 	// 初期位置を保存
 	r_enemy.x = ENEMY_POS_X;
@@ -317,5 +318,15 @@ void R_ENEMY::Draw() {
 				DrawString(100, 300, "パワーエサ：無し：初期位置に戻りました", (255, 255, 255));
 			}
 		}
+	}
+	if (r_enemy.Initiaflg == TRUE) {
+		// 初期位置に戻す
+		r_enemy.x = ENEMY_POS_X;
+		r_enemy.y = ENEMY_POS_Y;
+		r_enemy.top = ENEMY_POS_Y - ENEMY_STAGE_HITBOX;
+		r_enemy.left = ENEMY_POS_X - ENEMY_STAGE_HITBOX;
+		r_enemy.right = ENEMY_POS_X + ENEMY_STAGE_HITBOX;
+		r_enemy.bottom = ENEMY_POS_Y + ENEMY_STAGE_HITBOX;
+		r_enemy.Initiaflg = FALSE;
 	}
 }

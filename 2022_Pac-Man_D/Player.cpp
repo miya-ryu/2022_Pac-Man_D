@@ -224,6 +224,7 @@ void Player::Player_Draw() {
 	if (mPlayer.Hitflg == FALSE) {
 		//Player•\Ž¦
 		DrawRotaGraph(mPlayer.x, mPlayer.y, 0.75, 0, mPlayer.mPlayerMoveImage[mPlayer.image], TRUE, FALSE);
+		mPlayer.deleteimage = 0;
 	}
 	else if (mPlayer.Hitflg == TRUE) {
 		mPlayer.deletecount++;
@@ -247,6 +248,7 @@ void Player::Player_Draw() {
 			mPlayer.s_bottom = PLAYER_POS_Y + PLAYER_POS_HITBOX;
 			mPlayer.iNowAngle = 4;
 			mPlayer.Hitflg = FALSE;
+			r_enemy.Initiaflg = TRUE;
 		}
 	}
 	//Stage“–‚½‚è”»’è•\Ž¦
