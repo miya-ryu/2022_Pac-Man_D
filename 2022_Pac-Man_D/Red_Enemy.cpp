@@ -1,54 +1,54 @@
-ï»¿#include "DxLib.h"
+#include "DxLib.h"
 #include "Red_Enemy.h"
 #include "Player.h"
 
 R_ENEMY r_enemy;
 
 int EnemeyCheckHit(int x1, int y1, int w1, int h1, int x2, int y2, int w2, int h2) {
-	int L1 = x1;		//ï¿½ï¿½
-	int R1 = w1;		//ï¿½E
-	int L2 = x2;		//ï¿½ï¿½
-	int R2 = w2;		//ï¿½E
+	int L1 = x1;		//¶
+	int R1 = w1;		//‰E
+	int L2 = x2;		//¶
+	int R2 = w2;		//‰E
 
 	if (R1 < L2) return 0;
 	if (R2 < L1) return 0;
 
-	int U1 = y1;		//ï¿½ï¿½
-	int D1 = h1;		//ï¿½ï¿½
-	int U2 = y2;		//ï¿½ï¿½
-	int D2 = h2;		//ï¿½ï¿½
+	int U1 = y1;		//ã
+	int D1 = h1;		//‰º
+	int U2 = y2;		//ã
+	int D2 = h2;		//‰º
 
 	if (D1 < U2) return 0;
 	if (D2 < U1) return 0;
 
-	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½
+	//“–‚½‚Á‚Ä‚¢‚é
 	return 1;
 }
 
 void R_ENEMY::Initialize() {
-	LoadDivGraph("images/monster.png", 20, 20, 1, 32, 32, images);  // ï¿½Gï¿½Lï¿½ï¿½ï¿½ï¿½
-	LoadDivGraph("images/eyes.png", 4, 4, 1, 32, 32, eyesimages);  // ï¿½Gï¿½Lï¿½ï¿½ï¿½ï¿½ï¿½Ì–ï¿½
+	LoadDivGraph("images/monster.png", 20, 20, 1, 32, 32, images);  // “GƒLƒƒƒ‰
+	LoadDivGraph("images/eyes.png", 4, 4, 1, 32, 32, eyesimages);  // “GƒLƒƒƒ‰‚Ì–Ú
 
-	r_enemy.speed = 1.8;           // ï¿½Ú“ï¿½ï¿½ï¿½ï¿½x
-	r_enemy.count = 0;             // ï¿½Aï¿½jï¿½ï¿½ï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½Jï¿½Eï¿½ï¿½ï¿½g
-	r_enemy.ER_count = 0;          // ï¿½Cï¿½Wï¿½Pï¿½ï¿½ÔƒJï¿½Eï¿½ï¿½ï¿½g
-	r_enemy.image = 0;             // ï¿½æ‘œï¿½Ïï¿½
-	r_enemy.eyeimage = 0;          // ï¿½Ú‚Ì‰æ‘œï¿½Ïï¿½
-	r_enemy.izikeimage = 16;       // ï¿½Cï¿½Wï¿½Pï¿½ï¿½Ô‚Ì‰æ‘œï¿½Ïï¿½
-	r_enemy.e_izikeimage = 16;     // ï¿½Cï¿½Wï¿½Pï¿½ï¿½Ô“_ï¿½Å‚Ì‰æ‘œï¿½Ïï¿½
-	//r_enemy.E_StageHitflg = FALSE; // ï¿½Ç‚Æ‚Ì“ï¿½ï¿½ï¿½ï¿½è”»ï¿½ï¿½tï¿½ï¿½ï¿½O
-	r_enemy.R_Hitflg = FALSE;      // ï¿½Cï¿½Wï¿½Pï¿½ï¿½Ô”ï¿½ï¿½ï¿½tï¿½ï¿½ï¿½O
-	r_enemy.ER_Hitflg = FALSE;     // ï¿½Cï¿½Wï¿½Pï¿½ï¿½Ô“_ï¿½Åƒtï¿½ï¿½ï¿½O
-	r_enemy.PR_Hitflg = FALSE;     // ï¿½Cï¿½Wï¿½Pï¿½ï¿½Ô‚Åƒvï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½É“ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìƒtï¿½ï¿½ï¿½O
-	r_enemy.eyeflg = FALSE;        // ï¿½Gï¿½lï¿½~ï¿½[ï¿½Úï¿½ï¿½
+	r_enemy.speed = 1.8;           // ˆÚ“®‘¬“x
+	r_enemy.angle = 4;             // ‰Šú‚ÌŒü‚«
+	r_enemy.count = 0;             // ƒAƒjƒ[ƒVƒ‡ƒ“ƒJƒEƒ“ƒg
+	r_enemy.ER_count = 0;          // ƒCƒWƒPó‘ÔƒJƒEƒ“ƒg
+	r_enemy.image = 0;             // ‰æ‘œ•Ï”
+	r_enemy.eyeimage = 0;          // –Ú‚Ì‰æ‘œ•Ï”
+	r_enemy.izikeimage = 16;       // ƒCƒWƒPó‘Ô‚Ì‰æ‘œ•Ï”
+	r_enemy.e_izikeimage = 16;     // ƒCƒWƒPó‘Ô“_–Å‚Ì‰æ‘œ•Ï”
+	//r_enemy.E_StageHitflg = FALSE; // •Ç‚Æ‚Ì“–‚½‚è”»’èƒtƒ‰ƒO
+	r_enemy.R_Hitflg = FALSE;      // ƒCƒWƒPó‘Ô”»’èƒtƒ‰ƒO
+	r_enemy.ER_Hitflg = FALSE;     // ƒCƒWƒPó‘Ô“_–Åƒtƒ‰ƒO
+	r_enemy.PR_Hitflg = FALSE;     // ƒCƒWƒPó‘Ô‚ÅƒvƒŒƒCƒ„[‚É“–‚½‚Á‚½‚Ìƒtƒ‰ƒO
+	r_enemy.eyeflg = FALSE;        // ƒGƒlƒ~[–Úó‘Ô
+	r_enemy.Initiaflg = FALSE;     // ƒGƒlƒ~[‰Šú‰»
 
+	// ‰ŠúˆÊ’u‚ğ•Û‘¶
 	r_enemy.x = ENEMY_POS_X;
 	r_enemy.y = ENEMY_POS_Y;
 
-	// ï¿½ï¿½ï¿½ï¿½ï¿½ÌŒï¿½ï¿½ï¿½
-	r_enemy.angle = 4;
-
-	//ï¿½ï¿½ï¿½ï¿½ï¿½è”»ï¿½ï¿½
+	//“–‚½‚è”»’è
 	r_enemy.recordX = r_enemy.x;
 	r_enemy.recordY = r_enemy.y;
 
@@ -64,7 +64,7 @@ void R_ENEMY::Initialize() {
 }
 
 void R_ENEMY::Update() {
-	//ï¿½Oï¿½ï¿½Ìï¿½ï¿½Wï¿½æ“¾
+	//‘O‰ñ‚ÌÀ•Wæ“¾
 	r_enemy.recordX = r_enemy.x;
 	r_enemy.recordY = r_enemy.y;
 
@@ -73,11 +73,11 @@ void R_ENEMY::Update() {
 	r_enemy.recordBottom = r_enemy.bottom;
 	r_enemy.recordLeft = r_enemy.left;
 
-	//ï¿½Oï¿½ï¿½Ìï¿½ï¿½Wï¿½Ú“ï¿½
+	//‘O‰ñ‚ÌÀ•WˆÚ“®
 	r_enemy.absX = mPlayer.x - r_enemy.x;
 	r_enemy.absY = mPlayer.y - r_enemy.y;
 
-	//ï¿½ï¿½Î’lï¿½ï¿½ï¿½ï¿½ß‚ï¿½
+	//â‘Î’l‚ğ‹‚ß‚é
 	if (r_enemy.absX <= 0) {
 		r_enemy.absX = r_enemy.absX * -1;
 	}
@@ -85,66 +85,70 @@ void R_ENEMY::Update() {
 		r_enemy.absY = r_enemy.absY * -1;
 	}
 
-	// ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ï¿½Ç‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½éˆï¿½ï¿½
-	if (r_enemy.R_Hitflg == FALSE) { // ï¿½pï¿½ï¿½ï¿½[ï¿½Gï¿½Tï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½È‚ï¿½ï¿½ï¿½
+	// ƒvƒŒƒCƒ„[‚ğ’Ç‚¢‚©‚¯‚éˆ—
+	if (r_enemy.R_Hitflg == FALSE) { // ƒpƒ[ƒGƒT‚ğæ‚Á‚Ä‚¢‚È‚¢
 		r_enemy.speed = 1.8;
-		if (r_enemy.absX > r_enemy.absY) { // ï¿½ï¿½Î’lXï¿½Ì’lï¿½ï¿½ï¿½å‚«ï¿½ï¿½ï¿½Æ‚ï¿½
-			// ï¿½Eï¿½ï¿½ï¿½ï¿½
-			if (mPlayer.x > r_enemy.x) { // xï¿½Ì’lï¿½ï¿½ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½Ì•ï¿½ï¿½ï¿½ï¿½å‚«ï¿½ï¿½ï¿½Æ‚ï¿½
+		if (r_enemy.absX > r_enemy.absY) { // â‘Î’lX‚Ì’l‚ª‘å‚«‚¢‚Æ‚«
+			// ‰EŒü‚«
+			if (mPlayer.x > r_enemy.x) { // x‚Ì’l‚ªƒvƒŒƒCƒ„[‚Ì•û‚ª‘å‚«‚¢‚Æ‚«
 				r_enemy.x += r_enemy.speed;
 
-				// ï¿½ï¿½ï¿½ï¿½ï¿½è”»ï¿½ï¿½
+				// “–‚½‚è”»’è
 				r_enemy.left += r_enemy.speed;
 				r_enemy.right += r_enemy.speed;
 
 				r_enemy.eyeimage = 1;
+				r_enemy.angle = 2;
 			}
-			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-			else if (mPlayer.x < r_enemy.x) { // xï¿½Ì’lï¿½ï¿½ï¿½Gï¿½lï¿½~ï¿½[ï¿½Ì•ï¿½ï¿½ï¿½ï¿½å‚«ï¿½ï¿½ï¿½Æ‚ï¿½
+			// ¶Œü‚«
+			else if (mPlayer.x < r_enemy.x) { // x‚Ì’l‚ªƒGƒlƒ~[‚Ì•û‚ª‘å‚«‚¢‚Æ‚«
 				r_enemy.x -= r_enemy.speed;
 
 				r_enemy.left -= r_enemy.speed;
 				r_enemy.right -= r_enemy.speed;
 
 				r_enemy.eyeimage = 3;
+				r_enemy.angle = 4;
 			}
 		}
-		if (r_enemy.absX < r_enemy.absY) { // ï¿½ï¿½Î’lYï¿½Ì’lï¿½ï¿½ï¿½å‚«ï¿½ï¿½ï¿½Æ‚ï¿½
-			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-			if (mPlayer.y > r_enemy.y) { // yï¿½Ì’lï¿½ï¿½ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½Ì•ï¿½ï¿½ï¿½ï¿½å‚«ï¿½ï¿½ï¿½Æ‚ï¿½
+		if (r_enemy.absX < r_enemy.absY) { // â‘Î’lY‚Ì’l‚ª‘å‚«‚¢‚Æ‚«
+			//‰ºŒü‚«
+			if (mPlayer.y > r_enemy.y) { // y‚Ì’l‚ªƒvƒŒƒCƒ„[‚Ì•û‚ª‘å‚«‚¢‚Æ‚«
 				r_enemy.y += r_enemy.speed;
 
-				//ï¿½ï¿½ï¿½ï¿½ï¿½è”»ï¿½ï¿½
+				//“–‚½‚è”»’è
 				r_enemy.top += r_enemy.speed;
 				r_enemy.bottom += r_enemy.speed;
 
 				r_enemy.eyeimage = 2;
+				r_enemy.angle = 3;
 			}
-			//ï¿½ï¿½ï¿½ï¿½ï¿½
-			else if (mPlayer.y < r_enemy.y) { // yï¿½Ì’lï¿½ï¿½ï¿½Gï¿½lï¿½~ï¿½[ï¿½Ì•ï¿½ï¿½ï¿½ï¿½å‚«ï¿½ï¿½ï¿½Æ‚ï¿½
+			//ãŒü‚«
+			else if (mPlayer.y < r_enemy.y) { // y‚Ì’l‚ªƒGƒlƒ~[‚Ì•û‚ª‘å‚«‚¢‚Æ‚«
 				r_enemy.y -= r_enemy.speed;
 
-				//ï¿½ï¿½ï¿½ï¿½ï¿½è”»ï¿½ï¿½
+				//“–‚½‚è”»’è
 				r_enemy.top -= r_enemy.speed;
 				r_enemy.bottom -= r_enemy.speed;
 
 				r_enemy.eyeimage = 0;
+				r_enemy.angle = 1;
 			}
 		}
 	}
-	else if (r_enemy.R_Hitflg == TRUE) { // ï¿½pï¿½ï¿½ï¿½[ï¿½Gï¿½Tï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-		if (r_enemy.PR_Hitflg == FALSE) { // ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½Æ“ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½È‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	else if (r_enemy.R_Hitflg == TRUE) { // ƒpƒ[ƒGƒT‚ğæ‚Á‚½
+		if (r_enemy.PR_Hitflg == FALSE) { // ƒvƒŒƒCƒ„[‚Æ“–‚½‚Á‚Ä‚¢‚È‚©‚Á‚½‚ç
 			r_enemy.speed = 1.6;
-			if (r_enemy.absX > r_enemy.absY) { // ï¿½ï¿½Î’lXï¿½Ì’lï¿½ï¿½ï¿½å‚«ï¿½ï¿½ï¿½Æ‚ï¿½
-			    //ï¿½Eï¿½ï¿½ï¿½ï¿½
+			if (r_enemy.absX > r_enemy.absY) { // â‘Î’lX‚Ì’l‚ª‘å‚«‚¢‚Æ‚«
+			    //‰EŒü‚«
 				if (mPlayer.x < r_enemy.x) {
 					r_enemy.x += r_enemy.speed;
 
-					//ï¿½ï¿½ï¿½ï¿½ï¿½è”»ï¿½ï¿½
+					//“–‚½‚è”»’è
 					r_enemy.left += r_enemy.speed;
 					r_enemy.right += r_enemy.speed;
 				}
-				//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+				//¶Œü‚«
 				else if (mPlayer.x > r_enemy.x) {
 					r_enemy.x -= r_enemy.speed;
 
@@ -152,73 +156,73 @@ void R_ENEMY::Update() {
 					r_enemy.right -= r_enemy.speed;
 				}
 			}
-			if (r_enemy.absX < r_enemy.absY) { // ï¿½ï¿½Î’lYï¿½Ì’lï¿½ï¿½ï¿½å‚«ï¿½ï¿½ï¿½Æ‚ï¿½
-				//ï¿½ï¿½ï¿½ï¿½ï¿½
+			if (r_enemy.absX < r_enemy.absY) { // â‘Î’lY‚Ì’l‚ª‘å‚«‚¢‚Æ‚«
+				//ãŒü‚«
 				if (mPlayer.y > r_enemy.y) {
 					r_enemy.y -= r_enemy.speed;
 
-					//ï¿½ï¿½ï¿½ï¿½ï¿½è”»ï¿½ï¿½
+					//“–‚½‚è”»’è
 					r_enemy.top -= r_enemy.speed;
 					r_enemy.bottom -= r_enemy.speed;
 				}
-				//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+				//‰ºŒü‚«
 				else if (mPlayer.y < r_enemy.y) {
 					r_enemy.y += r_enemy.speed;
 
-					//ï¿½ï¿½ï¿½ï¿½ï¿½è”»ï¿½ï¿½
+					//“–‚½‚è”»’è
 					r_enemy.top += r_enemy.speed;
 					r_enemy.bottom += r_enemy.speed;
 				}
 			}
 		}
-		else if (r_enemy.PR_Hitflg == TRUE) { // ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½Æ“ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ï¿½ç‰ï¿½ï¿½ï¿½Ê’uï¿½É–ß‚ï¿½
+		else if (r_enemy.PR_Hitflg == TRUE) { // ƒvƒŒƒCƒ„[‚Æ“–‚½‚Á‚Ä‚¢‚½‚ç‰ŠúˆÊ’u‚É–ß‚é
 			if (r_enemy.eyeflg == TRUE) {
 				r_enemy.speed = 3;
-				if (r_enemy.absX > r_enemy.absY) { // ï¿½ï¿½Î’lXï¿½Ì’lï¿½ï¿½ï¿½å‚«ï¿½ï¿½ï¿½Æ‚ï¿½
-					//ï¿½Eï¿½ï¿½ï¿½ï¿½
+				if (r_enemy.absX > r_enemy.absY) { // â‘Î’lX‚Ì’l‚ª‘å‚«‚¢‚Æ‚«
+					//‰EŒü‚«
 					if (ENEMY_POS_X > r_enemy.x + 1) {
 						r_enemy.x += r_enemy.speed;
 
-						//ï¿½ï¿½ï¿½ï¿½ï¿½è”»ï¿½ï¿½
+						//“–‚½‚è”»’è
 						r_enemy.left += r_enemy.speed;
 						r_enemy.right += r_enemy.speed;
 
 						r_enemy.eyeimage = 1;
 					}
-					//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+					//¶Œü‚«
 					else if (ENEMY_POS_X < r_enemy.x - 1) {
 						r_enemy.x -= r_enemy.speed;
 
-						//ï¿½ï¿½ï¿½ï¿½ï¿½è”»ï¿½ï¿½
+						//“–‚½‚è”»’è
 						r_enemy.left -= r_enemy.speed;
 						r_enemy.right -= r_enemy.speed;
 
 						r_enemy.eyeimage = 3;
 					}
 				}
-				if (r_enemy.absX < r_enemy.absY) { // ï¿½ï¿½Î’lYï¿½Ì’lï¿½ï¿½ï¿½å‚«ï¿½ï¿½ï¿½Æ‚ï¿½
-					//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+				if (r_enemy.absX < r_enemy.absY) { // â‘Î’lY‚Ì’l‚ª‘å‚«‚¢‚Æ‚«
+					//‰ºŒü‚«
 					if (ENEMY_POS_Y > r_enemy.y + 1) {
 						r_enemy.y += r_enemy.speed;
 
-						//ï¿½ï¿½ï¿½ï¿½ï¿½è”»ï¿½ï¿½
+						//“–‚½‚è”»’è
 						r_enemy.top += r_enemy.speed;
 						r_enemy.bottom += r_enemy.speed;
 
 						r_enemy.eyeimage = 2;
 					}
-					//ï¿½ï¿½ï¿½ï¿½ï¿½
+					//ãŒü‚«
 					else if (ENEMY_POS_Y < r_enemy.y - 1) {
 						r_enemy.y -= r_enemy.speed;
 
-						//ï¿½ï¿½ï¿½ï¿½ï¿½è”»ï¿½ï¿½
+						//“–‚½‚è”»’è
 						r_enemy.top -= r_enemy.speed;
 						r_enemy.bottom -= r_enemy.speed;
 
 						r_enemy.eyeimage = 0;
 					}
 				}
-				// ï¿½ï¿½ï¿½ï¿½ï¿½Ê’uï¿½É–ß‚ï¿½ï¿½ï¿½ï¿½ï¿½
+				// ‰ŠúˆÊ’u‚É–ß‚Á‚½
 				if (ENEMY_POS_X == r_enemy.x) {
 					r_enemy.eyeflg = FALSE;
 				}
@@ -226,39 +230,39 @@ void R_ENEMY::Update() {
 		}
 	}
 
-	// ï¿½Gï¿½lï¿½~ï¿½[ï¿½Æƒvï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½Ì“ï¿½ï¿½ï¿½ï¿½è”»ï¿½ï¿½
+	// ƒGƒlƒ~[‚ÆƒvƒŒƒCƒ„[‚Ì“–‚½‚è”»’è
 	if (EnemeyCheckHit(mPlayer.p_left, mPlayer.p_top, mPlayer.p_right, mPlayer.p_bottom, r_enemy.left, r_enemy.top, r_enemy.right, r_enemy.bottom)) {
-		if (r_enemy.R_Hitflg == TRUE || r_enemy.ER_Hitflg == TRUE) { // ã‚¤ã‚¸ã‚±çŠ¶æ…‹ã§å½“ãŸã£ãŸã‚‰
+		if (r_enemy.R_Hitflg == TRUE || r_enemy.ER_Hitflg == TRUE) { // ƒCƒWƒPó‘Ô‚Å“–‚½‚Á‚½‚ç
 			r_enemy.PR_Hitflg = TRUE;
 			r_enemy.eyeflg = TRUE;
 		}
 	}
 
-	// ï¿½Aï¿½jï¿½ï¿½ï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½
-	++count;  // ï¿½Jï¿½Eï¿½ï¿½ï¿½gï¿½Jï¿½n
-	if (count >= 8) {  // ï¿½lï¿½É‚ï¿½ï¿½ï¿½ÄƒAï¿½jï¿½ï¿½ï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½ÌƒXï¿½sï¿½[ï¿½hï¿½ï¿½ï¿½Ï‰ï¿½ï¿½ï¿½ï¿½ï¿½0ï¿½É‹ß‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	// ƒAƒjƒ[ƒVƒ‡ƒ“
+	++count;  // ƒJƒEƒ“ƒgŠJn
+	if (count >= 8) {  // ’l‚É‚æ‚Á‚ÄƒAƒjƒ[ƒVƒ‡ƒ“‚ÌƒXƒs[ƒh‚ª•Ï‰»‚·‚é0‚É‹ß‚¢’ö‘¬‚¢
 		r_enemy.image++;
 		r_enemy.izikeimage++;
 		r_enemy.e_izikeimage++;
-		count = 0;  // ï¿½Jï¿½Eï¿½ï¿½ï¿½gï¿½ï¿½ï¿½Zï¿½bï¿½g
+		count = 0;  // ƒJƒEƒ“ƒgƒŠƒZƒbƒg
 	}
-	if (r_enemy.R_Hitflg == FALSE) { // ï¿½ï¿½ï¿½ï¿½Cï¿½Wï¿½Pï¿½ï¿½Ô‚Å‚È‚ï¿½ï¿½ï¿½ï¿½
-		if (r_enemy.image >= 2) { // ï¿½Êï¿½Ì‰æ‘œï¿½Ø‚ï¿½Ö‚ï¿½
-			r_enemy.image = 0;    // ï¿½æ‘œï¿½ï¿½ï¿½Zï¿½bï¿½g
+	if (r_enemy.R_Hitflg == FALSE) { // ‚à‚µƒCƒWƒPó‘Ô‚Å‚È‚¯‚ê‚Î
+		if (r_enemy.image >= 2) { // ’Êí‚Ì‰æ‘œØ‚è‘Ö‚¦
+			r_enemy.image = 0;    // ‰æ‘œƒŠƒZƒbƒg
 		}
 	}
-	else if (r_enemy.R_Hitflg == TRUE) { // ï¿½ï¿½ï¿½ï¿½Cï¿½Wï¿½Pï¿½ï¿½Ô‚È‚ï¿½
-		if (r_enemy.izikeimage >= 18) { // ï¿½Cï¿½Wï¿½Pï¿½æ‘œï¿½Ø‚ï¿½Ö‚ï¿½
-			r_enemy.izikeimage = 16; // ï¿½æ‘œï¿½ï¿½ï¿½Zï¿½bï¿½g
+	else if (r_enemy.R_Hitflg == TRUE) { // ‚à‚µƒCƒWƒPó‘Ô‚È‚ç
+		if (r_enemy.izikeimage >= 18) { // ƒCƒWƒP‰æ‘œØ‚è‘Ö‚¦
+			r_enemy.izikeimage = 16; // ‰æ‘œƒŠƒZƒbƒg
 		}
 	}
-	if (r_enemy.ER_Hitflg == TRUE) { // ï¿½ï¿½ï¿½ï¿½Cï¿½Wï¿½Pï¿½ï¿½Ô‚ï¿½ï¿½Iï¿½ï¿½è‚»ï¿½ï¿½ï¿½È‚ï¿½
-		if (r_enemy.e_izikeimage >= 20) { // ï¿½Cï¿½Wï¿½Pï¿½_ï¿½Å‰æ‘œï¿½Ø‚ï¿½Ö‚ï¿½
-			r_enemy.e_izikeimage = 16; // ï¿½æ‘œï¿½ï¿½ï¿½Zï¿½bï¿½g
+	if (r_enemy.ER_Hitflg == TRUE) { // ‚à‚µƒCƒWƒPó‘Ô‚ªI‚í‚è‚»‚¤‚È‚ç
+		if (r_enemy.e_izikeimage >= 20) { // ƒCƒWƒP“_–Å‰æ‘œØ‚è‘Ö‚¦
+			r_enemy.e_izikeimage = 16; // ‰æ‘œƒŠƒZƒbƒg
 		}
 	}
 
-	// ï¿½ï¿½ï¿½[ï¿½vï¿½gï¿½ï¿½ï¿½lï¿½ï¿½
+	// ƒ[ƒvƒgƒ“ƒlƒ‹
 	if (r_enemy.x >= 1280) {
 		r_enemy.x = 0;
 	}
@@ -266,52 +270,31 @@ void R_ENEMY::Update() {
 		r_enemy.x = 1280;
 	}
 
-	// ï¿½Cï¿½Wï¿½Pï¿½ï¿½Ôƒtï¿½ï¿½ï¿½O
+	// ƒCƒWƒPó‘Ôƒtƒ‰ƒO
 	if (r_enemy.R_Hitflg == TRUE) {
 		++r_enemy.ER_count;
 	}
 }
 
 void R_ENEMY::Draw() {
-	if (r_enemy.E_EnemeyHitflg == FALSE) {
-		
-		DrawRotaGraph(r_enemy.x, r_enemy.y, 0.75, 0, images[r_enemy.image], TRUE, FALSE);  // æ•µã‚­ãƒ£ãƒ©è¡¨ç¤º
-		DrawRotaGraph(r_enemy.x, r_enemy.y, 0.75, 0, eyesimages[r_enemy.eyeimage], TRUE, FALSE);  // æ•µã‚­ãƒ£ãƒ©ã®ç›®è¡¨ç¤º
-		DrawBox(r_enemy.left, r_enemy.top, r_enemy.right, r_enemy.bottom, 0x00ffff, FALSE);
+	if (r_enemy.R_Hitflg == FALSE) { // ƒpƒ[ƒGƒT‚ğæ‚Á‚Ä‚¢‚È‚¯‚ê‚Î
+		DrawRotaGraph(r_enemy.x, r_enemy.y, 0.75, 0, images[r_enemy.image], TRUE, FALSE); // “GƒLƒƒƒ‰•\¦
+		DrawRotaGraph(r_enemy.x, r_enemy.y, 0.75, 0, eyesimages[r_enemy.eyeimage], TRUE, FALSE); // “GƒLƒƒƒ‰‚Ì–Ú•\¦
+		DrawBox(r_enemy.left, r_enemy.top, r_enemy.right, r_enemy.bottom, 0x00ffff, FALSE); // “–‚½‚è”»’è•`‰æ
+		DrawString(100, 100, "ƒpƒ[ƒGƒTF–³‚µ", (255,255,255));
 	}
-	else if (r_enemy.E_EnemeyHitflg == TRUE) {
-		DrawRotaGraph(r_enemy.x, r_enemy.y, 0.75, 0, images[r_enemy.image], TRUE, FALSE);  // æ•µã‚­ãƒ£ãƒ©è¡¨ç¤º
-		DrawRotaGraph(r_enemy.x, r_enemy.y, 0.75, 0, eyesimages[r_enemy.eyeimage], TRUE, FALSE);  // æ•µã‚­ãƒ£ãƒ©ã®ç›®è¡¨ç¤º
-		
-		r_enemy.x = ENEMY_POS_X;
-		r_enemy.y = ENEMY_POS_Y;
-
-		r_enemy.top = ENEMY_POS_Y - ENEMY_STAGE_HITBOX;
-		r_enemy.left = ENEMY_POS_X - ENEMY_STAGE_HITBOX;
-		r_enemy.right = ENEMY_POS_X + ENEMY_STAGE_HITBOX;
-		r_enemy.bottom = ENEMY_POS_Y + ENEMY_STAGE_HITBOX;
-
-		r_enemy.E_EnemeyHitflg = FALSE;
-
-		//DrawBox(r_enemy.left, r_enemy.top, r_enemy.right, r_enemy.bottom, 0x00ffff, FALSE);
-	if (r_enemy.R_Hitflg == FALSE) { // ãƒ‘ãƒ¯ãƒ¼ã‚¨ã‚µã‚’å–ã£ã¦ã„ãªã‘ã‚Œã°
-		DrawRotaGraph(r_enemy.x, r_enemy.y, 0.75, 0, images[r_enemy.image], TRUE, FALSE); // æ•µã‚­ãƒ£ãƒ©è¡¨ç¤º
-		DrawRotaGraph(r_enemy.x, r_enemy.y, 0.75, 0, eyesimages[r_enemy.eyeimage], TRUE, FALSE); // æ•µã‚­ãƒ£ãƒ©ã®ç›®è¡¨ç¤º
-		DrawBox(r_enemy.left, r_enemy.top, r_enemy.right, r_enemy.bottom, 0x00ffff, FALSE); // å½“ãŸã‚Šåˆ¤å®šæç”»
-		DrawString(100, 100, "ãƒ‘ãƒ¯ãƒ¼ã‚¨ã‚µï¼šç„¡ã—", (255,255,255));
-	}
-	else if (r_enemy.R_Hitflg == TRUE) { // ãƒ‘ãƒ¯ãƒ¼ã‚¨ã‚µã‚’å–ã£ã¦ã„ãŸã‚‰
-		if (r_enemy.PR_Hitflg == FALSE) { // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¨å½“ãŸã£ã¦ã„ãªã‘ã‚Œã°
+	else if (r_enemy.R_Hitflg == TRUE) { // ƒpƒ[ƒGƒT‚ğæ‚Á‚Ä‚¢‚½‚ç
+		if (r_enemy.PR_Hitflg == FALSE) { // ƒvƒŒƒCƒ„[‚Æ“–‚½‚Á‚Ä‚¢‚È‚¯‚ê‚Î
 			if (r_enemy.ER_count <= 480) {
-				DrawRotaGraph(r_enemy.x, r_enemy.y, 0.75, 0, images[r_enemy.izikeimage], TRUE, FALSE); // ã‚¤ã‚¸ã‚±çŠ¶æ…‹è¡¨ç¤º
-				DrawBox(r_enemy.left, r_enemy.top, r_enemy.right, r_enemy.bottom, 0x00ffff, FALSE); // å½“ãŸã‚Šåˆ¤å®šæç”»
-				DrawString(100, 150, "ãƒ‘ãƒ¯ãƒ¼ã‚¨ã‚µï¼šã‚ã‚Šï¼š10ç§’ã‚«ã‚¦ãƒ³ãƒˆ", (255, 255, 255));
+				DrawRotaGraph(r_enemy.x, r_enemy.y, 0.75, 0, images[r_enemy.izikeimage], TRUE, FALSE); // ƒCƒWƒPó‘Ô•\¦
+				DrawBox(r_enemy.left, r_enemy.top, r_enemy.right, r_enemy.bottom, 0x00ffff, FALSE); // “–‚½‚è”»’è•`‰æ
+				DrawString(100, 150, "ƒpƒ[ƒGƒTF‚ ‚èF10•bƒJƒEƒ“ƒg", (255, 255, 255));
 			}
 			else if (r_enemy.ER_count > 480 && r_enemy.ER_count <= 600) {
 				r_enemy.ER_Hitflg = TRUE;
-				DrawRotaGraph(r_enemy.x, r_enemy.y, 0.75, 0, images[r_enemy.e_izikeimage], TRUE, FALSE); // ã‚¤ã‚¸ã‚±çŠ¶æ…‹è¡¨ç¤º
-				DrawBox(r_enemy.left, r_enemy.top, r_enemy.right, r_enemy.bottom, 0x00ffff, FALSE); // å½“ãŸã‚Šåˆ¤å®šæç”»
-				DrawString(100, 200, "ãƒ‘ãƒ¯ãƒ¼ã‚¨ã‚µï¼šã‚ã‚Šï¼šæ®‹ã‚Š2ç§’", (255, 255, 255));
+				DrawRotaGraph(r_enemy.x, r_enemy.y, 0.75, 0, images[r_enemy.e_izikeimage], TRUE, FALSE); // ƒCƒWƒPó‘Ô•\¦
+				DrawBox(r_enemy.left, r_enemy.top, r_enemy.right, r_enemy.bottom, 0x00ffff, FALSE); // “–‚½‚è”»’è•`‰æ
+				DrawString(100, 200, "ƒpƒ[ƒGƒTF‚ ‚èFc‚è2•b", (255, 255, 255));
 			}
 			else {
 				r_enemy.R_Hitflg = FALSE;
@@ -320,20 +303,30 @@ void R_ENEMY::Draw() {
 				mPlayer.timercount = 0;
 			}
 		}
-		else if (r_enemy.PR_Hitflg == TRUE) { // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¨å½“ãŸã£ã¦ã„ãŸã‚‰
-			if (r_enemy.eyeflg == TRUE) { // ç›®çŠ¶æ…‹ã«ãªã£ãŸã‚‰
-				DrawRotaGraph(r_enemy.x, r_enemy.y, 0.75, 0, eyesimages[r_enemy.eyeimage], TRUE, FALSE); // æ•µã‚­ãƒ£ãƒ©ã®ç›®è¡¨ç¤º
-				DrawBox(r_enemy.left, r_enemy.top, r_enemy.right, r_enemy.bottom, 0x00ffff, FALSE); // å½“ãŸã‚Šåˆ¤å®šæç”»
-				DrawString(100, 250, "ãƒ‘ãƒ¯ãƒ¼ã‚¨ã‚µï¼šã‚ã‚Šï¼šãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¨æ¥è§¦", (255, 255, 255));
+		else if (r_enemy.PR_Hitflg == TRUE) { // ƒvƒŒƒCƒ„[‚Æ“–‚½‚Á‚Ä‚¢‚½‚ç
+			if (r_enemy.eyeflg == TRUE) { // –Úó‘Ô‚É‚È‚Á‚½‚ç
+				DrawRotaGraph(r_enemy.x, r_enemy.y, 0.75, 0, eyesimages[r_enemy.eyeimage], TRUE, FALSE); // “GƒLƒƒƒ‰‚Ì–Ú•\¦
+				DrawBox(r_enemy.left, r_enemy.top, r_enemy.right, r_enemy.bottom, 0x00ffff, FALSE); // “–‚½‚è”»’è•`‰æ
+				DrawString(100, 250, "ƒpƒ[ƒGƒTF‚ ‚èFƒvƒŒƒCƒ„[‚ÆÚG", (255, 255, 255));
 			}
-			else if (r_enemy.eyeflg == FALSE) { // ç›®çŠ¶æ…‹ã®ã‚¨ãƒãƒŸãƒ¼ãŒåˆæœŸä½ç½®ã«æˆ»ã£ãŸã‚‰
+			else if (r_enemy.eyeflg == FALSE) { // –Úó‘Ô‚ÌƒGƒlƒ~[‚ª‰ŠúˆÊ’u‚É–ß‚Á‚½‚ç
 				r_enemy.R_Hitflg = FALSE;
 				r_enemy.PR_Hitflg = FALSE;
 				r_enemy.ER_Hitflg = FALSE;
 				r_enemy.ER_count = 0;
 				mPlayer.timercount = 0;
-				DrawString(100, 300, "ãƒ‘ãƒ¯ãƒ¼ã‚¨ã‚µï¼šç„¡ã—ï¼šåˆæœŸä½ç½®ã«æˆ»ã‚Šã¾ã—ãŸ", (255, 255, 255));
+				DrawString(100, 300, "ƒpƒ[ƒGƒTF–³‚µF‰ŠúˆÊ’u‚É–ß‚è‚Ü‚µ‚½", (255, 255, 255));
 			}
 		}
+	}
+	if (r_enemy.Initiaflg == TRUE) {
+		// ‰ŠúˆÊ’u‚É–ß‚·
+		r_enemy.x = ENEMY_POS_X;
+		r_enemy.y = ENEMY_POS_Y;
+		r_enemy.top = ENEMY_POS_Y - ENEMY_STAGE_HITBOX;
+		r_enemy.left = ENEMY_POS_X - ENEMY_STAGE_HITBOX;
+		r_enemy.right = ENEMY_POS_X + ENEMY_STAGE_HITBOX;
+		r_enemy.bottom = ENEMY_POS_Y + ENEMY_STAGE_HITBOX;
+		r_enemy.Initiaflg = FALSE;
 	}
 }
