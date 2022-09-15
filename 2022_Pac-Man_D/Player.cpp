@@ -369,6 +369,7 @@ void Player::Player_Draw() {
 
 		Sleep(millisecond);
 		if (mPlayer.deleteimage >= 11) {
+			// プレイヤーの初期化処理
 			mPlayer.x = PLAYER_POS_X;
 			mPlayer.y = PLAYER_POS_Y;
 			mPlayer.p_left = PLAYER_POS_X - PLAYER_CENTER_HITBOX;
@@ -382,6 +383,13 @@ void Player::Player_Draw() {
 			mPlayer.iNowAngle = 4;
 			mPlayer.Hitflg = FALSE;
 			r_enemy.Initiaflg = TRUE;
+			//分身の当たり判定
+			for (int i = 0; i < 4; i++) {
+				mPlayer.avatar_left[i] = PLAYER_AVATAR_POS_X[i] - PLAYER_POS_HITBOX;
+				mPlayer.avatar_top[i] = PLAYER_AVATAR_POS_Y[i] - PLAYER_POS_HITBOX;
+				mPlayer.avatar_right[i] = PLAYER_AVATAR_POS_X[i] + PLAYER_POS_HITBOX;
+				mPlayer.avatar_bottom[i] = PLAYER_AVATAR_POS_Y[i] + PLAYER_POS_HITBOX;
+			}
 		}
 	}
 	if (mStage.GameOverFlg == TRUE) {

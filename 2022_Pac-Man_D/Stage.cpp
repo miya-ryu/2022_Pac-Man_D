@@ -102,11 +102,9 @@ void Stage::Stage_Update() {
 	for (int j = 0; j < NUM_STAGE_Y; j++) {
 		for (int i = 0; i < NUM_STAGE_X; i++) {
 			int no = stagedata[i + j * NUM_STAGE_X];
-
 			//壁に当たったときの処理
 			if (no != 0) {
 				//DrawBox(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, i * SIZE_STAGE_X + SIZE_STAGE_X, j * SIZE_STAGE_Y + SIZE_STAGE_Y, 0xffff00, FALSE);
-
 				//分身体の当たり判定
 				//分身の処理
 				if (mPlayer.x % mPlayer.CheckNumber == 0 && mPlayer.y % mPlayer.CheckNumber == 0) {
@@ -196,57 +194,28 @@ void Stage::Stage_Update() {
 							r_enemy.absY = r_enemy.absY * -1;
 						}
 
-						//// 絶対値Xの値が大きいとき
-						//if (r_enemy.absX > r_enemy.absY) {
-						//	// 右向き
-						//	if (mPlayer.x > r_enemy.x) {
-						//		r_enemy.angle = 2;
-						//	}
-						//	// 左向き
-						//	else if (mPlayer.x < r_enemy.x) {
-						//		r_enemy.angle = 4;
-						//	}
-						//}
-						//// 絶対値Yの値が大きいとき
-						//if (r_enemy.absX < r_enemy.absY) {
-						//	// 下向き
-						//	if (mPlayer.y > r_enemy.y) {
-						//		r_enemy.angle = 3;
-						//	}
-						//	// 上向き
-						//	else if (mPlayer.y < r_enemy.y) {
-						//		r_enemy.angle = 1;
-						//	}
-						//}
-
-						//// 絶対値Xの値が大きいとき
-						//if (r_enemy.absX > r_enemy.absY) {
-						//	// 右向き
-						//	if (r_enemy.angle == 2) {
-						//		if (mPlayer.x > r_enemy.x) {
-						//			r_enemy.angle = 3;
-						//		}
-						//	}
-						//	// 左向き
-						//	else if (r_enemy.angle == 4) {
-						//		if (mPlayer.x < r_enemy.x) {
-						//			r_enemy.angle = 3;
-						//		}
-						//	}
-						//}
-						//// 絶対値Yの値が大きいとき
-						//if (r_enemy.absX < r_enemy.absY) {
-						//	// 下向き
-						//	if (r_enemy.angle == 3) {
-						//		r_enemy.angle++;
-						//	}
-						//	// 上向き
-						//	else if (r_enemy.angle == 1) {
-						//		if (mPlayer.y < r_enemy.y) {
-
-						//		}
-						//	}
-						//}
+						// 絶対値Xの値が大きいとき
+						if (r_enemy.absX > r_enemy.absY) {
+							// 右向き
+							if (mPlayer.x > r_enemy.x) {
+								r_enemy.angle = 2;
+							}
+							// 左向き
+							else if (mPlayer.x < r_enemy.x) {
+								r_enemy.angle = 4;
+							}
+						}
+						// 絶対値Yの値が大きいとき
+						if (r_enemy.absX < r_enemy.absY) {
+							// 下向き
+							if (mPlayer.y > r_enemy.y) {
+								r_enemy.angle = 3;
+							}
+							// 上向き
+							else if (mPlayer.y < r_enemy.y) {
+								r_enemy.angle = 1;
+							}
+						}
 
 						// 壁へのめり込みを防ぐ
 						r_enemy.x = r_enemy.recordX;
@@ -259,6 +228,7 @@ void Stage::Stage_Update() {
 					}
 				}
 			}
+
 			//通路の処理
 			if (no == 0 || no == 17 || no == 18) {
 				//分身の処理
