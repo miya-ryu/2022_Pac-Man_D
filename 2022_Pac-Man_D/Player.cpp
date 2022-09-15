@@ -85,9 +85,11 @@ void Player::Player_Initialize() {
 	//左
 	mPlayer.PLAYER_AVATAR_POS_X[3] = PLAYER_POS_X - 24;
 	mPlayer.PLAYER_AVATAR_POS_Y[3] = PLAYER_POS_Y;
+	//前回の格納式のCheckNumber
+	mPlayer.CheckNumber = 12;
 
 	//分身の当たり判定座標
-	for (int i = 0; i <= 3; i++) {
+	for (int i = 0; i < 4; i++) {
 		mPlayer.avatar_left[i] = PLAYER_AVATAR_POS_X[i] - PLAYER_POS_HITBOX;
 		mPlayer.avatar_top[i] = PLAYER_AVATAR_POS_Y[i] - PLAYER_POS_HITBOX;
 		mPlayer.avatar_right[i] = PLAYER_AVATAR_POS_X[i] + PLAYER_POS_HITBOX;
@@ -112,7 +114,7 @@ void Player::Player_Update() {
 	mPlayer.recordPleft = mPlayer.p_left;
 
 	//分身の座標
-	for (int i = 0; i <= 3; i++) {
+	for (int i = 0; i < 4; i++) {
 		mPlayer.record_avatar_bottom[i] = mPlayer.avatar_bottom[i];
 		mPlayer.record_avatar_left[i] = mPlayer.avatar_left[i];
 		mPlayer.record_avatar_right[i] = mPlayer.avatar_right[i];
@@ -156,9 +158,6 @@ void Player::Player_Update() {
 			//壁がある
 			else if (mPlayer.Right == TRUE) {
 				mPlayer.iOldAngle = 2;
-				//mPlayer.iKeepAngle = mPlayer.iNowAngle;
-				//mPlayer.iNowAngle = mPlayer.iOldAngle;
-				//mPlayer.iOldAngle = mPlayer.iKeepAngle;
 			}
 		}
 		//左
@@ -200,21 +199,21 @@ void Player::Player_Update() {
 	}
 
 	//前回の入力キーがあるかどうか
-	if (mPlayer.x % 12 == 0) {
+	if (mPlayer.x % mPlayer.CheckNumber == 0 && mPlayer.y % mPlayer.CheckNumber == 0) {
 		//うえ
 		if (mPlayer.Top == FALSE && mPlayer.iOldAngle == 1) {
 			mPlayer.iNowAngle = mPlayer.iOldAngle;
 		}
 		//みぎ
-		else if (mPlayer.Right == FALSE && mPlayer.iOldAngle == 2) {
+		if (mPlayer.Right == FALSE && mPlayer.iOldAngle == 2) {
 			mPlayer.iNowAngle = mPlayer.iOldAngle;
 		}
 		//した
-		else if (mPlayer.Bottom == FALSE && mPlayer.iOldAngle == 3) {
+		if (mPlayer.Bottom == FALSE && mPlayer.iOldAngle == 3) {
 			mPlayer.iNowAngle = mPlayer.iOldAngle;
 		}
 		//ひだり
-		else if (mPlayer.Left == FALSE && mPlayer.iOldAngle == 4) {
+		if (mPlayer.Left == FALSE && mPlayer.iOldAngle == 4) {
 			mPlayer.iNowAngle = mPlayer.iOldAngle;
 		}
 	}
@@ -231,7 +230,7 @@ void Player::Player_Update() {
 			mPlayer.s_bottom -= mPlayer.move;
 
 			//分身
-			for (int i = 0; i <= 3; i++) {
+			for (int i = 0; i < 4; i++) {
 				mPlayer.avatar_top[i] -= mPlayer.move;
 				mPlayer.avatar_bottom[i] -= mPlayer.move;
 			}
@@ -247,7 +246,7 @@ void Player::Player_Update() {
 			mPlayer.s_right += mPlayer.move;
 
 			//分身
-			for (int i = 0; i <= 3; i++) {
+			for (int i = 0; i < 4; i++) {
 				mPlayer.avatar_left[i] += mPlayer.move;
 				mPlayer.avatar_right[i] += mPlayer.move;
 			}
@@ -262,7 +261,7 @@ void Player::Player_Update() {
 			mPlayer.s_bottom += mPlayer.move;
 
 			//分身
-			for (int i = 0; i <= 3; i++) {
+			for (int i = 0; i < 4; i++) {
 				mPlayer.avatar_top[i] += mPlayer.move;
 				mPlayer.avatar_bottom[i] += mPlayer.move;
 			}
@@ -277,7 +276,7 @@ void Player::Player_Update() {
 			mPlayer.s_right -= mPlayer.move;
 
 			//分身
-			for (int i = 0; i <= 3; i++) {
+			for (int i = 0; i < 4; i++) {
 				mPlayer.avatar_right[i] -= mPlayer.move;
 				mPlayer.avatar_left[i] -= mPlayer.move;
 			}
@@ -285,49 +284,49 @@ void Player::Player_Update() {
 	}
 
 	// ワープ(そのまま)
-	if (mPlayer.x >= 890) {
-		mPlayer.x = 340;
+	if (mPlayer.x >= 878) {
+		mPlayer.x = 352;
 		//HitBox移動
-		mPlayer.p_right = 340 + PLAYER_CENTER_HITBOX;
-		mPlayer.p_left = 340 - PLAYER_CENTER_HITBOX;
-		mPlayer.s_right = 340 + PLAYER_POS_HITBOX;
-		mPlayer.s_left = 340 - PLAYER_POS_HITBOX;
+		mPlayer.p_right = 352 + PLAYER_CENTER_HITBOX;
+		mPlayer.p_left = 352 - PLAYER_CENTER_HITBOX;
+		mPlayer.s_right = 352 + PLAYER_POS_HITBOX;
+		mPlayer.s_left = 352 - PLAYER_POS_HITBOX;
 
 		//分身
 		//上
-		mPlayer.avatar_right[0] = 340 + PLAYER_POS_HITBOX;
-		mPlayer.avatar_left[0] = 340 - PLAYER_POS_HITBOX;
+		mPlayer.avatar_right[0] = 352 + PLAYER_POS_HITBOX;
+		mPlayer.avatar_left[0] = 352 - PLAYER_POS_HITBOX;
 		//下
-		mPlayer.avatar_left[2] = 340 - PLAYER_POS_HITBOX;
-		mPlayer.avatar_right[2] = 340 + PLAYER_POS_HITBOX;
+		mPlayer.avatar_left[2] = 352 - PLAYER_POS_HITBOX;
+		mPlayer.avatar_right[2] = 352 + PLAYER_POS_HITBOX;
 		//右
-		mPlayer.avatar_left[1] = 340 + 24 - PLAYER_POS_HITBOX;
-		mPlayer.avatar_right[1] = 340 + 24 + PLAYER_POS_HITBOX;
+		mPlayer.avatar_left[1] = 352 + 24 - PLAYER_POS_HITBOX;
+		mPlayer.avatar_right[1] = 352 + 24 + PLAYER_POS_HITBOX;
 		//左
-		mPlayer.avatar_right[3] = 340 - 24 - PLAYER_POS_HITBOX;
-		mPlayer.avatar_left[3] = 340 - 24 + PLAYER_POS_HITBOX;
+		mPlayer.avatar_right[3] = 352 - 24 - PLAYER_POS_HITBOX;
+		mPlayer.avatar_left[3] = 352 - 24 + PLAYER_POS_HITBOX;
 	}
-	else if (mPlayer.x <= 340) {
-		mPlayer.x = 890;
+	else if (mPlayer.x <= 352) {
+		mPlayer.x = 878;
 		//HitBox移動
-		mPlayer.p_right = 890 + PLAYER_CENTER_HITBOX;
-		mPlayer.p_left = 890 - PLAYER_CENTER_HITBOX;
-		mPlayer.s_right = 890 + PLAYER_POS_HITBOX;
-		mPlayer.s_left = 890 - PLAYER_POS_HITBOX;
+		mPlayer.p_right = 878 + PLAYER_CENTER_HITBOX;
+		mPlayer.p_left = 878 - PLAYER_CENTER_HITBOX;
+		mPlayer.s_right = 878 + PLAYER_POS_HITBOX;
+		mPlayer.s_left = 878 - PLAYER_POS_HITBOX;
 
 		//分身
 		//上
-		mPlayer.avatar_right[0] = 890 + PLAYER_POS_HITBOX;
-		mPlayer.avatar_left[0] = 890 - PLAYER_POS_HITBOX;
+		mPlayer.avatar_right[0] = 878 + PLAYER_POS_HITBOX;
+		mPlayer.avatar_left[0] = 878 - PLAYER_POS_HITBOX;
 		//下
-		mPlayer.avatar_left[2] = 890 - PLAYER_POS_HITBOX;
-		mPlayer.avatar_right[2] = 890 + PLAYER_POS_HITBOX;
+		mPlayer.avatar_left[2] = 878 - PLAYER_POS_HITBOX;
+		mPlayer.avatar_right[2] = 878 + PLAYER_POS_HITBOX;
 		//右
-		mPlayer.avatar_left[1] = 890 + 24 - PLAYER_POS_HITBOX;
-		mPlayer.avatar_right[1] = 890 + 24 + PLAYER_POS_HITBOX;
+		mPlayer.avatar_left[1] = 878 + 24 - PLAYER_POS_HITBOX;
+		mPlayer.avatar_right[1] = 878 + 24 + PLAYER_POS_HITBOX;
 		//左
-		mPlayer.avatar_right[3] = 890 - 24 - PLAYER_POS_HITBOX;
-		mPlayer.avatar_left[3] = 890 - 24 + PLAYER_POS_HITBOX;
+		mPlayer.avatar_right[3] = 878 - 24 - PLAYER_POS_HITBOX;
+		mPlayer.avatar_left[3] = 878 - 24 + PLAYER_POS_HITBOX;
 	}
 }
 void Player::Player_Draw() {
@@ -345,7 +344,7 @@ void Player::Player_Draw() {
 		DrawRotaGraph(mPlayer.x, mPlayer.y, 0.75, 0, mPlayer.mPlayerDeleteImage[mPlayer.deleteimage], TRUE, FALSE);
 	}
 	//分身の表示
-	for (int i = 0; i <= 3; i++) {
+	for (int i = 0; i < 4; i++) {
 		DrawBox(mPlayer.avatar_left[i], mPlayer.avatar_top[i], mPlayer.avatar_right[i], mPlayer.avatar_bottom[i], 0x00ffff, FALSE);
 	}
 
@@ -393,6 +392,37 @@ void Player::Player_Draw() {
 	else if (mPlayer.iOldAngle == 4) {
 		DrawString(0, 120, "前回のアングルは左です", 0xff00ff);
 	}
+
+	//進める時
+	//上
+	if (mPlayer.Top == TRUE) {
+		DrawBox(mPlayer.avatar_left[0], mPlayer.avatar_top[0], mPlayer.avatar_right[0], mPlayer.avatar_bottom[0], 0xff00ff, true);
+	}
+	else if (mPlayer.Top == FALSE) {
+		DrawBox(mPlayer.avatar_left[0], mPlayer.avatar_top[0], mPlayer.avatar_right[0], mPlayer.avatar_bottom[0], 0xff0000, true);
+	}
+	//右
+	if (mPlayer.Right == TRUE) {
+		DrawBox(mPlayer.avatar_left[1], mPlayer.avatar_top[1], mPlayer.avatar_right[1], mPlayer.avatar_bottom[1], 0xff00ff, true);
+	}
+	else if (mPlayer.Right == FALSE) {
+		DrawBox(mPlayer.avatar_left[1], mPlayer.avatar_top[1], mPlayer.avatar_right[1], mPlayer.avatar_bottom[1], 0xff0000, true);
+	}
+	//下
+	if (mPlayer.Bottom == TRUE) {
+		DrawBox(mPlayer.avatar_left[2], mPlayer.avatar_top[2], mPlayer.avatar_right[2], mPlayer.avatar_bottom[2], 0xff00ff, true);
+	}
+	else if (mPlayer.Bottom == FALSE) {
+		DrawBox(mPlayer.avatar_left[2], mPlayer.avatar_top[2], mPlayer.avatar_right[2], mPlayer.avatar_bottom[2], 0xff0000, true);
+	}
+	//左
+	if (mPlayer.Left == TRUE) {
+		DrawBox(mPlayer.avatar_left[3], mPlayer.avatar_top[3], mPlayer.avatar_right[3], mPlayer.avatar_bottom[3], 0xff00ff, true);
+	}
+	else if (mPlayer.Left == FALSE) {
+		DrawBox(mPlayer.avatar_left[3], mPlayer.avatar_top[3], mPlayer.avatar_right[3], mPlayer.avatar_bottom[3], 0xff0000, true);
+	}
+	
 	//Stage当たり判定表示
 	DrawBox(mPlayer.s_left, mPlayer.s_top, mPlayer.s_right, mPlayer.s_bottom, 0x00ff00, FALSE);
 	//Center当たり判定表示

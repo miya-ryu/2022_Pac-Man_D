@@ -85,20 +85,17 @@ int StageCheckHit(int x1, int y1, int w1, int h1, int x2, int y2, int w2, int h2
 }
 
 int AisleCheckHit(int x1, int y1, int w1, int h1, int x2, int y2, int w2, int h2) {
-	int L1 = x1;		//左
-	int R1 = x1 + w1;	//右
-	int L2 = x2;		//左
-	int R2 = w2;		//右
-	if (R1 < L2) return 0;
-	if (R2 < L1) return 0;
-	int U1 = y1;		//上
-	int D1 = y1 + h1;	//下
-	int U2 = y2;		//上
-	int D2 = h2;		//下
-	if (D1 < U2) return 0;
-	if (D2 < U1) return 0;
-	//当たっている
-	return 1;
+	int L1 = x1;		//Stage左
+	int R1 = x1 + w1;	//Stage右
+	int L2 = x2;		//Player左
+	int R2 = w2;		//Player右
+	int U1 = y1;		//Stage上
+	int D1 = y1 + h1;	//Stage下
+	int U2 = y2;		//Player上
+	int D2 = h2;		//Player下
+
+	if (L1 < L2 && R1 > R2 && D1 > D2 && U1 < U2)return 1;	//箱内に収まっていたらぶつかっている
+	else return 0;
 }
 //int StageAvatarCheckHit(int x1, int y1, int w1, int h1, int x2, int y2, int w2, int h2, bool hit) {
 //	int L1 = x1;		//左
@@ -152,65 +149,22 @@ void Stage::Stage_Update() {
 	for (int j = 0; j < NUM_STAGE_Y; j++) {
 		for (int i = 0; i < NUM_STAGE_X; i++) {
 			int no = stagedata[i + j * NUM_STAGE_X];
+
 			//壁に当たったときの処理
 			if (no != 0) {
 				DrawBox(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, i * SIZE_STAGE_X + SIZE_STAGE_X, j * SIZE_STAGE_Y + SIZE_STAGE_Y, 0xffff00, FALSE);
 
 				//分身体の当たり判定
-				////上
-				//if (mPlayer.avatar_left[0] > (j - 1) * SIZE_STAGE_Y && mPlayer.avatar_right[0] < (j - 1) * SIZE_STAGE_Y + SIZE_STAGE_Y) {
-				//	mPlayer.Top = FALSE;
-				//}
-				////下
-				//if (mPlayer.avatar_left[2] > (j + 1) * SIZE_STAGE_Y && mPlayer.avatar_right[2] < (j + 1) * SIZE_STAGE_Y + SIZE_STAGE_Y) {
-				//	mPlayer.Bottom = FALSE;
-				//}
-				////右
-				//if (mPlayer.avatar_top[1] > (i + 1) * SIZE_STAGE_X && mPlayer.avatar_bottom[1] < (i + 1) * SIZE_STAGE_X + SIZE_STAGE_X) {
-				//	mPlayer.Right = FALSE;
-				//}
-				////左
-				//if (mPlayer.avatar_top[3] > (i - 1) * SIZE_STAGE_X && mPlayer.avatar_bottom[3] < (i - 1) * SIZE_STAGE_X + SIZE_STAGE_X) {
-				//	mPlayer.Left = FALSE;
-				//}
-				//for (int avatar = 0; avatar < 4; avatar++) {
-				//	//上下
-				//	if (StageCheckHit(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, mPlayer.avatar_left[avatar], mPlayer.avatar_top[avatar], mPlayer.avatar_right[avatar], mPlayer.avatar_bottom[avatar])) {
-				//		if (avatar == 0) mPlayer.Top = FALSE;
-				//		if (avatar == 2) mPlayer.Bottom = FALSE;
-				//		if (avatar == 1)mPlayer.Right = FALSE;
-				//		if (avatar == 3)mPlayer.Left = FALSE;
-				//	}
-				//}
-
-				////上
-				//if (StageCheckHit(i * SIZE_STAGE_X, (j - 1) * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, mPlayer.avatar_left[0], mPlayer.avatar_top[0], mPlayer.avatar_right[0], mPlayer.avatar_bottom[0]) != 0) {
-				//	DrawFormatString(0, 160, 0x00ffff, "%d%d", i, j);
-				//	mPlayer.Top = FALSE;
-				//}
-				////右
-				//if (StageCheckHit((i + 1) * SIZE_STAGE_X, j * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, mPlayer.avatar_left[1], mPlayer.avatar_top[1], mPlayer.avatar_right[1], mPlayer.avatar_bottom[1]) != 0) {
-				//	DrawFormatString(0, 180, 0x00ffff, "%d%d", i, j);
-				//	mPlayer.Right = FALSE;
-				//}
-				////下
-				//if (StageCheckHit(i * SIZE_STAGE_X, (j + 1) * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, mPlayer.avatar_left[2], mPlayer.avatar_top[2], mPlayer.avatar_right[2], mPlayer.avatar_bottom[2]) != 0) {
-				//	mPlayer.Bottom = FALSE;
-				//}
-				////左
-				//if (StageCheckHit((i - 1) * SIZE_STAGE_X, j * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, mPlayer.avatar_left[3], mPlayer.avatar_top[3], mPlayer.avatar_right[3], mPlayer.avatar_bottom[3]) != 0) {
-				//	mPlayer.Left = FALSE;
-				//}
-
-				//分身体の当たり判定
 				//分身の処理
-				for (int avatar = 0; avatar <= 3; avatar++) {
-					if (StageCheckHit(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, mPlayer.avatar_left[avatar], mPlayer.avatar_top[avatar], mPlayer.avatar_right[avatar], mPlayer.avatar_bottom[avatar])) {
-						//当たっていたら進めなくする
-						if (avatar == 0)mPlayer.Top = TRUE;
-						if (avatar == 1)mPlayer.Right = TRUE;
-						if (avatar == 2)mPlayer.Bottom = TRUE;
-						if (avatar == 3)mPlayer.Left = TRUE;
+				if (mPlayer.x % mPlayer.CheckNumber == 0 && mPlayer.y % mPlayer.CheckNumber == 0) {
+					for (int avatar = 0; avatar < 4; avatar++) {
+						if (StageCheckHit(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, mPlayer.avatar_left[avatar], mPlayer.avatar_top[avatar], mPlayer.avatar_right[avatar], mPlayer.avatar_bottom[avatar])) {
+							//当たっていたら進めなくする
+							if (avatar == 0)mPlayer.Top = TRUE;
+							if (avatar == 1)mPlayer.Right = TRUE;
+							if (avatar == 2)mPlayer.Bottom = TRUE;
+							if (avatar == 3)mPlayer.Left = TRUE;
+						}
 					}
 				}
 
@@ -258,7 +212,7 @@ void Stage::Stage_Update() {
 						mPlayer.s_left = mPlayer.recordSLeft;
 
 						//分身
-						for (int i = 0; i <= 3; i++) {
+						for (int i = 0; i < 4; i++) {
 							mPlayer.avatar_bottom[i] = mPlayer.record_avatar_bottom[i];
 							mPlayer.avatar_left[i] = mPlayer.record_avatar_left[i];
 							mPlayer.avatar_top[i] = mPlayer.record_avatar_top[i];
@@ -314,11 +268,10 @@ void Stage::Stage_Update() {
 					}
 				}
 			}
-
 			//通路の処理
-			else if (no == 0 || no == 17 || no == 18) {
+			if (no == 0 || no == 17 || no == 18) {
 				//分身の処理
-				for (int avatar = 0; avatar <= 3; avatar++) {
+				for (int avatar = 0; avatar < 4; avatar++) {
 					if (AisleCheckHit(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, mPlayer.avatar_left[avatar], mPlayer.avatar_top[avatar], mPlayer.avatar_right[avatar], mPlayer.avatar_bottom[avatar])) {
 						//当たっていたら進める
 						if (avatar == 0)mPlayer.Top = FALSE;
@@ -369,7 +322,7 @@ void Stage::Stage_Draw() {
 	int mFruitNum = 0;
 	int FruitX = 900;
 	int FruitX_2 = 900;
-	/*for (int num = 0; num == 0; num++) {
+	for (int num = 0; num == 0; num++) {
 		for (int y = 0; y < 4; y++) {
 			DrawRotaGraph(FruitX, 390, 1.3, 0, mStageFruit[mFruitNum], true, false);
 			FruitX += 40;
@@ -380,7 +333,7 @@ void Stage::Stage_Draw() {
 			FruitX_2 += 40;
 			mFruitNum += 1;
 		}
-	}*/
+	}
 }
 //画像格納処理
 void Stage::Stage_Storage() {

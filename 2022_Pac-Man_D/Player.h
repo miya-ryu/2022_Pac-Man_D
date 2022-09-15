@@ -22,7 +22,7 @@ public:
 	int recordSTop, recordSRight, recordSBottom, recordSLeft;	//ìñÇΩÇ¡ÇΩÇÁêiÇﬂÇ»Ç≠Ç∑ÇÈ
 	int p_top, p_right, p_bottom, p_left;	//PlayerìñÇΩÇËîªíË
 	int recordPtop, recordPright, recordPbottom, recordPleft;
-	int iNowAngle, iOldAngle, iKeepAngle;
+	int iNowAngle, iOldAngle;
 
 	int move;
 	int count;
@@ -46,6 +46,7 @@ public:
 	int record_avatar_left[4];
 	int record_avatar_bottom[4];
 	bool Left, Right, Top, Bottom;
+	int CheckNumber;
 
 	//äiî[
 	static const int DeleteImage = 11;
