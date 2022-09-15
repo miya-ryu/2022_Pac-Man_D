@@ -6,8 +6,6 @@ private:
 	int NUM_STAGE_X;
 	int NUM_STAGE_Y;
 	int NUM_STAGE_IMAGE;
-	//int mStageChip[];
-	//int mStageUI[5];
 	int mStageNum[10];		//数字の画像配列
 	int mStagePacman[11];	//パックマン画像配列
 	int mStageFruit[13];	//フルーツ画像配列

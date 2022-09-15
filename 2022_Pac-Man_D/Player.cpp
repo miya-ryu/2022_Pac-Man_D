@@ -4,7 +4,6 @@
 #include "Red_Enemy.h"
 #include "Stage.h"
 #include "sound.h"
-#include <windows.h>
 
 Player mPlayer;
 
@@ -71,10 +70,39 @@ void Player::Player_Initialize() {
 	mPlayer.image = 0;
 	mPlayer.Hitflg = FALSE;
 	mPlayer.P_StageHitflg = FALSE;
-	mPlayer.Angleflg = FALSE;
-	mPlayer.iOldKeyflg = FALSE;
 	// 死んだとき
 	mPlayer.millisecond = 0.01 * 1000;
+
+	//分身の初期化処理
+	//分身のフラグ処理
+	mPlayer.Top = FALSE;
+	mPlayer.Bottom = FALSE;
+	mPlayer.Left = TRUE;
+	mPlayer.Right = TRUE;
+	//分身の座標
+	//上
+	mPlayer.PLAYER_AVATAR_POS_X[0] = PLAYER_POS_X;
+	mPlayer.PLAYER_AVATAR_POS_Y[0] = PLAYER_POS_Y - 24;
+	//右
+	mPlayer.PLAYER_AVATAR_POS_X[1] = PLAYER_POS_X + 24;
+	mPlayer.PLAYER_AVATAR_POS_Y[1] = PLAYER_POS_Y;
+	//下
+	mPlayer.PLAYER_AVATAR_POS_X[2] = PLAYER_POS_X;
+	mPlayer.PLAYER_AVATAR_POS_Y[2] = PLAYER_POS_Y + 24;
+	//左
+	mPlayer.PLAYER_AVATAR_POS_X[3] = PLAYER_POS_X - 24;
+	mPlayer.PLAYER_AVATAR_POS_Y[3] = PLAYER_POS_Y;
+
+	// 前回のキー入力処理
+	mPlayer.CheckNumber = 12;
+
+	//分身の当たり判定
+	for (int i = 0; i < 4; i++) {
+		mPlayer.avatar_left[i] = PLAYER_AVATAR_POS_X[i] - PLAYER_POS_HITBOX;
+		mPlayer.avatar_top[i] = PLAYER_AVATAR_POS_Y[i] - PLAYER_POS_HITBOX;
+		mPlayer.avatar_right[i] = PLAYER_AVATAR_POS_X[i] + PLAYER_POS_HITBOX;
+		mPlayer.avatar_bottom[i] = PLAYER_AVATAR_POS_Y[i] + PLAYER_POS_HITBOX;
+	}
 }
 
 void Player::Player_Update() {
@@ -124,11 +152,21 @@ void Player::Player_Update() {
 	
 	// プレイヤーとエネミーの当たり判定
 	if (PlayerCheckHit(mPlayer.p_left, mPlayer.p_top, mPlayer.p_right, mPlayer.p_bottom, r_enemy.left, r_enemy.top, r_enemy.right, r_enemy.bottom)) {
-		mPlayer.Hitflg = TRUE;
+		if (mPlayer.Hitflg == FALSE) {
+			if (r_enemy.R_Hitflg == TRUE || r_enemy.ER_Hitflg == TRUE) { // イジケ状態で当たったら
+				++mPlayer.timercount; // カウント開始
+				if (mPlayer.timercount < 2) { // カウントが2より小さければ
+					WaitTimer(1000); // 1秒間時間を止める
+				}
+			}
+			else {
+				mPlayer.Hitflg = TRUE; // イジケ状態が終わったら元の当たり判定に戻す
+			}
+		}
 	}
 
 	//キー入力処理(ステージに触れていない時)
-	if (mPlayer.P_StageHitflg == FALSE) {
+	//if (mPlayer.P_StageHitflg == FALSE) {
 		//右
 		if (iNowKey & PAD_INPUT_RIGHT){
 			//壁がない
@@ -177,7 +215,7 @@ void Player::Player_Update() {
 				mPlayer.iOldAngle = 3;
 			}
 		}
-	}
+	//}
 
 	//前回の入力キーがあるかどうか
 	if (mPlayer.x % mPlayer.CheckNumber == 0 && mPlayer.y % mPlayer.CheckNumber == 0) {
@@ -199,28 +237,7 @@ void Player::Player_Update() {
 		}
 	}
 	 
-	//Playerの移動
-	if (mPlayer.Hitflg == FALSE) {
-		if (r_enemy.R_Hitflg == TRUE || r_enemy.ER_Hitflg == TRUE) { // イジケ状態で当たったら
-			++mPlayer.timercount; // カウント開始
-			if (mPlayer.timercount < 2) { // カウントが2より小さければ
-				WaitTimer(1000); // 1秒間時間を止める
-			}
-		}
-		else {
-			mPlayer.Hitflg = TRUE; // イジケ状態が終わったら元の当たり判定に戻す
-			/*mPlayer.x = PLAYER_POS_X;
-			mPlayer.y = PLAYER_POS_Y;
-			mPlayer.p_left = PLAYER_POS_X - PLAYER_CENTER_HITBOX;
-			mPlayer.p_top = PLAYER_POS_Y - PLAYER_CENTER_HITBOX;
-			mPlayer.p_right = PLAYER_POS_X + PLAYER_CENTER_HITBOX;
-			mPlayer.p_bottom = PLAYER_POS_Y + PLAYER_CENTER_HITBOX;
-			mPlayer.s_left = PLAYER_POS_X - PLAYER_POS_HITBOX;
-			mPlayer.s_top = PLAYER_POS_Y - PLAYER_POS_HITBOX;
-			mPlayer.s_right = PLAYER_POS_X + PLAYER_POS_HITBOX;
-			mPlayer.s_bottom = PLAYER_POS_Y + PLAYER_POS_HITBOX;*/
-		}
-	}
+	
 
 	//移動処理
 	if (mPlayer.Hitflg == FALSE && mStage.MoveFlg == TRUE) {
