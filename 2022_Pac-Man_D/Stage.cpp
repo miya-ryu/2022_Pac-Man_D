@@ -105,7 +105,7 @@ void Stage::Stage_Update() {
 
 			//壁に当たったときの処理
 			if (no != 0) {
-				DrawBox(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, i * SIZE_STAGE_X + SIZE_STAGE_X, j * SIZE_STAGE_Y + SIZE_STAGE_Y, 0xffff00, FALSE);
+				//DrawBox(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, i * SIZE_STAGE_X + SIZE_STAGE_X, j * SIZE_STAGE_Y + SIZE_STAGE_Y, 0xffff00, FALSE);
 
 				//分身体の当たり判定
 				//分身の処理
@@ -124,7 +124,7 @@ void Stage::Stage_Update() {
 				//Playerの当たり判定
 				if (StageCheckHit(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, mPlayer.s_left, mPlayer.s_top, mPlayer.s_right, mPlayer.s_bottom)) {
 					// エサを食べる処理
-					if (stagedata[i + j * NUM_STAGE_X] == 17 || stagedata[i + j * NUM_STAGE_X] == 18) {
+					if (stagedata[i + j * NUM_STAGE_X] == 17) {
 						stagedata[i + j * NUM_STAGE_X] = 0;
 						mSound.numSound = 3;
 						mSound.SoundStart();			//エサ食べるときSE再生
@@ -133,16 +133,18 @@ void Stage::Stage_Update() {
 						StopSoundMem(mSound.bgm[3]);
 					}
 					//いじけSE
-					/*if (stagedata[i + j * NUM_STAGE_X] == 18) {
-						StopSoundMem(mSound.bgm[5]);
+					if (stagedata[i + j * NUM_STAGE_X] == 18) {
+						stagedata[i + j * NUM_STAGE_X] = 0;
+						r_enemy.R_Hitflg = TRUE;
+						/*StopSoundMem(mSound.bgm[5]);
 						mSound.numSound =11;
-						mSound.SoundStart();
+						mSound.SoundStart();*/
 					}
 					else {
-						StopSoundMem(mSound.bgm[11]);
+						/*StopSoundMem(mSound.bgm[11]);
 						mSound.numSound = 5;
-						mSound.SoundStart();
-					}*/
+						mSound.SoundStart();*/
+					}
 
 					//先行入力受け付け
 					mPlayer.P_StageHitflg = TRUE;
@@ -304,7 +306,7 @@ void Stage::Stage_Draw() {
 	for (int j = 0; j < NUM_STAGE_Y; j++) {
 		for (int i = 0; i < NUM_STAGE_X; i++) {
 			int no = stagedata[i + j * NUM_STAGE_X];
-			//DrawExtendGraph(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, i * SIZE_STAGE_X + SIZE_STAGE_X, j * SIZE_STAGE_Y + SIZE_STAGE_Y, mStageChip[no], FALSE);
+			DrawExtendGraph(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, i * SIZE_STAGE_X + SIZE_STAGE_X, j * SIZE_STAGE_Y + SIZE_STAGE_Y, mStageChip[no], FALSE);
 		}
 	}
 
