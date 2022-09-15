@@ -1,8 +1,9 @@
 #include "DxLib.h"
 #include "sound.h"
 #include "Player.h"
+#include "Stage.h"
 
-Sound mSound; 
+Sound mSound;
 
 //“Ç‚İ‚İ
 void Sound::Sound_Handle() {
@@ -10,7 +11,7 @@ void Sound::Sound_Handle() {
 	bgm[1] = LoadSoundMem("sounds/1CreditSound.mp3");
 	bgm[2] = LoadSoundMem("sounds/2StartMusic.mp3");
 	bgm[3] = LoadSoundMem("sounds/PacEating.mp3");
-	bgm[4] = LoadSoundMem("sounds/4ExtendSound.mp3");	
+	bgm[4] = LoadSoundMem("sounds/4ExtendSound.mp3");
 	bgm[5] = LoadSoundMem("sounds/5GhostMove_Normal.mp3");
 	bgm[6] = LoadSoundMem("sounds/6GhostMove_Spart1.mp3");
 	bgm[7] = LoadSoundMem("sounds/7GhostMove_Spart2.mp3");
@@ -26,23 +27,23 @@ void Sound::Sound_Handle() {
 
 //Ä¶
 void Sound::SoundStart() {
-	ChangeVolumeSoundMem( 100, bgm[numSound]);			//‰¹—Ê’²®‚O`‚Q‚T‚T
+	ChangeVolumeSoundMem(Vol, bgm[numSound]);			//‰¹—Ê’²®‚O`‚Q‚T‚T
 	PlaySoundMem(bgm[numSound], DX_PLAYTYPE_BACK);		//Œø‰Ê‰¹Ä¶
-	mSound.Flg = true;
-	mSound.EatingFlg = FALSE;
+	Flg = true;
 }
 
 void Sound::SoundUpdate() {
-	if (mSound.Flg == true) {
+	if (Izike == false) {
+		numSound = 5;
+		SoundStart();
+	}
+
+	if (Flg == true) {
 		if (mPlayer.Hitflg == TRUE) {			//ƒpƒbƒNƒ}ƒ““G‚É“–‚½‚Á‚½‚Æ‚«‚ÌSE/€‚Ê‰¹
 			numSound = 14;
-			mSound.SoundStart();
-			mSound.Flg = false;
+			SoundStart();
+			Flg = false;
 		}
-	}
-	if (mSound.EatingFlg == TRUE) {
-		mSound.numSound = 3;
-		mSound.SoundStart();			//ƒGƒTH‚×‚é‚Æ‚«SEÄ¶
 	}
 }
 

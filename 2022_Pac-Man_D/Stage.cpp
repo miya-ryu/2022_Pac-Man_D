@@ -94,18 +94,23 @@ void Stage::Stage_Update() {
 				// プレイヤーとステージの当たり判定
 				if (StageCheckHit(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, mPlayer.s_left, mPlayer.s_top, mPlayer.s_right, mPlayer.s_bottom)) {
 					// エサを食べる処理
-					if (stagedata[i + j * NUM_STAGE_X] == 17) {
+					if (stagedata[i + j * NUM_STAGE_X] == 17 || stagedata[i + j * NUM_STAGE_X] == 18) {
 						stagedata[i + j * NUM_STAGE_X] = 0;
-						mSound.EatingFlg = TRUE;
-					}
-					else if (stagedata[i + j * NUM_STAGE_X] == 18) {
-						stagedata[i + j * NUM_STAGE_X] = 0;
-						r_enemy.R_Hitflg = TRUE;
-						mSound.EatingFlg = TRUE;
+						mSound.EatingFlg == true;
+						mSound.numSound = 3;
+						mSound.SoundStart();			//エサ食べるときSE再生
 					}
 					else {
+						mSound.EatingFlg = false;
 						StopSoundMem(mSound.bgm[3]);
 					}
+					//いじけSE
+					/*if (stagedata[i + j * NUM_STAGE_X] == 18) {
+						mSound.Izike = true;
+					}
+					else if (stagedata[i + j * NUM_STAGE_X] != 18) {
+						mSound.Izike = false;
+					}*/
 
 					//先行入力受け付け
 					mPlayer.P_StageHitflg = TRUE;
@@ -251,6 +256,15 @@ void Stage::Stage_Update() {
 	if (TimeCount == 180) {	//3秒後
 		Startsize1 = 0;
 	}
+	//1UPの点滅表示
+	UpCount++;
+	if (UpCount == 15) {
+		UpSize = 0;
+	}
+	else if (UpCount == 30) {
+		UpSize = 1;
+		UpCount = 0;
+	}
 }
 
 //描画処理
@@ -269,7 +283,7 @@ void Stage::Stage_Draw() {
 
 	//スコア表示
 	DrawGraph(870, 20, mStageUI[0], true);			//ハイスコア
-	DrawGraph(930, 130, mStageUI[1], true);			//１up
+	DrawRotaGraph(930, 130, UpSize, 0, mStageUI[1], TRUE, false);	//１up
 
 	//ハイスコア数字表示   初期
 	int hnumX = 950;
@@ -341,6 +355,8 @@ void Stage::Stage_Storage() {
 	mStageChip[18] = LoadGraph("images/tiles/big_dot.png");
 	// ドア
 	mStageChip[19] = LoadGraph("images/tiles/door.png");
+	//フルーツ
+	mStageChip[20] = LoadGraph("images/fruit1.png");
 
 	//スコア部分UI
 	mStageUI[0] = LoadGraph("images/title/hi-score.png");	//ハイスコア文字

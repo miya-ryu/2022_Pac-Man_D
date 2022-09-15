@@ -2,11 +2,13 @@
 
 class Sound {
 private:
-	int Flg = false;
+	bool Flg = false;
 public:
 	int numSound = 2;
-	int bgm[16];
-	bool EatingFlg;
+	int bgm[15];
+	bool EatingFlg = false;
+	bool Izike = false;		//イジケモードのフラグ
+	int Vol = 100;			//SE音量変更
 	void Sound_Handle();
 	void SoundStart();
 	void SoundUpdate();

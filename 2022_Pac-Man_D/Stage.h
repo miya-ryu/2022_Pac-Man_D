@@ -11,7 +11,9 @@ private:
 	int mStageNum[10];		//数字の画像配列
 	int mStagePacman[11];	//パックマン画像配列
 	int mStageFruit[13];	//フルーツ画像配列
-	int TimeCount = 0;
+	int TimeCount = 0;		//スタート表示のカウント
+	int UpCount = 0;		//1UP表示カウント
+	int UpSize = 1;
 	float Startsize = 0.8;
 	float Startsize1 = 0.8;
 public:

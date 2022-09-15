@@ -2,7 +2,7 @@
 #include "title.h"
 #include "Game.h"
 
-static eScene mScene = eScene_Game;	//現シーンの管理変数
+static eScene mScene = eScene_Title;	//現シーンの管理変数
 static eScene mNextScene = eScene_None; //次シーンの管理変数
 
 static void SceneMgr_InitializeModule(eScene scene);
@@ -44,6 +44,7 @@ void SceneMgr_Draw() {
 	switch (mScene)
 	{
 	case eScene_Title:
+		mTitle.Title_Move();
 		mTitle.Title_Draw();
 		break;
 	case eScene_Game:
