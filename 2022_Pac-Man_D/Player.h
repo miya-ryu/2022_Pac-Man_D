@@ -55,6 +55,8 @@ public:
 	int deletecount;
 	int deleteimage;
 	int millisecond;
+
+	int xy, xy2;
 };
 
 extern Player mPlayer;

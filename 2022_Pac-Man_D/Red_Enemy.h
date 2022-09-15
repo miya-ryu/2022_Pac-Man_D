@@ -41,9 +41,11 @@ public:
 	bool PR_Hitflg;
 	// エネミー目状態
 	bool eyeflg;
-	//壁に当たったフラグ
+	// 壁に当たったフラグ
 	//bool E_StageHitflg;
 	bool Initiaflg;
+	// 座標計算
+	int xy, xy2, xx, yy;
 };
 
 extern R_ENEMY r_enemy;

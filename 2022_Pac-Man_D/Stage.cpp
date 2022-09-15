@@ -194,33 +194,57 @@ void Stage::Stage_Update() {
 							r_enemy.absY = r_enemy.absY * -1;
 						}
 
-						// 絶対値Xの値が大きいとき
-						if (r_enemy.absX > r_enemy.absY) {
-							// 右向き
-							if (r_enemy.angle == 2) {
-								if (mPlayer.x < r_enemy.x) {
+						//// 絶対値Xの値が大きいとき
+						//if (r_enemy.absX > r_enemy.absY) {
+						//	// 右向き
+						//	if (mPlayer.x > r_enemy.x) {
+						//		r_enemy.angle = 2;
+						//	}
+						//	// 左向き
+						//	else if (mPlayer.x < r_enemy.x) {
+						//		r_enemy.angle = 4;
+						//	}
+						//}
+						//// 絶対値Yの値が大きいとき
+						//if (r_enemy.absX < r_enemy.absY) {
+						//	// 下向き
+						//	if (mPlayer.y > r_enemy.y) {
+						//		r_enemy.angle = 3;
+						//	}
+						//	// 上向き
+						//	else if (mPlayer.y < r_enemy.y) {
+						//		r_enemy.angle = 1;
+						//	}
+						//}
 
-								}
-							}
-							// 左向き
-							else if (r_enemy.angle == 4) {
-								if (mPlayer.x < r_enemy.x) {
+						//// 絶対値Xの値が大きいとき
+						//if (r_enemy.absX > r_enemy.absY) {
+						//	// 右向き
+						//	if (r_enemy.angle == 2) {
+						//		if (mPlayer.x > r_enemy.x) {
+						//			r_enemy.angle = 3;
+						//		}
+						//	}
+						//	// 左向き
+						//	else if (r_enemy.angle == 4) {
+						//		if (mPlayer.x < r_enemy.x) {
+						//			r_enemy.angle = 3;
+						//		}
+						//	}
+						//}
+						//// 絶対値Yの値が大きいとき
+						//if (r_enemy.absX < r_enemy.absY) {
+						//	// 下向き
+						//	if (r_enemy.angle == 3) {
+						//		r_enemy.angle++;
+						//	}
+						//	// 上向き
+						//	else if (r_enemy.angle == 1) {
+						//		if (mPlayer.y < r_enemy.y) {
 
-								}
-							}
-						}
-						// 下向き
-						else if (r_enemy.angle == 3) {
-							if (mPlayer.y > r_enemy.y) {
-
-							}
-						}
-						// 上向き
-						else if (r_enemy.angle == 1) {
-							if (mPlayer.y < r_enemy.y) {
-
-							}
-						}
+						//		}
+						//	}
+						//}
 
 						// 壁へのめり込みを防ぐ
 						r_enemy.x = r_enemy.recordX;
