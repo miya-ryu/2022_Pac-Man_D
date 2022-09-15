@@ -3,6 +3,7 @@
 #include "Input.h"
 #include "Red_Enemy.h"
 #include "Stage.h"
+#include "sound.h"
 #include <windows.h>
 
 Player mPlayer;
@@ -162,7 +163,7 @@ void Player::Player_Update() {
 		mPlayer.iNowAngle = 3;
 	}
 	//移動処理
-	if (mPlayer.Hitflg == FALSE) {
+	if (mPlayer.Hitflg == FALSE && mStage.MoveFlg == TRUE) {
 		//上
 		if (mPlayer.iNowAngle == 1) {
 			mPlayer.y -= mPlayer.move;
@@ -221,10 +222,12 @@ void Player::Player_Update() {
 }
 
 void Player::Player_Draw() {
-	if (mPlayer.Hitflg == FALSE) {
-		//Player表示
+	if (mPlayer.Hitflg == FALSE && mStage.MoveFlg == TRUE) {		//Player表示
 		DrawRotaGraph(mPlayer.x, mPlayer.y, 0.75, 0, mPlayer.mPlayerMoveImage[mPlayer.image], TRUE, FALSE);
 		mPlayer.deleteimage = 0;
+	}
+	else if(mStage.StateFlg == TRUE){		//スタート時表示
+		DrawRotaGraph(mPlayer.x, mPlayer.y, 0.75, 0, mPlayer.mPlayerMoveImage[10], TRUE, FALSE);
 	}
 	else if (mPlayer.Hitflg == TRUE) {
 		mPlayer.deletecount++;

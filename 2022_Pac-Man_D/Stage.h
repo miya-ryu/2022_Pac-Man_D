@@ -17,6 +17,8 @@ private:
 	float Startsize = 0.8;
 	float Startsize1 = 0.8;
 public:
+	bool StateFlg;
+	bool MoveFlg;
 	int mStageUI[5];		//ステージＵＩ画像配列
 	int StartFlg = false;
 	int SIZE_STAGE_X;

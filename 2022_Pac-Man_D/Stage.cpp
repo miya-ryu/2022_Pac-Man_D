@@ -96,20 +96,22 @@ void Stage::Stage_Update() {
 					// エサを食べる処理
 					if (stagedata[i + j * NUM_STAGE_X] == 17 || stagedata[i + j * NUM_STAGE_X] == 18) {
 						stagedata[i + j * NUM_STAGE_X] = 0;
-						mSound.EatingFlg == true;
 						mSound.numSound = 3;
 						mSound.SoundStart();			//エサ食べるときSE再生
 					}
 					else {
-						mSound.EatingFlg = false;
 						StopSoundMem(mSound.bgm[3]);
 					}
 					//いじけSE
 					/*if (stagedata[i + j * NUM_STAGE_X] == 18) {
-						mSound.Izike = true;
+						StopSoundMem(mSound.bgm[5]);
+						mSound.numSound =11;
+						mSound.SoundStart();
 					}
-					else if (stagedata[i + j * NUM_STAGE_X] != 18) {
-						mSound.Izike = false;
+					else {
+						StopSoundMem(mSound.bgm[11]);
+						mSound.numSound = 5;
+						mSound.SoundStart();
 					}*/
 
 					//先行入力受け付け
@@ -253,8 +255,12 @@ void Stage::Stage_Update() {
 	if (TimeCount == 60) {//1秒後
 		Startsize = 0;
 	}
+	if (TimeCount == 90) {
+		StateFlg = TRUE;
+	}
 	if (TimeCount == 180) {	//3秒後
 		Startsize1 = 0;
+		MoveFlg = TRUE;
 	}
 	//1UPの点滅表示
 	UpCount++;
@@ -283,7 +289,7 @@ void Stage::Stage_Draw() {
 
 	//スコア表示
 	DrawGraph(870, 20, mStageUI[0], true);			//ハイスコア
-	DrawRotaGraph(930, 130, UpSize, 0, mStageUI[1], TRUE, false);	//１up
+	DrawRotaGraph(930, 145, UpSize, 0, mStageUI[1], TRUE, false);	//１up
 
 	//ハイスコア数字表示   初期
 	int hnumX = 950;

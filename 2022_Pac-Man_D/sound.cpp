@@ -2,6 +2,7 @@
 #include "sound.h"
 #include "Player.h"
 #include "Stage.h"
+#include "Red_Enemy.h"
 
 Sound mSound;
 
@@ -33,11 +34,6 @@ void Sound::SoundStart() {
 }
 
 void Sound::SoundUpdate() {
-	if (Izike == false) {
-		numSound = 5;
-		SoundStart();
-	}
-
 	if (Flg == true) {
 		if (mPlayer.Hitflg == TRUE) {			//パックマン敵に当たったときのSE/死ぬ音
 			numSound = 14;
@@ -45,6 +41,18 @@ void Sound::SoundUpdate() {
 			Flg = false;
 		}
 	}
+	// イジケ状態フラグ
+	//if (r_enemy.R_Hitflg == TRUE) {
+	//	StopSoundMem(bgm[5]);
+	//	numSound = 11;
+	//	SoundStart();
+	//}
+	//else if (r_enemy.R_Hitflg == FALSE) {
+	//	StopSoundMem(bgm[11]);
+	//	PlaySoundMem(bgm[5], DX_PLAYTYPE_BACK);
+	//	/*numSound = 5;
+	//	SoundStart();*/
+	//}
 }
 
 //削除

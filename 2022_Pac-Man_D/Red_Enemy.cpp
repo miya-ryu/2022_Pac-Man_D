@@ -1,6 +1,7 @@
 #include "DxLib.h"
 #include "Red_Enemy.h"
 #include "Player.h"
+#include "Stage.h"
 
 R_ENEMY r_enemy;
 
@@ -277,7 +278,16 @@ void R_ENEMY::Update() {
 }
 
 void R_ENEMY::Draw() {
-	if (r_enemy.R_Hitflg == FALSE) { // パワーエサを取っていなければ
+	if(mStage.StateFlg == FALSE){		//スタートの時のみ表示
+		DrawRotaGraph(r_enemy.x, r_enemy.y, 0, 0, images[r_enemy.image], TRUE, FALSE); 
+		DrawRotaGraph(r_enemy.x, r_enemy.y, 0, 0, eyesimages[r_enemy.eyeimage], TRUE, FALSE); 
+	}
+	else if(mStage.StateFlg == TRUE){
+		DrawRotaGraph(r_enemy.x, r_enemy.y, 0.75, 0, images[0], TRUE, FALSE); 
+		DrawRotaGraph(r_enemy.x, r_enemy.y, 0.75, 0, eyesimages[3], TRUE, FALSE); 
+	}
+
+	if (r_enemy.R_Hitflg == FALSE && mStage.MoveFlg == TRUE) { // パワーエサを取っていなければ
 		DrawRotaGraph(r_enemy.x, r_enemy.y, 0.75, 0, images[r_enemy.image], TRUE, FALSE); // 敵キャラ表示
 		DrawRotaGraph(r_enemy.x, r_enemy.y, 0.75, 0, eyesimages[r_enemy.eyeimage], TRUE, FALSE); // 敵キャラの目表示
 		DrawBox(r_enemy.left, r_enemy.top, r_enemy.right, r_enemy.bottom, 0x00ffff, FALSE); // 当たり判定描画
