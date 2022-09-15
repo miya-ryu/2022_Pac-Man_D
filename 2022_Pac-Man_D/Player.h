@@ -18,15 +18,11 @@ public:
 	int x, y;
 	int w, h;
 	int recordX, recordY;	//進めなくする
-	float s_top, s_right, s_bottom, s_left;	//Stage当たり判定
+	int s_top, s_right, s_bottom, s_left;	//Stage当たり判定
 	int recordSTop, recordSRight, recordSBottom, recordSLeft;	//当たったら進めなくする
 	int p_top, p_right, p_bottom, p_left;	//Player当たり判定
 	int recordPtop, recordPright, recordPbottom, recordPleft;
 	int iNowAngle, iOldAngle;
-	bool AngleChange;
-	bool Angleflg;
-	bool iOldKeyflg;	//前回のキーフラグ
-	bool MoveX, MoveY;
 
 	int move;
 	int count, timercount;
@@ -38,6 +34,20 @@ public:
 	bool Hitflg;
 	//壁に当たったフラグ
 	bool P_StageHitflg;
+	//分身処理
+	int PLAYER_AVATAR_POS_X[4];
+	int PLAYER_AVATAR_POS_Y[4];
+	int avatar_top[4];
+	int avatar_right[4];
+	int avatar_left[4];
+	int avatar_bottom[4];
+	int record_avatar_top[4];
+	int record_avatar_right[4];
+	int record_avatar_left[4];
+	int record_avatar_bottom[4];
+	bool Left, Right, Top, Bottom;
+	int CheckNumber;
+
 	//格納
 	static const int DeleteImage = 11;
 	int mPlayerDeleteImage[DeleteImage];

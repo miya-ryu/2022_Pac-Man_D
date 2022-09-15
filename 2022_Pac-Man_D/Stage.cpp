@@ -40,7 +40,7 @@ int stagedata[]{
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  3,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12, 4,
 };
 
-//当たり判定
+//当たり判定(ステージとのPlayer&Enemy)
 int StageCheckHit(int x1, int y1, int w1, int h1, int x2, int y2, int w2, int h2) {
 	int L1 = x1;		//左
 	int R1 = x1 + w1;	//右
@@ -60,6 +60,20 @@ int StageCheckHit(int x1, int y1, int w1, int h1, int x2, int y2, int w2, int h2
 
 	//当たっている
 	return 1;
+}
+
+int AisleCheckHit(int x1, int y1, int w1, int h1, int x2, int y2, int w2, int h2) {
+	int L1 = x1;		//Stage左
+	int R1 = x1 + w1;	//Stage右
+	int L2 = x2;		//Player左
+	int R2 = w2;		//Player右
+	int U1 = y1;		//Stage上
+	int D1 = y1 + h1;	//Stage下
+	int U2 = y2;		//Player上
+	int D2 = h2;		//Player下
+
+	if (L1 < L2 && R1 > R2 && D1 > D2 && U1 < U2)return 1;	//箱内に収まっていたらぶつかっている
+	else return 0;
 }
 
 //初期化処理
@@ -89,9 +103,25 @@ void Stage::Stage_Update() {
 		for (int i = 0; i < NUM_STAGE_X; i++) {
 			int no = stagedata[i + j * NUM_STAGE_X];
 
+			//壁に当たったときの処理
 			if (no != 0) {
-				//DrawBox(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, i * SIZE_STAGE_X + SIZE_STAGE_X, j * SIZE_STAGE_Y + SIZE_STAGE_Y, 0xffff00, FALSE);
-				// プレイヤーとステージの当たり判定
+				DrawBox(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, i * SIZE_STAGE_X + SIZE_STAGE_X, j * SIZE_STAGE_Y + SIZE_STAGE_Y, 0xffff00, FALSE);
+
+				//分身体の当たり判定
+				//分身の処理
+				if (mPlayer.x % mPlayer.CheckNumber == 0 && mPlayer.y % mPlayer.CheckNumber == 0) {
+					for (int avatar = 0; avatar < 4; avatar++) {
+						if (StageCheckHit(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, mPlayer.avatar_left[avatar], mPlayer.avatar_top[avatar], mPlayer.avatar_right[avatar], mPlayer.avatar_bottom[avatar])) {
+							//当たっていたら進めなくする
+							if (avatar == 0)mPlayer.Top = TRUE;
+							if (avatar == 1)mPlayer.Right = TRUE;
+							if (avatar == 2)mPlayer.Bottom = TRUE;
+							if (avatar == 3)mPlayer.Left = TRUE;
+						}
+					}
+				}
+
+				//Playerの当たり判定
 				if (StageCheckHit(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, mPlayer.s_left, mPlayer.s_top, mPlayer.s_right, mPlayer.s_bottom)) {
 					// エサを食べる処理
 					if (stagedata[i + j * NUM_STAGE_X] == 17 || stagedata[i + j * NUM_STAGE_X] == 18) {
@@ -117,39 +147,7 @@ void Stage::Stage_Update() {
 					//先行入力受け付け
 					mPlayer.P_StageHitflg = TRUE;
 					if (mPlayer.P_StageHitflg == TRUE) {
-						if (mPlayer.Angleflg == TRUE) {
-							if (mPlayer.iOldAngle == 2) {
-								mPlayer.iNowAngle = 2;
-							}
-							else if (mPlayer.iOldAngle == 3) {
-								mPlayer.iNowAngle = 3;
-							}
-							else if (mPlayer.iOldAngle == 4) {
-								mPlayer.iNowAngle = 4;
-							}
-							else if (mPlayer.iOldAngle == 1) {
-								mPlayer.iNowAngle = 1;
-							}
-							mPlayer.Angleflg = FALSE;
-						}
-						else if (mPlayer.Angleflg == FALSE) {
-							/*if (mPlayer.iOldAngle == mPlayer.iNowAngle) {
-								mPlayer.iOldKeyflg = TRUE;
-								if (iNowKey & PAD_INPUT_RIGHT) {
-									mPlayer.iOldmove = 2;
-								}
-								else if (iNowKey & PAD_INPUT_DOWN) {
-									mPlayer.iOldmove = 3;
-								}
-								else if (iNowKey & PAD_INPUT_LEFT) {
-									mPlayer.iOldmove = 4;
-								}
-								else if (iNowKey & PAD_INPUT_UP) {
-									mPlayer.iOldmove = 1;
-								}
-							}*/
-						}
-
+						
 						//移動
 						mPlayer.x = mPlayer.recordX;
 						mPlayer.y = mPlayer.recordY;
@@ -165,7 +163,15 @@ void Stage::Stage_Update() {
 						mPlayer.s_bottom = mPlayer.recordSBottom;
 						mPlayer.s_left = mPlayer.recordSLeft;
 
-						//ヒットを戻す
+						//分身
+						for (int i = 0; i < 4; i++) {
+							mPlayer.avatar_bottom[i] = mPlayer.record_avatar_bottom[i];
+							mPlayer.avatar_left[i] = mPlayer.record_avatar_left[i];
+							mPlayer.avatar_top[i] = mPlayer.record_avatar_top[i];
+							mPlayer.avatar_right[i] = mPlayer.record_avatar_right[i];
+						}
+
+						//当たり判定を戻す
 						mPlayer.P_StageHitflg = FALSE;
 					}
 				}
@@ -227,25 +233,17 @@ void Stage::Stage_Update() {
 					}
 				}
 			}
-			else if (mStageChip[i] == 0) {
-				//前回の入力キーがあるかどうか
-				if (mPlayer.iOldKeyflg == TRUE) {
-					////右
-					//if (mPlayer.iOldmove == 2) {
-					//	if (mPlayer.s_top < i * SIZE_STAGE_Y + SIZE_STAGE_Y && mPlayer.s_bottom < i * SIZE_STAGE_Y) {
-					//		mPlayer.iNowAngle = 2;
-					//		mPlayer.iOldKeyflg = FALSE;
-					//	}
-					//}
-					////下
-					//if (mPlayer.iOldmove == 3) {
-					//	if (mPlayer.s_)
-					//}
-					////左
-					//if (mPlayer.) {
-
-					//}
-					////上
+			//通路の処理
+			if (no == 0 || no == 17 || no == 18) {
+				//分身の処理
+				for (int avatar = 0; avatar < 4; avatar++) {
+					if (AisleCheckHit(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, mPlayer.avatar_left[avatar], mPlayer.avatar_top[avatar], mPlayer.avatar_right[avatar], mPlayer.avatar_bottom[avatar])) {
+						//当たっていたら進める
+						if (avatar == 0)mPlayer.Top = FALSE;
+						if (avatar == 1)mPlayer.Right = FALSE;
+						if (avatar == 2)mPlayer.Bottom = FALSE;
+						if (avatar == 3)mPlayer.Left = FALSE;
+					}
 				}
 			}
 		}
@@ -282,7 +280,7 @@ void Stage::Stage_Draw() {
 	for (int j = 0; j < NUM_STAGE_Y; j++) {
 		for (int i = 0; i < NUM_STAGE_X; i++) {
 			int no = stagedata[i + j * NUM_STAGE_X];
-			DrawExtendGraph(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, i * SIZE_STAGE_X + SIZE_STAGE_X, j * SIZE_STAGE_Y + SIZE_STAGE_Y, mStageChip[no], FALSE);
+			//DrawExtendGraph(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, i * SIZE_STAGE_X + SIZE_STAGE_X, j * SIZE_STAGE_Y + SIZE_STAGE_Y, mStageChip[no], FALSE);
 		}
 	}
 
