@@ -226,7 +226,7 @@ void Player::Player_Draw() {
 		DrawRotaGraph(mPlayer.x, mPlayer.y, 0.75, 0, mPlayer.mPlayerMoveImage[mPlayer.image], TRUE, FALSE);
 		mPlayer.deleteimage = 0;
 	}
-	else if(mStage.StateFlg == TRUE){		//スタート時表示
+	if(mStage.StateFlg == TRUE){		//スタート時表示
 		DrawRotaGraph(mPlayer.x, mPlayer.y, 0.75, 0, mPlayer.mPlayerMoveImage[10], TRUE, FALSE);
 	}
 	else if (mPlayer.Hitflg == TRUE) {
@@ -253,6 +253,9 @@ void Player::Player_Draw() {
 			mPlayer.Hitflg = FALSE;
 			r_enemy.Initiaflg = TRUE;
 		}
+	}
+	if (mStage.GameOverFlg == TRUE) {
+		mStage.MoveFlg = false;
 	}
 	//Stage当たり判定表示
 	DrawBox(mPlayer.s_left, mPlayer.s_top, mPlayer.s_right, mPlayer.s_bottom, 0x00ff00, FALSE);

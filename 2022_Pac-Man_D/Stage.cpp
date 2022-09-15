@@ -262,6 +262,9 @@ void Stage::Stage_Update() {
 		Startsize1 = 0;
 		MoveFlg = TRUE;
 	}
+	else if (TimeCount == 181) {	//スタート時のパックマン画像固定解除
+		StateFlg = false;
+	}
 	//1UPの点滅表示
 	UpCount++;
 	if (UpCount == 15) {
@@ -307,14 +310,11 @@ void Stage::Stage_Draw() {
 
 	//パックマン残機表示
 	int pacX = 920;
-	int life = 2;
-	if (mPlayer.Hitflg == TRUE) {
-		life -= 1;
-	}
 	for (int num = 0; num < life; num++) {
 		DrawRotaGraph(pacX, 550, 1.8, 0, mStagePacman[10], TRUE, FALSE);
 		pacX += 60;
 	}
+	
 
 	//フルーツ表示
 	int mFruitNum = 0;
@@ -332,6 +332,12 @@ void Stage::Stage_Draw() {
 			FruitX_2 += 40;
 			mFruitNum += 1;
 		}*/
+	}
+
+	//ゲームオーバー表示
+	if (GameOverFlg == true) {
+		DrawRotaGraph(610, 260, 0.8, 0, mStageUI[2], TRUE, false);
+		DrawRotaGraph(615, 370, 0.8, 0, mStageUI[4], TRUE, false);
 	}
 }
 

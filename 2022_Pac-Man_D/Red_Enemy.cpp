@@ -278,7 +278,7 @@ void R_ENEMY::Update() {
 }
 
 void R_ENEMY::Draw() {
-	if(mStage.StateFlg == FALSE){		//スタートの時のみ表示
+	if(mStage.StateFlg == FALSE || mStage.GameOverFlg == TRUE){		//スタートの時のみ表示
 		DrawRotaGraph(r_enemy.x, r_enemy.y, 0, 0, images[r_enemy.image], TRUE, FALSE); 
 		DrawRotaGraph(r_enemy.x, r_enemy.y, 0, 0, eyesimages[r_enemy.eyeimage], TRUE, FALSE); 
 	}
@@ -338,5 +338,14 @@ void R_ENEMY::Draw() {
 		r_enemy.right = ENEMY_POS_X + ENEMY_STAGE_HITBOX;
 		r_enemy.bottom = ENEMY_POS_Y + ENEMY_STAGE_HITBOX;
 		r_enemy.Initiaflg = FALSE;
+		if (mStage.life == 1) {
+			mStage.life = 0;
+		}
+		else if(mStage.life == 2) {
+			mStage.life = 1;
+		}
+		else {
+			mStage.GameOverFlg = true;
+		}
 	}
 }

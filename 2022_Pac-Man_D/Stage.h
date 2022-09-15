@@ -19,6 +19,8 @@ private:
 public:
 	bool StateFlg;
 	bool MoveFlg;
+	bool GameOverFlg;
+	int life = 2;			//パックマンライフ管理
 	int mStageUI[5];		//ステージＵＩ画像配列
 	int StartFlg = false;
 	int SIZE_STAGE_X;
