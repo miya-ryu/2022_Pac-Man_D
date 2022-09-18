@@ -62,6 +62,7 @@ int StageCheckHit(int x1, int y1, int w1, int h1, int x2, int y2, int w2, int h2
 	return 1;
 }
 
+// 分身の当たり判定
 int AisleCheckHit(int x1, int y1, int w1, int h1, int x2, int y2, int w2, int h2) {
 	int L1 = x1;		//Stage左
 	int R1 = x1 + w1;	//Stage右
@@ -118,6 +119,18 @@ void Stage::Stage_Update() {
 						}
 					}
 				}
+				// エネミーの分身の処理
+				//if (r_enemy.x % r_enemy.CheckNumber == 0 && r_enemy.y % r_enemy.CheckNumber == 0) {
+					for (int e_avatar = 0; e_avatar < 4; e_avatar++) {
+						if (AisleCheckHit(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, r_enemy.avatar_left[e_avatar], r_enemy.avatar_top[e_avatar], r_enemy.avatar_right[e_avatar], r_enemy.avatar_bottom[e_avatar])) {
+							//当たっていたら進めなくする
+							if (e_avatar == 0)r_enemy.Top = TRUE;
+							if (e_avatar == 1)r_enemy.Right = TRUE;
+							if (e_avatar == 2)r_enemy.Bottom = TRUE;
+							if (e_avatar == 3)r_enemy.Left = TRUE;
+						}
+					}
+				//}
 
 				//Playerの当たり判定
 				if (StageCheckHit(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, mPlayer.s_left, mPlayer.s_top, mPlayer.s_right, mPlayer.s_bottom)) {
@@ -182,39 +195,47 @@ void Stage::Stage_Update() {
 						// ステージとの当たり判定フラグ
 						//r_enemy.E_StageHitflg = TRUE;
 						 
-						//前回の座標移動
-						r_enemy.absX = mPlayer.x - r_enemy.x;
-						r_enemy.absY = mPlayer.y - r_enemy.y;
+						////前回の座標移動
+						//r_enemy.absX = mPlayer.x - r_enemy.x;
+						//r_enemy.absY = mPlayer.y - r_enemy.y;
 
-						//絶対値を求める
-						if (r_enemy.absX <= 0) {
-							r_enemy.absX = r_enemy.absX * -1;
-						}
-						if (r_enemy.absY <= 0) {
-							r_enemy.absY = r_enemy.absY * -1;
-						}
+						////絶対値を求める
+						//if (r_enemy.absX <= 0) {
+						//	r_enemy.absX = r_enemy.absX * -1;
+						//}
+						//if (r_enemy.absY <= 0) {
+						//	r_enemy.absY = r_enemy.absY * -1;
+						//}
 
-						// 絶対値Xの値が大きいとき
-						if (r_enemy.absX > r_enemy.absY) {
-							// 右向き
-							if (mPlayer.x > r_enemy.x) {
-								r_enemy.angle = 2;
-							}
-							// 左向き
-							else if (mPlayer.x < r_enemy.x) {
-								r_enemy.angle = 4;
-							}
-						}
-						// 絶対値Yの値が大きいとき
-						if (r_enemy.absX < r_enemy.absY) {
-							// 下向き
-							if (mPlayer.y > r_enemy.y) {
-								r_enemy.angle = 3;
-							}
-							// 上向き
-							else if (mPlayer.y < r_enemy.y) {
-								r_enemy.angle = 1;
-							}
+						//// 絶対値Xの値が大きいとき
+						//if (r_enemy.absX > r_enemy.absY) {
+						//	// 右向き
+						//	if (mPlayer.x > r_enemy.x) {
+						//		r_enemy.angle = 2;
+						//	}
+						//	// 左向き
+						//	else if (mPlayer.x < r_enemy.x) {
+						//		r_enemy.angle = 4;
+						//	}
+						//}
+						//// 絶対値Yの値が大きいとき
+						//if (r_enemy.absX < r_enemy.absY) {
+						//	// 下向き
+						//	if (mPlayer.y > r_enemy.y) {
+						//		r_enemy.angle = 3;
+						//	}
+						//	// 上向き
+						//	else if (mPlayer.y < r_enemy.y) {
+						//		r_enemy.angle = 1;
+						//	}
+						//}
+
+						//分身
+						for (int i = 0; i < 4; i++) {
+							r_enemy.avatar_bottom[i] = r_enemy.record_avatar_bottom[i];
+							r_enemy.avatar_left[i] = r_enemy.record_avatar_left[i];
+							r_enemy.avatar_top[i] = r_enemy.record_avatar_top[i];
+							r_enemy.avatar_right[i] = r_enemy.record_avatar_right[i];
 						}
 
 						// 壁へのめり込みを防ぐ
@@ -239,6 +260,16 @@ void Stage::Stage_Update() {
 						if (avatar == 1)mPlayer.Right = FALSE;
 						if (avatar == 2)mPlayer.Bottom = FALSE;
 						if (avatar == 3)mPlayer.Left = FALSE;
+					}
+				}
+				//エネミーの分身の処理
+				for (int e_avatar = 0; e_avatar < 4; e_avatar++) {
+					if (AisleCheckHit(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, r_enemy.avatar_left[e_avatar], r_enemy.avatar_top[e_avatar], r_enemy.avatar_right[e_avatar], r_enemy.avatar_bottom[e_avatar])) {
+						//当たっていたら進める
+						if (e_avatar == 0)r_enemy.Top = FALSE;
+						if (e_avatar == 1)r_enemy.Right = FALSE;
+						if (e_avatar == 2)r_enemy.Bottom = FALSE;
+						if (e_avatar == 3)r_enemy.Left = FALSE;
 					}
 				}
 			}

@@ -2,7 +2,7 @@
 
 static int ENEMY_POS_X = 612;
 static int ENEMY_POS_Y = 252;
-static float ENEMY_STAGE_HITBOX = 11;
+static float ENEMY_POS_HITBOX = 11;
 
 // 親クラス赤
 class R_ENEMY {
@@ -46,6 +46,19 @@ public:
 	bool Initiaflg;
 	// 座標計算
 	int xy, xy2, xx, yy;
+	// 分身処理
+	int ENEMY_AVATAR_POS_X[4];
+	int ENEMY_AVATAR_POS_Y[4];
+	int avatar_top[4];
+	int avatar_right[4];
+	int avatar_left[4];
+	int avatar_bottom[4];
+	int record_avatar_top[4];
+	int record_avatar_right[4];
+	int record_avatar_left[4];
+	int record_avatar_bottom[4];
+	bool Left, Right, Top, Bottom;
+	int CheckNumber;
 };
 
 extern R_ENEMY r_enemy;

@@ -54,15 +54,46 @@ void R_ENEMY::Initialize() {
 	r_enemy.recordX = r_enemy.x;
 	r_enemy.recordY = r_enemy.y;
 
-	r_enemy.top = ENEMY_POS_Y - ENEMY_STAGE_HITBOX;
-	r_enemy.left = ENEMY_POS_X - ENEMY_STAGE_HITBOX;
-	r_enemy.right = ENEMY_POS_X + ENEMY_STAGE_HITBOX;
-	r_enemy.bottom = ENEMY_POS_Y + ENEMY_STAGE_HITBOX;
+	r_enemy.top = ENEMY_POS_Y - ENEMY_POS_HITBOX;
+	r_enemy.left = ENEMY_POS_X - ENEMY_POS_HITBOX;
+	r_enemy.right = ENEMY_POS_X + ENEMY_POS_HITBOX;
+	r_enemy.bottom = ENEMY_POS_Y + ENEMY_POS_HITBOX;
 
 	r_enemy.recordTop = r_enemy.top;
 	r_enemy.recordRight = r_enemy.right;
 	r_enemy.recordBottom = r_enemy.bottom;
 	r_enemy.recordLeft = r_enemy.left;
+
+	// 分身の初期化処理
+	//分身のフラグ処理
+	r_enemy.Top = FALSE;
+	r_enemy.Bottom = FALSE;
+	r_enemy.Left = TRUE;
+	r_enemy.Right = TRUE;
+	//分身の座標
+	//上
+	r_enemy.ENEMY_AVATAR_POS_X[0] = ENEMY_POS_X;
+	r_enemy.ENEMY_AVATAR_POS_Y[0] = ENEMY_POS_Y - 24;
+	//右
+	r_enemy.ENEMY_AVATAR_POS_X[1] = ENEMY_POS_X + 24;
+	r_enemy.ENEMY_AVATAR_POS_Y[1] = ENEMY_POS_Y;
+	//下
+	r_enemy.ENEMY_AVATAR_POS_X[2] = ENEMY_POS_X;
+	r_enemy.ENEMY_AVATAR_POS_Y[2] = ENEMY_POS_Y + 24;
+	//左
+	r_enemy.ENEMY_AVATAR_POS_X[3] = ENEMY_POS_X - 24;
+	r_enemy.ENEMY_AVATAR_POS_Y[3] = ENEMY_POS_Y;
+
+	// 前回のキー入力処理
+	r_enemy.CheckNumber = 12;
+
+	//分身の当たり判定
+	for (int i = 0; i < 4; i++) {
+		r_enemy.avatar_left[i] = ENEMY_AVATAR_POS_X[i] - ENEMY_POS_HITBOX;
+		r_enemy.avatar_top[i] = ENEMY_AVATAR_POS_Y[i] - ENEMY_POS_HITBOX;
+		r_enemy.avatar_right[i] = ENEMY_AVATAR_POS_X[i] + ENEMY_POS_HITBOX;
+		r_enemy.avatar_bottom[i] = ENEMY_AVATAR_POS_Y[i] + ENEMY_POS_HITBOX;
+	}
 }
 
 void R_ENEMY::Update() {
@@ -87,6 +118,14 @@ void R_ENEMY::Update() {
 		r_enemy.absY = r_enemy.absY * -1;
 	}
 
+	//分身の座標
+	for (int i = 0; i < 4; i++) {
+		r_enemy.record_avatar_bottom[i] = r_enemy.avatar_bottom[i];
+		r_enemy.record_avatar_left[i] = r_enemy.avatar_left[i];
+		r_enemy.record_avatar_right[i] = r_enemy.avatar_right[i];
+		r_enemy.record_avatar_top[i] = r_enemy.avatar_top[i];
+	}
+
 	// EnemyとPlayerのX座標の差分
 	r_enemy.xx = r_enemy.x - mPlayer.x;
 	// EnemyとPlayerのY座標の差分
@@ -105,9 +144,20 @@ void R_ENEMY::Update() {
 	// プレイヤーを追いかける処理
 	if (r_enemy.R_Hitflg == FALSE) { // パワーエサを取っていない時
 		r_enemy.speed = 1.8;
-		if (r_enemy.absX > r_enemy.absY) {
-			// 右向き
-			if (r_enemy.angle == 2) {
+		// 右向き
+		if (r_enemy.angle == 2) {
+			if (r_enemy.Right == TRUE) {
+				if (mPlayer.x < r_enemy.x) {
+					r_enemy.angle = 4;
+				}
+				else if (mPlayer.y < r_enemy.y) {
+					r_enemy.angle = 1;
+				}
+				else if (mPlayer.y > r_enemy.y) {
+					r_enemy.angle = 3;
+				}
+			}
+			else if (r_enemy.Right == FALSE) {
 				// 右向き
 				r_enemy.x += r_enemy.speed;
 
@@ -115,24 +165,58 @@ void R_ENEMY::Update() {
 				r_enemy.left += r_enemy.speed;
 				r_enemy.right += r_enemy.speed;
 
-				r_enemy.eyeimage = 1;
+				//分身
+				for (int i = 0; i < 4; i++) {
+					r_enemy.avatar_right[i] += r_enemy.speed;
+					r_enemy.avatar_left[i] += r_enemy.speed;
+				}
 
+				r_enemy.eyeimage = 1;
 			}
-			// 左向き
-			else if (r_enemy.angle == 4) {
+		}
+		// 左向き
+		else if (r_enemy.angle == 4) {
+			if (r_enemy.Left == TRUE) {
+				if (mPlayer.x > r_enemy.x) {
+					r_enemy.angle = 2;
+				}
+				else if (mPlayer.y < r_enemy.y) {
+					r_enemy.angle = 1;
+				}
+				else if (mPlayer.y > r_enemy.y) {
+					r_enemy.angle = 3;
+				}
+			}
+			else if (r_enemy.Left == FALSE) {
 				// 左向き
 				r_enemy.x -= r_enemy.speed;
 
 				r_enemy.left -= r_enemy.speed;
 				r_enemy.right -= r_enemy.speed;
 
-				r_enemy.eyeimage = 3;
+				//分身
+				for (int i = 0; i < 4; i++) {
+					r_enemy.avatar_right[i] -= r_enemy.speed;
+					r_enemy.avatar_left[i] -= r_enemy.speed;
+				}
 
+				r_enemy.eyeimage = 3;
 			}
 		}
-		if (r_enemy.absX < r_enemy.absY) {
-			//下向き
-			if (r_enemy.angle == 3) {
+		//下向き
+		else if (r_enemy.angle == 3) {
+			if (r_enemy.Bottom == TRUE) {
+				if (mPlayer.x > r_enemy.x) {
+					r_enemy.angle = 2;
+				}
+				else if (mPlayer.x < r_enemy.x) {
+					r_enemy.angle = 4;
+				}
+				else if (mPlayer.y < r_enemy.y) {
+					r_enemy.angle = 1;
+				}
+			}
+			else if (r_enemy.Bottom == FALSE) {
 				//下向き
 				r_enemy.y += r_enemy.speed;
 
@@ -140,11 +224,29 @@ void R_ENEMY::Update() {
 				r_enemy.top += r_enemy.speed;
 				r_enemy.bottom += r_enemy.speed;
 
-				r_enemy.eyeimage = 2;
+				//分身
+				for (int i = 0; i < 4; i++) {
+					r_enemy.avatar_top[i] += r_enemy.speed;
+					r_enemy.avatar_bottom[i] += r_enemy.speed;
+				}
 
+				r_enemy.eyeimage = 2;
 			}
-			//上向き
-			else if (r_enemy.angle == 1) {
+		}
+		//上向き
+		else if (r_enemy.angle == 1) {
+			if (r_enemy.Bottom == TRUE) {
+				if (mPlayer.x > r_enemy.x) {
+					r_enemy.angle = 2;
+				}
+				else if (mPlayer.x < r_enemy.x) {
+					r_enemy.angle = 4;
+				}
+				else if (mPlayer.y > r_enemy.y) {
+					r_enemy.angle = 3;
+				}
+			}
+			else if (r_enemy.Bottom == FALSE) {
 				//上向き
 				r_enemy.y -= r_enemy.speed;
 
@@ -152,8 +254,13 @@ void R_ENEMY::Update() {
 				r_enemy.top -= r_enemy.speed;
 				r_enemy.bottom -= r_enemy.speed;
 
-				r_enemy.eyeimage = 0;
+				//分身
+				for (int i = 0; i < 4; i++) {
+					r_enemy.avatar_top[i] -= r_enemy.speed;
+					r_enemy.avatar_bottom[i] -= r_enemy.speed;
+				}
 
+				r_enemy.eyeimage = 0;
 			}
 		}
 	}
@@ -284,11 +391,39 @@ void R_ENEMY::Update() {
 	}
 
 	// ワープトンネル
-	if (r_enemy.x >= 1280) {
-		r_enemy.x = 0;
+	if (r_enemy.x >= 878) {
+		r_enemy.x = 352;
+
+		//分身
+		//上
+		r_enemy.avatar_right[0] = 352 + ENEMY_POS_HITBOX;
+		r_enemy.avatar_left[0] = 352 - ENEMY_POS_HITBOX;
+		//下
+		r_enemy.avatar_left[2] = 352 - ENEMY_POS_HITBOX;
+		r_enemy.avatar_right[2] = 352 + ENEMY_POS_HITBOX;
+		//右
+		r_enemy.avatar_left[1] = 352 + 24 - ENEMY_POS_HITBOX;
+		r_enemy.avatar_right[1] = 352 + 24 + ENEMY_POS_HITBOX;
+		//左
+		r_enemy.avatar_right[3] = 352 - 24 - ENEMY_POS_HITBOX;
+		r_enemy.avatar_left[3] = 352 - 24 + ENEMY_POS_HITBOX;
 	}
-	else if (r_enemy.x <= 0) {
-		r_enemy.x = 1280;
+	else if (r_enemy.x <= 352) {
+		r_enemy.x = 878;
+
+		//分身
+		//上
+		r_enemy.avatar_right[0] = 878 + ENEMY_POS_HITBOX;
+		r_enemy.avatar_left[0] = 878 - ENEMY_POS_HITBOX;
+		//下
+		r_enemy.avatar_left[2] = 878 - ENEMY_POS_HITBOX;
+		r_enemy.avatar_right[2] = 878 + ENEMY_POS_HITBOX;
+		//右
+		r_enemy.avatar_left[1] = 878 + 24 - ENEMY_POS_HITBOX;
+		r_enemy.avatar_right[1] = 878 + 24 + ENEMY_POS_HITBOX;
+		//左
+		r_enemy.avatar_right[3] = 878 - 24 - ENEMY_POS_HITBOX;
+		r_enemy.avatar_left[3] = 878 - 24 + ENEMY_POS_HITBOX;
 	}
 
 	// イジケ状態フラグ
@@ -354,11 +489,20 @@ void R_ENEMY::Draw() {
 		// 初期位置に戻す
 		r_enemy.x = ENEMY_POS_X;
 		r_enemy.y = ENEMY_POS_Y;
-		r_enemy.top = ENEMY_POS_Y - ENEMY_STAGE_HITBOX;
-		r_enemy.left = ENEMY_POS_X - ENEMY_STAGE_HITBOX;
-		r_enemy.right = ENEMY_POS_X + ENEMY_STAGE_HITBOX;
-		r_enemy.bottom = ENEMY_POS_Y + ENEMY_STAGE_HITBOX;
+		r_enemy.top = ENEMY_POS_Y - ENEMY_POS_HITBOX;
+		r_enemy.left = ENEMY_POS_X - ENEMY_POS_HITBOX;
+		r_enemy.right = ENEMY_POS_X + ENEMY_POS_HITBOX;
+		r_enemy.bottom = ENEMY_POS_Y + ENEMY_POS_HITBOX;
 		r_enemy.Initiaflg = FALSE;
+
+		//分身の当たり判定
+		for (int i = 0; i < 4; i++) {
+			r_enemy.avatar_left[i] = ENEMY_AVATAR_POS_X[i] - ENEMY_POS_HITBOX;
+			r_enemy.avatar_top[i] = ENEMY_AVATAR_POS_Y[i] - ENEMY_POS_HITBOX;
+			r_enemy.avatar_right[i] = ENEMY_AVATAR_POS_X[i] + ENEMY_POS_HITBOX;
+			r_enemy.avatar_bottom[i] = ENEMY_AVATAR_POS_Y[i] + ENEMY_POS_HITBOX;
+		}
+
 		if (mStage.life == 2) {
 			mStage.life = 1;
 		}
@@ -370,15 +514,70 @@ void R_ENEMY::Draw() {
 		}
 	}
 
+	//分身の表示
+	for (int i = 0; i < 4; i++) {
+		DrawBox(r_enemy.avatar_left[i], r_enemy.avatar_top[i], r_enemy.avatar_right[i], r_enemy.avatar_bottom[i], 0x00ffff, FALSE);
+	}
+
+	if (r_enemy.Top == FALSE) {
+		DrawString(0, 410, "上成功", 0xff00ff);
+	}
+	if (r_enemy.Right == FALSE) {
+		DrawString(0, 430, "右成功", 0xff00ff);
+	}
+	if (r_enemy.Bottom == FALSE) {
+		DrawString(0, 450, "下成功", 0xff00ff);
+	}
+	if (r_enemy.Left == FALSE) {
+		DrawString(0, 470, "左成功", 0xff00ff);
+	}
+
+	if (r_enemy.angle == 1) {
+		DrawString(0, 510, "現在のアングルは上です", 0xff00ff);
+	}
+	else if (r_enemy.angle == 2) {
+		DrawString(0, 510, "現在のアングルは右です", 0xff00ff);
+	}
+	else if (r_enemy.angle == 3) {
+		DrawString(0, 510, "現在のアングルは下です", 0xff00ff);
+	}
+	else if (r_enemy.angle == 4) {
+		DrawString(0, 510, "現在のアングルは左です", 0xff00ff);
+	}
+
+	//進める時
+	//上
+	if (r_enemy.Top == TRUE) {
+		DrawBox(r_enemy.avatar_left[0], r_enemy.avatar_top[0], r_enemy.avatar_right[0], r_enemy.avatar_bottom[0], 0xff00ff, true);
+	}
+	else if (r_enemy.Top == FALSE) {
+		DrawBox(r_enemy.avatar_left[0], r_enemy.avatar_top[0], r_enemy.avatar_right[0], r_enemy.avatar_bottom[0], 0xff0000, true);
+	}
+	//右
+	if (r_enemy.Right == TRUE) {
+		DrawBox(r_enemy.avatar_left[1], r_enemy.avatar_top[1], r_enemy.avatar_right[1], r_enemy.avatar_bottom[1], 0xff00ff, true);
+	}
+	else if (r_enemy.Right == FALSE) {
+		DrawBox(r_enemy.avatar_left[1], r_enemy.avatar_top[1], r_enemy.avatar_right[1], r_enemy.avatar_bottom[1], 0xff0000, true);
+	}
+	//下
+	if (r_enemy.Bottom == TRUE) {
+		DrawBox(r_enemy.avatar_left[2], r_enemy.avatar_top[2], r_enemy.avatar_right[2], r_enemy.avatar_bottom[2], 0xff00ff, true);
+	}
+	else if (r_enemy.Bottom == FALSE) {
+		DrawBox(r_enemy.avatar_left[2], r_enemy.avatar_top[2], r_enemy.avatar_right[2], r_enemy.avatar_bottom[2], 0xff0000, true);
+	}
+	//左
+	if (r_enemy.Left == TRUE) {
+		DrawBox(r_enemy.avatar_left[3], r_enemy.avatar_top[3], r_enemy.avatar_right[3], r_enemy.avatar_bottom[3], 0xff00ff, true);
+	}
+	else if (r_enemy.Left == FALSE) {
+		DrawBox(r_enemy.avatar_left[3], r_enemy.avatar_top[3], r_enemy.avatar_right[3], r_enemy.avatar_bottom[3], 0xff0000, true);
+	}
+
 	DrawString(0, 230, "Enemy", 0xff00ff);
 	DrawFormatString(0, 250, 0x0000ff, "Player&EnemyのX座標の距離\n%d", r_enemy.xx);
 	DrawFormatString(0, 290, 0x0000ff, "Player&EnemyのY座標の距離\n%d", r_enemy.yy);
 	DrawFormatString(0, 330, 0x0000ff, "Player&EnemyのXとYを足した座標の距離\n%d", r_enemy.xy2);
 	DrawFormatString(0, 370, 0x0000ff, "Player&EnemyのXとYを足した座標を2乗した距離\n%d", r_enemy.xy);
-
-	DrawString(0, 410, "Player", 0xff00ff);
-	DrawFormatString(0, 430, 0x0000ff, "Player&EnemyのX座標の距離\n%d", mPlayer.xx);
-	DrawFormatString(0, 470, 0x0000ff, "Player&EnemyのY座標の距離\n%d", mPlayer.yy);
-	DrawFormatString(0, 510, 0x0000ff, "Player&EnemyのXとYを足した座標の距離\n%d", mPlayer.xy2);
-	DrawFormatString(0, 550, 0x0000ff, "Player&EnemyのXとYを足した座標を2乗した距離\n%d", mPlayer.xy);
 }
