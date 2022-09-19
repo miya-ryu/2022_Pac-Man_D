@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "Input.h"
 #include "Red_Enemy.h"
+#include "Blue_Enemy.h"
 #include "Stage.h"
 #include "sound.h"
 
@@ -153,6 +154,19 @@ void Player::Player_Update() {
 	if (PlayerCheckHit(mPlayer.p_left, mPlayer.p_top, mPlayer.p_right, mPlayer.p_bottom, r_enemy.left, r_enemy.top, r_enemy.right, r_enemy.bottom)) {
 		if (mPlayer.Hitflg == FALSE) {
 			if (r_enemy.R_Hitflg == TRUE || r_enemy.ER_Hitflg == TRUE) { // イジケ状態で当たったら
+				++mPlayer.timercount; // カウント開始
+				if (mPlayer.timercount < 2) { // カウントが2より小さければ
+					WaitTimer(1000); // 1秒間時間を止める
+				}
+			}
+			else {
+				mPlayer.Hitflg = TRUE; // イジケ状態が終わったら元の当たり判定に戻す
+			}
+		}
+	}
+	if (PlayerCheckHit(mPlayer.p_left, mPlayer.p_top, mPlayer.p_right, mPlayer.p_bottom, b_enemy.left, b_enemy.top, b_enemy.right, b_enemy.bottom)) {
+		if (mPlayer.Hitflg == FALSE) {
+			if (b_enemy.R_Hitflg == TRUE || b_enemy.ER_Hitflg == TRUE) { // イジケ状態で当たったら
 				++mPlayer.timercount; // カウント開始
 				if (mPlayer.timercount < 2) { // カウントが2より小さければ
 					WaitTimer(1000); // 1秒間時間を止める
@@ -382,6 +396,7 @@ void Player::Player_Draw() {
 			mPlayer.iNowAngle = 4;
 			mPlayer.Hitflg = FALSE;
 			r_enemy.Initiaflg = TRUE;
+			b_enemy.Initiaflg = TRUE;
 			//分身の当たり判定
 			for (int i = 0; i < 4; i++) {
 				mPlayer.avatar_left[i] = PLAYER_AVATAR_POS_X[i] - PLAYER_POS_HITBOX;

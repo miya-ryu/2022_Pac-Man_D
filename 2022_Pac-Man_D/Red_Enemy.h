@@ -23,7 +23,7 @@ public:
 	int x, y, x1, y1;
 	int absX, absY;
 	int angle;
-	int speed;
+	float speed;
 	int recordX, recordY;
 	//Playerとの当たり判定
 	int top, right, bottom, left;
@@ -42,7 +42,6 @@ public:
 	// エネミー目状態
 	bool eyeflg;
 	// 壁に当たったフラグ
-	//bool E_StageHitflg;
 	bool Initiaflg;
 	// 座標計算
 	int xy, xy2, xx, yy;

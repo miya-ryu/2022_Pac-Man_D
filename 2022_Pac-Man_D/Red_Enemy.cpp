@@ -39,7 +39,6 @@ void R_ENEMY::Initialize() {
 	r_enemy.eyeimage = 3;          // 目の画像変数
 	r_enemy.izikeimage = 16;       // イジケ状態の画像変数
 	r_enemy.e_izikeimage = 16;     // イジケ状態点滅の画像変数
-	//r_enemy.E_StageHitflg = FALSE; // 壁との当たり判定フラグ
 	r_enemy.R_Hitflg = FALSE;      // イジケ状態判定フラグ
 	r_enemy.ER_Hitflg = FALSE;     // イジケ状態点滅フラグ
 	r_enemy.PR_Hitflg = FALSE;     // イジケ状態でプレイヤーに当たった時のフラグ
@@ -128,7 +127,7 @@ void R_ENEMY::Update() {
 
 	// プレイヤーを追いかける処理
 	if (r_enemy.R_Hitflg == FALSE) { // パワーエサを取っていない時
-		r_enemy.speed = 1.8;
+		r_enemy.speed = 1.2;
 		// 右向き
 		if (r_enemy.angle == 2) {
 			if (r_enemy.Right == TRUE) {

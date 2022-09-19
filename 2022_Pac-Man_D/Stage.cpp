@@ -2,6 +2,7 @@
 #include "Stage.h"
 #include "Player.h"
 #include "Red_Enemy.h"
+#include "Blue_Enemy.h"
 #include "Input.h"
 #include "sound.h"
 
@@ -131,6 +132,18 @@ void Stage::Stage_Update() {
 						}
 					}
 				//}
+				// エネミーの分身の処理
+				//if (r_enemy.x % r_enemy.CheckNumber == 0 && r_enemy.y % r_enemy.CheckNumber == 0) {
+					for (int e_avatar = 0; e_avatar < 4; e_avatar++) {
+						if (AisleCheckHit(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, b_enemy.avatar_left[e_avatar], b_enemy.avatar_top[e_avatar], b_enemy.avatar_right[e_avatar], b_enemy.avatar_bottom[e_avatar])) {
+							//当たっていたら進めなくする
+							if (e_avatar == 0)b_enemy.Top = TRUE;
+							if (e_avatar == 1)b_enemy.Right = TRUE;
+							if (e_avatar == 2)b_enemy.Bottom = TRUE;
+							if (e_avatar == 3)b_enemy.Left = TRUE;
+						}
+					}
+					//}
 
 				//Playerの当たり判定
 				if (StageCheckHit(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, mPlayer.s_left, mPlayer.s_top, mPlayer.s_right, mPlayer.s_bottom)) {
@@ -147,6 +160,7 @@ void Stage::Stage_Update() {
 					if (stagedata[i + j * NUM_STAGE_X] == 18) {
 						stagedata[i + j * NUM_STAGE_X] = 0;
 						r_enemy.R_Hitflg = TRUE;
+						b_enemy.R_Hitflg = TRUE;
 						/*StopSoundMem(mSound.bgm[5]);
 						mSound.numSound =11;
 						mSound.SoundStart();*/
@@ -191,45 +205,6 @@ void Stage::Stage_Update() {
 				if (no != 17 && no != 18) {
 					// ステージとエネミーの当たり判定
 					if (StageCheckHit(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, r_enemy.left, r_enemy.top, r_enemy.right, r_enemy.bottom)) {
-
-						// ステージとの当たり判定フラグ
-						//r_enemy.E_StageHitflg = TRUE;
-						 
-						////前回の座標移動
-						//r_enemy.absX = mPlayer.x - r_enemy.x;
-						//r_enemy.absY = mPlayer.y - r_enemy.y;
-
-						////絶対値を求める
-						//if (r_enemy.absX <= 0) {
-						//	r_enemy.absX = r_enemy.absX * -1;
-						//}
-						//if (r_enemy.absY <= 0) {
-						//	r_enemy.absY = r_enemy.absY * -1;
-						//}
-
-						//// 絶対値Xの値が大きいとき
-						//if (r_enemy.absX > r_enemy.absY) {
-						//	// 右向き
-						//	if (mPlayer.x > r_enemy.x) {
-						//		r_enemy.angle = 2;
-						//	}
-						//	// 左向き
-						//	else if (mPlayer.x < r_enemy.x) {
-						//		r_enemy.angle = 4;
-						//	}
-						//}
-						//// 絶対値Yの値が大きいとき
-						//if (r_enemy.absX < r_enemy.absY) {
-						//	// 下向き
-						//	if (mPlayer.y > r_enemy.y) {
-						//		r_enemy.angle = 3;
-						//	}
-						//	// 上向き
-						//	else if (mPlayer.y < r_enemy.y) {
-						//		r_enemy.angle = 1;
-						//	}
-						//}
-
 						//分身
 						for (int i = 0; i < 4; i++) {
 							r_enemy.avatar_bottom[i] = r_enemy.record_avatar_bottom[i];
@@ -246,6 +221,24 @@ void Stage::Stage_Update() {
 						r_enemy.top = r_enemy.recordTop;
 						r_enemy.left = r_enemy.recordLeft;
 						r_enemy.bottom = r_enemy.recordBottom;
+					}
+					if (StageCheckHit(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, b_enemy.left, b_enemy.top, b_enemy.right, b_enemy.bottom)) {
+						//分身
+						for (int i = 0; i < 4; i++) {
+							b_enemy.avatar_bottom[i] = b_enemy.record_avatar_bottom[i];
+							b_enemy.avatar_left[i] = b_enemy.record_avatar_left[i];
+							b_enemy.avatar_top[i] = b_enemy.record_avatar_top[i];
+							b_enemy.avatar_right[i] = b_enemy.record_avatar_right[i];
+						}
+
+						// 壁へのめり込みを防ぐ
+						b_enemy.x = b_enemy.recordX;
+						b_enemy.y = b_enemy.recordY;
+
+						b_enemy.right = b_enemy.recordRight;
+						b_enemy.top = b_enemy.recordTop;
+						b_enemy.left = b_enemy.recordLeft;
+						b_enemy.bottom = b_enemy.recordBottom;
 					}
 				}
 			}
@@ -270,6 +263,13 @@ void Stage::Stage_Update() {
 						if (e_avatar == 1)r_enemy.Right = FALSE;
 						if (e_avatar == 2)r_enemy.Bottom = FALSE;
 						if (e_avatar == 3)r_enemy.Left = FALSE;
+					}
+					if (AisleCheckHit(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, b_enemy.avatar_left[e_avatar], b_enemy.avatar_top[e_avatar], b_enemy.avatar_right[e_avatar], b_enemy.avatar_bottom[e_avatar])) {
+						//当たっていたら進める
+						if (e_avatar == 0)b_enemy.Top = FALSE;
+						if (e_avatar == 1)b_enemy.Right = FALSE;
+						if (e_avatar == 2)b_enemy.Bottom = FALSE;
+						if (e_avatar == 3)b_enemy.Left = FALSE;
 					}
 				}
 			}
