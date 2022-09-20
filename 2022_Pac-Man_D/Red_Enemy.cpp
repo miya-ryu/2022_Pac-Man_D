@@ -105,18 +105,6 @@ void R_ENEMY::Update() {
 	r_enemy.recordBottom = r_enemy.bottom;
 	r_enemy.recordLeft = r_enemy.left;
 
-	//前回の座標移動
-	r_enemy.absX = mPlayer.x - r_enemy.x;
-	r_enemy.absY = mPlayer.y - r_enemy.y;
-
-	//絶対値を求める
-	if (r_enemy.absX <= 0) {
-		r_enemy.absX = r_enemy.absX * -1;
-	}
-	if (r_enemy.absY <= 0) {
-		r_enemy.absY = r_enemy.absY * -1;
-	}
-
 	//分身の座標
 	for (int i = 0; i < 4; i++) {
 		r_enemy.record_avatar_bottom[i] = r_enemy.avatar_bottom[i];
@@ -343,7 +331,7 @@ void R_ENEMY::Update() {
 						r_enemy.avatar_right[i] -= r_enemy.speed;
 						r_enemy.avatar_left[i] -= r_enemy.speed;
 					}
-					//DrawString(0, 550, "右に進んでいます", 0xff00ff);
+					DrawString(0, 550, "左に進んでいます", 0xff00ff);
 				}
 			}
 			// 左向き
@@ -385,7 +373,7 @@ void R_ENEMY::Update() {
 						r_enemy.avatar_right[i] += r_enemy.speed;
 						r_enemy.avatar_left[i] += r_enemy.speed;
 					}
-					//DrawString(0, 550, "左に進んでいます", 0xff00ff);
+					DrawString(0, 550, "右に進んでいます", 0xff00ff);
 				}
 			}
 			//下向き
@@ -427,7 +415,7 @@ void R_ENEMY::Update() {
 						r_enemy.avatar_top[i] -= r_enemy.speed;
 						r_enemy.avatar_bottom[i] -= r_enemy.speed;
 					}
-					//DrawString(0, 530, "下に進んでいます", 0xff00ff);
+					DrawString(0, 530, "上に進んでいます", 0xff00ff);
 				}
 			}
 			//上向き
@@ -469,7 +457,7 @@ void R_ENEMY::Update() {
 						r_enemy.avatar_top[i] += r_enemy.speed;
 						r_enemy.avatar_bottom[i] += r_enemy.speed;
 					}
-					//DrawString(0, 530, "上に進んでいます", 0xff00ff);
+					DrawString(0, 530, "下に進んでいます", 0xff00ff);
 				}
 			}
 		}
@@ -649,8 +637,9 @@ void R_ENEMY::Update() {
 					}
 				}
 				// 初期位置に戻った時
-				if (ENEMY_POS_X == r_enemy.x) {
+				if (ENEMY_POS_X == r_enemy.x + 1) {
 					r_enemy.eyeflg = FALSE;
+					r_enemy.speed = 1;
 				}
 			}
 		}
@@ -756,7 +745,12 @@ void R_ENEMY::Draw() {
 	if(flg == TRUE) {
 		/*DrawRotaGraph(r_enemy.x, r_enemy.y, 0, 0, images[r_enemy.image], TRUE, FALSE); 
 		DrawRotaGraph(r_enemy.x, r_enemy.y, 0, 0, eyesimages[r_enemy.eyeimage], TRUE, FALSE); */
-	}
+	//if(mStage.StateFlg == FALSE || mStage.GameOverFlg == TRUE){		//スタートの時のみ表示
+		DrawRotaGraph(r_enemy.x, r_enemy.y, 0, 0, r_enemy.images[r_enemy.image], TRUE, FALSE);
+		DrawRotaGraph(r_enemy.x, r_enemy.y, 0, 0, r_enemy.eyesimages[r_enemy.eyeimage], TRUE, FALSE);
+		DrawRotaGraph(r_enemy.x, r_enemy.y, 0, 0, r_enemy.images[r_enemy.izikeimage], TRUE, FALSE);
+		DrawRotaGraph(r_enemy.x, r_enemy.y, 0, 0, r_enemy.images[r_enemy.e_izikeimage], TRUE, FALSE);
+	//}
 	else if(mStage.StateFlg == TRUE){		//スタート時の固定表示
 		DrawRotaGraph(r_enemy.x, r_enemy.y, 0.75, 0, images[0], TRUE, FALSE); 
 		DrawRotaGraph(r_enemy.x, r_enemy.y, 0.75, 0, eyesimages[3], TRUE, FALSE); 
@@ -765,8 +759,8 @@ void R_ENEMY::Draw() {
 	if (r_enemy.R_Hitflg == FALSE && mStage.MoveFlg == TRUE && mPlayer.Hitflg == FALSE) { // パワーエサを取っていないかつ、Moveflgで動いて可能かつ、Pacに当たっていない時
 		DrawRotaGraph(r_enemy.x, r_enemy.y, 0.75, 0, images[r_enemy.image], TRUE, FALSE); // 敵キャラ表示
 		DrawRotaGraph(r_enemy.x, r_enemy.y, 0.75, 0, eyesimages[r_enemy.eyeimage], TRUE, FALSE); // 敵キャラの目表示
-		DrawBox(r_enemy.left, r_enemy.top, r_enemy.right, r_enemy.bottom, 0x00ffff, FALSE); // 当たり判定描画
-		DrawString(0, 150, "パワーエサ：無し", 0x0000ff);
+		//DrawBox(r_enemy.left, r_enemy.top, r_enemy.right, r_enemy.bottom, 0x00ffff, FALSE); // 当たり判定描画
+		//DrawString(0, 150, "パワーエサ：無し", 0x0000ff);
 	}
 	else if (r_enemy.R_Hitflg == TRUE) { // パワーエサを取っていたら
 		if (r_enemy.PR_Hitflg == FALSE) { // プレイヤーと当たっていなければ
@@ -833,7 +827,7 @@ void R_ENEMY::Draw() {
 			mStage.life = 0;
 		}
 		else if(mStage.life == 0){
-			mStage.GameOverFlg = TRUE;
+			mStage.GameOverFlg = true;
 		}
 	}
 

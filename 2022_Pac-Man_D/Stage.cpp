@@ -100,9 +100,7 @@ void Stage::Stage_Initialize() {
 	mStageChip[NUM_STAGE_IMAGE];
 	Stage::Stage_Storage();
 
-	//スタート文字初期化
-	//StateFlg = FALSE;
-//	MoveFlg = FALSE;
+	num = 0, numc = 0;
 }
 
 //更新処理
@@ -182,6 +180,7 @@ void Stage::Stage_Update() {
 						// エサを食べる処理
 						if (stagedata[i + j * NUM_STAGE_X] == 17) {
 							stagedata[i + j * NUM_STAGE_X] = 0;
+							numc += num + 1;
 							mSound.numSound = 3;
 							mSound.SoundStart();			//エサ食べるときSE再生
 						}
@@ -458,6 +457,9 @@ void Stage::Stage_Draw() {
 		DrawRotaGraph(610, 260, 0.8, 0, mStageUI[2], TRUE, false);
 		DrawRotaGraph(615, 370, 0.8, 0, mStageUI[4], TRUE, false);
 	}
+
+
+	DrawFormatString(0, 0, 0x00ff00, "%d\n", numc);
 }
 
 //画像格納処理
