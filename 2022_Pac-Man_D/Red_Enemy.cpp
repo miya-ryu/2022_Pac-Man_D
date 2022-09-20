@@ -31,7 +31,7 @@ void R_ENEMY::Initialize() {
 	LoadDivGraph("images/monster.png", 20, 20, 1, 32, 32, images);  // 敵キャラ
 	LoadDivGraph("images/eyes.png", 4, 4, 1, 32, 32, eyesimages);  // 敵キャラの目
 
-	r_enemy.speed = 1.8;           // 移動速度
+	r_enemy.speed = 1;             // 移動速度
 	r_enemy.angle = 4;             // 初期の向き
 	r_enemy.count = 0;             // アニメーションカウント
 	r_enemy.ER_count = 0;          // イジケ状態カウント
@@ -127,7 +127,7 @@ void R_ENEMY::Update() {
 
 	// プレイヤーを追いかける処理
 	if (r_enemy.R_Hitflg == FALSE) { // パワーエサを取っていない時
-		r_enemy.speed = 1.2;
+		r_enemy.speed = 1;
 		// 右向き
 		if (r_enemy.angle == 2) {
 			if (r_enemy.Right == TRUE) {

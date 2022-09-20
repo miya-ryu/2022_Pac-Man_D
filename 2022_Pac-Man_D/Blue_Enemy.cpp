@@ -31,7 +31,7 @@ void B_ENEMY::Initialize() {
 	LoadDivGraph("images/monster.png", 20, 20, 1, 32, 32, images);  // 敵キャラ
 	LoadDivGraph("images/eyes.png", 4, 4, 1, 32, 32, eyesimages);  // 敵キャラの目
 
-	b_enemy.speed = 1.8;           // 移動速度
+	b_enemy.speed = 1;             // 移動速度
 	b_enemy.angle = 4;             // 初期の向き
 	b_enemy.count = 0;             // アニメーションカウント
 	b_enemy.ER_count = 0;          // イジケ状態カウント
@@ -169,7 +169,6 @@ void B_ENEMY::Update() {
 					b_enemy.avatar_left[i] += b_enemy.speed;
 				}
 				b_enemy.eyeimage = 1;
-				DrawString(0, 530, "右に進んでいます", 0xff00ff);
 			}
 		}
 		// 左向き
@@ -212,7 +211,6 @@ void B_ENEMY::Update() {
 					b_enemy.avatar_left[i] -= b_enemy.speed;
 				}
 				b_enemy.eyeimage = 3;
-				DrawString(0, 530, "左に進んでいます", 0xff00ff);
 			}
 		}
 		//下向き
@@ -255,7 +253,6 @@ void B_ENEMY::Update() {
 					b_enemy.avatar_bottom[i] += b_enemy.speed;
 				}
 				b_enemy.eyeimage = 2;
-				DrawString(0, 530, "下に進んでいます", 0xff00ff);
 			}
 		}
 		//上向き
@@ -298,7 +295,6 @@ void B_ENEMY::Update() {
 					b_enemy.avatar_bottom[i] -= b_enemy.speed;
 				}
 				b_enemy.eyeimage = 0;
-				DrawString(0, 530, "上に進んでいます", 0xff00ff);
 			}
 		}
 	}
@@ -344,7 +340,6 @@ void B_ENEMY::Update() {
 						b_enemy.avatar_right[i] -= b_enemy.speed;
 						b_enemy.avatar_left[i] -= b_enemy.speed;
 					}
-					DrawString(0, 550, "右に進んでいます", 0xff00ff);
 				}
 			}
 			// 左向き
@@ -386,7 +381,6 @@ void B_ENEMY::Update() {
 						b_enemy.avatar_right[i] += b_enemy.speed;
 						b_enemy.avatar_left[i] += b_enemy.speed;
 					}
-					DrawString(0, 550, "左に進んでいます", 0xff00ff);
 				}
 			}
 			//下向き
@@ -428,7 +422,6 @@ void B_ENEMY::Update() {
 						b_enemy.avatar_top[i] -= b_enemy.speed;
 						b_enemy.avatar_bottom[i] -= b_enemy.speed;
 					}
-					DrawString(0, 530, "下に進んでいます", 0xff00ff);
 				}
 			}
 			//上向き
@@ -470,7 +463,6 @@ void B_ENEMY::Update() {
 						b_enemy.avatar_top[i] += b_enemy.speed;
 						b_enemy.avatar_bottom[i] += b_enemy.speed;
 					}
-					DrawString(0, 530, "上に進んでいます", 0xff00ff);
 				}
 			}
 		}
@@ -517,7 +509,6 @@ void B_ENEMY::Update() {
 							b_enemy.avatar_left[i] += b_enemy.speed;
 						}
 						b_enemy.eyeimage = 1;
-						DrawString(0, 530, "右に進んでいます", 0xff00ff);
 					}
 				}
 				// 左向き
@@ -560,7 +551,6 @@ void B_ENEMY::Update() {
 							b_enemy.avatar_left[i] -= b_enemy.speed;
 						}
 						b_enemy.eyeimage = 3;
-						DrawString(0, 530, "左に進んでいます", 0xff00ff);
 					}
 				}
 				//下向き
@@ -603,7 +593,6 @@ void B_ENEMY::Update() {
 							b_enemy.avatar_bottom[i] += b_enemy.speed;
 						}
 						b_enemy.eyeimage = 2;
-						DrawString(0, 530, "下に進んでいます", 0xff00ff);
 					}
 				}
 				//上向き
@@ -646,7 +635,6 @@ void B_ENEMY::Update() {
 							b_enemy.avatar_bottom[i] -= b_enemy.speed;
 						}
 						b_enemy.eyeimage = 0;
-						DrawString(0, 530, "上に進んでいます", 0xff00ff);
 					}
 				}
 				// 初期位置に戻った時
@@ -745,20 +733,17 @@ void B_ENEMY::Draw() {
 		DrawRotaGraph(b_enemy.x, b_enemy.y, 0.75, 0, b_enemy.images[b_enemy.image], TRUE, FALSE); // 敵キャラ表示
 		DrawRotaGraph(b_enemy.x, b_enemy.y, 0.75, 0, b_enemy.eyesimages[b_enemy.eyeimage], TRUE, FALSE); // 敵キャラの目表示
 		DrawBox(b_enemy.left, b_enemy.top, b_enemy.right, b_enemy.bottom, 0x00ffff, FALSE); // 当たり判定描画
-		DrawString(0, 150, "パワーエサ：無し", 0x0000ff);
 	}
 	else if (b_enemy.R_Hitflg == TRUE) { // パワーエサを取っていたら
 		if (b_enemy.PR_Hitflg == FALSE) { // プレイヤーと当たっていなければ
 			if (b_enemy.ER_count <= 480) {
 				DrawRotaGraph(b_enemy.x, b_enemy.y, 0.75, 0, b_enemy.images[b_enemy.izikeimage], TRUE, FALSE); // イジケ状態表示
 				DrawBox(b_enemy.left, b_enemy.top, b_enemy.right, b_enemy.bottom, 0x00ffff, FALSE); // 当たり判定描画
-				DrawString(0, 150, "パワーエサ：あり：10秒カウント", 0x0000ff);
 			}
 			else if (b_enemy.ER_count > 480 && b_enemy.ER_count <= 600) {
 				b_enemy.ER_Hitflg = TRUE;
 				DrawRotaGraph(b_enemy.x, b_enemy.y, 0.75, 0, b_enemy.images[b_enemy.e_izikeimage], TRUE, FALSE); // イジケ状態表示
 				DrawBox(b_enemy.left, b_enemy.top, b_enemy.right, b_enemy.bottom, 0x00ffff, FALSE); // 当たり判定描画
-				DrawString(0, 150, "パワーエサ：あり：残り2秒", 0x0000ff);
 			}
 			else {
 				b_enemy.R_Hitflg = FALSE;
@@ -771,7 +756,6 @@ void B_ENEMY::Draw() {
 			if (b_enemy.eyeflg == TRUE) { // 目状態になったら
 				DrawRotaGraph(b_enemy.x, b_enemy.y, 0.75, 0, b_enemy.eyesimages[b_enemy.eyeimage], TRUE, FALSE); // 敵キャラの目表示
 				DrawBox(b_enemy.left, b_enemy.top, b_enemy.right, b_enemy.bottom, 0x00ffff, FALSE); // 当たり判定描画
-				DrawString(0, 150, "パワーエサ：あり：プレイヤーと接触", 0x0000ff);
 			}
 			else if (b_enemy.eyeflg == FALSE) { // 目状態のエネミーが初期位置に戻ったら
 				b_enemy.R_Hitflg = FALSE;
@@ -779,7 +763,6 @@ void B_ENEMY::Draw() {
 				b_enemy.ER_Hitflg = FALSE;
 				b_enemy.ER_count = 0;
 				mPlayer.timercount = 0;
-				DrawString(0, 150, "パワーエサ：無し：初期位置に戻りました", 0x0000ff);
 			}
 		}
 	}

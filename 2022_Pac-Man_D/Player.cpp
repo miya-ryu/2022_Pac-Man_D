@@ -2,7 +2,9 @@
 #include "Player.h"
 #include "Input.h"
 #include "Red_Enemy.h"
+#include "Pink_Enemy.h"
 #include "Blue_Enemy.h"
+#include "Orange_Enemy.h"
 #include "Stage.h"
 #include "sound.h"
 
@@ -150,7 +152,7 @@ void Player::Player_Update() {
 		}
 	}
 	
-	// プレイヤーとエネミーの当たり判定
+	// プレイヤーとエネミーの当たり判定 赤エネミー
 	if (PlayerCheckHit(mPlayer.p_left, mPlayer.p_top, mPlayer.p_right, mPlayer.p_bottom, r_enemy.left, r_enemy.top, r_enemy.right, r_enemy.bottom)) {
 		if (mPlayer.Hitflg == FALSE) {
 			if (r_enemy.R_Hitflg == TRUE || r_enemy.ER_Hitflg == TRUE) { // イジケ状態で当たったら
@@ -164,9 +166,38 @@ void Player::Player_Update() {
 			}
 		}
 	}
+	// ピンクエネミー
+	if (PlayerCheckHit(mPlayer.p_left, mPlayer.p_top, mPlayer.p_right, mPlayer.p_bottom, p_enemy.left, p_enemy.top, p_enemy.right, p_enemy.bottom)) {
+		if (mPlayer.Hitflg == FALSE) {
+			if (p_enemy.R_Hitflg == TRUE || p_enemy.ER_Hitflg == TRUE) { // イジケ状態で当たったら
+				++mPlayer.timercount; // カウント開始
+				if (mPlayer.timercount < 2) { // カウントが2より小さければ
+					WaitTimer(1000); // 1秒間時間を止める
+				}
+			}
+			else {
+				mPlayer.Hitflg = TRUE; // イジケ状態が終わったら元の当たり判定に戻す
+			}
+		}
+	}
+	// 青エネミー
 	if (PlayerCheckHit(mPlayer.p_left, mPlayer.p_top, mPlayer.p_right, mPlayer.p_bottom, b_enemy.left, b_enemy.top, b_enemy.right, b_enemy.bottom)) {
 		if (mPlayer.Hitflg == FALSE) {
 			if (b_enemy.R_Hitflg == TRUE || b_enemy.ER_Hitflg == TRUE) { // イジケ状態で当たったら
+				++mPlayer.timercount; // カウント開始
+				if (mPlayer.timercount < 2) { // カウントが2より小さければ
+					WaitTimer(1000); // 1秒間時間を止める
+				}
+			}
+			else {
+				mPlayer.Hitflg = TRUE; // イジケ状態が終わったら元の当たり判定に戻す
+			}
+		}
+	}
+	// オレンジエネミー
+	if (PlayerCheckHit(mPlayer.p_left, mPlayer.p_top, mPlayer.p_right, mPlayer.p_bottom, o_enemy.left, o_enemy.top, o_enemy.right, o_enemy.bottom)) {
+		if (mPlayer.Hitflg == FALSE) {
+			if (o_enemy.R_Hitflg == TRUE || o_enemy.ER_Hitflg == TRUE) { // イジケ状態で当たったら
 				++mPlayer.timercount; // カウント開始
 				if (mPlayer.timercount < 2) { // カウントが2より小さければ
 					WaitTimer(1000); // 1秒間時間を止める

@@ -1,13 +1,16 @@
 #pragma once
 #include "Red_Enemy.h"
 
+static int P_ENEMY_POS_X = 660;
+static int P_ENEMY_POS_Y = 252;
+static float P_ENEMY_POS_HITBOX = 11;
+
 // 親クラス赤　子クラスピンク
 class P_ENEMY : public R_ENEMY{
 private:
 
 public:
-	P_ENEMY();
-	~P_ENEMY();
+	void Initialize();
 	void Update();
 	void Draw();
 };

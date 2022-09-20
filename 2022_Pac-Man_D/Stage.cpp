@@ -2,7 +2,9 @@
 #include "Stage.h"
 #include "Player.h"
 #include "Red_Enemy.h"
+#include "Pink_Enemy.h"
 #include "Blue_Enemy.h"
+#include "Orange_Enemy.h"
 #include "Input.h"
 #include "sound.h"
 
@@ -120,7 +122,7 @@ void Stage::Stage_Update() {
 						}
 					}
 				}
-				// エネミーの分身の処理
+				// エネミーの分身の処理 赤エネミー
 				//if (r_enemy.x % r_enemy.CheckNumber == 0 && r_enemy.y % r_enemy.CheckNumber == 0) {
 					for (int e_avatar = 0; e_avatar < 4; e_avatar++) {
 						if (AisleCheckHit(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, r_enemy.avatar_left[e_avatar], r_enemy.avatar_top[e_avatar], r_enemy.avatar_right[e_avatar], r_enemy.avatar_bottom[e_avatar])) {
@@ -132,7 +134,20 @@ void Stage::Stage_Update() {
 						}
 					}
 				//}
-				// エネミーの分身の処理
+				// 
+				// エネミーの分身の処理 ピンクエネミー
+				//if (r_enemy.x % r_enemy.CheckNumber == 0 && r_enemy.y % r_enemy.CheckNumber == 0) {
+					for (int e_avatar = 0; e_avatar < 4; e_avatar++) {
+						if (AisleCheckHit(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, p_enemy.avatar_left[e_avatar], p_enemy.avatar_top[e_avatar], p_enemy.avatar_right[e_avatar], p_enemy.avatar_bottom[e_avatar])) {
+							//当たっていたら進めなくする
+							if (e_avatar == 0)p_enemy.Top = TRUE;
+							if (e_avatar == 1)p_enemy.Right = TRUE;
+							if (e_avatar == 2)p_enemy.Bottom = TRUE;
+							if (e_avatar == 3)p_enemy.Left = TRUE;
+						}
+					}
+				//}
+				// エネミーの分身の処理 青エネミー
 				//if (r_enemy.x % r_enemy.CheckNumber == 0 && r_enemy.y % r_enemy.CheckNumber == 0) {
 					for (int e_avatar = 0; e_avatar < 4; e_avatar++) {
 						if (AisleCheckHit(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, b_enemy.avatar_left[e_avatar], b_enemy.avatar_top[e_avatar], b_enemy.avatar_right[e_avatar], b_enemy.avatar_bottom[e_avatar])) {
@@ -143,7 +158,19 @@ void Stage::Stage_Update() {
 							if (e_avatar == 3)b_enemy.Left = TRUE;
 						}
 					}
-					//}
+				//}
+				// エネミーの分身の処理 オレンジエネミー
+				//if (r_enemy.x % r_enemy.CheckNumber == 0 && r_enemy.y % r_enemy.CheckNumber == 0) {
+					for (int e_avatar = 0; e_avatar < 4; e_avatar++) {
+						if (AisleCheckHit(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, o_enemy.avatar_left[e_avatar], o_enemy.avatar_top[e_avatar], o_enemy.avatar_right[e_avatar], o_enemy.avatar_bottom[e_avatar])) {
+							//当たっていたら進めなくする
+							if (e_avatar == 0)o_enemy.Top = TRUE;
+							if (e_avatar == 1)o_enemy.Right = TRUE;
+							if (e_avatar == 2)o_enemy.Bottom = TRUE;
+							if (e_avatar == 3)o_enemy.Left = TRUE;
+						}
+					}
+				//}
 
 				//Playerの当たり判定
 				if (StageCheckHit(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, mPlayer.s_left, mPlayer.s_top, mPlayer.s_right, mPlayer.s_bottom)) {
@@ -160,7 +187,9 @@ void Stage::Stage_Update() {
 					if (stagedata[i + j * NUM_STAGE_X] == 18) {
 						stagedata[i + j * NUM_STAGE_X] = 0;
 						r_enemy.R_Hitflg = TRUE;
+						p_enemy.R_Hitflg = TRUE;
 						b_enemy.R_Hitflg = TRUE;
+						o_enemy.R_Hitflg = TRUE;
 						/*StopSoundMem(mSound.bgm[5]);
 						mSound.numSound =11;
 						mSound.SoundStart();*/
@@ -203,7 +232,7 @@ void Stage::Stage_Update() {
 					}
 				}
 				if (no != 17 && no != 18) {
-					// ステージとエネミーの当たり判定
+					// ステージとエネミーの当たり判定 赤エネミー
 					if (StageCheckHit(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, r_enemy.left, r_enemy.top, r_enemy.right, r_enemy.bottom)) {
 						//分身
 						for (int i = 0; i < 4; i++) {
@@ -222,6 +251,26 @@ void Stage::Stage_Update() {
 						r_enemy.left = r_enemy.recordLeft;
 						r_enemy.bottom = r_enemy.recordBottom;
 					}
+					// ピンクエネミー
+					if (StageCheckHit(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, p_enemy.left, p_enemy.top, p_enemy.right, p_enemy.bottom)) {
+						//分身
+						for (int i = 0; i < 4; i++) {
+							p_enemy.avatar_bottom[i] = p_enemy.record_avatar_bottom[i];
+							p_enemy.avatar_left[i] = p_enemy.record_avatar_left[i];
+							p_enemy.avatar_top[i] = p_enemy.record_avatar_top[i];
+							p_enemy.avatar_right[i] = p_enemy.record_avatar_right[i];
+						}
+
+						// 壁へのめり込みを防ぐ
+						p_enemy.x = p_enemy.recordX;
+						p_enemy.y = p_enemy.recordY;
+
+						p_enemy.right = p_enemy.recordRight;
+						p_enemy.top = p_enemy.recordTop;
+						p_enemy.left = p_enemy.recordLeft;
+						p_enemy.bottom = p_enemy.recordBottom;
+					}
+					// 青エネミー
 					if (StageCheckHit(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, b_enemy.left, b_enemy.top, b_enemy.right, b_enemy.bottom)) {
 						//分身
 						for (int i = 0; i < 4; i++) {
@@ -240,12 +289,31 @@ void Stage::Stage_Update() {
 						b_enemy.left = b_enemy.recordLeft;
 						b_enemy.bottom = b_enemy.recordBottom;
 					}
+					// オレンジエネミー
+					if (StageCheckHit(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, o_enemy.left, o_enemy.top, o_enemy.right, o_enemy.bottom)) {
+						//分身
+						for (int i = 0; i < 4; i++) {
+							o_enemy.avatar_bottom[i] = o_enemy.record_avatar_bottom[i];
+							o_enemy.avatar_left[i] = o_enemy.record_avatar_left[i];
+							o_enemy.avatar_top[i] = o_enemy.record_avatar_top[i];
+							o_enemy.avatar_right[i] = o_enemy.record_avatar_right[i];
+						}
+
+						// 壁へのめり込みを防ぐ
+						o_enemy.x = o_enemy.recordX;
+						o_enemy.y = o_enemy.recordY;
+
+						o_enemy.right = o_enemy.recordRight;
+						o_enemy.top = o_enemy.recordTop;
+						o_enemy.left = o_enemy.recordLeft;
+						o_enemy.bottom = o_enemy.recordBottom;
+					}
 				}
 			}
 
 			//通路の処理
 			if (no == 0 || no == 17 || no == 18) {
-				//分身の処理
+				//分身の処理 プレイヤー
 				for (int avatar = 0; avatar < 4; avatar++) {
 					if (AisleCheckHit(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, mPlayer.avatar_left[avatar], mPlayer.avatar_top[avatar], mPlayer.avatar_right[avatar], mPlayer.avatar_bottom[avatar])) {
 						//当たっていたら進める
@@ -257,6 +325,7 @@ void Stage::Stage_Update() {
 				}
 				//エネミーの分身の処理
 				for (int e_avatar = 0; e_avatar < 4; e_avatar++) {
+					// 赤エネミー
 					if (AisleCheckHit(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, r_enemy.avatar_left[e_avatar], r_enemy.avatar_top[e_avatar], r_enemy.avatar_right[e_avatar], r_enemy.avatar_bottom[e_avatar])) {
 						//当たっていたら進める
 						if (e_avatar == 0)r_enemy.Top = FALSE;
@@ -264,12 +333,29 @@ void Stage::Stage_Update() {
 						if (e_avatar == 2)r_enemy.Bottom = FALSE;
 						if (e_avatar == 3)r_enemy.Left = FALSE;
 					}
+					// ピンクエネミー
+					if (AisleCheckHit(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, p_enemy.avatar_left[e_avatar], p_enemy.avatar_top[e_avatar], p_enemy.avatar_right[e_avatar], p_enemy.avatar_bottom[e_avatar])) {
+						//当たっていたら進める
+						if (e_avatar == 0)p_enemy.Top = FALSE;
+						if (e_avatar == 1)p_enemy.Right = FALSE;
+						if (e_avatar == 2)p_enemy.Bottom = FALSE;
+						if (e_avatar == 3)p_enemy.Left = FALSE;
+					}
+					// 青エネミー
 					if (AisleCheckHit(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, b_enemy.avatar_left[e_avatar], b_enemy.avatar_top[e_avatar], b_enemy.avatar_right[e_avatar], b_enemy.avatar_bottom[e_avatar])) {
 						//当たっていたら進める
 						if (e_avatar == 0)b_enemy.Top = FALSE;
 						if (e_avatar == 1)b_enemy.Right = FALSE;
 						if (e_avatar == 2)b_enemy.Bottom = FALSE;
 						if (e_avatar == 3)b_enemy.Left = FALSE;
+					}
+					// オレンジエネミー
+					if (AisleCheckHit(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, o_enemy.avatar_left[e_avatar], o_enemy.avatar_top[e_avatar], o_enemy.avatar_right[e_avatar], o_enemy.avatar_bottom[e_avatar])) {
+						//当たっていたら進める
+						if (e_avatar == 0)o_enemy.Top = FALSE;
+						if (e_avatar == 1)o_enemy.Right = FALSE;
+						if (e_avatar == 2)o_enemy.Bottom = FALSE;
+						if (e_avatar == 3)o_enemy.Left = FALSE;
 					}
 				}
 			}
