@@ -25,6 +25,7 @@ public:
 	int SIZE_STAGE_Y;
 	int SIZE_ESA_X;
 	int SIZE_ESA_Y;
+	int esaNum = 0;
 	void Stage_Initialize();
 	void Stage_Update();
 	void Stage_Draw();
