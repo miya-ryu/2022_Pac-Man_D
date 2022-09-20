@@ -99,6 +99,10 @@ void Stage::Stage_Initialize() {
 	NUM_STAGE_IMAGE = 19;
 	mStageChip[NUM_STAGE_IMAGE];
 	Stage::Stage_Storage();
+
+	//スタート文字初期化
+	//StateFlg = FALSE;
+//	MoveFlg = FALSE;
 }
 
 //更新処理
@@ -377,17 +381,17 @@ void Stage::Stage_Update() {
 	//スタート文字削除
 	TimeCount++;			
 	if (TimeCount == 60) {//1秒後
-		Startsize = 0;
+		Startsize = 0;      //Player文字消す
 	}
 	if (TimeCount == 90) {
-		StateFlg = TRUE;
+		StateFlg = TRUE;	//パックマンと敵の表示
 	}
 	if (TimeCount == 180) {	//3秒後
-		Startsize1 = 0;
-		MoveFlg = TRUE;
+		Startsize1 = 0;		//Start文字消す
+		MoveFlg = TRUE;		//パックマンと敵の移動可能になる
 	}
-	else if (TimeCount == 181) {	//スタート時のパックマン画像固定解除
-		StateFlg = false;
+	else if (TimeCount == 181) {	//パックマン画像固定解除
+		StateFlg = FALSE;
 	}
 	//1UPの点滅表示
 	UpCount++;

@@ -68,6 +68,8 @@ static void SceneMgr_InitializeModule(eScene scene) {
 	case eScene_Game:
 		mGame.Game_Initialize();
 		break;
+
+
 	}
 }
 

@@ -36,6 +36,7 @@ void Sound::SoundStart() {
 void Sound::SoundUpdate() {
 	if (Flg == true) {
 		if (mPlayer.Hitflg == TRUE) {			//パックマン敵に当たったときのSE/死ぬ音
+			Sound_Handle();
 			numSound = 14;
 			SoundStart();
 			Flg = false;
