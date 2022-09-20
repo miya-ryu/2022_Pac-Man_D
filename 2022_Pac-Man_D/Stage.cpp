@@ -79,6 +79,17 @@ void Stage::Stage_Update() {
 					if (stagedata[i + j * NUM_STAGE_X] == 17 || stagedata[i + j * NUM_STAGE_X] == 18) {
 						stagedata[i + j * NUM_STAGE_X] = 0;
 					}
+					//for (int NUM_STAGE_Y = 0; NUM_STAGE_Y < 36; NUM_STAGE_Y++) {
+					//	for (int NUM_STAGE_X = 0; NUM_STAGE_X < 27; NUM_STAGE_X++) {
+					//		if (stagedata[i + j * NUM_STAGE_X] == 17 , stagedata[i + j * NUM_STAGE_X] == 18)esaNum++;//ゲームクリアの処理を居れようとした(未完成)
+					//	//}
+					//	esaNum--;
+					//	if (esaNum <= 0) {
+					//		DrawString(150,200,"ゲームクリア",0xFFFFFF);
+					//		
+						//}
+
+					//}
 					//先行入力受け付け
 					mPlayer.P_StageHitflg = TRUE;
 					if (mPlayer.P_StageHitflg == TRUE) {
