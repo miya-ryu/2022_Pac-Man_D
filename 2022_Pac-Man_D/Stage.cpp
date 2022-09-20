@@ -173,64 +173,76 @@ void Stage::Stage_Update() {
 				//}
 
 				//Playerの当たり判定
-				if (StageCheckHit(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, mPlayer.s_left, mPlayer.s_top, mPlayer.s_right, mPlayer.s_bottom)) {
-					// エサを食べる処理
-					if (stagedata[i + j * NUM_STAGE_X] == 17) {
-						stagedata[i + j * NUM_STAGE_X] = 0;
-						mSound.numSound = 3;
-						mSound.SoundStart();			//エサ食べるときSE再生
-					}
-					else {
-						StopSoundMem(mSound.bgm[3]);
-					}
-					//いじけSE
-					if (stagedata[i + j * NUM_STAGE_X] == 18) {
-						stagedata[i + j * NUM_STAGE_X] = 0;
-						r_enemy.R_Hitflg = TRUE;
-						p_enemy.R_Hitflg = TRUE;
-						b_enemy.R_Hitflg = TRUE;
-						o_enemy.R_Hitflg = TRUE;
-						/*StopSoundMem(mSound.bgm[5]);
-						mSound.numSound =11;
-						mSound.SoundStart();*/
-					}
-					else {
-						/*StopSoundMem(mSound.bgm[11]);
-						mSound.numSound = 5;
-						mSound.SoundStart();*/
-					}
-
-					//先行入力受け付け
-					mPlayer.P_StageHitflg = TRUE;
-					if (mPlayer.P_StageHitflg == TRUE) {
-						
-						//移動
-						mPlayer.x = mPlayer.recordX;
-						mPlayer.y = mPlayer.recordY;
-
-						//当たり判定移動
-						mPlayer.p_top = mPlayer.recordPtop;
-						mPlayer.p_right = mPlayer.recordPright;
-						mPlayer.p_bottom = mPlayer.recordPbottom;
-						mPlayer.p_left = mPlayer.recordPleft;
-
-						mPlayer.s_top = mPlayer.recordSTop;
-						mPlayer.s_right = mPlayer.recordSRight;
-						mPlayer.s_bottom = mPlayer.recordSBottom;
-						mPlayer.s_left = mPlayer.recordSLeft;
-
-						//分身
-						for (int i = 0; i < 4; i++) {
-							mPlayer.avatar_bottom[i] = mPlayer.record_avatar_bottom[i];
-							mPlayer.avatar_left[i] = mPlayer.record_avatar_left[i];
-							mPlayer.avatar_top[i] = mPlayer.record_avatar_top[i];
-							mPlayer.avatar_right[i] = mPlayer.record_avatar_right[i];
+					if (StageCheckHit(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, mPlayer.s_left, mPlayer.s_top, mPlayer.s_right, mPlayer.s_bottom)) {
+						// エサを食べる処理
+						if (stagedata[i + j * NUM_STAGE_X] == 17) {
+							stagedata[i + j * NUM_STAGE_X] = 0;
+							mSound.numSound = 3;
+							mSound.SoundStart();			//エサ食べるときSE再生
 						}
+						else {
+							StopSoundMem(mSound.bgm[3]);
+						}
+						//for (int NUM_STAGE_Y = 0; NUM_STAGE_Y < 36; NUM_STAGE_Y++) {
+						//	for (int NUM_STAGE_X = 0; NUM_STAGE_X < 27; NUM_STAGE_X++) {
+						//		if (stagedata[i + j * NUM_STAGE_X] == 17, stagedata[i + j * NUM_STAGE_X] == 18)esaNum++;//ゲームクリアの処理を入れようとした(未完成)
+						//	//}
+						//		esaNum--;
+						//		if (esaNum <= 0) {
+						//			DrawString(150, 200, "テスト", 0xFFFFFF); //StageChipに触れたら文字が出る様になってしまっているためエサ以外に壁にぶつかったりすると文字が出る
 
-						//当たり判定を戻す
-						mPlayer.P_StageHitflg = FALSE;
-					}
-				}
+						//		}
+
+						//	}
+							//いじけSE
+							if (stagedata[i + j * NUM_STAGE_X] == 18) {
+								stagedata[i + j * NUM_STAGE_X] = 0;
+								r_enemy.R_Hitflg = TRUE;
+								p_enemy.R_Hitflg = TRUE;
+								b_enemy.R_Hitflg = TRUE;
+								o_enemy.R_Hitflg = TRUE;
+								/*StopSoundMem(mSound.bgm[5]);
+								mSound.numSound =11;
+								mSound.SoundStart();*/
+							}
+							else {
+								/*StopSoundMem(mSound.bgm[11]);
+								mSound.numSound = 5;
+								mSound.SoundStart();*/
+							}
+
+							//先行入力受け付け
+							mPlayer.P_StageHitflg = TRUE;
+							if (mPlayer.P_StageHitflg == TRUE) {
+
+								//移動
+								mPlayer.x = mPlayer.recordX;
+								mPlayer.y = mPlayer.recordY;
+
+								//当たり判定移動
+								mPlayer.p_top = mPlayer.recordPtop;
+								mPlayer.p_right = mPlayer.recordPright;
+								mPlayer.p_bottom = mPlayer.recordPbottom;
+								mPlayer.p_left = mPlayer.recordPleft;
+
+								mPlayer.s_top = mPlayer.recordSTop;
+								mPlayer.s_right = mPlayer.recordSRight;
+								mPlayer.s_bottom = mPlayer.recordSBottom;
+								mPlayer.s_left = mPlayer.recordSLeft;
+
+								//分身
+								for (int i = 0; i < 4; i++) {
+									mPlayer.avatar_bottom[i] = mPlayer.record_avatar_bottom[i];
+									mPlayer.avatar_left[i] = mPlayer.record_avatar_left[i];
+									mPlayer.avatar_top[i] = mPlayer.record_avatar_top[i];
+									mPlayer.avatar_right[i] = mPlayer.record_avatar_right[i];
+								}
+
+								//当たり判定を戻す
+								mPlayer.P_StageHitflg = FALSE;
+							}
+						}
+					//}
 				if (no != 17 && no != 18) {
 					// ステージとエネミーの当たり判定 赤エネミー
 					if (StageCheckHit(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, r_enemy.left, r_enemy.top, r_enemy.right, r_enemy.bottom)) {
