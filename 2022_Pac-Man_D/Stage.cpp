@@ -7,6 +7,7 @@
 #include "Orange_Enemy.h"
 #include "Input.h"
 #include "sound.h"
+#include "SceneMgr.h"
 
 Stage mStage;
 
@@ -397,6 +398,12 @@ void Stage::Stage_Update() {
 		UpSize = 1;
 		UpCount = 0;
 	}
+	//// ゲームオーバー時のタイトル遷移
+	//if (mStage.GameOverFlg == true) {
+	//	if (iNowKey & PAD_INPUT_8) { //startボタンが押されていたら
+	//		SceneMgr_ChangeScene(eScene_Title); //シーンをタイトル画面に変更
+	//	}
+	//}
 }
 
 //描画処理

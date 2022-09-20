@@ -78,7 +78,5 @@ static void SceneMgr_FinalizeModule(eScene scene) {
 	case eScene_Title:
 		mTitle.Title_Finalize();
 		break;
-	//case eScene_Game:
-	//	mGame.
 	}
 }

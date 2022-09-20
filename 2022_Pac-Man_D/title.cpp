@@ -7,19 +7,13 @@
 Title mTitle;
 
 void Title::Title_Initialize() {
+	TitleY = 720;
 	title = LoadGraph("images/title/title.png");
 }
 
 void Title::Title_Update() {
-	if (iNowKey & PAD_INPUT_8 || CheckHitKey(KEY_INPUT_SPACE)) { //startボタンが押されていたら
-		switch (MenuNumber) { //シーンによって処理を分岐
-		case 0: //現在の画面がメニューなら
-			SceneMgr_ChangeScene(eScene_Game); //シーンをゲーム画面に変更
-			break;
-		case 1:
-			SceneMgr_ChangeScene(eScene_End); //シーンをエンド画面に変更
-			break;
-		}
+	if (iNowKey & PAD_INPUT_8) { //startボタンが押されていたら
+		SceneMgr_ChangeScene(eScene_Game); //シーンをゲーム画面に変更
 	}
 }
 

@@ -127,8 +127,7 @@ void P_ENEMY::Update() {
 	}
 
 	// プレイヤーを追いかける処理
-	if (p_enemy.R_Hitflg == FALSE) { // パワーエサを取っていない時
-		p_enemy.speed = 1;
+	if (p_enemy.R_Hitflg == FALSE && mStage.MoveFlg == TRUE) { // パワーエサを取っていない時
 		// 右向き
 		if (p_enemy.angle == 2) {
 			if (p_enemy.Right == TRUE) {
@@ -300,7 +299,7 @@ void P_ENEMY::Update() {
 	}
 	else if (p_enemy.R_Hitflg == TRUE) { // パワーエサを取った時
 		if (p_enemy.PR_Hitflg == FALSE) { // プレイヤーと当たっていなかったら
-			p_enemy.speed = 1.6;
+			p_enemy.speed = 0.8;
 			// 右向き
 			if (p_enemy.angle == 2) {
 				if (p_enemy.Right == TRUE) {
@@ -732,18 +731,18 @@ void P_ENEMY::Draw() {
 	if (p_enemy.R_Hitflg == FALSE && mStage.MoveFlg == TRUE) { // パワーエサを取っていなければ
 		DrawRotaGraph(p_enemy.x, p_enemy.y, 0.75, 0, p_enemy.images[p_enemy.image], TRUE, FALSE); // 敵キャラ表示
 		DrawRotaGraph(p_enemy.x, p_enemy.y, 0.75, 0, p_enemy.eyesimages[p_enemy.eyeimage], TRUE, FALSE); // 敵キャラの目表示
-		DrawBox(p_enemy.left, p_enemy.top, p_enemy.right, p_enemy.bottom, 0x00ffff, FALSE); // 当たり判定描画
+		//DrawBox(p_enemy.left, p_enemy.top, p_enemy.right, p_enemy.bottom, 0x00ffff, FALSE); // 当たり判定描画
 	}
 	else if (p_enemy.R_Hitflg == TRUE) { // パワーエサを取っていたら
 		if (p_enemy.PR_Hitflg == FALSE) { // プレイヤーと当たっていなければ
 			if (p_enemy.ER_count <= 480) {
 				DrawRotaGraph(p_enemy.x, p_enemy.y, 0.75, 0, p_enemy.images[p_enemy.izikeimage], TRUE, FALSE); // イジケ状態表示
-				DrawBox(p_enemy.left, p_enemy.top, p_enemy.right, p_enemy.bottom, 0x00ffff, FALSE); // 当たり判定描画
+				//DrawBox(p_enemy.left, p_enemy.top, p_enemy.right, p_enemy.bottom, 0x00ffff, FALSE); // 当たり判定描画
 			}
 			else if (p_enemy.ER_count > 480 && p_enemy.ER_count <= 600) {
 				p_enemy.ER_Hitflg = TRUE;
 				DrawRotaGraph(p_enemy.x, p_enemy.y, 0.75, 0, p_enemy.images[p_enemy.e_izikeimage], TRUE, FALSE); // イジケ状態表示
-				DrawBox(p_enemy.left, p_enemy.top, p_enemy.right, p_enemy.bottom, 0x00ffff, FALSE); // 当たり判定描画
+				//DrawBox(p_enemy.left, p_enemy.top, p_enemy.right, p_enemy.bottom, 0x00ffff, FALSE); // 当たり判定描画
 			}
 			else {
 				p_enemy.R_Hitflg = FALSE;
@@ -755,7 +754,7 @@ void P_ENEMY::Draw() {
 		else if (p_enemy.PR_Hitflg == TRUE) { // プレイヤーと当たっていたら
 			if (p_enemy.eyeflg == TRUE) { // 目状態になったら
 				DrawRotaGraph(p_enemy.x, p_enemy.y, 0.75, 0, p_enemy.eyesimages[p_enemy.eyeimage], TRUE, FALSE); // 敵キャラの目表示
-				DrawBox(p_enemy.left, p_enemy.top, p_enemy.right, p_enemy.bottom, 0x00ffff, FALSE); // 当たり判定描画
+				//DrawBox(p_enemy.left, p_enemy.top, p_enemy.right, p_enemy.bottom, 0x00ffff, FALSE); // 当たり判定描画
 			}
 			else if (p_enemy.eyeflg == FALSE) { // 目状態のエネミーが初期位置に戻ったら
 				p_enemy.R_Hitflg = FALSE;
@@ -784,50 +783,40 @@ void P_ENEMY::Draw() {
 			p_enemy.avatar_right[i] = ENEMY_AVATAR_POS_X[i] + P_ENEMY_POS_HITBOX;
 			p_enemy.avatar_bottom[i] = ENEMY_AVATAR_POS_Y[i] + P_ENEMY_POS_HITBOX;
 		}
-
-		if (mStage.life == 2) {
-			mStage.life = 1;
-		}
-		else if (mStage.life == 1) {
-			mStage.life = 0;
-		}
-		else if (mStage.life == 0) {
-			mStage.GameOverFlg = true;
-		}
 	}
 
-	//分身の表示
-	for (int i = 0; i < 4; i++) {
-		DrawBox(p_enemy.avatar_left[i], p_enemy.avatar_top[i], p_enemy.avatar_right[i], p_enemy.avatar_bottom[i], 0x00ffff, FALSE);
-	}
+	////分身の表示
+	//for (int i = 0; i < 4; i++) {
+	//	DrawBox(p_enemy.avatar_left[i], p_enemy.avatar_top[i], p_enemy.avatar_right[i], p_enemy.avatar_bottom[i], 0x00ffff, FALSE);
+	//}
 
-	//進める時
-	//上
-	if (p_enemy.Top == TRUE) {
-		DrawBox(p_enemy.avatar_left[0], p_enemy.avatar_top[0], p_enemy.avatar_right[0], p_enemy.avatar_bottom[0], 0xff00ff, true);
-	}
-	else if (p_enemy.Top == FALSE) {
-		DrawBox(p_enemy.avatar_left[0], p_enemy.avatar_top[0], p_enemy.avatar_right[0], p_enemy.avatar_bottom[0], 0xff0000, true);
-	}
-	//右
-	if (p_enemy.Right == TRUE) {
-		DrawBox(p_enemy.avatar_left[1], p_enemy.avatar_top[1], p_enemy.avatar_right[1], p_enemy.avatar_bottom[1], 0xff00ff, true);
-	}
-	else if (p_enemy.Right == FALSE) {
-		DrawBox(p_enemy.avatar_left[1], p_enemy.avatar_top[1], p_enemy.avatar_right[1], p_enemy.avatar_bottom[1], 0xff0000, true);
-	}
-	//下
-	if (p_enemy.Bottom == TRUE) {
-		DrawBox(p_enemy.avatar_left[2], p_enemy.avatar_top[2], p_enemy.avatar_right[2], p_enemy.avatar_bottom[2], 0xff00ff, true);
-	}
-	else if (p_enemy.Bottom == FALSE) {
-		DrawBox(p_enemy.avatar_left[2], p_enemy.avatar_top[2], p_enemy.avatar_right[2], p_enemy.avatar_bottom[2], 0xff0000, true);
-	}
-	//左
-	if (p_enemy.Left == TRUE) {
-		DrawBox(p_enemy.avatar_left[3], p_enemy.avatar_top[3], p_enemy.avatar_right[3], p_enemy.avatar_bottom[3], 0xff00ff, true);
-	}
-	else if (p_enemy.Left == FALSE) {
-		DrawBox(p_enemy.avatar_left[3], p_enemy.avatar_top[3], p_enemy.avatar_right[3], p_enemy.avatar_bottom[3], 0xff0000, true);
-	}
+	////進める時
+	////上
+	//if (p_enemy.Top == TRUE) {
+	//	DrawBox(p_enemy.avatar_left[0], p_enemy.avatar_top[0], p_enemy.avatar_right[0], p_enemy.avatar_bottom[0], 0xff00ff, true);
+	//}
+	//else if (p_enemy.Top == FALSE) {
+	//	DrawBox(p_enemy.avatar_left[0], p_enemy.avatar_top[0], p_enemy.avatar_right[0], p_enemy.avatar_bottom[0], 0xff0000, true);
+	//}
+	////右
+	//if (p_enemy.Right == TRUE) {
+	//	DrawBox(p_enemy.avatar_left[1], p_enemy.avatar_top[1], p_enemy.avatar_right[1], p_enemy.avatar_bottom[1], 0xff00ff, true);
+	//}
+	//else if (p_enemy.Right == FALSE) {
+	//	DrawBox(p_enemy.avatar_left[1], p_enemy.avatar_top[1], p_enemy.avatar_right[1], p_enemy.avatar_bottom[1], 0xff0000, true);
+	//}
+	////下
+	//if (p_enemy.Bottom == TRUE) {
+	//	DrawBox(p_enemy.avatar_left[2], p_enemy.avatar_top[2], p_enemy.avatar_right[2], p_enemy.avatar_bottom[2], 0xff00ff, true);
+	//}
+	//else if (p_enemy.Bottom == FALSE) {
+	//	DrawBox(p_enemy.avatar_left[2], p_enemy.avatar_top[2], p_enemy.avatar_right[2], p_enemy.avatar_bottom[2], 0xff0000, true);
+	//}
+	////左
+	//if (p_enemy.Left == TRUE) {
+	//	DrawBox(p_enemy.avatar_left[3], p_enemy.avatar_top[3], p_enemy.avatar_right[3], p_enemy.avatar_bottom[3], 0xff00ff, true);
+	//}
+	//else if (p_enemy.Left == FALSE) {
+	//	DrawBox(p_enemy.avatar_left[3], p_enemy.avatar_top[3], p_enemy.avatar_right[3], p_enemy.avatar_bottom[3], 0xff0000, true);
+	//}
 }
