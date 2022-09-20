@@ -349,6 +349,14 @@ void Player::Player_Update() {
 		mPlayer.avatar_right[3] = 878 - 24 - PLAYER_POS_HITBOX;
 		mPlayer.avatar_left[3] = 878 - 24 + PLAYER_POS_HITBOX;
 	}
+
+	if (mPlayer.Hitflg == TRUE && Pac_s == FALSE) {		//敵に当たった時、アニメーション再生待機時間
+		pcount++;
+		if (pcount == 90) {
+			size = 0;
+			Pac_s = TRUE;
+		}
+	}
 }
 
 void Player::Player_Draw() {
@@ -359,40 +367,47 @@ void Player::Player_Draw() {
 	if(mStage.StateFlg == TRUE){		//スタート時表示
 		DrawRotaGraph(mPlayer.x, mPlayer.y, 0.75, 0, mPlayer.mPlayerMoveImage[10], TRUE, FALSE);
 	}
-	else if (mPlayer.Hitflg == TRUE) {
+	else if (mPlayer.Hitflg == TRUE || mStage.GameOverFlg == TRUE) {		//敵に当たった時の表示
+		DrawRotaGraph(mPlayer.x, mPlayer.y, size, 0, mPlayer.mPlayerMoveImage[0], TRUE, FALSE);
 		mPlayer.deletecount++;
-
-		if (mPlayer.deletecount % 5 == 0) {
-			mPlayer.deleteimage++;
+		if (Pac_s == TRUE) {
+			if (mPlayer.deletecount % 5 == 0) {
+				mPlayer.deleteimage++;
+			}
+			DrawRotaGraph(mPlayer.x, mPlayer.y, 0.75, 0, mPlayer.mPlayerDeleteImage[mPlayer.deleteimage], TRUE, FALSE);
 		}
-		DrawRotaGraph(mPlayer.x, mPlayer.y, 0.75, 0, mPlayer.mPlayerDeleteImage[mPlayer.deleteimage], TRUE, FALSE);
 
 		Sleep(millisecond);
-		if (mPlayer.deleteimage >= 11) {
-			// プレイヤーの初期化処理
-			mPlayer.x = PLAYER_POS_X;
-			mPlayer.y = PLAYER_POS_Y;
-			mPlayer.p_left = PLAYER_POS_X - PLAYER_CENTER_HITBOX;
-			mPlayer.p_top = PLAYER_POS_Y - PLAYER_CENTER_HITBOX;
-			mPlayer.p_right = PLAYER_POS_X + PLAYER_CENTER_HITBOX;
-			mPlayer.p_bottom = PLAYER_POS_Y + PLAYER_CENTER_HITBOX;
-			mPlayer.s_left = PLAYER_POS_X - PLAYER_POS_HITBOX;
-			mPlayer.s_top = PLAYER_POS_Y - PLAYER_POS_HITBOX;
-			mPlayer.s_right = PLAYER_POS_X + PLAYER_POS_HITBOX;
-			mPlayer.s_bottom = PLAYER_POS_Y + PLAYER_POS_HITBOX;
-			mPlayer.iNowAngle = 4;
-			mPlayer.Hitflg = FALSE;
-			r_enemy.Initiaflg = TRUE;
-			//分身の当たり判定
-			for (int i = 0; i < 4; i++) {
-				mPlayer.avatar_left[i] = PLAYER_AVATAR_POS_X[i] - PLAYER_POS_HITBOX;
-				mPlayer.avatar_top[i] = PLAYER_AVATAR_POS_Y[i] - PLAYER_POS_HITBOX;
-				mPlayer.avatar_right[i] = PLAYER_AVATAR_POS_X[i] + PLAYER_POS_HITBOX;
-				mPlayer.avatar_bottom[i] = PLAYER_AVATAR_POS_Y[i] + PLAYER_POS_HITBOX;
+		if (mPlayer.deleteimage >= 11 ) {
+			if (mStage.GameOverFlg != TRUE) {
+				// プレイヤーの初期化処理
+				mPlayer.x = PLAYER_POS_X;
+				mPlayer.y = PLAYER_POS_Y;
+				mPlayer.p_left = PLAYER_POS_X - PLAYER_CENTER_HITBOX;
+				mPlayer.p_top = PLAYER_POS_Y - PLAYER_CENTER_HITBOX;
+				mPlayer.p_right = PLAYER_POS_X + PLAYER_CENTER_HITBOX;
+				mPlayer.p_bottom = PLAYER_POS_Y + PLAYER_CENTER_HITBOX;
+				mPlayer.s_left = PLAYER_POS_X - PLAYER_POS_HITBOX;
+				mPlayer.s_top = PLAYER_POS_Y - PLAYER_POS_HITBOX;
+				mPlayer.s_right = PLAYER_POS_X + PLAYER_POS_HITBOX;
+				mPlayer.s_bottom = PLAYER_POS_Y + PLAYER_POS_HITBOX;
+				mPlayer.iNowAngle = 4;
+				mPlayer.Hitflg = FALSE;
+				r_enemy.Initiaflg = TRUE;		//敵を初期位置に戻すフラグ
+				Pac_s = FALSE;
+				pcount = 0;
+				size = 0.75;
+				//分身の当たり判定
+				for (int i = 0; i < 4; i++) {
+					mPlayer.avatar_left[i] = PLAYER_AVATAR_POS_X[i] - PLAYER_POS_HITBOX;
+					mPlayer.avatar_top[i] = PLAYER_AVATAR_POS_Y[i] - PLAYER_POS_HITBOX;
+					mPlayer.avatar_right[i] = PLAYER_AVATAR_POS_X[i] + PLAYER_POS_HITBOX;
+					mPlayer.avatar_bottom[i] = PLAYER_AVATAR_POS_Y[i] + PLAYER_POS_HITBOX;
+				}
 			}
 		}
 	}
-	if (mStage.GameOverFlg == TRUE) {
+	if (mStage.GameOverFlg == TRUE) {		//ゲームオーバーフラグ、プレイヤーは動けなくなる
 		mStage.MoveFlg = false;
 	}
 	//分身の表示

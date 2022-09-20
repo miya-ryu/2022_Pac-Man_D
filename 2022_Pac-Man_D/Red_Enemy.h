@@ -7,7 +7,9 @@ static float ENEMY_STAGE_HITBOX = 11;
 // 親クラス赤
 class R_ENEMY {
 private:
-
+	int HitCount = 0;
+	int c = 0;
+	bool flg = FALSE;		//pacに当たって敵を消すフラグ管理
 public:
 	void Initialize();
 	void Update();

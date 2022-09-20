@@ -9,7 +9,8 @@ static int PLAYER_CENTER_HITBOX = 2;
 
 class Player {
 private:
-
+	float size = 0.75;		//pac死んだときの画像サイズ変更
+	bool Pac_s;				//pac死んだときの待機時間経過後フラグ管理
 public:
 	void Player_Initialize();
 	void Player_Update();
@@ -27,6 +28,8 @@ public:
 	int move;
 	int count, timercount;
 	int image;
+
+	int pcount = 0;
 	//格納
 	static const int MoveImage = 12;
 	int mPlayerMoveImage[MoveImage];

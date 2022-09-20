@@ -3,6 +3,7 @@
 class Sound {
 private:
 	bool Flg = FALSE;
+	int count = 0;
 public:
 	int numSound = 2;
 	int bgm[15];
