@@ -96,11 +96,13 @@ void Stage::Stage_Initialize() {
 	NUM_STAGE_Y = 27;
 
 	//画像格納
-	NUM_STAGE_IMAGE = 19;
+	NUM_STAGE_IMAGE = 36;
 	mStageChip[NUM_STAGE_IMAGE];
 	Stage::Stage_Storage();
-
-	num = 0, numc = 0;
+	//エサの数
+	mStage.num = 0, mStage.numc = 0;
+	//ステージアニメーション
+	mStage.Scount = 0;
 }
 
 //更新処理
@@ -180,7 +182,7 @@ void Stage::Stage_Update() {
 						// エサを食べる処理
 						if (stagedata[i + j * NUM_STAGE_X] == 17) {
 							stagedata[i + j * NUM_STAGE_X] = 0;
-							numc += num + 1;
+							numc += num + 1; // エサの数を数える
 							mSound.numSound = 3;
 							mSound.SoundStart();			//エサ食べるときSE再生
 						}
@@ -205,6 +207,7 @@ void Stage::Stage_Update() {
 								p_enemy.R_Hitflg = TRUE;
 								b_enemy.R_Hitflg = TRUE;
 								o_enemy.R_Hitflg = TRUE;
+								numc += num + 1; // エサの数を数える
 								/*StopSoundMem(mSound.bgm[5]);
 								mSound.numSound =11;
 								mSound.SoundStart();*/
@@ -378,28 +381,28 @@ void Stage::Stage_Update() {
 		}
 	}
 	//スタート文字削除
-	TimeCount++;			
-	if (TimeCount == 60) {//1秒後
-		Startsize = 0;      //Player文字消す
+	mStage.TimeCount++;			
+	if (mStage.TimeCount == 60) {//1秒後
+		mStage.Startsize = 0;      //Player文字消す
 	}
-	if (TimeCount == 90) {
-		StateFlg = TRUE;	//パックマンと敵の表示
+	if (mStage.TimeCount == 90) {
+		mStage.StateFlg = TRUE;	//パックマンと敵の表示
 	}
-	if (TimeCount == 180) {	//3秒後
-		Startsize1 = 0;		//Start文字消す
-		MoveFlg = TRUE;		//パックマンと敵の移動可能になる
+	if (mStage.TimeCount == 180) {	//3秒後
+		mStage.Startsize1 = 0;		//Start文字消す
+		mStage.MoveFlg = TRUE;		//パックマンと敵の移動可能になる
 	}
-	else if (TimeCount == 181) {	//パックマン画像固定解除
-		StateFlg = FALSE;
+	else if (mStage.TimeCount == 181) {	//パックマン画像固定解除
+		mStage.StateFlg = FALSE;
 	}
 	//1UPの点滅表示
-	UpCount++;
-	if (UpCount == 15) {
-		UpSize = 0;
+	mStage.UpCount++;
+	if (mStage.UpCount == 15) {
+		mStage.UpSize = 0;
 	}
-	else if (UpCount == 30) {
-		UpSize = 1;
-		UpCount = 0;
+	else if (mStage.UpCount == 30) {
+		mStage.UpSize = 1;
+		mStage.UpCount = 0;
 	}
 	//// ゲームオーバー時のタイトル遷移
 	//if (mStage.GameOverFlg == true) {
@@ -407,6 +410,47 @@ void Stage::Stage_Update() {
 	//		SceneMgr_ChangeScene(eScene_Title); //シーンをタイトル画面に変更
 	//	}
 	//}
+	// ゲームクリア時のステージアニメーション
+	if (mStage.numc == 19) {
+		mStage.Scount++;
+		if (mStage.Scount == 1) {
+			mStageChip[1] = mStageChip[21];
+			mStageChip[2] = mStageChip[22];
+			mStageChip[3] = mStageChip[23];
+			mStageChip[4] = mStageChip[24];
+			mStageChip[5] = mStageChip[25];
+			mStageChip[6] = mStageChip[26];
+			mStageChip[7] = mStageChip[27];
+			mStageChip[8] = mStageChip[28];
+			mStageChip[9] = mStageChip[29];
+			mStageChip[10] = mStageChip[30];
+			mStageChip[11] = mStageChip[31];
+			mStageChip[12] = mStageChip[32];
+			mStageChip[13] = mStageChip[33];
+			mStageChip[14] = mStageChip[34];
+			mStageChip[15] = mStageChip[35];
+			mStageChip[16] = mStageChip[36];
+		}
+		else if (mStage.Scount == 2) {
+			mStageChip[21] = mStageChip[1];
+			mStageChip[22] = mStageChip[2];
+			mStageChip[23] = mStageChip[3];
+			mStageChip[24] = mStageChip[4];
+			mStageChip[25] = mStageChip[5];
+			mStageChip[26] = mStageChip[6];
+			mStageChip[27] = mStageChip[7];
+			mStageChip[28] = mStageChip[8];
+			mStageChip[29] = mStageChip[9];
+			mStageChip[30] = mStageChip[10];
+			mStageChip[31] = mStageChip[11];
+			mStageChip[32] = mStageChip[12];
+			mStageChip[33] = mStageChip[13];
+			mStageChip[34] = mStageChip[14];
+			mStageChip[35] = mStageChip[15];
+			mStageChip[36] = mStageChip[16];
+			mStage.Scount = 0;
+		}
+	}
 }
 
 //描画処理
@@ -458,8 +502,7 @@ void Stage::Stage_Draw() {
 		DrawRotaGraph(615, 370, 0.8, 0, mStageUI[4], TRUE, false);
 	}
 
-
-	DrawFormatString(0, 0, 0x00ff00, "%d\n", numc);
+	DrawFormatString(0, 0, 0x00ff00, "%d\n", mStage.numc);
 }
 
 //画像格納処理
@@ -473,16 +516,19 @@ void Stage::Stage_Storage() {
 	mStageChip[6] = LoadGraph("images/tiles/outercorner_narrow_top_right.png");
 	mStageChip[7] = LoadGraph("images/tiles/outercorner_top_left.png");
 	mStageChip[8] = LoadGraph("images/tiles/outercorner_top_right.png");
+
 	// 二重ライン
 	mStageChip[9] = LoadGraph("images/tiles/outerwall_bottom.png");
 	mStageChip[10] = LoadGraph("images/tiles/outerwall_left.png");
 	mStageChip[11] = LoadGraph("images/tiles/outerwall_right.png");
 	mStageChip[12] = LoadGraph("images/tiles/outerwall_top.png");
+
 	// ライン
 	mStageChip[13] = LoadGraph("images/tiles/wall_bottom.png");
 	mStageChip[14] = LoadGraph("images/tiles/wall_left.png");
 	mStageChip[15] = LoadGraph("images/tiles/wall_right.png");
 	mStageChip[16] = LoadGraph("images/tiles/wall_top.png");
+
 	// エサ
 	mStageChip[17] = LoadGraph("images/tiles/dot.png");
 	mStageChip[18] = LoadGraph("images/tiles/big_dot.png");
@@ -490,6 +536,26 @@ void Stage::Stage_Storage() {
 	mStageChip[19] = LoadGraph("images/tiles/door.png");
 	//フルーツ
 	mStageChip[20] = LoadGraph("images/fruit1.png");
+
+	//// 二重カーブ白バージョン
+	mStageChip[21] = LoadGraph("images/tiles_white/outercorner_bottom_left_white.png");
+	mStageChip[22] = LoadGraph("images/tiles_white/outercorner_bottom_right_white.png");
+	mStageChip[23] = LoadGraph("images/tiles_white/outercorner_narrow_bottom_left_white.png");
+	mStageChip[24] = LoadGraph("images/tiles_white/outercorner_narrow_bottom_right_white.png");
+	mStageChip[25] = LoadGraph("images/tiles_white/outercorner_narrow_top_left_white.png");
+	mStageChip[26] = LoadGraph("images/tiles_white/outercorner_narrow_top_right_white.png");
+	mStageChip[27] = LoadGraph("images/tiles_white/outercorner_top_left_white.png");
+	mStageChip[28] = LoadGraph("images/tiles_white/outercorner_top_right_white.png");
+	//// 二重ライン白バージョン
+	mStageChip[29] = LoadGraph("images/tiles_white/outerwall_bottom_white.png");
+	mStageChip[30] = LoadGraph("images/tiles_white/outerwall_left_white.png");
+	mStageChip[31] = LoadGraph("images/tiles_white/outerwall_right_white.png");
+	mStageChip[32] = LoadGraph("images/tiles_white/outerwall_top_white.png");
+	//// ライン白バージョン
+	mStageChip[33] = LoadGraph("images/tiles_white/wall_bottom_white.png");
+	mStageChip[34] = LoadGraph("images/tiles_white/wall_left_white.png");
+	mStageChip[35] = LoadGraph("images/tiles_white/wall_right_white.png");
+	mStageChip[36] = LoadGraph("images/tiles_white/wall_top_white.png");
 
 	//スコア部分UI
 	mStageUI[0] = LoadGraph("images/title/hi-score.png");	//ハイスコア文字
