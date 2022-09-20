@@ -44,6 +44,9 @@ void O_ENEMY::Initialize() {
 	o_enemy.PR_Hitflg = FALSE;     // イジケ状態でプレイヤーに当たった時のフラグ
 	o_enemy.eyeflg = FALSE;        // エネミー目状態
 	o_enemy.Initiaflg = FALSE;     // エネミー初期化
+	o_enemy.HitCount = 0;          // プレイヤー死亡時のエネミーアニメーション
+	o_enemy.c = 0;                 // 
+	o_enemy.flg = FALSE;           // 
 
 	// 初期位置を保存
 	o_enemy.x = O_ENEMY_POS_X;
@@ -114,7 +117,7 @@ void O_ENEMY::Update() {
 	}
 
 	//初期状態
-	if (mStage.numc < 32 && mStage.MoveFlg == TRUE) {
+	if (mStage.numc < 32 && mStage.MoveFlg == TRUE && mPlayer.Hitflg == FALSE) {
 		// 上向き
 		if (o_enemy.angle == 1) {
 			if (o_enemy.Top == TRUE) {
@@ -162,7 +165,7 @@ void O_ENEMY::Update() {
 	}
 	else if (mStage.numc > 31) {
 		// プレイヤーを追いかける処理
-		if (o_enemy.R_Hitflg == FALSE && mStage.MoveFlg == TRUE) { // パワーエサを取っていない時
+		if (o_enemy.R_Hitflg == FALSE && mStage.MoveFlg == TRUE && mPlayer.Hitflg == FALSE) { // パワーエサを取っていない時
 			// 右向き
 			if (o_enemy.angle == 2) {
 				if (o_enemy.Right == TRUE) {
@@ -752,19 +755,49 @@ void O_ENEMY::Update() {
 	if (o_enemy.R_Hitflg == TRUE) {
 		++o_enemy.ER_count;
 	}
+	// プレイヤー死亡時のエネミーアニメーション
+	if (mPlayer.Hitflg == TRUE) {
+		o_enemy.HitCount++;
+		int a = 5; int b = 10;
+		if (o_enemy.HitCount == a) {
+			o_enemy.image = 6;
+			a += 5;
+		}
+		else if (o_enemy.HitCount == b) {
+			o_enemy.image = 7;
+			b += 5;
+		}
+		if (o_enemy.HitCount == 80) {
+			flg = TRUE;
+		}
+	}
 }
 
 void O_ENEMY::Draw() {
-	if (mStage.StateFlg == FALSE || mStage.GameOverFlg == TRUE) {		//スタートの時のみ表示
+	//足だけが動く処理
+	if (mPlayer.Hitflg == TRUE && flg == FALSE) {
+		DrawRotaGraph(o_enemy.x, o_enemy.y, 0.75, 0, o_enemy.images[o_enemy.image], TRUE, FALSE);
+		DrawRotaGraph(o_enemy.x, o_enemy.y, 0.75, 0, o_enemy.eyesimages[o_enemy.eyeimage], TRUE, FALSE);
+	}
+	//PCに当たったときに消える
+	if (flg == TRUE) {
+		/*DrawRotaGraph(r_enemy.x, r_enemy.y, 0, 0, images[r_enemy.image], TRUE, FALSE);
+		DrawRotaGraph(r_enemy.x, r_enemy.y, 0, 0, eyesimages[r_enemy.eyeimage], TRUE, FALSE); */
+	}
+	//スタートの時のみ表示
+	if (mStage.StateFlg == FALSE || mStage.GameOverFlg == TRUE) {
 		DrawRotaGraph(o_enemy.x, o_enemy.y, 0, 0, o_enemy.images[o_enemy.image], TRUE, FALSE);
 		DrawRotaGraph(o_enemy.x, o_enemy.y, 0, 0, o_enemy.eyesimages[o_enemy.eyeimage], TRUE, FALSE);
+		DrawRotaGraph(o_enemy.x, o_enemy.y, 0, 0, o_enemy.images[o_enemy.izikeimage], TRUE, FALSE);
+		DrawRotaGraph(o_enemy.x, o_enemy.y, 0, 0, o_enemy.images[o_enemy.e_izikeimage], TRUE, FALSE);
 	}
+	//スタート時の固定表示
 	else if (mStage.StateFlg == TRUE) {
 		DrawRotaGraph(o_enemy.x, o_enemy.y, 0.75, 0, o_enemy.images[6], TRUE, FALSE);
 		DrawRotaGraph(o_enemy.x, o_enemy.y, 0.75, 0, o_enemy.eyesimages[0], TRUE, FALSE);
 	}
-
-	if (o_enemy.R_Hitflg == FALSE && mStage.MoveFlg == TRUE) { // パワーエサを取っていなければ
+	//パワーエサを取っていないかつ、Moveflgで動いて可能かつ、Pacに当たっていない時
+	if (o_enemy.R_Hitflg == FALSE && mStage.MoveFlg == TRUE && mPlayer.Hitflg == FALSE) {
 		DrawRotaGraph(o_enemy.x, o_enemy.y, 0.75, 0, o_enemy.images[o_enemy.image], TRUE, FALSE); // 敵キャラ表示
 		DrawRotaGraph(o_enemy.x, o_enemy.y, 0.75, 0, o_enemy.eyesimages[o_enemy.eyeimage], TRUE, FALSE); // 敵キャラの目表示
 		//DrawBox(o_enemy.left, o_enemy.top, o_enemy.right, o_enemy.bottom, 0x00ffff, FALSE); // 当たり判定描画
@@ -819,6 +852,9 @@ void O_ENEMY::Draw() {
 			o_enemy.avatar_right[i] = ENEMY_AVATAR_POS_X[i] + O_ENEMY_POS_HITBOX;
 			o_enemy.avatar_bottom[i] = ENEMY_AVATAR_POS_Y[i] + O_ENEMY_POS_HITBOX;
 		}
+
+		o_enemy.flg = FALSE;
+		o_enemy.HitCount = 0;
 	}
 
 	////分身の表示

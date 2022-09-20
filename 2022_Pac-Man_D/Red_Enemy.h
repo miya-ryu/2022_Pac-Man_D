@@ -7,9 +7,7 @@ static float ENEMY_POS_HITBOX = 11;
 // 親クラス赤
 class R_ENEMY {
 private:
-	int HitCount = 0;
-	int c = 0;
-	bool flg = FALSE;		//pacに当たって敵を消すフラグ管理
+
 public:
 	void Initialize();
 	void Update();
@@ -59,6 +57,10 @@ public:
 	int record_avatar_bottom[4];
 	bool Left, Right, Top, Bottom;
 	int CheckNumber;
+	// プレイヤー死亡時のエネミーアニメーション
+	int HitCount;
+	int c;
+	bool flg;		//pacに当たって敵を消すフラグ管理
 };
 
 extern R_ENEMY r_enemy;

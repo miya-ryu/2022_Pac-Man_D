@@ -30,6 +30,7 @@ public:
 	void Stage_Update();
 	void Stage_Draw();
 	void Stage_Storage();
+	// ƒGƒT‚Ì”•Ï”
 	int num, numc;
 };
 
