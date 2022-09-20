@@ -2,6 +2,7 @@
 #include "Input.h"
 #include "SceneMgr.h"
 #include "system.h"
+#include <math.h>
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
 	SetMainWindowText("PAC-MAN");   //タイトルを設定
@@ -13,19 +14,13 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	SceneMgr_Initialize();
 
 	//メッセージ処理、画面削除、画面更新
-	while (ProcessMessage() == 0) {
-		ClearDrawScreen();
+	while (ClearDrawScreen() == 0 && ProcessMessage() == 0) {
 		InputKey();        //入力
-
 		SceneMgr_Update();
 		SceneMgr_Draw();
 
-		// FPS固定
-		/*mSystem.Update();
-		mSystem.Draw();
-		mSystem.Wait();*/
-
 		ScreenFlip();
+		mSystem.Wait();
 	}
 	SceneMgr_Finalize();
 

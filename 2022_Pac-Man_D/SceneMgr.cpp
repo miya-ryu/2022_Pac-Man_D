@@ -1,6 +1,7 @@
 #include "SceneMgr.h"
 #include "title.h"
 #include "Game.h"
+#include "system.h"
 
 static eScene mScene = eScene_Title;	//現シーンの管理変数
 static eScene mNextScene = eScene_None; //次シーンの管理変数
@@ -20,6 +21,7 @@ void SceneMgr_Finalize() {
 
 //更新
 void SceneMgr_Update() {
+	mSystem.Update();
 	if (mNextScene != eScene_None) {
 		SceneMgr_FinalizeModule(mScene);
 		mScene = mNextScene;
@@ -33,8 +35,6 @@ void SceneMgr_Update() {
 		break;
 	case eScene_Game:
 		mGame.Game_Update();
-		break;
-	case eScene_End:
 		break;
 	}
 }
@@ -51,6 +51,7 @@ void SceneMgr_Draw() {
 		mGame.Game_Draw();
 		break;
 	}
+	mSystem.Draw();
 }
 
 
@@ -60,6 +61,7 @@ void SceneMgr_ChangeScene(eScene NextScene) {
 
 //sceneモジュールを初期化
 static void SceneMgr_InitializeModule(eScene scene) {
+	mSystem.Initialize();
 	switch (scene)
 	{
 	case eScene_Title:
