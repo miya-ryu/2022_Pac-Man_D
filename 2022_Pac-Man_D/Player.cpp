@@ -427,7 +427,9 @@ void Player::Player_Draw() {
 			mPlayer.iNowAngle = 4;
 			mPlayer.Hitflg = FALSE;
 			r_enemy.Initiaflg = TRUE;
+			p_enemy.Initiaflg = TRUE;
 			b_enemy.Initiaflg = TRUE;
+			o_enemy.Initiaflg = TRUE;
 			//分身の当たり判定
 			for (int i = 0; i < 4; i++) {
 				mPlayer.avatar_left[i] = PLAYER_AVATAR_POS_X[i] - PLAYER_POS_HITBOX;
@@ -440,12 +442,12 @@ void Player::Player_Draw() {
 	if (mStage.GameOverFlg == TRUE) {
 		mStage.MoveFlg = false;
 	}
-	//分身の表示
-	for (int i = 0; i < 4; i++) {
-		DrawBox(mPlayer.avatar_left[i], mPlayer.avatar_top[i], mPlayer.avatar_right[i], mPlayer.avatar_bottom[i], 0x00ffff, FALSE);
-	}
+	////分身の表示
+	//for (int i = 0; i < 4; i++) {
+	//	DrawBox(mPlayer.avatar_left[i], mPlayer.avatar_top[i], mPlayer.avatar_right[i], mPlayer.avatar_bottom[i], 0x00ffff, FALSE);
+	//}
 
-	if (mPlayer.Top == FALSE) {
+	/*if (mPlayer.Top == FALSE) {
 		DrawString(0, 0, "上成功", 0xff00ff);
 	}
 	if (mPlayer.Right == FALSE) {
@@ -488,40 +490,40 @@ void Player::Player_Draw() {
 	}
 	else if (mPlayer.iOldAngle == 4) {
 		DrawString(0, 120, "前回のアングルは左です", 0xff00ff);
-	}
+	}*/
 
-	//進める時
-	//上
-	if (mPlayer.Top == TRUE) {
-		DrawBox(mPlayer.avatar_left[0], mPlayer.avatar_top[0], mPlayer.avatar_right[0], mPlayer.avatar_bottom[0], 0xff00ff, true);
-	}
-	else if (mPlayer.Top == FALSE) {
-		DrawBox(mPlayer.avatar_left[0], mPlayer.avatar_top[0], mPlayer.avatar_right[0], mPlayer.avatar_bottom[0], 0xff0000, true);
-	}
-	//右
-	if (mPlayer.Right == TRUE) {
-		DrawBox(mPlayer.avatar_left[1], mPlayer.avatar_top[1], mPlayer.avatar_right[1], mPlayer.avatar_bottom[1], 0xff00ff, true);
-	}
-	else if (mPlayer.Right == FALSE) {
-		DrawBox(mPlayer.avatar_left[1], mPlayer.avatar_top[1], mPlayer.avatar_right[1], mPlayer.avatar_bottom[1], 0xff0000, true);
-	}
-	//下
-	if (mPlayer.Bottom == TRUE) {
-		DrawBox(mPlayer.avatar_left[2], mPlayer.avatar_top[2], mPlayer.avatar_right[2], mPlayer.avatar_bottom[2], 0xff00ff, true);
-	}
-	else if (mPlayer.Bottom == FALSE) {
-		DrawBox(mPlayer.avatar_left[2], mPlayer.avatar_top[2], mPlayer.avatar_right[2], mPlayer.avatar_bottom[2], 0xff0000, true);
-	}
-	//左
-	if (mPlayer.Left == TRUE) {
-		DrawBox(mPlayer.avatar_left[3], mPlayer.avatar_top[3], mPlayer.avatar_right[3], mPlayer.avatar_bottom[3], 0xff00ff, true);
-	}
-	else if (mPlayer.Left == FALSE) {
-		DrawBox(mPlayer.avatar_left[3], mPlayer.avatar_top[3], mPlayer.avatar_right[3], mPlayer.avatar_bottom[3], 0xff0000, true);
-	}
-	
-	//Stage当たり判定表示
-	DrawBox(mPlayer.s_left, mPlayer.s_top, mPlayer.s_right, mPlayer.s_bottom, 0x00ff00, FALSE);
-	//Center当たり判定表示
-	DrawBox(mPlayer.p_left, mPlayer.p_top, mPlayer.p_right, mPlayer.p_bottom, 0xff00ff, TRUE);
+	////進める時
+	////上
+	//if (mPlayer.Top == TRUE) {
+	//	DrawBox(mPlayer.avatar_left[0], mPlayer.avatar_top[0], mPlayer.avatar_right[0], mPlayer.avatar_bottom[0], 0xff00ff, true);
+	//}
+	//else if (mPlayer.Top == FALSE) {
+	//	DrawBox(mPlayer.avatar_left[0], mPlayer.avatar_top[0], mPlayer.avatar_right[0], mPlayer.avatar_bottom[0], 0xff0000, true);
+	//}
+	////右
+	//if (mPlayer.Right == TRUE) {
+	//	DrawBox(mPlayer.avatar_left[1], mPlayer.avatar_top[1], mPlayer.avatar_right[1], mPlayer.avatar_bottom[1], 0xff00ff, true);
+	//}
+	//else if (mPlayer.Right == FALSE) {
+	//	DrawBox(mPlayer.avatar_left[1], mPlayer.avatar_top[1], mPlayer.avatar_right[1], mPlayer.avatar_bottom[1], 0xff0000, true);
+	//}
+	////下
+	//if (mPlayer.Bottom == TRUE) {
+	//	DrawBox(mPlayer.avatar_left[2], mPlayer.avatar_top[2], mPlayer.avatar_right[2], mPlayer.avatar_bottom[2], 0xff00ff, true);
+	//}
+	//else if (mPlayer.Bottom == FALSE) {
+	//	DrawBox(mPlayer.avatar_left[2], mPlayer.avatar_top[2], mPlayer.avatar_right[2], mPlayer.avatar_bottom[2], 0xff0000, true);
+	//}
+	////左
+	//if (mPlayer.Left == TRUE) {
+	//	DrawBox(mPlayer.avatar_left[3], mPlayer.avatar_top[3], mPlayer.avatar_right[3], mPlayer.avatar_bottom[3], 0xff00ff, true);
+	//}
+	//else if (mPlayer.Left == FALSE) {
+	//	DrawBox(mPlayer.avatar_left[3], mPlayer.avatar_top[3], mPlayer.avatar_right[3], mPlayer.avatar_bottom[3], 0xff0000, true);
+	//}
+	//
+	////Stage当たり判定表示
+	//DrawBox(mPlayer.s_left, mPlayer.s_top, mPlayer.s_right, mPlayer.s_bottom, 0x00ff00, FALSE);
+	////Center当たり判定表示
+	//DrawBox(mPlayer.p_left, mPlayer.p_top, mPlayer.p_right, mPlayer.p_bottom, 0xff00ff, TRUE);
 }
