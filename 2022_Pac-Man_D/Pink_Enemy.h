@@ -1,8 +1,8 @@
 #pragma once
 #include "Red_Enemy.h"
 
-static int P_ENEMY_POS_X = 660;
-static int P_ENEMY_POS_Y = 252;
+static int P_ENEMY_POS_X = 612;
+static int P_ENEMY_POS_Y = 324;
 static float P_ENEMY_POS_HITBOX = 11;
 
 // 親クラス赤　子クラスピンク

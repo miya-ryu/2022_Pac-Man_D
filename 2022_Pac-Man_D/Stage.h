@@ -30,6 +30,7 @@ public:
 	void Stage_Update();
 	void Stage_Draw();
 	void Stage_Storage();
+	int num, numc;
 };
 
 extern Stage mStage;

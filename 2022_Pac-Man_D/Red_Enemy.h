@@ -21,7 +21,6 @@ public:
 	int image, eyeimage, izikeimage, e_izikeimage;
 	// “G‚ÉŠÖ‚·‚é•Ï”
 	int x, y, x1, y1;
-	int absX, absY;
 	int angle;
 	float speed;
 	int recordX, recordY;

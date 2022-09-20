@@ -32,14 +32,13 @@ void B_ENEMY::Initialize() {
 	LoadDivGraph("images/eyes.png", 4, 4, 1, 32, 32, eyesimages);  // 敵キャラの目
 
 	b_enemy.speed = 1;             // 移動速度
-	b_enemy.angle = 4;             // 初期の向き
+	b_enemy.angle = 1;             // 初期の向き
 	b_enemy.count = 0;             // アニメーションカウント
 	b_enemy.ER_count = 0;          // イジケ状態カウント
 	b_enemy.image = 4;             // 画像変数
-	b_enemy.eyeimage = 3;          // 目の画像変数
+	b_enemy.eyeimage = 0;          // 目の画像変数
 	b_enemy.izikeimage = 16;       // イジケ状態の画像変数
 	b_enemy.e_izikeimage = 16;     // イジケ状態点滅の画像変数
-	//b_enemy.E_StageHitflg = FALSE; // 壁との当たり判定フラグ
 	b_enemy.R_Hitflg = FALSE;      // イジケ状態判定フラグ
 	b_enemy.ER_Hitflg = FALSE;     // イジケ状態点滅フラグ
 	b_enemy.PR_Hitflg = FALSE;     // イジケ状態でプレイヤーに当たった時のフラグ
@@ -106,18 +105,6 @@ void B_ENEMY::Update() {
 	b_enemy.recordBottom = b_enemy.bottom;
 	b_enemy.recordLeft = b_enemy.left;
 
-	//前回の座標移動
-	b_enemy.absX = mPlayer.x - b_enemy.x;
-	b_enemy.absY = mPlayer.y - b_enemy.y;
-
-	//絶対値を求める
-	if (b_enemy.absX <= 0) {
-		b_enemy.absX = b_enemy.absX * -1;
-	}
-	if (b_enemy.absY <= 0) {
-		b_enemy.absY = b_enemy.absY * -1;
-	}
-
 	//分身の座標
 	for (int i = 0; i < 4; i++) {
 		b_enemy.record_avatar_bottom[i] = b_enemy.avatar_bottom[i];
@@ -126,162 +113,16 @@ void B_ENEMY::Update() {
 		b_enemy.record_avatar_top[i] = b_enemy.avatar_top[i];
 	}
 
-	// プレイヤーを追いかける処理
-	if (b_enemy.R_Hitflg == FALSE && mStage.MoveFlg == TRUE) { // パワーエサを取っていない時
-		// 右向き
-		if (b_enemy.angle == 2) {
-			if (b_enemy.Right == TRUE) {
-				if (mPlayer.x < b_enemy.x) { // 左向き
-					b_enemy.angle = 4;
-				}
-				else if (mPlayer.y < b_enemy.y) { // 上向き
-					b_enemy.angle = 1;
-				}
-				else if (mPlayer.y > b_enemy.y) { // 下向き
-					b_enemy.angle = 3;
-				}
-			}
-			else if (b_enemy.Right == FALSE) {
-				if (mPlayer.x < b_enemy.x) { // 左向き
-					if (b_enemy.Left == FALSE) {
-						b_enemy.angle = 4;
-					}
-				}
-				else if (mPlayer.y < b_enemy.y) { // 上向き
-					if (b_enemy.Top == FALSE) {
-						b_enemy.angle = 1;
-					}
-				}
-				else if (mPlayer.y > b_enemy.y) { // 下向き
-					if (b_enemy.Bottom == FALSE) {
-						b_enemy.angle = 3;
-					}
-				}
-				// 右向き
-				b_enemy.x += b_enemy.speed;
-				// 当たり判定
-				b_enemy.left += b_enemy.speed;
-				b_enemy.right += b_enemy.speed;
-				//分身
-				for (int i = 0; i < 4; i++) {
-					b_enemy.avatar_right[i] += b_enemy.speed;
-					b_enemy.avatar_left[i] += b_enemy.speed;
-				}
-				b_enemy.eyeimage = 1;
-			}
-		}
-		// 左向き
-		else if (b_enemy.angle == 4) {
-			if (b_enemy.Left == TRUE) {
-				if (mPlayer.x > b_enemy.x) { // 右向き
-					b_enemy.angle = 2;
-				}
-				else if (mPlayer.y < b_enemy.y) { // 上向き
-					b_enemy.angle = 1;
-				}
-				else if (mPlayer.y > b_enemy.y) { // 下向き
-					b_enemy.angle = 3;
-				}
-			}
-			else if (b_enemy.Left == FALSE) {
-				if (mPlayer.x > b_enemy.x) { // 右向き
-					if (b_enemy.Right == FALSE) {
-						b_enemy.angle = 2;
-					}
-				}
-				else if (mPlayer.y < b_enemy.y) { // 上向き
-					if (b_enemy.Top == FALSE) {
-						b_enemy.angle = 1;
-					}
-				}
-				else if (mPlayer.y > b_enemy.y) { // 下向き
-					if (b_enemy.Bottom == FALSE) {
-						b_enemy.angle = 3;
-					}
-				}
-				// 左向き
-				b_enemy.x -= b_enemy.speed;
-				//当たり判定
-				b_enemy.left -= b_enemy.speed;
-				b_enemy.right -= b_enemy.speed;
-				//分身
-				for (int i = 0; i < 4; i++) {
-					b_enemy.avatar_right[i] -= b_enemy.speed;
-					b_enemy.avatar_left[i] -= b_enemy.speed;
-				}
-				b_enemy.eyeimage = 3;
-			}
-		}
-		//下向き
-		else if (b_enemy.angle == 3) {
-			if (b_enemy.Bottom == TRUE) {
-				if (mPlayer.x > b_enemy.x) { // 右向き
-					b_enemy.angle = 2;
-				}
-				else if (mPlayer.x < b_enemy.x) { // 左向き
-					b_enemy.angle = 4;
-				}
-				else if (mPlayer.y < b_enemy.y) { // 上向き
-					b_enemy.angle = 1;
-				}
-			}
-			else if (b_enemy.Bottom == FALSE) {
-				if (mPlayer.x > b_enemy.x) { // 右向き
-					if (b_enemy.Right == FALSE) {
-						b_enemy.angle = 2;
-					}
-				}
-				else if (mPlayer.x < b_enemy.x) { // 左向き
-					if (b_enemy.Left == FALSE) {
-						b_enemy.angle = 4;
-					}
-				}
-				else if (mPlayer.y < b_enemy.y) { // 上向き
-					if (b_enemy.Top == FALSE) {
-						b_enemy.angle = 1;
-					}
-				}
-				//下向き
-				b_enemy.y += b_enemy.speed;
-				//当たり判定
-				b_enemy.top += b_enemy.speed;
-				b_enemy.bottom += b_enemy.speed;
-				//分身
-				for (int i = 0; i < 4; i++) {
-					b_enemy.avatar_top[i] += b_enemy.speed;
-					b_enemy.avatar_bottom[i] += b_enemy.speed;
-				}
-				b_enemy.eyeimage = 2;
-			}
-		}
-		//上向き
-		else if (b_enemy.angle == 1) {
+	//初期状態
+	if (mStage.numc < 17 && mStage.MoveFlg == TRUE) {
+		// 上向き
+		if (b_enemy.angle == 1) {
 			if (b_enemy.Top == TRUE) {
-				if (mPlayer.x > b_enemy.x) { // 右向き
-					b_enemy.angle = 2;
-				}
-				else if (mPlayer.x < b_enemy.x) { // 左向き
-					b_enemy.angle = 4;
-				}
-				else if (mPlayer.y > b_enemy.y) { // 下向き
-					b_enemy.angle = 3;
-				}
+				b_enemy.angle = 3;
 			}
 			else if (b_enemy.Top == FALSE) {
-				if (mPlayer.x > b_enemy.x) { // 右向き
-					if (b_enemy.Right == FALSE) {
-						b_enemy.angle = 2;
-					}
-				}
-				else if (mPlayer.x < b_enemy.x) { // 左向き
-					if (b_enemy.Left == FALSE) {
-						b_enemy.angle = 4;
-					}
-				}
-				else if (mPlayer.y > b_enemy.y) { // 下向き
-					if (b_enemy.Bottom == FALSE) {
-						b_enemy.angle = 3;
-					}
+				if (b_enemy.Bottom == FALSE) {
+					b_enemy.angle = 3;
 				}
 				//上向き
 				b_enemy.y -= b_enemy.speed;
@@ -296,10 +137,32 @@ void B_ENEMY::Update() {
 				b_enemy.eyeimage = 0;
 			}
 		}
+		//下向き
+		else if (b_enemy.angle == 3) {
+			if (b_enemy.Bottom == TRUE) {
+				b_enemy.angle = 1;
+			}
+			else if (b_enemy.Bottom == FALSE) {
+				if (b_enemy.Top == FALSE) {
+					b_enemy.angle = 1;
+				}
+				//下向き
+				b_enemy.y += b_enemy.speed;
+				//当たり判定
+				b_enemy.top += b_enemy.speed;
+				b_enemy.bottom += b_enemy.speed;
+				//分身
+				for (int i = 0; i < 4; i++) {
+					b_enemy.avatar_top[i] += b_enemy.speed;
+					b_enemy.avatar_bottom[i] += b_enemy.speed;
+				}
+				b_enemy.eyeimage = 2;
+			}
+		}
 	}
-	else if (b_enemy.R_Hitflg == TRUE) { // パワーエサを取った時
-		if (b_enemy.PR_Hitflg == FALSE) { // プレイヤーと当たっていなかったら
-			b_enemy.speed = 0.8;
+	else if (mStage.numc > 16) {
+		// プレイヤーを追いかける処理
+		if (b_enemy.R_Hitflg == FALSE && mStage.MoveFlg == TRUE) { // パワーエサを取っていない時
 			// 右向き
 			if (b_enemy.angle == 2) {
 				if (b_enemy.Right == TRUE) {
@@ -330,15 +193,16 @@ void B_ENEMY::Update() {
 						}
 					}
 					// 右向き
-					b_enemy.x -= b_enemy.speed;
+					b_enemy.x += b_enemy.speed;
 					// 当たり判定
-					b_enemy.left -= b_enemy.speed;
-					b_enemy.right -= b_enemy.speed;
+					b_enemy.left += b_enemy.speed;
+					b_enemy.right += b_enemy.speed;
 					//分身
 					for (int i = 0; i < 4; i++) {
-						b_enemy.avatar_right[i] -= b_enemy.speed;
-						b_enemy.avatar_left[i] -= b_enemy.speed;
+						b_enemy.avatar_right[i] += b_enemy.speed;
+						b_enemy.avatar_left[i] += b_enemy.speed;
 					}
+					b_enemy.eyeimage = 1;
 				}
 			}
 			// 左向き
@@ -371,15 +235,16 @@ void B_ENEMY::Update() {
 						}
 					}
 					// 左向き
-					b_enemy.x += b_enemy.speed;
+					b_enemy.x -= b_enemy.speed;
 					//当たり判定
-					b_enemy.left += b_enemy.speed;
-					b_enemy.right += b_enemy.speed;
+					b_enemy.left -= b_enemy.speed;
+					b_enemy.right -= b_enemy.speed;
 					//分身
 					for (int i = 0; i < 4; i++) {
-						b_enemy.avatar_right[i] += b_enemy.speed;
-						b_enemy.avatar_left[i] += b_enemy.speed;
+						b_enemy.avatar_right[i] -= b_enemy.speed;
+						b_enemy.avatar_left[i] -= b_enemy.speed;
 					}
+					b_enemy.eyeimage = 3;
 				}
 			}
 			//下向き
@@ -412,15 +277,16 @@ void B_ENEMY::Update() {
 						}
 					}
 					//下向き
-					b_enemy.y -= b_enemy.speed;
+					b_enemy.y += b_enemy.speed;
 					//当たり判定
-					b_enemy.top -= b_enemy.speed;
-					b_enemy.bottom -= b_enemy.speed;
+					b_enemy.top += b_enemy.speed;
+					b_enemy.bottom += b_enemy.speed;
 					//分身
 					for (int i = 0; i < 4; i++) {
-						b_enemy.avatar_top[i] -= b_enemy.speed;
-						b_enemy.avatar_bottom[i] -= b_enemy.speed;
+						b_enemy.avatar_top[i] += b_enemy.speed;
+						b_enemy.avatar_bottom[i] += b_enemy.speed;
 					}
+					b_enemy.eyeimage = 2;
 				}
 			}
 			//上向き
@@ -453,95 +319,54 @@ void B_ENEMY::Update() {
 						}
 					}
 					//上向き
-					b_enemy.y += b_enemy.speed;
+					b_enemy.y -= b_enemy.speed;
 					//当たり判定
-					b_enemy.top += b_enemy.speed;
-					b_enemy.bottom += b_enemy.speed;
+					b_enemy.top -= b_enemy.speed;
+					b_enemy.bottom -= b_enemy.speed;
 					//分身
 					for (int i = 0; i < 4; i++) {
-						b_enemy.avatar_top[i] += b_enemy.speed;
-						b_enemy.avatar_bottom[i] += b_enemy.speed;
+						b_enemy.avatar_top[i] -= b_enemy.speed;
+						b_enemy.avatar_bottom[i] -= b_enemy.speed;
 					}
+					b_enemy.eyeimage = 0;
 				}
 			}
 		}
-		else if (b_enemy.PR_Hitflg == TRUE) { // プレイヤーと当たっていたら初期位置に戻る
-			if (b_enemy.eyeflg == TRUE) {
-				b_enemy.speed = 3;
+		else if (b_enemy.R_Hitflg == TRUE) { // パワーエサを取った時
+			if (b_enemy.PR_Hitflg == FALSE) { // プレイヤーと当たっていなかったら
+				b_enemy.speed = 0.8;
 				// 右向き
 				if (b_enemy.angle == 2) {
 					if (b_enemy.Right == TRUE) {
-						if (ENEMY_POS_X < b_enemy.x) { // 左向き
+						if (mPlayer.x < b_enemy.x) { // 左向き
 							b_enemy.angle = 4;
 						}
-						else if (ENEMY_POS_Y < b_enemy.y) { // 上向き
+						else if (mPlayer.y < b_enemy.y) { // 上向き
 							b_enemy.angle = 1;
 						}
-						else if (ENEMY_POS_Y > b_enemy.y) { // 下向き
+						else if (mPlayer.y > b_enemy.y) { // 下向き
 							b_enemy.angle = 3;
 						}
 					}
 					else if (b_enemy.Right == FALSE) {
-						if (ENEMY_POS_X < b_enemy.x) { // 左向き
+						if (mPlayer.x < b_enemy.x) { // 左向き
 							if (b_enemy.Left == FALSE) {
 								b_enemy.angle = 4;
 							}
 						}
-						else if (ENEMY_POS_Y < b_enemy.y) { // 上向き
+						else if (mPlayer.y < b_enemy.y) { // 上向き
 							if (b_enemy.Top == FALSE) {
 								b_enemy.angle = 1;
 							}
 						}
-						else if (ENEMY_POS_Y > b_enemy.y) { // 下向き
+						else if (mPlayer.y > b_enemy.y) { // 下向き
 							if (b_enemy.Bottom == FALSE) {
 								b_enemy.angle = 3;
 							}
 						}
 						// 右向き
-						b_enemy.x += b_enemy.speed;
-						// 当たり判定
-						b_enemy.left += b_enemy.speed;
-						b_enemy.right += b_enemy.speed;
-						//分身
-						for (int i = 0; i < 4; i++) {
-							b_enemy.avatar_right[i] += b_enemy.speed;
-							b_enemy.avatar_left[i] += b_enemy.speed;
-						}
-						b_enemy.eyeimage = 1;
-					}
-				}
-				// 左向き
-				else if (b_enemy.angle == 4) {
-					if (b_enemy.Left == TRUE) {
-						if (ENEMY_POS_X > b_enemy.x) { // 右向き
-							b_enemy.angle = 2;
-						}
-						else if (ENEMY_POS_Y < b_enemy.y) { // 上向き
-							b_enemy.angle = 1;
-						}
-						else if (ENEMY_POS_Y > b_enemy.y) { // 下向き
-							b_enemy.angle = 3;
-						}
-					}
-					else if (b_enemy.Left == FALSE) {
-						if (ENEMY_POS_X > b_enemy.x) { // 右向き
-							if (b_enemy.Right == FALSE) {
-								b_enemy.angle = 2;
-							}
-						}
-						else if (ENEMY_POS_Y < b_enemy.y) { // 上向き
-							if (b_enemy.Top == FALSE) {
-								b_enemy.angle = 1;
-							}
-						}
-						else if (ENEMY_POS_Y > b_enemy.y) { // 下向き
-							if (b_enemy.Bottom == FALSE) {
-								b_enemy.angle = 3;
-							}
-						}
-						// 左向き
 						b_enemy.x -= b_enemy.speed;
-						//当たり判定
+						// 当たり判定
 						b_enemy.left -= b_enemy.speed;
 						b_enemy.right -= b_enemy.speed;
 						//分身
@@ -549,81 +374,79 @@ void B_ENEMY::Update() {
 							b_enemy.avatar_right[i] -= b_enemy.speed;
 							b_enemy.avatar_left[i] -= b_enemy.speed;
 						}
-						b_enemy.eyeimage = 3;
+					}
+				}
+				// 左向き
+				else if (b_enemy.angle == 4) {
+					if (b_enemy.Left == TRUE) {
+						if (mPlayer.x > b_enemy.x) { // 右向き
+							b_enemy.angle = 2;
+						}
+						else if (mPlayer.y < b_enemy.y) { // 上向き
+							b_enemy.angle = 1;
+						}
+						else if (mPlayer.y > b_enemy.y) { // 下向き
+							b_enemy.angle = 3;
+						}
+					}
+					else if (b_enemy.Left == FALSE) {
+						if (mPlayer.x > b_enemy.x) { // 右向き
+							if (b_enemy.Right == FALSE) {
+								b_enemy.angle = 2;
+							}
+						}
+						else if (mPlayer.y < b_enemy.y) { // 上向き
+							if (b_enemy.Top == FALSE) {
+								b_enemy.angle = 1;
+							}
+						}
+						else if (mPlayer.y > b_enemy.y) { // 下向き
+							if (b_enemy.Bottom == FALSE) {
+								b_enemy.angle = 3;
+							}
+						}
+						// 左向き
+						b_enemy.x += b_enemy.speed;
+						//当たり判定
+						b_enemy.left += b_enemy.speed;
+						b_enemy.right += b_enemy.speed;
+						//分身
+						for (int i = 0; i < 4; i++) {
+							b_enemy.avatar_right[i] += b_enemy.speed;
+							b_enemy.avatar_left[i] += b_enemy.speed;
+						}
 					}
 				}
 				//下向き
 				else if (b_enemy.angle == 3) {
 					if (b_enemy.Bottom == TRUE) {
-						if (ENEMY_POS_X > b_enemy.x) { // 右向き
+						if (mPlayer.x > b_enemy.x) { // 右向き
 							b_enemy.angle = 2;
 						}
-						else if (ENEMY_POS_X < b_enemy.x) { // 左向き
+						else if (mPlayer.x < b_enemy.x) { // 左向き
 							b_enemy.angle = 4;
 						}
-						else if (ENEMY_POS_Y < b_enemy.y) { // 上向き
+						else if (mPlayer.y < b_enemy.y) { // 上向き
 							b_enemy.angle = 1;
 						}
 					}
 					else if (b_enemy.Bottom == FALSE) {
-						if (ENEMY_POS_X > b_enemy.x) { // 右向き
+						if (mPlayer.x > b_enemy.x) { // 右向き
 							if (b_enemy.Right == FALSE) {
 								b_enemy.angle = 2;
 							}
 						}
-						else if (ENEMY_POS_X < b_enemy.x) { // 左向き
+						else if (mPlayer.x < b_enemy.x) { // 左向き
 							if (b_enemy.Left == FALSE) {
 								b_enemy.angle = 4;
 							}
 						}
-						else if (ENEMY_POS_Y < b_enemy.y) { // 上向き
+						else if (mPlayer.y < b_enemy.y) { // 上向き
 							if (b_enemy.Top == FALSE) {
 								b_enemy.angle = 1;
 							}
 						}
 						//下向き
-						b_enemy.y += b_enemy.speed;
-						//当たり判定
-						b_enemy.top += b_enemy.speed;
-						b_enemy.bottom += b_enemy.speed;
-						//分身
-						for (int i = 0; i < 4; i++) {
-							b_enemy.avatar_top[i] += b_enemy.speed;
-							b_enemy.avatar_bottom[i] += b_enemy.speed;
-						}
-						b_enemy.eyeimage = 2;
-					}
-				}
-				//上向き
-				else if (b_enemy.angle == 1) {
-					if (b_enemy.Top == TRUE) {
-						if (ENEMY_POS_X > b_enemy.x) { // 右向き
-							b_enemy.angle = 2;
-						}
-						else if (ENEMY_POS_X < b_enemy.x) { // 左向き
-							b_enemy.angle = 4;
-						}
-						else if (ENEMY_POS_Y > b_enemy.y) { // 下向き
-							b_enemy.angle = 3;
-						}
-					}
-					else if (b_enemy.Top == FALSE) {
-						if (ENEMY_POS_X > b_enemy.x) { // 右向き
-							if (b_enemy.Right == FALSE) {
-								b_enemy.angle = 2;
-							}
-						}
-						else if (ENEMY_POS_X < b_enemy.x) { // 左向き
-							if (b_enemy.Left == FALSE) {
-								b_enemy.angle = 4;
-							}
-						}
-						else if (ENEMY_POS_Y > b_enemy.y) { // 下向き
-							if (b_enemy.Bottom == FALSE) {
-								b_enemy.angle = 3;
-							}
-						}
-						//上向き
 						b_enemy.y -= b_enemy.speed;
 						//当たり判定
 						b_enemy.top -= b_enemy.speed;
@@ -633,12 +456,225 @@ void B_ENEMY::Update() {
 							b_enemy.avatar_top[i] -= b_enemy.speed;
 							b_enemy.avatar_bottom[i] -= b_enemy.speed;
 						}
-						b_enemy.eyeimage = 0;
 					}
 				}
-				// 初期位置に戻った時
-				if (ENEMY_POS_X == b_enemy.x) {
-					b_enemy.eyeflg = FALSE;
+				//上向き
+				else if (b_enemy.angle == 1) {
+					if (b_enemy.Top == TRUE) {
+						if (mPlayer.x > b_enemy.x) { // 右向き
+							b_enemy.angle = 2;
+						}
+						else if (mPlayer.x < b_enemy.x) { // 左向き
+							b_enemy.angle = 4;
+						}
+						else if (mPlayer.y > b_enemy.y) { // 下向き
+							b_enemy.angle = 3;
+						}
+					}
+					else if (b_enemy.Top == FALSE) {
+						if (mPlayer.x > b_enemy.x) { // 右向き
+							if (b_enemy.Right == FALSE) {
+								b_enemy.angle = 2;
+							}
+						}
+						else if (mPlayer.x < b_enemy.x) { // 左向き
+							if (b_enemy.Left == FALSE) {
+								b_enemy.angle = 4;
+							}
+						}
+						else if (mPlayer.y > b_enemy.y) { // 下向き
+							if (b_enemy.Bottom == FALSE) {
+								b_enemy.angle = 3;
+							}
+						}
+						//上向き
+						b_enemy.y += b_enemy.speed;
+						//当たり判定
+						b_enemy.top += b_enemy.speed;
+						b_enemy.bottom += b_enemy.speed;
+						//分身
+						for (int i = 0; i < 4; i++) {
+							b_enemy.avatar_top[i] += b_enemy.speed;
+							b_enemy.avatar_bottom[i] += b_enemy.speed;
+						}
+					}
+				}
+			}
+			else if (b_enemy.PR_Hitflg == TRUE) { // プレイヤーと当たっていたら初期位置に戻る
+				if (b_enemy.eyeflg == TRUE) {
+					b_enemy.speed = 3;
+					// 右向き
+					if (b_enemy.angle == 2) {
+						if (b_enemy.Right == TRUE) {
+							if (ENEMY_POS_X < b_enemy.x) { // 左向き
+								b_enemy.angle = 4;
+							}
+							else if (ENEMY_POS_Y < b_enemy.y) { // 上向き
+								b_enemy.angle = 1;
+							}
+							else if (ENEMY_POS_Y > b_enemy.y) { // 下向き
+								b_enemy.angle = 3;
+							}
+						}
+						else if (b_enemy.Right == FALSE) {
+							if (ENEMY_POS_X < b_enemy.x) { // 左向き
+								if (b_enemy.Left == FALSE) {
+									b_enemy.angle = 4;
+								}
+							}
+							else if (ENEMY_POS_Y < b_enemy.y) { // 上向き
+								if (b_enemy.Top == FALSE) {
+									b_enemy.angle = 1;
+								}
+							}
+							else if (ENEMY_POS_Y > b_enemy.y) { // 下向き
+								if (b_enemy.Bottom == FALSE) {
+									b_enemy.angle = 3;
+								}
+							}
+							// 右向き
+							b_enemy.x += b_enemy.speed;
+							// 当たり判定
+							b_enemy.left += b_enemy.speed;
+							b_enemy.right += b_enemy.speed;
+							//分身
+							for (int i = 0; i < 4; i++) {
+								b_enemy.avatar_right[i] += b_enemy.speed;
+								b_enemy.avatar_left[i] += b_enemy.speed;
+							}
+							b_enemy.eyeimage = 1;
+						}
+					}
+					// 左向き
+					else if (b_enemy.angle == 4) {
+						if (b_enemy.Left == TRUE) {
+							if (ENEMY_POS_X > b_enemy.x) { // 右向き
+								b_enemy.angle = 2;
+							}
+							else if (ENEMY_POS_Y < b_enemy.y) { // 上向き
+								b_enemy.angle = 1;
+							}
+							else if (ENEMY_POS_Y > b_enemy.y) { // 下向き
+								b_enemy.angle = 3;
+							}
+						}
+						else if (b_enemy.Left == FALSE) {
+							if (ENEMY_POS_X > b_enemy.x) { // 右向き
+								if (b_enemy.Right == FALSE) {
+									b_enemy.angle = 2;
+								}
+							}
+							else if (ENEMY_POS_Y < b_enemy.y) { // 上向き
+								if (b_enemy.Top == FALSE) {
+									b_enemy.angle = 1;
+								}
+							}
+							else if (ENEMY_POS_Y > b_enemy.y) { // 下向き
+								if (b_enemy.Bottom == FALSE) {
+									b_enemy.angle = 3;
+								}
+							}
+							// 左向き
+							b_enemy.x -= b_enemy.speed;
+							//当たり判定
+							b_enemy.left -= b_enemy.speed;
+							b_enemy.right -= b_enemy.speed;
+							//分身
+							for (int i = 0; i < 4; i++) {
+								b_enemy.avatar_right[i] -= b_enemy.speed;
+								b_enemy.avatar_left[i] -= b_enemy.speed;
+							}
+							b_enemy.eyeimage = 3;
+						}
+					}
+					//下向き
+					else if (b_enemy.angle == 3) {
+						if (b_enemy.Bottom == TRUE) {
+							if (ENEMY_POS_X > b_enemy.x) { // 右向き
+								b_enemy.angle = 2;
+							}
+							else if (ENEMY_POS_X < b_enemy.x) { // 左向き
+								b_enemy.angle = 4;
+							}
+							else if (ENEMY_POS_Y < b_enemy.y) { // 上向き
+								b_enemy.angle = 1;
+							}
+						}
+						else if (b_enemy.Bottom == FALSE) {
+							if (ENEMY_POS_X > b_enemy.x) { // 右向き
+								if (b_enemy.Right == FALSE) {
+									b_enemy.angle = 2;
+								}
+							}
+							else if (ENEMY_POS_X < b_enemy.x) { // 左向き
+								if (b_enemy.Left == FALSE) {
+									b_enemy.angle = 4;
+								}
+							}
+							else if (ENEMY_POS_Y < b_enemy.y) { // 上向き
+								if (b_enemy.Top == FALSE) {
+									b_enemy.angle = 1;
+								}
+							}
+							//下向き
+							b_enemy.y += b_enemy.speed;
+							//当たり判定
+							b_enemy.top += b_enemy.speed;
+							b_enemy.bottom += b_enemy.speed;
+							//分身
+							for (int i = 0; i < 4; i++) {
+								b_enemy.avatar_top[i] += b_enemy.speed;
+								b_enemy.avatar_bottom[i] += b_enemy.speed;
+							}
+							b_enemy.eyeimage = 2;
+						}
+					}
+					//上向き
+					else if (b_enemy.angle == 1) {
+						if (b_enemy.Top == TRUE) {
+							if (ENEMY_POS_X > b_enemy.x) { // 右向き
+								b_enemy.angle = 2;
+							}
+							else if (ENEMY_POS_X < b_enemy.x) { // 左向き
+								b_enemy.angle = 4;
+							}
+							else if (ENEMY_POS_Y > b_enemy.y) { // 下向き
+								b_enemy.angle = 3;
+							}
+						}
+						else if (b_enemy.Top == FALSE) {
+							if (ENEMY_POS_X > b_enemy.x) { // 右向き
+								if (b_enemy.Right == FALSE) {
+									b_enemy.angle = 2;
+								}
+							}
+							else if (ENEMY_POS_X < b_enemy.x) { // 左向き
+								if (b_enemy.Left == FALSE) {
+									b_enemy.angle = 4;
+								}
+							}
+							else if (ENEMY_POS_Y > b_enemy.y) { // 下向き
+								if (b_enemy.Bottom == FALSE) {
+									b_enemy.angle = 3;
+								}
+							}
+							//上向き
+							b_enemy.y -= b_enemy.speed;
+							//当たり判定
+							b_enemy.top -= b_enemy.speed;
+							b_enemy.bottom -= b_enemy.speed;
+							//分身
+							for (int i = 0; i < 4; i++) {
+								b_enemy.avatar_top[i] -= b_enemy.speed;
+								b_enemy.avatar_bottom[i] -= b_enemy.speed;
+							}
+							b_enemy.eyeimage = 0;
+						}
+					}
+					// 初期位置に戻った時
+					if (ENEMY_POS_X == b_enemy.x) {
+						b_enemy.eyeflg = FALSE;
+					}
 				}
 			}
 		}
@@ -725,7 +761,7 @@ void B_ENEMY::Draw() {
 	}
 	else if (mStage.StateFlg == TRUE) {
 		DrawRotaGraph(b_enemy.x, b_enemy.y, 0.75, 0, b_enemy.images[4], TRUE, FALSE);
-		DrawRotaGraph(b_enemy.x, b_enemy.y, 0.75, 0, b_enemy.eyesimages[3], TRUE, FALSE);
+		DrawRotaGraph(b_enemy.x, b_enemy.y, 0.75, 0, b_enemy.eyesimages[0], TRUE, FALSE);
 	}
 
 	if (b_enemy.R_Hitflg == FALSE && mStage.MoveFlg == TRUE) { // パワーエサを取っていなければ

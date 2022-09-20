@@ -99,6 +99,8 @@ void Stage::Stage_Initialize() {
 	NUM_STAGE_IMAGE = 19;
 	mStageChip[NUM_STAGE_IMAGE];
 	Stage::Stage_Storage();
+
+	num = 0, numc = 0;
 }
 
 //更新処理
@@ -178,6 +180,7 @@ void Stage::Stage_Update() {
 						// エサを食べる処理
 						if (stagedata[i + j * NUM_STAGE_X] == 17) {
 							stagedata[i + j * NUM_STAGE_X] = 0;
+							numc += num + 1;
 							mSound.numSound = 3;
 							mSound.SoundStart();			//エサ食べるときSE再生
 						}
@@ -242,8 +245,8 @@ void Stage::Stage_Update() {
 								//当たり判定を戻す
 								mPlayer.P_StageHitflg = FALSE;
 							}
-						}
-					//}
+						//}
+					}
 				if (no != 17 && no != 18) {
 					// ステージとエネミーの当たり判定 赤エネミー
 					if (StageCheckHit(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, r_enemy.left, r_enemy.top, r_enemy.right, r_enemy.bottom)) {
@@ -454,6 +457,9 @@ void Stage::Stage_Draw() {
 		DrawRotaGraph(610, 260, 0.8, 0, mStageUI[2], TRUE, false);
 		DrawRotaGraph(615, 370, 0.8, 0, mStageUI[4], TRUE, false);
 	}
+
+
+	DrawFormatString(0, 0, 0x00ff00, "%d\n", numc);
 }
 
 //画像格納処理
