@@ -402,13 +402,20 @@ void Stage::Stage_Update() {
 			SceneMgr_ChangeScene(eScene_Title); //シーンをタイトル画面に変更
 		}
 	}
-	//// ゲームクリア時のステージアニメーション
-	//if (mStage.numc == 19) {
-	//	mStage.Scount++;
-	//	if (mStage.Scount == 60) {
-	//		mStage.StartFlg = FALSE;
-	//	}
-	//}
+	// ゲームクリア時のステージアニメーション
+	if (mStage.numc >= 19) {
+		mStage.Scount++;
+		if (mStage.Scount == 60) {
+			mStage.MoveFlg = FALSE;
+			mStage.StateFlg = TRUE;
+		}
+		if (mStage.Scount == 120) {
+			mStage.StateFlg = FALSE;
+		}
+		if (mStage.Scount == 180) {
+			DrawRotaGraph(mPlayer.x, mPlayer.y, 0.75, 0, mPlayer.mPlayerMoveImage[mPlayer.clearimage], TRUE, FALSE);
+		}
+	}
 }
 
 //描画処理

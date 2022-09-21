@@ -60,6 +60,8 @@ public:
 	int millisecond;
 	// 座標計算
 	int xy, xy2, xx, yy;
+	// プレイヤーの○画像
+	int clearimage;
 };
 
 extern Player mPlayer;

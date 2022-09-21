@@ -72,6 +72,7 @@ void Player::Player_Initialize() {
 	mPlayer.timercount = 0;
 	mPlayer.image = 0;
 	mPlayer.Hitflg = FALSE;
+	mPlayer.clearimage = 0;
 	// Ž€‚ñ‚¾‚Æ‚«
 	mPlayer.millisecond = 0.01 * 1000;
 
