@@ -34,7 +34,7 @@ void Sound::SoundStart() {
 }
 
 void Sound::SoundUpdate() {
-	if (Flg == true) {
+	if (Flg == true && r_enemy.flg == TRUE) {
 		if (mPlayer.Hitflg == TRUE) {			//パックマン敵に当たったときのSE/死ぬ音
 			Sound_Handle();
 			numSound = 14;
@@ -42,17 +42,17 @@ void Sound::SoundUpdate() {
 			Flg = false;
 		}
 	}
-	// イジケ状態フラグ
+	//イジケ状態フラグ
 	//if (r_enemy.R_Hitflg == TRUE) {
 	//	StopSoundMem(bgm[5]);
 	//	numSound = 11;
 	//	SoundStart();
 	//}
-	//else if (r_enemy.R_Hitflg == FALSE) {
+	//if (r_enemy.R_Hitflg == FALSE) {
 	//	StopSoundMem(bgm[11]);
-	//	PlaySoundMem(bgm[5], DX_PLAYTYPE_BACK);
-	//	/*numSound = 5;
-	//	SoundStart();*/
+	//	//PlaySoundMem(bgm[5], DX_PLAYTYPE_BACK);
+	//	numSound = 5;
+	//	SoundStart();
 	//}
 }
 

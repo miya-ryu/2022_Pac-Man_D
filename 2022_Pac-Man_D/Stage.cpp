@@ -202,7 +202,7 @@ void Stage::Stage_Update() {
 						//		}
 
 						//	}
-							//いじけSE
+							//いじけ
 							if (stagedata[i + j * NUM_STAGE_X] == 18) {
 								stagedata[i + j * NUM_STAGE_X] = 0;
 								r_enemy.R_Hitflg = TRUE;
@@ -210,14 +210,6 @@ void Stage::Stage_Update() {
 								b_enemy.R_Hitflg = TRUE;
 								o_enemy.R_Hitflg = TRUE;
 								numc += num + 1; // エサの数を数える
-								/*StopSoundMem(mSound.bgm[5]);
-								mSound.numSound =11;
-								mSound.SoundStart();*/
-							}
-							else {
-								/*StopSoundMem(mSound.bgm[11]);
-								mSound.numSound = 5;
-								mSound.SoundStart();*/
 							}
 
 							//先行入力受け付け
@@ -383,20 +375,27 @@ void Stage::Stage_Update() {
 		}
 	}
 	//スタート文字削除
-	mStage.TimeCount++;			
-	if (mStage.TimeCount == 60) {//1秒後
-		mStage.Startsize = 0;      //Player文字消す
+	mStage.TimeCount++;	
+	if (GameOverFlg == FALSE) {
+		if (mStage.TimeCount == 140) {//2.5秒後
+			mStage.Startsize = 0;      //Player文字消す
+		}
+		if (mStage.TimeCount == 160) {
+			mStage.StateFlg = TRUE;	//パックマンと敵の表示
+		}
+		if (mStage.TimeCount == 250) {	//4.5秒後
+			mStage.Startsize1 = 0;		//Start文字消す
+			mStage.MoveFlg = TRUE;		//パックマンと敵の移動可能になる
+		}
+		else if (mStage.TimeCount == 251) {	//パックマン画像固定解除
+			mStage.StateFlg = FALSE;
+		}
 	}
-	if (mStage.TimeCount == 90) {
-		mStage.StateFlg = TRUE;	//パックマンと敵の表示
+	else {
+		Startsize = 0;
+		Startsize1 = 0;
 	}
-	if (mStage.TimeCount == 180) {	//3秒後
-		mStage.Startsize1 = 0;		//Start文字消す
-		mStage.MoveFlg = TRUE;		//パックマンと敵の移動可能になる
-	}
-	else if (mStage.TimeCount == 181) {	//パックマン画像固定解除
-		mStage.StateFlg = FALSE;
-	}
+
 	//1UPの点滅表示
 	mStage.UpCount++;
 	if (mStage.UpCount == 15) {
@@ -413,9 +412,10 @@ void Stage::Stage_Update() {
 		}
 	}
 	// ゲームクリア時のステージアニメーション
-	if (mStage.numc == 19) {
+	if (mStage.numc >= 19) {
 		mStage.Scount++;
-		if (mStage.Scount == 1) {
+		if (mStage.Scount == 10) {
+			Stage_Storage();
 			mStageChip[1] = mStageChip[21];
 			mStageChip[2] = mStageChip[22];
 			mStageChip[3] = mStageChip[23];
@@ -433,7 +433,8 @@ void Stage::Stage_Update() {
 			mStageChip[15] = mStageChip[35];
 			mStageChip[16] = mStageChip[36];
 		}
-		else if (mStage.Scount == 2) {
+		if (mStage.Scount == 20) {
+			Stage_Storage();
 			mStageChip[21] = mStageChip[1];
 			mStageChip[22] = mStageChip[2];
 			mStageChip[23] = mStageChip[3];

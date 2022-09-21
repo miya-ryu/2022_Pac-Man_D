@@ -27,9 +27,9 @@ void System::Draw() {
 }
 void System::Wait() {
 	int tookTime = GetNowCount() - mSystem.f_StartTime;  // ‚©‚©‚Á‚½ŽžŠÔ
-	int waitTime = mSystem.f_Count * 1000 / FPS - tookTime;  // ‘Ò‚Â‚×‚«ŽžŠÔ
-	if (waitTime > 0) {  // ‘Ò‚Â‚×‚«ŽžŠÔ‚ª0‚æ‚è‘å‚«‚¯‚ê‚Î
-		Sleep(waitTime);  // ‘Ò‹@
-		DrawString(950, 420, "¬Œ÷", 0xffffff);
-	}
+	//int waitTime = mSystem.f_Count * 1000 / FPS - tookTime;  // ‘Ò‚Â‚×‚«ŽžŠÔ
+	//if (waitTime > 0) {  // ‘Ò‚Â‚×‚«ŽžŠÔ‚ª0‚æ‚è‘å‚«‚¯‚ê‚Î
+	//	Sleep(waitTime);  // ‘Ò‹@
+	//	DrawString(950, 420, "¬Œ÷", 0xffffff);
+	//}
 }

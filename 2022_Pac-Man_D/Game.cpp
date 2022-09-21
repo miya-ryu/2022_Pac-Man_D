@@ -24,13 +24,13 @@ void Game::Game_Initialize() {
 }
 
 void Game::Game_Update() {
-	mSound.SoundUpdate();
 	mPlayer.Player_Update();
 	r_enemy.Update();
 	p_enemy.Update();
 	b_enemy.Update();
 	o_enemy.Update();
 	mStage.Stage_Update();
+	mSound.SoundUpdate();
 	if (iNowKey & PAD_INPUT_7 || iNowKey & PAD_INPUT_9) {
 		DxLib_End();
 	}

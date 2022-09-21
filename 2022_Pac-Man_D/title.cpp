@@ -4,7 +4,7 @@
 #include "SceneMgr.h"
 #include "Stage.h"
 //#include "Game.h"
-#define Scroll_Speed -10;		//スクロール　スピード
+#define Scroll_Speed -5;		//スクロール　スピード
 
 Title mTitle;
 

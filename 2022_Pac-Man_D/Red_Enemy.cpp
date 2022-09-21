@@ -722,16 +722,16 @@ void R_ENEMY::Update() {
 	// プレイヤー死亡時のエネミーアニメーション
 	if (mPlayer.Hitflg == TRUE) {
 		r_enemy.HitCount++;
-		int a = 5; int b = 10;
+		int a = 2; int b = 4;
 		if (r_enemy.HitCount == a ) {
 			r_enemy.image = 0;
-			a += 5;
+			a += 2;
 		}
 		else if (r_enemy.HitCount == b) {
 			r_enemy.image = 1;
-			b += 5;
+			b += 2;
 		}
-		if (r_enemy.HitCount == 80) {
+		if (r_enemy.HitCount == 60) {
 			flg = TRUE;
 		}
 	}
@@ -742,11 +742,6 @@ void R_ENEMY::Draw() {
 	if (mPlayer.Hitflg == TRUE && flg == FALSE) {
 		DrawRotaGraph(r_enemy.x, r_enemy.y, 0.75, 0, r_enemy.images[r_enemy.image], TRUE, FALSE);
 		DrawRotaGraph(r_enemy.x, r_enemy.y, 0.75, 0, r_enemy.eyesimages[r_enemy.eyeimage], TRUE, FALSE);
-	}
-	//PCに当たったときに消える
-	if (flg == TRUE) {
-		/*DrawRotaGraph(r_enemy.x, r_enemy.y, 0, 0, images[r_enemy.image], TRUE, FALSE); 
-		DrawRotaGraph(r_enemy.x, r_enemy.y, 0, 0, eyesimages[r_enemy.eyeimage], TRUE, FALSE); */
 	}
 	//スタートの時のみ表示
 	if (mStage.StateFlg == FALSE || mStage.GameOverFlg == TRUE) {
@@ -760,7 +755,7 @@ void R_ENEMY::Draw() {
 		DrawRotaGraph(r_enemy.x, r_enemy.y, 0.75, 0, images[0], TRUE, FALSE); 
 		DrawRotaGraph(r_enemy.x, r_enemy.y, 0.75, 0, eyesimages[3], TRUE, FALSE); 
 	}
-	// パワーエサを取っていないかつ、Moveflgで動いて可能かつ、Pacに当たっていない時
+	// パワーエサを取っていないかつ、Moveflgで動いて可能かつ、Pacに当たっていない時は、表示する
 	if (r_enemy.R_Hitflg == FALSE && mStage.MoveFlg == TRUE && mPlayer.Hitflg == FALSE) {
 		DrawRotaGraph(r_enemy.x, r_enemy.y, 0.75, 0, images[r_enemy.image], TRUE, FALSE); // 敵キャラ表示
 		DrawRotaGraph(r_enemy.x, r_enemy.y, 0.75, 0, eyesimages[r_enemy.eyeimage], TRUE, FALSE); // 敵キャラの目表示
