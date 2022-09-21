@@ -32,6 +32,8 @@ public:
 	void Stage_Storage();
 	// エサの数変数
 	int num, numc;
+	// ステージアニメーション
+	int Scount;
 };
 
 extern Stage mStage;

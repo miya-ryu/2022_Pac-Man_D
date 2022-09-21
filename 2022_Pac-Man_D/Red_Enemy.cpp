@@ -832,7 +832,7 @@ void R_ENEMY::Draw() {
 			mStage.life = 0;
 		}
 		else if(mStage.life == 0){
-			mStage.GameOverFlg = true;
+			mStage.GameOverFlg = TRUE;
 		}
 	}
 
