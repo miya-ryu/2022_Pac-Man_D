@@ -397,7 +397,7 @@ void Player::Player_Update() {
 
 	if (mPlayer.Hitflg == TRUE && Pac_s == FALSE) {		//敵に当たった時、アニメーション再生待機時間
 		pcount++;
-		if (pcount == 90) {
+		if (pcount == 120) {
 			size = 0;
 			Pac_s = TRUE;
 		}
@@ -442,6 +442,11 @@ void Player::Player_Draw() {
 				Pac_s = FALSE;
 				pcount = 0;
 				size = 0.75;
+				mStage.TimeCount = 0;		//リスタート時のRADY表示初期化　↓
+				mStage.Startsize = 0.8;
+				mStage.Startsize1 = 0.8;
+				mStage.StateFlg = FALSE;
+				mStage.MoveFlg = FALSE;		//↑
 				//分身の当たり判定
 				for (int i = 0; i < 4; i++) {
 					mPlayer.avatar_left[i] = PLAYER_AVATAR_POS_X[i] - PLAYER_POS_HITBOX;

@@ -373,20 +373,27 @@ void Stage::Stage_Update() {
 		}
 	}
 	//スタート文字削除
-	mStage.TimeCount++;			
-	if (mStage.TimeCount == 60) {//1秒後
-		mStage.Startsize = 0;      //Player文字消す
+	mStage.TimeCount++;	
+	if (GameOverFlg == FALSE) {
+		if (mStage.TimeCount == 140) {//2.5秒後
+			mStage.Startsize = 0;      //Player文字消す
+		}
+		if (mStage.TimeCount == 160) {
+			mStage.StateFlg = TRUE;	//パックマンと敵の表示
+		}
+		if (mStage.TimeCount == 250) {	//4.5秒後
+			mStage.Startsize1 = 0;		//Start文字消す
+			mStage.MoveFlg = TRUE;		//パックマンと敵の移動可能になる
+		}
+		else if (mStage.TimeCount == 251) {	//パックマン画像固定解除
+			mStage.StateFlg = FALSE;
+		}
 	}
-	if (mStage.TimeCount == 90) {
-		mStage.StateFlg = TRUE;	//パックマンと敵の表示
+	else {
+		Startsize = 0;
+		Startsize1 = 0;
 	}
-	if (mStage.TimeCount == 180) {	//3秒後
-		mStage.Startsize1 = 0;		//Start文字消す
-		mStage.MoveFlg = TRUE;		//パックマンと敵の移動可能になる
-	}
-	else if (mStage.TimeCount == 181) {	//パックマン画像固定解除
-		mStage.StateFlg = FALSE;
-	}
+
 	//1UPの点滅表示
 	mStage.UpCount++;
 	if (mStage.UpCount == 15) {
@@ -405,6 +412,24 @@ void Stage::Stage_Update() {
 	// ゲームクリア時のステージアニメーション
 	if (mStage.numc >= 19) {
 		mStage.Scount++;
+		if (mStage.Scount == 10) {
+			Stage_Storage();
+			mStageChip[1] = mStageChip[21];
+			mStageChip[2] = mStageChip[22];
+			mStageChip[3] = mStageChip[23];
+			mStageChip[4] = mStageChip[24];
+			mStageChip[5] = mStageChip[25];
+			mStageChip[6] = mStageChip[26];
+			mStageChip[7] = mStageChip[27];
+			mStageChip[8] = mStageChip[28];
+			mStageChip[9] = mStageChip[29];
+			mStageChip[10] = mStageChip[30];
+			mStageChip[11] = mStageChip[31];
+			mStageChip[12] = mStageChip[32];
+			mStageChip[13] = mStageChip[33];
+			mStageChip[14] = mStageChip[34];
+			mStageChip[15] = mStageChip[35];
+			mStageChip[16] = mStageChip[36];
 		if (mStage.Scount == 60) {
 			mStage.MoveFlg = FALSE;
 			mStage.StateFlg = TRUE;
@@ -412,8 +437,25 @@ void Stage::Stage_Update() {
 		if (mStage.Scount == 120) {
 			mStage.StateFlg = FALSE;
 		}
-		if (mStage.Scount == 180) {
-			DrawRotaGraph(mPlayer.x, mPlayer.y, 0.75, 0, mPlayer.mPlayerMoveImage[mPlayer.clearimage], TRUE, FALSE);
+		if (mStage.Scount == 20) {
+			Stage_Storage();
+			mStageChip[21] = mStageChip[1];
+			mStageChip[22] = mStageChip[2];
+			mStageChip[23] = mStageChip[3];
+			mStageChip[24] = mStageChip[4];
+			mStageChip[25] = mStageChip[5];
+			mStageChip[26] = mStageChip[6];
+			mStageChip[27] = mStageChip[7];
+			mStageChip[28] = mStageChip[8];
+			mStageChip[29] = mStageChip[9];
+			mStageChip[30] = mStageChip[10];
+			mStageChip[31] = mStageChip[11];
+			mStageChip[32] = mStageChip[12];
+			mStageChip[33] = mStageChip[13];
+			mStageChip[34] = mStageChip[14];
+			mStageChip[35] = mStageChip[15];
+			mStageChip[36] = mStageChip[16];
+			mStage.Scount = 0;
 		}
 	}
 }
