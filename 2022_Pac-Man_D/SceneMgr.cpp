@@ -51,7 +51,7 @@ void SceneMgr_Draw() {
 		mGame.Game_Draw();
 		break;
 	}
-	mSystem.Draw();
+	//mSystem.Draw();
 }
 
 
