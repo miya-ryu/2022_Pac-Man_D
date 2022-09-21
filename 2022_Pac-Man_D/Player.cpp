@@ -405,6 +405,9 @@ void Player::Player_Update() {
 }
 
 void Player::Player_Draw() {
+	/*if (mStage.Clearflg = TRUE && mStage.numc >= 19) {
+		DrawRotaGraph(mPlayer.x, mPlayer.y, 0.75, 0, mPlayer.mPlayerMoveImage[0], TRUE, FALSE);
+	}*/
 	if (mPlayer.Hitflg == FALSE && mStage.MoveFlg == TRUE) {		//Player表示
 		DrawRotaGraph(mPlayer.x, mPlayer.y, 0.75, 0, mPlayer.mPlayerMoveImage[mPlayer.image], TRUE, FALSE);
 		mPlayer.deleteimage = 0;
@@ -412,7 +415,7 @@ void Player::Player_Draw() {
 	if(mStage.StateFlg == TRUE){		//スタート時表示
 		DrawRotaGraph(mPlayer.x, mPlayer.y, 0.75, 0, mPlayer.mPlayerMoveImage[10], TRUE, FALSE);
 	}
-	else if (mPlayer.Hitflg == TRUE || mStage.GameOverFlg == TRUE) {		//敵に当たった時の表示
+	else if (mPlayer.Hitflg == TRUE) {		//敵に当たった時の表示
 		DrawRotaGraph(mPlayer.x, mPlayer.y, size, 0, mPlayer.mPlayerMoveImage[0], TRUE, FALSE);
 		mPlayer.deletecount++;
 		if (Pac_s == TRUE) {
