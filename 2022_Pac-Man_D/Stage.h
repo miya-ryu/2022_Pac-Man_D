@@ -34,6 +34,7 @@ public:
 	int num, numc;
 	// ステージアニメーション
 	int Scount;
+	bool Gamerestert;
 };
 
 extern Stage mStage;
