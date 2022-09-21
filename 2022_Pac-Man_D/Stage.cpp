@@ -449,7 +449,7 @@ void Stage::Stage_Update() {
 	}
 
 	// ゲームクリア時のステージアニメーション
-	if (mStage.numc >= 19) {
+	if (mStage.numc == 192) {
 		mStage.Scount++;
 		if (mStage.Scount == 60) {
 			mStage.MoveFlg = FALSE;
@@ -460,7 +460,7 @@ void Stage::Stage_Update() {
 		}
 	}
 
-	if (mStage.numc >= 19) {
+	if (mStage.numc == 192) {
 		mStage.Gcount++;
 		if (mStage.Gcount == 10) {
 			Stage_Storage();
