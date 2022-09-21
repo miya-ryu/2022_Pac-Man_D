@@ -11,6 +11,7 @@ private:
 	int mStageFruit[13];	//フルーツ画像配列
 	int UpCount = 0;		//1UP表示カウント
 	int UpSize = 1;
+	int Gcount = 0;
 public:
 	bool StateFlg;
 	bool MoveFlg;
