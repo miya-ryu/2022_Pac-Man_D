@@ -103,6 +103,8 @@ void Stage::Stage_Initialize() {
 	mStage.num = 0, mStage.numc = 0;
 	//ステージアニメーション
 	mStage.Scount = 0;
+	//ゲームオーバーフラグ
+	mStage.GameOverFlg = FALSE;
 }
 
 //更新処理
@@ -404,12 +406,12 @@ void Stage::Stage_Update() {
 		mStage.UpSize = 1;
 		mStage.UpCount = 0;
 	}
-	//// ゲームオーバー時のタイトル遷移
-	//if (mStage.GameOverFlg == true) {
-	//	if (iNowKey & PAD_INPUT_8) { //startボタンが押されていたら
-	//		SceneMgr_ChangeScene(eScene_Title); //シーンをタイトル画面に変更
-	//	}
-	//}
+	// ゲームオーバー時のタイトル遷移
+	if (mStage.GameOverFlg == TRUE) {
+		if (iNowKey & PAD_INPUT_8) { //startボタンが押されていたら
+			SceneMgr_ChangeScene(eScene_Title); //シーンをタイトル画面に変更
+		}
+	}
 	// ゲームクリア時のステージアニメーション
 	if (mStage.numc == 19) {
 		mStage.Scount++;
@@ -497,7 +499,7 @@ void Stage::Stage_Draw() {
 	DrawRotaGraph(940, 390, 1.3, 0, mStageFruit[mFruitNum], true, false);
 
 	//ゲームオーバー表示
-	if (GameOverFlg == true) {
+	if (GameOverFlg == TRUE) {
 		DrawRotaGraph(610, 260, 0.8, 0, mStageUI[2], TRUE, false);
 		DrawRotaGraph(615, 370, 0.8, 0, mStageUI[4], TRUE, false);
 	}
