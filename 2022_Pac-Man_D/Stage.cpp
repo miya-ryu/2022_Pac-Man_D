@@ -16,30 +16,30 @@ static int mStageChip[1];
 
 int stagedata[]{
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  5, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 6,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,17,17,17,17,17,17,17,17,17,15,17,17,17,17,17,17,17,17,17,10,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,17, 5, 9, 6,17, 5, 9, 6,17,15,17, 5, 9, 6,17, 5, 9, 6,17,10,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,18,11, 0,10,17,11, 0,10,17,15,17,11, 0,10,17,11, 0,10,18,10,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,17, 3,12, 4,17, 3,12, 4,17,15,17, 3,12, 4,17, 3,12, 4,17,10,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,17,17,17,17,17,17,17,17,17,38,17,17,17,17,17,17,17,17,17,10,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,17, 5, 9, 6,17, 5, 9, 6,17,38,17, 5, 9, 6,17, 5, 9, 6,17,10,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,18,11, 0,10,17,11, 0,10,17,38,17,11, 0,10,17,11, 0,10,18,10,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,17, 3,12, 4,17, 3,12, 4,17,14,17, 3,12, 4,17, 3,12, 4,17,10,
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,10,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,17, 5, 9, 6,17,15,17, 5, 9, 9, 9, 6,17,14,17, 5, 9, 6,17,10,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,17, 3,12, 4,17,15,17, 3,12,12,12, 4,17,14,17, 3,12, 4,17,10,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,17,17,17,17,17,15,17,17,17,15,17,17,17,14,17,17,17,17,17,10,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  3,12,12,12, 8,17,15,16,16, 0,15, 0,16,16,14,17, 7,12,12,12, 4,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  0, 0, 0, 0,11,17,15, 0, 0, 0, 0, 0, 0, 0,14,17,10, 0, 0, 0, 0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  0, 0, 0, 0,11,17,15, 0, 5, 9,19, 9, 6, 0,14,17,10, 0, 0, 0, 0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  9, 9, 9, 9, 2,17,15, 0,11, 0, 0, 0,10, 0,14,17, 1, 9, 9, 9, 9,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,17, 5, 9, 6,17,13,17, 5, 9, 9, 9, 6,17,13,17, 5, 9, 6,17,10,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,17, 3,12, 4,17,38,17, 3,12,38,12, 4,17,38,17, 3,12, 4,17,10,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,17,17,17,17,17,38,17,17,17,38,17,17,17,38,17,17,17,17,17,10,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  3,12,12,12, 8,17,38,39,16, 0,14, 0,15,39,38,17, 7,12,12,12, 4,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  0, 0, 0, 0,11,17,38, 0, 0, 0, 0, 0, 0, 0,38,17,10, 0, 0, 0, 0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  0, 0, 0, 0,11,17,38, 0, 5, 9,19, 9, 6, 0,38,17,10, 0, 0, 0, 0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  9, 9, 9, 9, 2,17,14, 0,11, 0, 0, 0,10, 0,14,17, 1, 9, 9, 9, 9,
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  0, 0, 0, 0, 0,17, 0, 0,11, 0, 0, 0,10, 0, 0,17, 0, 0, 0, 0, 0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 12,12,12,12, 8,17,15, 0, 3,12,12,12, 4, 0,14,17, 7,12,12,12,12,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  0, 0, 0, 0,11,17,15, 0, 0, 0, 0, 0, 0, 0,14,17,10, 0, 0, 0, 0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  0, 0, 0, 0,11,17,15, 0, 5, 9, 9, 9, 6, 0,14,17,10, 0, 0, 0, 0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  5, 9, 9, 9, 2,17,15, 0, 3,12,12,12, 4, 0,14,17, 1, 9, 9, 9, 6,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,17,17,17,17,17,17,17,17,17,15,17,17,17,17,17,17,17,17,17,10,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,17,12,12, 8,17,13,13,13,17,15,17,13,13,13,17, 7,12,12,17,10,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 12,12,12,12, 8,17,13, 0, 3,12,12,12, 4, 0,13,17, 7,12,12,12,12,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  0, 0, 0, 0,11,17,38, 0, 0, 0, 0, 0, 0, 0,38,17,10, 0, 0, 0, 0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  0, 0, 0, 0,11,17,38, 0, 5, 9, 9, 9, 6, 0,38,17,10, 0, 0, 0, 0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  5, 9, 9, 9, 2,17,14, 0, 3,12,38,12, 4, 0,14,17, 1, 9, 9, 9, 6,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,17,17,17,17,17,17,17,17,17,38,17,17,17,17,17,17,17,17,17,10,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,17,12,12, 8,17,15,39,16,17,14,17,15,39,16,17, 7,12,12,17,10,
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,18,17,17,11,17,17,17,17,17, 0,17,17,17,17,17,10,17,17,18,10,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,12, 8,17,11,17,15,17, 5, 9, 9, 9, 6,17,14,17,10,17, 7,12,10,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11, 9, 2,17,11,17,15,17, 3,12,12,12, 4,17,14,17,10,17, 1, 9,10,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,17,17,17,17,17,15,17,17,17,15,17,17,17,14,17,17,17,17,17,10,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,17,16,16,16,16,16,16,16,17,15,17,16,16,16,16,16,16,16,17,10,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,12, 8,17,11,17,13,17, 5, 9, 9, 9, 6,17,13,17,10,17, 7,12,10,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11, 9, 2,17,11,17,38,17, 3,12,38,12, 4,17,38,17,10,17, 1, 9,10,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,17,17,17,17,17,38,17,17,17,38,17,17,17,38,17,17,17,17,17,10,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,17,15,39,39,39,39,39,16,17,14,17,15,39,39,39,39,39,16,17,10,
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 11,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,10,
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  3,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12, 4,
 };
@@ -96,7 +96,7 @@ void Stage::Stage_Initialize() {
 	NUM_STAGE_Y = 27;
 
 	//画像格納
-	NUM_STAGE_IMAGE = 36;
+	NUM_STAGE_IMAGE = 39;
 	mStageChip[NUM_STAGE_IMAGE];
 	Stage::Stage_Storage();
 	//エサの数
@@ -105,6 +105,8 @@ void Stage::Stage_Initialize() {
 	mStage.Scount = 0;
 	//ゲームオーバーフラグ
 	mStage.GameOverFlg = FALSE;
+	mStage.StateFlg = FALSE;
+	mStage.MoveFlg = FALSE;		//パックマンと敵の移動可能になる
 }
 
 //更新処理
@@ -180,78 +182,66 @@ void Stage::Stage_Update() {
 				//}
 
 				//Playerの当たり判定
-					if (StageCheckHit(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, mPlayer.s_left, mPlayer.s_top, mPlayer.s_right, mPlayer.s_bottom)) {
-						// エサを食べる処理
-						if (stagedata[i + j * NUM_STAGE_X] == 17) {
-							stagedata[i + j * NUM_STAGE_X] = 0;
-							numc += num + 1; // エサの数を数える
-							mSound.numSound = 3;
-							mSound.SoundStart();			//エサ食べるときSE再生
+				if (StageCheckHit(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, mPlayer.s_left, mPlayer.s_top, mPlayer.s_right, mPlayer.s_bottom)) {
+					// エサを食べる処理
+					if (stagedata[i + j * NUM_STAGE_X] == 17) {
+						stagedata[i + j * NUM_STAGE_X] = 0;
+						numc += num + 1; // エサの数を数える
+						mSound.numSound = 3;
+						mSound.SoundStart();			//エサ食べるときSE再生
+					}
+					else {
+						StopSoundMem(mSound.bgm[3]);
+					}
+					//いじけSE
+					if (stagedata[i + j * NUM_STAGE_X] == 18) {
+						stagedata[i + j * NUM_STAGE_X] = 0;
+						r_enemy.R_Hitflg = TRUE;
+						p_enemy.R_Hitflg = TRUE;
+						b_enemy.R_Hitflg = TRUE;
+						o_enemy.R_Hitflg = TRUE;
+						numc += num + 1; // エサの数を数える
+						/*StopSoundMem(mSound.bgm[5]);
+						mSound.numSound =11;
+						mSound.SoundStart();*/
+					}
+					else {
+						/*StopSoundMem(mSound.bgm[11]);
+						mSound.numSound = 5;
+						mSound.SoundStart();*/
+					}
+
+					//先行入力受け付け
+					mPlayer.P_StageHitflg = TRUE;
+					if (mPlayer.P_StageHitflg == TRUE) {
+
+						//移動
+						mPlayer.x = mPlayer.recordX;
+						mPlayer.y = mPlayer.recordY;
+
+						//当たり判定移動
+						mPlayer.p_top = mPlayer.recordPtop;
+						mPlayer.p_right = mPlayer.recordPright;
+						mPlayer.p_bottom = mPlayer.recordPbottom;
+						mPlayer.p_left = mPlayer.recordPleft;
+
+						mPlayer.s_top = mPlayer.recordSTop;
+						mPlayer.s_right = mPlayer.recordSRight;
+						mPlayer.s_bottom = mPlayer.recordSBottom;
+						mPlayer.s_left = mPlayer.recordSLeft;
+
+						//分身
+						for (int i = 0; i < 4; i++) {
+							mPlayer.avatar_bottom[i] = mPlayer.record_avatar_bottom[i];
+							mPlayer.avatar_left[i] = mPlayer.record_avatar_left[i];
+							mPlayer.avatar_top[i] = mPlayer.record_avatar_top[i];
+							mPlayer.avatar_right[i] = mPlayer.record_avatar_right[i];
 						}
-						else {
-							StopSoundMem(mSound.bgm[3]);
-						}
-						//for (int NUM_STAGE_Y = 0; NUM_STAGE_Y < 36; NUM_STAGE_Y++) {
-						//	for (int NUM_STAGE_X = 0; NUM_STAGE_X < 27; NUM_STAGE_X++) {
-						//		if (stagedata[i + j * NUM_STAGE_X] == 17, stagedata[i + j * NUM_STAGE_X] == 18)esaNum++;//ゲームクリアの処理を入れようとした(未完成)
-						//	//}
-						//		esaNum--;
-						//		if (esaNum <= 0) {
-						//			DrawString(150, 200, "テスト", 0xFFFFFF); //StageChipに触れたら文字が出る様になってしまっているためエサ以外に壁にぶつかったりすると文字が出る
 
-						//		}
-
-						//	}
-							//いじけSE
-							if (stagedata[i + j * NUM_STAGE_X] == 18) {
-								stagedata[i + j * NUM_STAGE_X] = 0;
-								r_enemy.R_Hitflg = TRUE;
-								p_enemy.R_Hitflg = TRUE;
-								b_enemy.R_Hitflg = TRUE;
-								o_enemy.R_Hitflg = TRUE;
-								numc += num + 1; // エサの数を数える
-								/*StopSoundMem(mSound.bgm[5]);
-								mSound.numSound =11;
-								mSound.SoundStart();*/
-							}
-							else {
-								/*StopSoundMem(mSound.bgm[11]);
-								mSound.numSound = 5;
-								mSound.SoundStart();*/
-							}
-
-							//先行入力受け付け
-							mPlayer.P_StageHitflg = TRUE;
-							if (mPlayer.P_StageHitflg == TRUE) {
-
-								//移動
-								mPlayer.x = mPlayer.recordX;
-								mPlayer.y = mPlayer.recordY;
-
-								//当たり判定移動
-								mPlayer.p_top = mPlayer.recordPtop;
-								mPlayer.p_right = mPlayer.recordPright;
-								mPlayer.p_bottom = mPlayer.recordPbottom;
-								mPlayer.p_left = mPlayer.recordPleft;
-
-								mPlayer.s_top = mPlayer.recordSTop;
-								mPlayer.s_right = mPlayer.recordSRight;
-								mPlayer.s_bottom = mPlayer.recordSBottom;
-								mPlayer.s_left = mPlayer.recordSLeft;
-
-								//分身
-								for (int i = 0; i < 4; i++) {
-									mPlayer.avatar_bottom[i] = mPlayer.record_avatar_bottom[i];
-									mPlayer.avatar_left[i] = mPlayer.record_avatar_left[i];
-									mPlayer.avatar_top[i] = mPlayer.record_avatar_top[i];
-									mPlayer.avatar_right[i] = mPlayer.record_avatar_right[i];
-								}
-
-								//当たり判定を戻す
-								mPlayer.P_StageHitflg = FALSE;
-							}
-						}
-					//}
+						//当たり判定を戻す
+						mPlayer.P_StageHitflg = FALSE;
+					}
+				}
 				if (no != 17 && no != 18) {
 					// ステージとエネミーの当たり判定 赤エネミー
 					if (StageCheckHit(i * SIZE_STAGE_X, j * SIZE_STAGE_Y, SIZE_STAGE_X, SIZE_STAGE_Y, r_enemy.left, r_enemy.top, r_enemy.right, r_enemy.bottom)) {
@@ -409,51 +399,16 @@ void Stage::Stage_Update() {
 	// ゲームオーバー時のタイトル遷移
 	if (mStage.GameOverFlg == TRUE) {
 		if (iNowKey & PAD_INPUT_8) { //startボタンが押されていたら
-			SceneMgr_Initialize();
 			SceneMgr_ChangeScene(eScene_Title); //シーンをタイトル画面に変更
 		}
 	}
-	// ゲームクリア時のステージアニメーション
-	if (mStage.numc == 19) {
-		mStage.Scount++;
-		if (mStage.Scount == 1) {
-			mStageChip[1] = mStageChip[21];
-			mStageChip[2] = mStageChip[22];
-			mStageChip[3] = mStageChip[23];
-			mStageChip[4] = mStageChip[24];
-			mStageChip[5] = mStageChip[25];
-			mStageChip[6] = mStageChip[26];
-			mStageChip[7] = mStageChip[27];
-			mStageChip[8] = mStageChip[28];
-			mStageChip[9] = mStageChip[29];
-			mStageChip[10] = mStageChip[30];
-			mStageChip[11] = mStageChip[31];
-			mStageChip[12] = mStageChip[32];
-			mStageChip[13] = mStageChip[33];
-			mStageChip[14] = mStageChip[34];
-			mStageChip[15] = mStageChip[35];
-			mStageChip[16] = mStageChip[36];
-		}
-		else if (mStage.Scount == 2) {
-			mStageChip[21] = mStageChip[1];
-			mStageChip[22] = mStageChip[2];
-			mStageChip[23] = mStageChip[3];
-			mStageChip[24] = mStageChip[4];
-			mStageChip[25] = mStageChip[5];
-			mStageChip[26] = mStageChip[6];
-			mStageChip[27] = mStageChip[7];
-			mStageChip[28] = mStageChip[8];
-			mStageChip[29] = mStageChip[9];
-			mStageChip[30] = mStageChip[10];
-			mStageChip[31] = mStageChip[11];
-			mStageChip[32] = mStageChip[12];
-			mStageChip[33] = mStageChip[13];
-			mStageChip[34] = mStageChip[14];
-			mStageChip[35] = mStageChip[15];
-			mStageChip[36] = mStageChip[16];
-			mStage.Scount = 0;
-		}
-	}
+	//// ゲームクリア時のステージアニメーション
+	//if (mStage.numc == 19) {
+	//	mStage.Scount++;
+	//	if (mStage.Scount == 60) {
+	//		mStage.StartFlg = FALSE;
+	//	}
+	//}
 }
 
 //描画処理
@@ -505,7 +460,7 @@ void Stage::Stage_Draw() {
 		DrawRotaGraph(615, 370, 0.8, 0, mStageUI[4], TRUE, false);
 	}
 
-	DrawFormatString(0, 0, 0x00ff00, "%d\n", mStage.numc);
+	//DrawFormatString(0, 0, 0x00ff00, "%d\n", mStage.numc);
 }
 
 //画像格納処理
@@ -527,10 +482,12 @@ void Stage::Stage_Storage() {
 	mStageChip[12] = LoadGraph("images/tiles/outerwall_top.png");
 
 	// ライン
-	mStageChip[13] = LoadGraph("images/tiles/wall_bottom.png");
-	mStageChip[14] = LoadGraph("images/tiles/wall_left.png");
-	mStageChip[15] = LoadGraph("images/tiles/wall_right.png");
-	mStageChip[16] = LoadGraph("images/tiles/wall_top.png");
+	mStageChip[13] = LoadGraph("images/tiles/outercorner_top.png");
+	mStageChip[14] = LoadGraph("images/tiles/outercorner_bottom.png");
+	mStageChip[15] = LoadGraph("images/tiles/outercorner_right.png");
+	mStageChip[16] = LoadGraph("images/tiles/outercorner_left.png");
+	mStageChip[38] = LoadGraph("images/tiles/outerwall_wall_center.png");
+	mStageChip[39] = LoadGraph("images/tiles/outerwall_wall_tyusin.png");
 
 	// エサ
 	mStageChip[17] = LoadGraph("images/tiles/dot.png");
@@ -555,10 +512,12 @@ void Stage::Stage_Storage() {
 	mStageChip[31] = LoadGraph("images/tiles_white/outerwall_right_white.png");
 	mStageChip[32] = LoadGraph("images/tiles_white/outerwall_top_white.png");
 	// ライン白バージョン
-	mStageChip[33] = LoadGraph("images/tiles_white/wall_bottom_white.png");
-	mStageChip[34] = LoadGraph("images/tiles_white/wall_left_white.png");
-	//mStageChip[35] = LoadGraph("images/tiles_white/wall_right_white.png");
-	mStageChip[36] = LoadGraph("images/tiles_white/wall_top_white.png");
+	mStageChip[33] = LoadGraph("images/tiles_white/outercorner_top_white.png");
+	mStageChip[34] = LoadGraph("images/tiles_white/outercorner_bottom_white.png");
+	mStageChip[37] = LoadGraph("images/tiles_white/outercorner_right_white.png");
+	mStageChip[36] = LoadGraph("images/tiles_white/outercorner_left_white.png");
+	mStageChip[40] = LoadGraph("images/tiles_white/outerwall_wall_center.png");
+	mStageChip[41] = LoadGraph("images/tiles_white/outerwall_wall_tyusin.png");
 
 	//スコア部分UI
 	mStageUI[0] = LoadGraph("images/title/hi-score.png");	//ハイスコア文字

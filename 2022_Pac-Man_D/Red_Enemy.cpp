@@ -333,7 +333,7 @@ void R_ENEMY::Update() {
 						r_enemy.avatar_right[i] -= r_enemy.speed;
 						r_enemy.avatar_left[i] -= r_enemy.speed;
 					}
-					DrawString(0, 550, "左に進んでいます", 0xff00ff);
+					//DrawString(0, 550, "左に進んでいます", 0xff00ff);
 				}
 			}
 			// 左向き
@@ -375,7 +375,7 @@ void R_ENEMY::Update() {
 						r_enemy.avatar_right[i] += r_enemy.speed;
 						r_enemy.avatar_left[i] += r_enemy.speed;
 					}
-					DrawString(0, 550, "右に進んでいます", 0xff00ff);
+					//DrawString(0, 550, "右に進んでいます", 0xff00ff);
 				}
 			}
 			//下向き
@@ -417,7 +417,7 @@ void R_ENEMY::Update() {
 						r_enemy.avatar_top[i] -= r_enemy.speed;
 						r_enemy.avatar_bottom[i] -= r_enemy.speed;
 					}
-					DrawString(0, 530, "上に進んでいます", 0xff00ff);
+					//DrawString(0, 530, "上に進んでいます", 0xff00ff);
 				}
 			}
 			//上向き
@@ -459,7 +459,7 @@ void R_ENEMY::Update() {
 						r_enemy.avatar_top[i] += r_enemy.speed;
 						r_enemy.avatar_bottom[i] += r_enemy.speed;
 					}
-					DrawString(0, 530, "下に進んでいます", 0xff00ff);
+					//DrawString(0, 530, "下に進んでいます", 0xff00ff);
 				}
 			}
 		}
@@ -748,7 +748,7 @@ void R_ENEMY::Draw() {
 		/*DrawRotaGraph(r_enemy.x, r_enemy.y, 0, 0, images[r_enemy.image], TRUE, FALSE); 
 		DrawRotaGraph(r_enemy.x, r_enemy.y, 0, 0, eyesimages[r_enemy.eyeimage], TRUE, FALSE); */
 	}
-	//スタートの時のみ表示
+	//スタートの時のみ非表示
 	if (mStage.StateFlg == FALSE || mStage.GameOverFlg == TRUE) {
 		DrawRotaGraph(r_enemy.x, r_enemy.y, 0, 0, r_enemy.images[r_enemy.image], TRUE, FALSE);
 		DrawRotaGraph(r_enemy.x, r_enemy.y, 0, 0, r_enemy.eyesimages[r_enemy.eyeimage], TRUE, FALSE);
