@@ -412,7 +412,16 @@ void Stage::Stage_Update() {
 	// ゲームクリア時のステージアニメーション
 	if (mStage.numc >= 19) {
 		mStage.Scount++;
-		if (mStage.Scount == 10) {
+		if (mStage.Scount == 60) {
+			mStage.MoveFlg = FALSE;
+			mStage.StateFlg = TRUE;
+		}
+		if (mStage.Scount == 120) {
+			mStage.StateFlg = FALSE;
+			mStage.Clearflg = TRUE;
+		}
+
+		/*if (mStage.Scount == 10) {
 			Stage_Storage();
 			mStageChip[1] = mStageChip[21];
 			mStageChip[2] = mStageChip[22];
@@ -430,33 +439,27 @@ void Stage::Stage_Update() {
 			mStageChip[14] = mStageChip[34];
 			mStageChip[15] = mStageChip[35];
 			mStageChip[16] = mStageChip[36];
-		if (mStage.Scount == 60) {
-			mStage.MoveFlg = FALSE;
-			mStage.StateFlg = TRUE;
-		}
-		if (mStage.Scount == 120) {
-			mStage.StateFlg = FALSE;
-		}
-		if (mStage.Scount == 20) {
-			Stage_Storage();
-			mStageChip[21] = mStageChip[1];
-			mStageChip[22] = mStageChip[2];
-			mStageChip[23] = mStageChip[3];
-			mStageChip[24] = mStageChip[4];
-			mStageChip[25] = mStageChip[5];
-			mStageChip[26] = mStageChip[6];
-			mStageChip[27] = mStageChip[7];
-			mStageChip[28] = mStageChip[8];
-			mStageChip[29] = mStageChip[9];
-			mStageChip[30] = mStageChip[10];
-			mStageChip[31] = mStageChip[11];
-			mStageChip[32] = mStageChip[12];
-			mStageChip[33] = mStageChip[13];
-			mStageChip[34] = mStageChip[14];
-			mStageChip[35] = mStageChip[15];
-			mStageChip[36] = mStageChip[16];
-			mStage.Scount = 0;
-		}
+			if (mStage.Scount == 20) {
+				Stage_Storage();
+				mStageChip[21] = mStageChip[1];
+				mStageChip[22] = mStageChip[2];
+				mStageChip[23] = mStageChip[3];
+				mStageChip[24] = mStageChip[4];
+				mStageChip[25] = mStageChip[5];
+				mStageChip[26] = mStageChip[6];
+				mStageChip[27] = mStageChip[7];
+				mStageChip[28] = mStageChip[8];
+				mStageChip[29] = mStageChip[9];
+				mStageChip[30] = mStageChip[10];
+				mStageChip[31] = mStageChip[11];
+				mStageChip[32] = mStageChip[12];
+				mStageChip[33] = mStageChip[13];
+				mStageChip[34] = mStageChip[14];
+				mStageChip[35] = mStageChip[15];
+				mStageChip[36] = mStageChip[16];
+				mStage.Scount = 0;
+			}
+		}*/
 	}
 }
 
@@ -562,7 +565,7 @@ void Stage::Stage_Storage() {
 	mStageChip[32] = LoadGraph("images/tiles_white/outerwall_top_white.png");
 	// ライン白バージョン
 	mStageChip[33] = LoadGraph("images/tiles_white/outercorner_top_white.png");
-	mStageChip[34] = LoadGraph("images/tiles_white/outercorner_bottom_white.png");
+	mStageChip[35] = LoadGraph("images/tiles_white/outercorner_bottom_white.png");
 	mStageChip[37] = LoadGraph("images/tiles_white/outercorner_right_white.png");
 	mStageChip[36] = LoadGraph("images/tiles_white/outercorner_left_white.png");
 	mStageChip[40] = LoadGraph("images/tiles_white/outerwall_wall_center.png");

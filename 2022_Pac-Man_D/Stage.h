@@ -36,6 +36,7 @@ public:
 	int Scount = 0;
 	bool Sflg = TRUE;
 	bool Wflg;
+	bool Clearflg =FALSE;
 };
 
 extern Stage mStage;

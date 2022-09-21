@@ -15,7 +15,7 @@ void Title::Title_Initialize() {
 
 void Title::Title_Update() {
 	if (iNowKey & PAD_INPUT_8) { //startボタンが押されていたら
-		mGame.Game_Initialize();
+		//mGame.Game_Initialize();
 		//mStage.GameOverFlg = FALSE;
 		SceneMgr_ChangeScene(eScene_Game); //シーンをゲーム画面に変更
 	}
