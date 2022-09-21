@@ -3,7 +3,7 @@
 #include "Input.h"
 #include "SceneMgr.h"
 #include "Stage.h"
-//#include "Game.h"
+#include "Game.h"
 #define Scroll_Speed -10;		//スクロール　スピード
 
 Title mTitle;
@@ -15,8 +15,8 @@ void Title::Title_Initialize() {
 
 void Title::Title_Update() {
 	if (iNowKey & PAD_INPUT_8) { //startボタンが押されていたら
+		mGame.Game_Initialize();
 		SceneMgr_ChangeScene(eScene_Game); //シーンをゲーム画面に変更
-		//mGame.Game_Initialize();
 	}
 }
 

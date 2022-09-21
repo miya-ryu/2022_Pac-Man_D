@@ -826,14 +826,15 @@ void R_ENEMY::Draw() {
 		r_enemy.HitCount = 0;
 
 		if (mStage.life == 2) {
-			mStage.life = 1;
+			//mStage.life = 1;
+			mStage.GameOverFlg = TRUE;
 		}
-		else if(mStage.life == 1) {
+		/*else if(mStage.life == 1) {
 			mStage.life = 0;
 		}
 		else if(mStage.life == 0){
 			mStage.GameOverFlg = TRUE;
-		}
+		}*/
 	}
 
 	////ï™êgÇÃï\é¶

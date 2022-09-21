@@ -409,6 +409,7 @@ void Stage::Stage_Update() {
 	// ゲームオーバー時のタイトル遷移
 	if (mStage.GameOverFlg == TRUE) {
 		if (iNowKey & PAD_INPUT_8) { //startボタンが押されていたら
+			SceneMgr_Initialize();
 			SceneMgr_ChangeScene(eScene_Title); //シーンをタイトル画面に変更
 		}
 	}
@@ -539,7 +540,7 @@ void Stage::Stage_Storage() {
 	//フルーツ
 	mStageChip[20] = LoadGraph("images/fruit1.png");
 
-	//// 二重カーブ白バージョン
+	// 二重カーブ白バージョン
 	mStageChip[21] = LoadGraph("images/tiles_white/outercorner_bottom_left_white.png");
 	mStageChip[22] = LoadGraph("images/tiles_white/outercorner_bottom_right_white.png");
 	mStageChip[23] = LoadGraph("images/tiles_white/outercorner_narrow_bottom_left_white.png");
@@ -548,15 +549,15 @@ void Stage::Stage_Storage() {
 	mStageChip[26] = LoadGraph("images/tiles_white/outercorner_narrow_top_right_white.png");
 	mStageChip[27] = LoadGraph("images/tiles_white/outercorner_top_left_white.png");
 	mStageChip[28] = LoadGraph("images/tiles_white/outercorner_top_right_white.png");
-	//// 二重ライン白バージョン
+	// 二重ライン白バージョン
 	mStageChip[29] = LoadGraph("images/tiles_white/outerwall_bottom_white.png");
 	mStageChip[30] = LoadGraph("images/tiles_white/outerwall_left_white.png");
 	mStageChip[31] = LoadGraph("images/tiles_white/outerwall_right_white.png");
 	mStageChip[32] = LoadGraph("images/tiles_white/outerwall_top_white.png");
-	//// ライン白バージョン
+	// ライン白バージョン
 	mStageChip[33] = LoadGraph("images/tiles_white/wall_bottom_white.png");
 	mStageChip[34] = LoadGraph("images/tiles_white/wall_left_white.png");
-	mStageChip[35] = LoadGraph("images/tiles_white/wall_right_white.png");
+	//mStageChip[35] = LoadGraph("images/tiles_white/wall_right_white.png");
 	mStageChip[36] = LoadGraph("images/tiles_white/wall_top_white.png");
 
 	//スコア部分UI
